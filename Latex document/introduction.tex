@@ -3,36 +3,38 @@
 %----------------------------------------------------------------------------
 \section{Traffic load estimation}
 %----------------------------------------------------------------------------
-In recent years, there has been an increased scope for
-the automatic analysis of urban traffic activity\ref{Buch2011}.
-This case is due to the increasing number of vehicles, the need for better understanding traffic dynamics for investment purposes, and also the
-accessibility of various sensors.
+In recent years, there has been an increased scope for the automatic analysis of urban traffic activity\ref{Buch2011}.
+This case is due to the increasing number of vehicles, the need for better understanding traffic dynamics for investment purposes, and also the accessibility of various sensors.
 Formerly traffic estimation was performed by operators, by the means of on-the-spot observation or video analysis.
 By the automation of these processes the main concept of traffic analysis is to aid or fully avoid these human operators.
 
-The information obtained by traffic sensors are widely used to regulate traffic flow, contribute to administrative decisions about transportation infrastructure development, maintenance and investments \ref{MagyarKozut}.
-Several other monitoring objectives can be supported. 
-Some systems can recognize various situations including traffic
-violations and accidents, and classify vehicles (e.g., cars, motorbikes, and
-pedestrians).
-Real-time applications can be used to notify users about congestions and accidents, or to control traffic lights in order to influence traffic flow direction \ref{AzoSensor}.
+The information obtained by traffic monitoring systems are widely used to regulate traffic flow and contribute to administrative decisions about transportation infrastructure development, maintenance and investments \ref{MagyarKozut}.
+In addition to the detection and classification of road users, which is an elementary task, several other monitoring objectives can be supported. 
+Some systems can recognize various situations including traffic violations or accidents (e.g., cars, motorbikes, and pedestrians).
+Other real-time applications notify users about congestions and accidents, or control traffic lights in order to influence traffic flow direction \ref{AzoSensor}.
 
-In the long term traffic surveillance systems will be integral parts of the infrastructure of intelligent cities, contributing to the identification, observation and interference of these city's traffic dynamics \ref{enLight}.
+In the long term traffic surveillance systems will be integral parts of the infrastructure of intelligent cities, identifying and influencing these city's traffic dynamics\ref{enLight}.
 
+\subsection{Traffic monitoring techniques}
+Nowadays a variety of sensing modalities is available for on-road vehicle detection.
+Inductive loop systems installed in the road are considered the most reliable traffic classification and detection method available, larger metal objects can be accurately detected this way, on the other hand the installation and maintenance is time-consuming and difficult\ref{Diamond}.
+Other robust detection methods including radar \ref{DeepBlue}, infrared \ref{Swarco} and laser \ref{SICK} sensors are also popular, although a complex machinery needed to be deployed. ????
+Weight-based classification and speed detection is also possible using a piezoelectric sensor.
 
-%In addition, the advancement of analytical techniques
-%for processing the video (and other) data, together with increased computing power, has enabled new applications. 
-%We define video analytics as computer-vision-based surveillance
-%algorithms and systems to extract contextual information from
-%video. 
-
-
-\subsection{Goals and techniques}
+Az ipar számos megoldást kínál erre a problémára. Elterjedtek például az útba telepíthet˝o,
+induktív hurkos rendszerek. Ezek pontosan azonosítanak nagyobb fémtárgyakat, ugyanakkor utólagos
+beszerelés esetén az úttest felbontását igényik, így karbantartásuk is nehéz [1]. A radaros [2],
+infravörös fénnyel [3] vagy lézerrel [4] m˝uköd˝o szenzorok is népszer˝uek, ehhez azonban bonyolult
+berendezéseket kell telepíteni. Esetenként a járm˝uvek súlyát használják detektálásra, például
+piezo-kristályokon alapuló tömegméréssel – ehhez azonban szintén az úttest megbontására van
+szükség [5].
 
 \subsection{Some results in video-based traffic monitoring}
-A variety of sensing modalities has become available for
-on-road vehicle detection, including radar, lidar, and computer
-vision. Imaging technology has immensely progressed
+Video cameras have been deployed for a long time for traffic monitoring purposes, because they provide a rich information source for human understanding\ref{Buch2011}.
+In addition to the detection and classification of road users, which is an elementary task, some advanced sensing systems can track, measure the velocity, or understand the complex behaviour of the bypassing vehicles.
+Automatic license plate recognition is also a extensively used\ref{Sivaraman2013}. 
+
+ Imaging technology has immensely progressed
 in recent years. Cameras are cheaper, smaller, and of higher
 quality than ever before. Concurrently, computing power has
 dramatically increased. Furthermore, in recent years, we have
@@ -50,9 +52,7 @@ studied. It is now commonplace for research studies to report
 the ability to reliably detect and track on-road vehicles in real
 time, over extended periods [3], [5].
 
-Video cameras have been deployed for a long
-time for traffic and other monitoring purposes, because they
-provide a rich information source for human understanding.
+
 In urban environments, several monitoring objectives can
 be supported by the application of computer vision and pattern
 recognition techniques, including the detection of traffic
@@ -64,6 +64,9 @@ Video analytics may now provide added value to cameras by automatically
 extracting relevant information. This way, computer
 vision and video analytics become increasingly important for
 intelligent transport systems (ITSs).
+
+One level up, detected vehicles
+are associated across frames, allowing for vehicle tracking.
 %----------------------------------------------------------------------------
 \section{The SOLSUN project}
 %----------------------------------------------------------------------------
