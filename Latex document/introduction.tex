@@ -12,51 +12,52 @@ The information obtained by traffic monitoring systems are widely used to regula
 In addition to the detection and classification of road users, which is an elementary task, several other monitoring objectives can be supported. 
 Typical traffic data such as flow, density, and average traffic speed can be extracted.
 Some systems also recognize various situations including traffic violations or accidents (e.g., cars, motorbikes, and pedestrians).
-Other real-time applications notify users about congestions, roadworks and accidents, or control traffic lights in order to influence traffic flow direction \ref{AzoSensor, Thiruverahan2015}.
+Other real-time applications notify users about congestions, roadworks and accidents, or control traffic lights in order to influence traffic flow direction \ref{AzoSensor, Thiruverahan2015, Ghazal2016}.
+It is also possible to estimate environmental measures such as greenhouse gases, pollutant emissions, and fuel consumption in real time using high-resolution video traffic data combined with instantaneous emission models\ref{Morris2012a}. 
 
-!!!! there is now strong interest in environmental factors such as greenhouse gases, pollutant emissions, and fuel consumption. It is now possible to combine high-resolution real-time traffic data with instantaneous emission models to estimate these environmental measures in real time. \ref{Morris2012a}
-
-In the long term surveillance systems will be integral parts of the intelligent city infrastructure, identifying and influencing these city's traffic dynamics\ref{enLight}.
+In the long term surveillance systems will be integral parts of the smart city infrastructure, identifying and influencing these city's traffic dynamics\ref{enLight}.
 
 \subsection{Traffic monitoring techniques}
 Nowadays a variety of sensing modalities is available for on-road vehicle detection.
 
 Inductive loop systems installed in the road are considered the most reliable traffic classification and detection method available, larger metal objects can be accurately detected this way, on the other hand the installation and maintenance is time-consuming and difficult\ref{Diamond}.
 
-Other robust detection methods including radar \ref{DeepBlue}, infrared \ref{Swarco} and laser \ref{SICK, Gallego2009} sensors are also popular, although a complex machinery needs to be deployed.
+Other robust detection methods including radar \ref{DeepBlue}, infrared \ref{Swarco, Hussain1995, Ghazal2016} and laser \ref{SICK, Gallego2009} sensors are also popular, although a complex machinery needs to be deployed.
 
 Weight-based classification and speed detection is also possible using a piezoelectric sensor\ref{Te, Rivas2017}.
 
-Az ipar számos megoldást kínál erre a problémára. Elterjedtek például az útba telepíthet˝o,
-induktív hurkos rendszerek. Ezek pontosan azonosítanak nagyobb fémtárgyakat, ugyanakkor utólagos
-beszerelés esetén az úttest felbontását igényik, így karbantartásuk is nehéz [1]. A radaros [2],
-infravörös fénnyel [3] vagy lézerrel [4] m˝uköd˝o szenzorok is népszer˝uek, ehhez azonban bonyolult
-berendezéseket kell telepíteni. Esetenként a járm˝uvek súlyát használják detektálásra, például
-piezo-kristályokon alapuló tömegméréssel – ehhez azonban szintén az úttest megbontására van
-szükség [5].
+Video cameras have been deployed for a long time for traffic monitoring purposes, because they provide a rich information source for human understanding with a relatively low cost of deployment\ref{Tian2011, Buch2011, VideoSurveillance, LaSemaforica}.
+Nowadays camera based sensors became cheaper, smaller, and of higher quality than ever before.
+Since computing power has dramatically increased in the recent years, cameras also have the ability to reliably detect and track on-road vehicles in real time.
+urthermore, in recent years, we have
+seen the emergence of computing platforms geared toward
+parallelization, such as multicore processing and graphical processing
+units (GPUs). 
+With advances in camera sensing and computational technologies,
+advances in vehicle detection using monocular vision,
+stereo vision, and sensor fusion with vision have been
+an extremely active research area in the intelligent vehicles
+community.
+
+sensor fusion
+Mindezek mellett megjelentek a fenti megoldásokat házasító, szenzorfúziót használó bonyolultabb,
+hibrid rendszerek is [3].
 
 \subsection{Some results in video-based traffic monitoring}
-Video cameras have been deployed for a long time for traffic monitoring purposes, because they provide a rich information source for human understanding\ref{Buch2011}.
+
 In addition to the detection and classification of road users, which is an elementary task, some advanced sensing systems can track, measure the velocity, or understand the complex behaviour of the bypassing vehicles.
 Automatic license plate recognition is also a extensively used\ref{Sivaraman2013}. 
 
- Imaging technology has immensely progressed
-in recent years. Cameras are cheaper, smaller, and of higher
-quality than ever before. Concurrently, computing power has
-dramatically increased. Furthermore, in recent years, we have
+ Furthermore, in recent years, we have
 seen the emergence of computing platforms geared toward
 parallelization, such as multicore processing and graphical processing
-units (GPUs). Such hardware advances allow computer
-vision approaches for vehicle detection to pursue real-time
-implementation.
+units (GPUs). 
 With advances in camera sensing and computational technologies,
 advances in vehicle detection using monocular vision,
 stereo vision, and sensor fusion with vision have been
 an extremely active research area in the intelligent vehicles
 community. On-road vehicle tracking has been also extensively
-studied. It is now commonplace for research studies to report
-the ability to reliably detect and track on-road vehicles in real
-time, over extended periods [3], [5].
+studied. I [3], [5].
 
 
 In urban environments, several monitoring objectives can
