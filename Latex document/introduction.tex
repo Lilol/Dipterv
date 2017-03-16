@@ -33,21 +33,35 @@ The drawbacks to vision-based vehicle detection include sensitivity to light and
 
 Multi-modal suites use sensor fusion to combine the data that results from the approaches outlined above\cite{Swarco}.
 
-\subsection{Some results in video-based traffic monitoring}
-Although diverse solutions has been proposed for vision-based surveillance problems, these methods are similar in the fact that they utilize the high information-content of the video stream, whilst the useless data are being identified and omitted for speed purposes.
-
-Approaches are composed of three levels of perception: detection, tracking and behaviour understanding.
-At the first level, features such as appearance, disparity, motion, and size are used to detect vehicles in images and video. 
-
-One level up, data association, temporal coherence, and filtering are used for tracking, to reidentify and measure the dynamic parameters and to estimate the positions of the vehicles. 
-At the highest level, an aggregate of spatio-temporal features is used to learn, model, classify, and predict the behaviour and goals of other vehicles on the road. This area of research includes identification of specific maneuvers and modelling typical on-road behaviour.
-Automatic license plate recognition is also extensively used\cite{Luvizon2016, Sivaraman2013}. 
-
 \subsubsection{Real-time vision sensors}
 Although most vision sensor networks use a digital backend system where the captured data is transferred, and computation and storage takes place, since computing power has dramatically increased in the recent years, a new generation of visual surveillance systems has emerged.
 These embedded sensors are capable of on-board high-level video processing with limited resources for computation, memory and power \cite{Bramberger2004}.
 These platforms have the ability to reliably detect and track on-road vehicles in real time, since they utilize the new image-processing paradigms and advanced hardware: parallelization, multi-core processing and graphical processing units (GPUs)\cite{Sivaraman2013}.
 Although the embedded platforms can provide sufficient computing performance, efficiently developing and porting software for these platforms is still a difficult and tedious task\cite{Bramberger2004}.
+In this thesis an efficient traffic estimation method for embedded hardware is proposed, which can operate in real time for extended periods.
+The implementation and realization details are proposed as follows. (??)
+
+\subsection{Some results in video-based traffic monitoring}
+Even though diverse solutions has been proposed for vision-based surveillance problems, these methods are similar in the fact that they utilize the high information-content of the video stream, whilst the useless data are being identified and omitted for speed purposes.
+
+Most vehicle counting methods are composed of three levels of perception: detection, tracking and behaviour understanding.
+
+At the first level, the goal is to tell vehicles apart from the background using distinctive features: motion or appearance.
+
+On of the two main approaches is appearance-based selection, where basic image characteristics such as color\cite{Chang2005}, edges\cite{Blanc2007}, symmetry\cite{Aytekin2010}, HOG\cite{TehraniNiknejad2012}, Haar-like\cite{Sivaraman2012}, Gabor\cite{Zhang2006}, SIFT\cite{Zhang2011} or SURF\cite{Lin2012} features are used to identify vehicles.
+These detection methods are both applicable for moving and stationary objects or cameras, but requires prior information about foreground object appearances.
+
+Motion-based vehicle detection has been less common than appearance-based methods.
+Foreground estimation and segmentation is the first stage of
+several visual surveillance systems.
+
+One level up, data association, temporal coherence, and filtering are used for tracking, to reidentify and measure the dynamic parameters and to estimate the positions of the vehicles. 
+
+At the highest level, an aggregate of spatio-temporal features is used to learn, model, classify, and predict the behaviour and goals of other vehicles on the road. 
+This area of research includes identification of specific maneuvers and modelling typical on-road behaviour.
+Automatic license plate recognition is also extensively used\cite{Luvizon2016, Sivaraman2013}. 
+
+
 
 \subsubsection{Counting vehicles with time-spatial images}
 - background substraction methods
@@ -62,10 +76,11 @@ Although the embedded platforms can provide sufficient computing performance, ef
 %----------------------------------------------------------------------------
 \section{Thesis goals and organization}
 %----------------------------------------------------------------------------
-In this work
+In this work the operation and structure of the Solsun Traffic Sensor is detailed, in particular with regard to the core software architecture, the hardware environment, network organization and supplementary software elements.
+The thesis
 
 This thesis is structured as follows.
 The \ref{chap:Concepsts}.~chapter introduces some basic terms and concepts that are essential for understanding the operation of the Traffic Sensor. 
 The \ref{chap:Core software}.~chapter presents the structure of the core software side by side with the video processing steps.
 In chapter \ref{chap:Environment}.~the supplementary software and hardware elements linking the system together are detailed.
-In the \ref{chap:Tests}.~chapter details the results of the hardware and software experiments and proposes solutions for the most commonly occurring error cases.
+The \ref{chap:Tests}.~chapter details the results of the hardware and software experiments and proposes solutions for the most commonly occurring error cases.
