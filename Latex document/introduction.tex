@@ -3,66 +3,56 @@
 %----------------------------------------------------------------------------
 \section{Traffic load estimation}
 %----------------------------------------------------------------------------
-In recent years, there has been an increased scope for the automatic analysis of urban traffic activity\ref{Buch2011}.
+In recent years, there has been an increased scope for the automatic analysis of urban traffic activity\cite{Buch2011}.
 This case is due to the increasing number of vehicles, the need for better understanding traffic dynamics for investment purposes, and also the accessibility of various sensors.
 Formerly traffic estimation was performed by operators, by the means of on-the-spot observation or video analysis.
 By the automation of these processes the main concept of traffic analysis is to aid or fully avoid these human operators.
 
-The information obtained by traffic monitoring systems are widely used to regulate traffic flow and contribute to administrative decisions about transportation infrastructure development, maintenance and investments \ref{MagyarKozut}.
+The information obtained by traffic monitoring systems are widely used to regulate traffic flow and contribute to administrative decisions about transportation infrastructure development, maintenance and investments \cite{MagyarKozut}.
 In addition to the detection and classification of road users, which is an elementary task, several other monitoring objectives can be supported. 
 Typical traffic data such as flow, density, and average speed can be extracted.
 Some systems also recognize various situations including traffic violations or accidents (e.g., cars, motorbikes, and pedestrians).
-Other real-time applications notify users about congestions, roadworks and accidents, or control traffic lights in order to influence traffic flow direction \ref{AzoSensor, Thiruverahan2015, Ghazal2016}.
-It is also possible to estimate environmental measures such as greenhouse gases, pollutant emissions, and fuel consumption in real time using high-resolution video traffic data combined with instantaneous emission models\ref{Morris2012a}. 
-In the long term surveillance systems will be integral parts of the smart city infrastructure, identifying and influencing these city's traffic dynamics\ref{enLight}.
+Other real-time applications notify users about congestions, roadworks and accidents, or control traffic lights in order to influence traffic flow direction \cite{AzoSensor, Thiruverahan2015, Ghazal2016}.
+It is also possible to estimate environmental measures such as greenhouse gases, pollutant emissions, and fuel consumption in real time using high-resolution video traffic data combined with instantaneous emission models\cite{Morris2012a}. 
+In the long term surveillance systems will be integral parts of the smart city infrastructure, identifying and influencing these city's traffic dynamics\cite{enLight}.
 
 \subsection{Traffic monitoring techniques}
 Nowadays a variety of sensing modalities is available for on-road vehicle detection.
 
-Inductive loop systems installed in the road are considered the most reliable traffic classification and detection method available, larger metal objects can be accurately detected this way, on the other hand the installation and maintenance is time-consuming and difficult, and slow or temporarily stopped vehicles cannot be detected\ref{Diamond, Zhang2016}.
+Inductive loop systems installed in the road are considered the most reliable traffic classification and detection method available, larger metal objects can be accurately detected this way, on the other hand the installation and maintenance is time-consuming and difficult, and slow or temporarily stopped vehicles cannot be detected\cite{Diamond, Zhang2016}.
 
-Other robust detection methods including radar \ref{DeepBlue}, infrared \ref{Swarco, Hussain1995, Ghazal2016} and laser \ref{SICK, Gallego2009} sensors are also popular, although a complex machinery needs to be deployed.
+Other active detection methods including radar \cite{DeepBlue}, infrared \cite{Swarco, Hussain1995, Ghazal2016} and laser \cite{SICK, Gallego2009} sensors are also popular owing to their robustness, although a complex machinery needs to be deployed.
 
-Weight-based classification and speed detection is also possible using a piezoelectric sensor\ref{Te, Rivas2017}.
+Weight-based classification and speed detection is also possible using a piezoelectric sensor\cite{Te, Rivas2017}.
 
-Video cameras have been installed for a long time for traffic monitoring purposes, because they provide a rich information source for human understanding with a relatively low cost of deployment\ref{Tian2011, Buch2011, VideoSurveillance, LaSemaforica}.
-Nowadays camera based sensors became even cheaper, smaller, and of higher quality than ever before, and video-based surveillance is becoming the most popular form of vehicle detection.
-Some sensor networks use a digital backend system where the captured data is transferred, here computation and storage takes place.
-Since computing power has dramatically increased in the recent years a new generation of visual surveillance systems has emerged: embedded sensors are capable of on-board high-level video processing with limited resources for computation, memory and power \ref{Bramberger2004}.
-Some of these platforms have the ability to reliably detect and track on-road vehicles in real time, since they utilize the new image-processing paradigms and advanced hardware: parallelization, multicore processing and graphical processing units (GPUs)\ref{Sivaraman2013}.
+Video cameras have been installed for a long time for traffic monitoring purposes, because they provide a rich information source for human understanding with a relatively low cost of deployment\cite{Tian2011, Buch2011, VideoSurveillance, LaSemaforica}.
+Nowadays cameras became even cheaper, smaller, and of higher quality than ever before, and vision-based surveillance is becoming the most popular form of vehicle detection.
+In contradistinction to active sensors, cameras provide a wide field of view, allowing for detection across multiple lanes. 
+Vision also integrates well with active sensor suites.
+The drawbacks to vision-based vehicle detection include sensitivity to light and weather conditions and increased computational cost\cite{Shivaraman2013}.
 
-Hybrid systems use sensor fusion to combine the data that results from the approaches outlined above\ref{Swarco}.
+Multi-modal suites use sensor fusion to combine the data that results from the approaches outlined above\cite{Swarco}.
 
 \subsection{Some results in video-based traffic monitoring}
+Although diverse solutions has been proposed for vision-based surveillance problems, these methods are similar in the fact that they utilize the high information-content of the video stream, whilst the useless data are being identified and omitted for speed purposes.
 
-In addition to the detection and classification of road users, which is an elementary task, some advanced sensing systems can track, measure the velocity, or understand the complex behaviour of the bypassing vehicles.
-Automatic license plate recognition is also a extensively used\ref{Sivaraman2013}. 
+Approaches are composed of three levels of perception: detection, tracking and behaviour understanding.
+At the first level, features such as appearance, disparity, motion, and size are used to detect vehicles in images and video. 
 
- Furthermore, in recent years, we have
-seen the emergence of computing platforms geared toward
+One level up, data association, temporal coherence, and filtering are used for tracking, to reidentify and measure the dynamic parameters and to estimate the positions of the vehicles. 
+At the highest level, an aggregate of spatio-temporal features is used to learn, model, classify, and predict the behaviour and goals of other vehicles on the road. This area of research includes identification of specific maneuvers and modelling typical on-road behaviour.
+Automatic license plate recognition is also extensively used\cite{Luvizon2016, Sivaraman2013}. 
 
-With advances in camera sensing and computational technologies,
-advances in vehicle detection using monocular vision,
-stereo vision, and sensor fusion with vision have been
-an extremely active research area in the intelligent vehicles
-community. On-road vehicle tracking has been also extensively
-studied. I [3], [5].
+\subsubsection{Real-time vision sensors}
+Although most vision sensor networks use a digital backend system where the captured data is transferred, and computation and storage takes place, since computing power has dramatically increased in the recent years, a new generation of visual surveillance systems has emerged.
+These embedded sensors are capable of on-board high-level video processing with limited resources for computation, memory and power \cite{Bramberger2004}.
+These platforms have the ability to reliably detect and track on-road vehicles in real time, since they utilize the new image-processing paradigms and advanced hardware: parallelization, multi-core processing and graphical processing units (GPUs)\cite{Sivaraman2013}.
+Although the embedded platforms can provide sufficient computing performance, efficiently developing and porting software for these platforms is still a difficult and tedious task\cite{Bramberger2004}.
 
+\subsubsection{Counting vehicles with time-spatial images}
+- background substraction methods
+- articles: ????
 
-In urban environments, several monitoring objectives can
-be supported by the application of computer vision and pattern
-recognition techniques, including the detection of traffic
-violations (e.g., illegal turns and one-way streets) and the
-identification of road users (e.g., vehicles, motorbikes, and
-pedestrians).
-
-Video analytics may now provide added value to cameras by automatically
-extracting relevant information. This way, computer
-vision and video analytics become increasingly important for
-intelligent transport systems (ITSs).
-
-One level up, detected vehicles
-are associated across frames, allowing for vehicle tracking.
 %----------------------------------------------------------------------------
 \section{The SOLSUN project}
 %----------------------------------------------------------------------------
@@ -72,3 +62,10 @@ are associated across frames, allowing for vehicle tracking.
 %----------------------------------------------------------------------------
 \section{Thesis goals and organization}
 %----------------------------------------------------------------------------
+In this work
+
+This thesis is structured as follows.
+The \ref{chap:Concepsts}.~chapter introduces some basic terms and concepts that are essential for understanding the operation of the Traffic Sensor. 
+The \ref{chap:Core software}.~chapter presents the structure of the core software side by side with the video processing steps.
+In chapter \ref{chap:Environment}.~the supplementary software and hardware elements linking the system together are detailed.
+In the \ref{chap:Tests}.~chapter details the results of the hardware and software experiments and proposes solutions for the most commonly occurring error cases.
