@@ -52,8 +52,12 @@ On of the two main approaches is appearance-based selection, where basic image c
 These detection methods are both applicable for moving and stationary objects or cameras, but requires prior information about foreground object appearances.
 
 Motion-based vehicle detection has been less common than appearance-based methods.
-Foreground estimation and segmentation is the first stage of
-several visual surveillance systems.
+The core idea is to separate moving foreground from motionless background.
+This approach often relies on background subtraction: the static scene is estimated with various models and moving object are separated accordingly.
+Several filters have been proposed for background subtraction, including frame differencing\cite{Park2007}, averaging\cite{Kanhere2008}, graph cuts\cite{Woodford2009} with more sophisticated background models, such as Single Gaussian\cite{Kumar2003}, mode estimation\cite{Zheng2006}, Kalman-filter\cite{Messelodi2005} or wavelets\cite{Gao2009}. 
+One of the most common subtraction techniques is Gaussian Mixture Modelling(GMM)\cite{Niknejad2012, Wang2009,Zhang2016a}, where each pixel is temporally modelled as a mixture of two or more Gaussians and is updated online\cite{Stauffer1999,Stauffer2000}.
+Although most subtraction techniques assume a fixed scene, GMM can deal with both stationery backgrounds and repetitive changes in light.
+The implementation in \cite{bibid} is available in the OpenCV library and is commonly used in research\cite{}.
 
 One level up, data association, temporal coherence, and filtering are used for tracking, to reidentify and measure the dynamic parameters and to estimate the positions of the vehicles. 
 
@@ -77,7 +81,7 @@ Automatic license plate recognition is also extensively used\cite{Luvizon2016, S
 \section{Thesis goals and organization}
 %----------------------------------------------------------------------------
 In this work the operation and structure of the Solsun Traffic Sensor is detailed, in particular with regard to the core software architecture, the hardware environment, network organization and supplementary software elements.
-The thesis
+The thesis focuses on 
 
 This thesis is structured as follows.
 The \ref{chap:Concepsts}.~chapter introduces some basic terms and concepts that are essential for understanding the operation of the Traffic Sensor. 
