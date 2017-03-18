@@ -19,9 +19,10 @@ In the long term surveillance systems will be integral parts of the smart city i
 \subsection{Traffic monitoring techniques}
 Nowadays a variety of sensing modalities is available for on-road vehicle detection.
 
-Inductive loop systems installed in the road are considered the most reliable traffic classification and detection method available, larger metal objects can be accurately detected this way, on the other hand the installation and maintenance is time-consuming and difficult, and slow or temporarily stopped vehicles cannot be detected\cite{Diamond, Zhang2016}.
+Inductive loop systems installed in the road are considered the most reliable traffic classification and detection method available, larger metal objects can be accurately detected this way. 
+On the other hand, the installation and maintenance is time-consuming and difficult, and slow or temporarily stopped vehicles cannot be detected\cite{Diamond, Zhang2016}.
 
-Other active detection methods including radar \cite{DeepBlue}, infrared \cite{Swarco, Hussain1995, Ghazal2016} and laser \cite{SICK, Gallego2009} sensors are also popular owing to their robustness, although a complex machinery needs to be deployed.
+Other active detection methods, including radar \cite{DeepBlue}, infrared\cite{Swarco, Hussain1995, Ghazal2016} and laser\cite{SICK, Gallego2009} sensors, are also popular owing to their robustness, although a complex machinery needs to be deployed.
 
 Weight-based classification and speed detection is also possible using a piezoelectric sensor\cite{Te, Rivas2017}.
 
@@ -39,10 +40,10 @@ These embedded sensors are capable of on-board high-level video processing with 
 These platforms have the ability to reliably detect and track on-road vehicles in real time, since they utilize the new image-processing paradigms and advanced hardware: parallelization, multi-core processing and graphical processing units (GPUs)\cite{Sivaraman2013}.
 Although the embedded platforms can provide sufficient computing performance, efficiently developing and porting software for these platforms is still a difficult and tedious task\cite{Bramberger2004}.
 In this thesis an efficient traffic estimation method for embedded hardware is proposed, which can operate in real time for extended periods.
-The implementation and realization details are proposed as follows. (??)
+The implementation and realization details are proposed in the following chapters.
 
 \subsection{Some results in video-based traffic monitoring}
-Even though diverse solutions has been proposed for vision-based surveillance problems, these methods are similar in the fact that they utilize the high information-content of the video stream, whilst the useless data are being identified and omitted for speed purposes.
+Even though diverse solutions has been suggested in the literature for vision-based surveillance problems, these methods are similar in the fact that they utilize the high information-content of the video stream, whilst the useless data are being identified and omitted for speed purposes.
 
 This section is continued by discussing approaches in monocular vision for on-road traffic monitoring.
 
@@ -57,18 +58,27 @@ Motion-based vehicle detection has been less common than appearance-based method
 The core idea is to separate moving foreground from motionless background.
 This approach relies on background subtraction: the static scene is estimated with various models and moving object are separated accordingly.
 Several filters have been proposed for background subtraction, including frame differencing\cite{Park2007}, averaging\cite{Kanhere2008}, graph cuts\cite{Woodford2009}, as well as more sophisticated background models, such as Single Gaussian\cite{Kumar2003}, mode estimation\cite{Zheng2006}, Kalman-filter\cite{Messelodi2005} or wavelets\cite{Gao2009}. 
+
 One of the most common subtraction techniques is Gaussian Mixture Modelling(GMM)\cite{Niknejad2012, Wang2009,Zhang2016a}, where each pixel is temporally modelled as a mixture of two or more Gaussians and is updated online\cite{Stauffer1999,Stauffer2000}.
 Although most subtraction techniques assume a fixed scene, GMM can deal with both stationery backgrounds and repetitive changes in light.
 The implementation in \cite{Kaewtrakulpong2001} is available in the OpenCV library and is commonly used in research\cite{OpenCVMog2}.
 
-One level up dynamic parameters are measured and the position of vehicles is approximated using various tracking algorithms. 
-The main purposes of tracking vehicles across frames is to estimate  motion and predict vehicle position in the image, enforcing temporal coherence and omitting false positives in counting.
+Classification:
+The basis of classification is extraction features such as heigh and length\cite{}, linearity feature\cite{}, convex hull of the
+silhouette\cite{},
 
-At the highest level, an aggregate of spatio-temporal features is used to learn, model, classify, and predict the behaviour and goals of other vehicles on the road. 
-This area of research includes identification of specific maneuvers and modelling typical on-road behaviour.
+One level up dynamic parameters are measured and the position of road-users is approximated using various tracking algorithms. 
+The main purposes of following vehicles across frames is to estimate  motion and predict their positions in the image, enforcing temporal coherence for omitting false positives in counting.
+Tracking algorithms range from simplest -- like geometric constraints\cite{Rabe2007}, optical flow\cite{Bhaskar2015}, template matching\cite{Liu2007}, feature-based tracking\cite{Haselhoff2009} -- to most complex, including particle filtering\cite{Danescu2011}, Kalman-filter\cite{Bresson2015}, spatial–temporal Markov random field (S-T MRF)\cite{Zhu2005}, graph correspondence\cite{Lai2010}, event cones\cite{Andrienko2015} along with others. 
+
+The highest level of semantic interpretation lies in characterizing the behaviour of vehicles on the road\cite{Sivaraman2013}.
+An aggregate of spatio-temporal features is used to learn, model, classify, and predict the behaviour and goals of other vehicles on the road.
+Certain studies try to categorize observed vehicle behavior as normal or abnormal, others 
+
 Automatic license plate recognition is also extensively used\cite{Luvizon2016, Sivaraman2013}. 
 
-Although handling extreme weather or light conditions, like heavy rain, fog, night-time or shadows is still challenging for visual sensors, a series of different solutions has been proposed to solve these problems.
+
+Handling extreme weather or light conditions, like rain, thick fog, night-time or heavy shadows is always challenging for visual sensors, therefore a series of different solutions has been proposed to solve these problems.
 
 
 \subsubsection{Counting vehicles with time-spatial images}
@@ -85,7 +95,7 @@ Although handling extreme weather or light conditions, like heavy rain, fog, nig
 \section{Thesis goals and organization}
 %----------------------------------------------------------------------------
 In this work the operation and structure of the Solsun Traffic Sensor is detailed, in particular with regard to the core software architecture, the hardware environment, network organization and supplementary software elements.
-The thesis focuses on 
+The thesis focuses on the 
 
 This thesis is structured as follows.
 The \ref{chap:Concepsts}.~chapter introduces some basic terms and concepts that are essential for understanding the operation of the Traffic Sensor. 
