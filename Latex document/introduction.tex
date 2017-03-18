@@ -44,6 +44,8 @@ The implementation and realization details are proposed as follows. (??)
 \subsection{Some results in video-based traffic monitoring}
 Even though diverse solutions has been proposed for vision-based surveillance problems, these methods are similar in the fact that they utilize the high information-content of the video stream, whilst the useless data are being identified and omitted for speed purposes.
 
+This section is continued by discussing approaches in monocular vision for on-road traffic monitoring.
+
 Most vehicle counting methods are composed of three levels of perception: detection, tracking and behaviour understanding.
 
 At the first level, the goal is to tell vehicles apart from the background using distinctive features: motion or appearance.
@@ -53,18 +55,20 @@ These detection methods are both applicable for moving and stationary objects or
 
 Motion-based vehicle detection has been less common than appearance-based methods.
 The core idea is to separate moving foreground from motionless background.
-This approach often relies on background subtraction: the static scene is estimated with various models and moving object are separated accordingly.
-Several filters have been proposed for background subtraction, including frame differencing\cite{Park2007}, averaging\cite{Kanhere2008}, graph cuts\cite{Woodford2009} with more sophisticated background models, such as Single Gaussian\cite{Kumar2003}, mode estimation\cite{Zheng2006}, Kalman-filter\cite{Messelodi2005} or wavelets\cite{Gao2009}. 
+This approach relies on background subtraction: the static scene is estimated with various models and moving object are separated accordingly.
+Several filters have been proposed for background subtraction, including frame differencing\cite{Park2007}, averaging\cite{Kanhere2008}, graph cuts\cite{Woodford2009}, as well as more sophisticated background models, such as Single Gaussian\cite{Kumar2003}, mode estimation\cite{Zheng2006}, Kalman-filter\cite{Messelodi2005} or wavelets\cite{Gao2009}. 
 One of the most common subtraction techniques is Gaussian Mixture Modelling(GMM)\cite{Niknejad2012, Wang2009,Zhang2016a}, where each pixel is temporally modelled as a mixture of two or more Gaussians and is updated online\cite{Stauffer1999,Stauffer2000}.
 Although most subtraction techniques assume a fixed scene, GMM can deal with both stationery backgrounds and repetitive changes in light.
-The implementation in \cite{bibid} is available in the OpenCV library and is commonly used in research\cite{}.
+The implementation in \cite{Kaewtrakulpong2001} is available in the OpenCV library and is commonly used in research\cite{OpenCVMog2}.
 
-One level up, data association, temporal coherence, and filtering are used for tracking, to reidentify and measure the dynamic parameters and to estimate the positions of the vehicles. 
+One level up dynamic parameters are measured and the position of vehicles is approximated using various tracking algorithms. 
+The main purposes of tracking vehicles across frames is to estimate  motion and predict vehicle position in the image, enforcing temporal coherence and omitting false positives in counting.
 
 At the highest level, an aggregate of spatio-temporal features is used to learn, model, classify, and predict the behaviour and goals of other vehicles on the road. 
 This area of research includes identification of specific maneuvers and modelling typical on-road behaviour.
 Automatic license plate recognition is also extensively used\cite{Luvizon2016, Sivaraman2013}. 
 
+Although handling extreme weather or light conditions, like heavy rain, fog, night-time or shadows is still challenging for visual sensors, a series of different solutions has been proposed to solve these problems.
 
 
 \subsubsection{Counting vehicles with time-spatial images}
