@@ -52,7 +52,15 @@ Most vehicle counting methods are composed of three levels of perception: detect
 At the first level, the goal is to tell vehicles apart from the background using distinctive features: motion or appearance.
 
 On of the two main approaches is appearance-based selection, where basic image characteristics such as color\cite{Chang2005}, edges\cite{Blanc2007}, symmetry\cite{Aytekin2010}, HOG\cite{TehraniNiknejad2012}, Haar-like\cite{Sivaraman2012}, Gabor\cite{Zhang2006}, SIFT\cite{Zhang2011} or SURF\cite{Lin2012} features are used to identify vehicles.
+In recent years, there has been a transition from simpler
+image features like edges and symmetry to general and robust
+feature sets\cite{Sivaraman2012}.
 These detection methods are both applicable for moving and stationary objects or cameras, but requires prior information about foreground object appearances.
+
+The extracted features along with others are widely used for vehicle classification.
+Most common classifying attributes are heigh and length\cite{Huang2004}, linearity feature -- meaning the roughness of the vehicle contour\cite{Zhang2008} --, convex hull of the silhouette\cite{Buch2010}, distance between contour points\cite{Lou2005}.
+Well-known descriptors like SIFT\cite{Zhang2011}, SURF\cite{Lin2012}, HOG\cite{Niknejad2012a} and a handful of others are also popular.
+Automatic license plate recognition is also extensively used\cite{Luvizon2016, Sivaraman2013}. 
 
 Motion-based vehicle detection has been less common than appearance-based methods.
 The core idea is to separate moving foreground from motionless background.
@@ -63,10 +71,6 @@ One of the most common subtraction techniques is Gaussian Mixture Modelling(GMM)
 Although most subtraction techniques assume a fixed scene, GMM can deal with both stationery backgrounds and repetitive changes in light.
 The implementation in \cite{Kaewtrakulpong2001} is available in the OpenCV library and is commonly used in research\cite{OpenCVMog2}.
 
-Classification:
-The basis of classification is extraction features such as heigh and length\cite{}, linearity feature\cite{}, convex hull of the
-silhouette\cite{},
-
 One level up dynamic parameters are measured and the position of road-users is approximated using various tracking algorithms. 
 The main purposes of following vehicles across frames is to estimate  motion and predict their positions in the image, enforcing temporal coherence for omitting false positives in counting.
 Tracking algorithms range from simplest -- like geometric constraints\cite{Rabe2007}, optical flow\cite{Bhaskar2015}, template matching\cite{Liu2007}, feature-based tracking\cite{Haselhoff2009} -- to most complex, including particle filtering\cite{Danescu2011}, Kalman-filter\cite{Bresson2015}, spatial–temporal Markov random field (S-T MRF)\cite{Zhu2005}, graph correspondence\cite{Lai2010}, event cones\cite{Andrienko2015} along with others. 
@@ -74,9 +78,6 @@ Tracking algorithms range from simplest -- like geometric constraints\cite{Rabe2
 The highest level of semantic interpretation lies in characterizing the behaviour of vehicles on the road\cite{Sivaraman2013}.
 An aggregate of spatio-temporal features is used to learn, model, classify, and predict the behaviour and goals of other vehicles on the road.
 Certain studies try to categorize observed vehicle behavior as normal or abnormal, others 
-
-Automatic license plate recognition is also extensively used\cite{Luvizon2016, Sivaraman2013}. 
-
 
 Handling extreme weather or light conditions, like rain, thick fog, night-time or heavy shadows is always challenging for visual sensors, therefore a series of different solutions has been proposed to solve these problems.
 
