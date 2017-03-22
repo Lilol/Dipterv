@@ -43,7 +43,7 @@ In this thesis an efficient traffic estimation method for embedded hardware is p
 The implementation and realization details are discussed in the following chapters.
 
 \subsection{Some results in video-based traffic monitoring}
-Even though diverse solutions has been suggested in the literature for vision-based surveillance problems, these methods are similar in the fact that they utilize the high information-content of the video stream, whilst the useless data are being identified and omitted for speed purposes.
+Even though very diverse solutions has been suggested in the literature for vision-based surveillance problems, these methods are similar in the fact that they utilize the high information-content of the video stream, whilst the useless data are being identified and omitted for speed purposes.
 
 This section is continued by discussing approaches in monocular vision for on-road traffic monitoring.
 
@@ -52,10 +52,8 @@ The two upper levels use information subtracted from the lower ones, since track
 
 At the first level, the goal is to tell vehicles apart from the background using distinctive features: appearance or motion.
 
-On of the two main approaches is appearance-based selection, where basic image characteristics such as colour\cite{Chang2005}, edges\cite{Blanc2007}, symmetry\cite{Aytekin2010}, HOG\cite{TehraniNiknejad2012}, Haar-like\cite{Sivaraman2012}, Gabor\cite{Zhang2006}, SIFT\cite{Zhang2011} or SURF\cite{Lin2012} features are used to identify vehicles.
-In recent years, there has been a transition from simpler
-image features like edges and symmetry to general and robust
-feature sets\cite{Sivaraman2012}.
+On of the two main approaches is appearance-based selection, wherein basic image characteristics such as colour\cite{Chang2005}, edges\cite{Blanc2007}, symmetry\cite{Aytekin2010}, HOG\cite{TehraniNiknejad2012}, Haar-like\cite{Sivaraman2012}, Gabor\cite{Zhang2006}, SIFT\cite{Zhang2011} or SURF\cite{Lin2012} features are used to identify vehicles.
+In recent years, there has been a transition from simpler image features like edges and symmetry to general and robust feature sets\cite{Sivaraman2012}.
 These detection methods are both applicable for moving and stationary objects or cameras, but requires prior information about foreground object appearances.
 
 These extracted features along with others are widely used for vehicle classification.
@@ -72,12 +70,13 @@ The core idea is to separate moving foreground from motionless background.
 This approach relies on background subtraction: the static scene is estimated with various models and moving object are separated accordingly.
 Several filters have been proposed for background subtraction, including frame differencing\cite{Park2007}, averaging\cite{Kanhere2008}, graph cuts\cite{Woodford2009}, as well as more sophisticated background models, such as Single Gaussian\cite{Kumar2003}, mode estimation\cite{Zheng2006}, Kalman-filter\cite{Messelodi2005} or wavelets\cite{Gao2009}. 
 
-One of the most common subtraction techniques is Gaussian Mixture Modelling(GMM)\cite{Niknejad2012, Wang2009,Zhang2016a}, where each pixel is temporally modelled as a mixture of two or more Gaussians and is updated online\cite{Stauffer1999,Stauffer2000}.
+One of the most common subtraction techniques is Gaussian Mixture Modelling(GMM)\cite{Niknejad2012, Wang2009,Zhang2016a}, wherein each pixel is temporally modelled as a mixture of two or more Gaussians and is updated online\cite{Stauffer1999,Stauffer2000}.
+GMM is considered one of the best parametric background models that are widely used, owing to its robustness and effectiveness over different scenes\cite{Zhang2016}.
 Although most subtraction techniques assume a fixed scene, GMM can deal with both stationery backgrounds and repetitive changes in light.
 The implementation in \cite{Kaewtrakulpong2001} is available in the OpenCV library and is commonly used in research\cite{OpenCVMog2}.
 
 One level up dynamic parameters are measured and the position of road-users is approximated using various tracking algorithms. 
-The main purposes of following vehicles across frames is to estimate  motion, predict vehicle positions in the image, and enforce temporal coherence to omit false positives in counting.
+The main purposes of following vehicles across frames is to estimate  motion, predict vehicle positions, and enforce temporal coherence to omit false positives in counting.
 Tracking algorithms range from simplest -- like geometric constraints\cite{Rabe2007}, optical flow\cite{Bhaskar2015}, template matching\cite{Liu2007}, feature-based tracking\cite{Haselhoff2009} -- to most complex, including particle filtering\cite{Danescu2011}, Kalman-filter\cite{Bresson2015}, spatial–temporal Markov random field (S-T MRF)\cite{Zhu2005}, graph correspondence\cite{Lai2010} and event cones\cite{Andrienko2015} along with others. 
 
 The highest level of semantic interpretation lies in characterizing the behaviour of vehicles on the road\cite{Sivaraman2013}.
@@ -85,16 +84,34 @@ An aggregate of spatio-temporal features is used to learn, model, classify, and 
 Certain studies categorize observed vehicle behaviour as normal or critical\cite{Cherng2009}, others identify specific maneuvers, like lane changing or turning\cite{Garcia2012}, some works try to forecast vehicle trajectory using trajectory-based predictors\cite{Hermes2009}, others focus on incident detection\cite{Kamijo2004}.
 Maneuver-classification methods include hidden Markov model\cite{Sivaraman2011}, Bayesian networks\cite{Kasper2012} as well as Gaussian mixture modeling\cite{Wiest2012}.
 
-Handling extreme weather or light conditions is always challenging for visual sensors, therefore a series of different solutions has been proposed to be able to process rain, thick fog, night-time or heavy shadows.
+Handling extreme weather or light conditions is always challenging for visual sensors, therefore a series of different solutions has been proposed to be able to process scenes with rain\cite{Yu2015,Barnum2010}, thick fog\cite{Zhou2014a,Tarel2009}, night-time\cite{Bi2009, Robert2009} or heavy shadows\cite{Kamkar2016, Miller2015}.
 
 \subsubsection{Counting vehicles with time-spatial images}
+Many traditional methods fail in real-time, embedded environments for traffic counting purposes, because of their high computational complexity.
+One of the challenges of real-time traffic monitoring is to decrease the aforementioned computation time by minimizing the information processed by filtering the image domain.
+
+The selection of relevant information often relies on a priori knowledge of the scene, including the direction of traffic flow and assumed trajectory of bypassing vehicles.
+Many of these selection techniques restrict the calculation in an interested region in the traffic scene, e.g. virtual loops\cite{Tursun2013a, He2008} or detection regions\cite{Miller2015s, Engel2016} placed in the way of vehicles.
+
+One of the most effective low computational cost image-domain reduction techniques is based on virtual detection lines (VDLs) and time-spatial images (TSIs).
+A virtual detection line is a one-pixel wide straight line placed perpendicular to the vehicle trajectory, whilst a time-spatial image can be considered itself as an image, where the vertical dimension corresponds to the VDL in the original frame, while the horizontal one corresponds to time in the original sequence.
+A similar approach was first introduced in 2001 by Albiol et. al. and was proposed for counting people on video sequences using so called "stack of lines" -- equivalent to TSI\cite{Albiol2001}.
+Later an approach with several VDLs placed both perpendicular and parallel to the traffic flow direction was proposed\cite{Anan2006,Wu2007}.
+
+Function under a wide range of traffic conditions: light traffic, congestion, varying speeds in different lanes.
+Function under a wide variety of lighting conditions: sunny, overcast, twilight, night, rainy, etc.
 
 %----------------------------------------------------------------------------
 \section{The SOLSUN project}
 %----------------------------------------------------------------------------
 \subsection{Project goals and constraints}
 %precision, speed constraints, SW, HW
+series of efficient video processing algorithms and optimization techniques are proposed
 
+it does the surveillance from a zenital position above the train door
+
+An example of the camera view is depicted in Fig. 1.
+ 
 %----------------------------------------------------------------------------
 \section{Thesis goals and organization}
 %----------------------------------------------------------------------------
