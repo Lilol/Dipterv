@@ -6,20 +6,20 @@
 In recent years, there has been an increased scope for the automatic analysis of urban traffic activity\cite{Buch2011}.
 This case is due to the increasing number of vehicles, the need for better understanding traffic dynamics for investment purposes, and also the accessibility of various sensors.
 Formerly traffic estimation was performed by operators, by the means of on-the-spot observation or video analysis.
-By the automation of these processes the main concept of traffic analysis is to aid or fully avoid these human operators.
+Automating these processes, the main concept of traffic analysis is to aid or fully avoid human operators.
 
 The information obtained by traffic monitoring systems are widely used to regulate traffic flow and contribute to administrative decisions about transportation infrastructure development, maintenance and investments \cite{MagyarKozut}.
 In addition to the detection and classification of road users, which is an elementary task, several other monitoring objectives can be supported. 
 Typical traffic data such as flow, density, and average speed can be extracted.
 Some systems also recognize various situations including traffic violations or accidents (e.g., cars, motorbikes, and pedestrians).
-Other real-time applications notify users about congestions, roadworks and accidents, or control traffic lights in order to influence traffic flow direction \cite{AzoSensor, Thiruverahan2015, Ghazal2016}.
+Other real-time applications notify users about congestions, roadworks and accidents, or control traffic lights in order to influence traffic flow intensity in one direction \cite{AzoSensor, Thiruverahan2015, Ghazal2016}.
 It is also possible to estimate environmental measures such as greenhouse gases, pollutant emissions, and fuel consumption in real time using high-resolution video traffic data combined with instantaneous emission models\cite{Morris2012a}. 
-In the long term surveillance systems will be integral parts of the smart city infrastructure, identifying and influencing these city's traffic dynamics\cite{enLight}.
+In the long term surveillance systems will be integral parts of the smart city infrastructure, modelling, identifying and influencing these city's traffic dynamics\cite{enLight}.
 
 \subsection{Traffic monitoring techniques}
 Nowadays a variety of sensing modalities is available for on-road vehicle detection.
 
-Inductive loop systems installed in the road are considered the most reliable traffic classification and detection method available, larger metal objects can be accurately detected this way. 
+Inductive loop systems installed in the road are considered the most reliable traffic classification and detection method available, since larger metal objects can be accurately detected this way. 
 On the other hand, the installation and maintenance is time-consuming and difficult, and slow or temporarily stopped vehicles cannot be detected\cite{Diamond, Zhang2016}.
 
 Other active detection methods, including radar \cite{DeepBlue}, infrared\cite{Swarco, Hussain1995, Ghazal2016} and laser\cite{SICK, Gallego2009} sensors, are also popular owing to their robustness, although a complex machinery needs to be deployed.
@@ -43,12 +43,12 @@ In this thesis an efficient traffic estimation method for embedded hardware is p
 The implementation and realization details are discussed in the following chapters.
 
 \subsection{Some results in video-based traffic monitoring}
+In this section approaches in video-based on-road traffic monitoring are discussed, in particular with regard to techniques used in monocular vision.
+
 Even though very diverse solutions has been suggested in the literature for vision-based surveillance problems, these methods are similar in the fact that they utilize the high information-content of the video stream, whilst the useless data are being identified and omitted for speed purposes.
 
-This section is continued by discussing approaches in monocular vision for on-road traffic monitoring.
-
 Most vehicle counting methods are composed of three levels of perception depending upon each other: detection, tracking and behaviour understanding.
-The two upper levels use information subtracted from the lower ones, since tracking means that the followed vehicle is detected across several frames, and behaviour understanding relies strongly on the trajectory of the object.
+The two upper levels use information extracted from the lower ones, since vehicles are continuously detected across several frames for tracking purposes, and behaviour understanding relies strongly on the trajectory of the object.
 
 At the first level, the goal is to tell vehicles apart from the background using distinctive features: appearance or motion.
 
@@ -61,8 +61,8 @@ Most common distinctive attributes are heigh and length\cite{Huang2004}, lineari
 Well-known descriptors like SIFT\cite{Zhang2011}, SURF\cite{Lin2012}, HOG\cite{Niknejad2012a} and a handful of others are also popular.
 Automatic license plate recognition, which is also extensively used, relies on these features\cite{Luvizon2016}. 
 
-Classifiers can be broadly split into two categories: the less popular discriminative classifiers, that learn the underlying distribution of a given class; and generative ones relying upon decision boundaries between classes\cite{Sivaraman2012}.
-Discriminative methods include artificial neural network classifiers\cite{Xia2006}, support vector machines\cite{Cornelis2008}, k-nearest neighbour classifier\cite{Morris2006}, and AdaBoost\cite{Khammari2005}.
+Classifiers can be broadly split into two categories: the less popular discriminative classifiers, that learn the underlying distribution of a given class; and generative ones relying upon hard decision boundaries between classes\cite{Sivaraman2012}.
+Discriminative methods include artificial neural network classifiers\cite{Xia2006}, support vector machines\cite{Cornelis2008}, k-nearest neighbour (kNN) classifier\cite{Morris2006}, and AdaBoost\cite{Khammari2005}.
 Popular generative classifiers are hidden Markov models\cite{Jazayeri2011}, probabilistically weighted vote\cite{Lin2012}, and hidden random field\cite{Zhang2011}.
 
 Motion-based vehicle detection has been less common than appearance-based methods.
@@ -87,17 +87,45 @@ Maneuver-classification methods include hidden Markov model\cite{Sivaraman2011},
 Handling extreme weather or light conditions is always challenging for visual sensors, therefore a series of different solutions has been proposed to be able to process scenes with rain\cite{Yu2015,Barnum2010}, thick fog\cite{Zhou2014a,Tarel2009}, night-time\cite{Bi2009, Robert2009} or heavy shadows\cite{Kamkar2016, Miller2015}.
 
 \subsubsection{Counting vehicles with time-spatial images}
-Many traditional methods fail in real-time, embedded environments for traffic counting purposes, because of their high computational complexity.
-One of the challenges of real-time traffic monitoring is to decrease the aforementioned computation time by minimizing the information processed by filtering the image domain.
+Many traditional methods fail in real-time, embedded environments for traffic counting purposes, due to their high computational complexity.
+Hence one of the challenges of real-time traffic monitoring is to decrease the aforementioned computation time by minimizing the information processed by filtering the image domain.
 
-The selection of relevant information often relies on a priori knowledge of the scene, including the direction of traffic flow and assumed trajectory of bypassing vehicles.
-Many of these selection techniques restrict the calculation in an interested region in the traffic scene, e.g. virtual loops\cite{Tursun2013a, He2008} or detection regions\cite{Miller2015s, Engel2016} placed in the way of vehicles.
+The selection of relevant information often relies on a priori knowledge of the scene, including direction of traffic flow and assumed trajectory of bypassing vehicles.
+Many of these selection techniques restrict the calculation to an interested region in the traffic scene, e.g. virtual loops\cite{Tursun2013a, He2008} or detection regions\cite{Miller2015s, Engel2016} placed in the way of vehicles.
 
-One of the most effective low computational cost image-domain reduction techniques is based on virtual detection lines (VDLs) and time-spatial images (TSIs).
-A virtual detection line is a one-pixel wide straight line placed perpendicular to the vehicle trajectory, whilst a time-spatial image can be considered itself as an image, where the vertical dimension corresponds to the VDL in the original frame, while the horizontal one corresponds to time in the original sequence.
-A similar approach was first introduced in 2001 by Albiol et. al. and was proposed for counting people on video sequences using so called "stack of lines" -- equivalent to TSI\cite{Albiol2001}.
-Later an approach with several VDLs placed both perpendicular and parallel to the traffic flow direction was proposed\cite{Anan2006,Wu2007}.
+One of the most cost-effective, image-domain reducing techniques is based on virtual detection lines (VDLs) and time-spatial images (TSIs).
+A virtual detection line is a one-pixel wide straight line placed perpendicular or parallel to the vehicle trajectory, whilst a time-spatial image can be considered itself as an image, where the vertical dimension corresponds to the VDL in the original frame, and the horizontal one corresponds to time in the original sequence.
+A time-spatial image reflects the state of a fixed line changes with time, thus if a vehicle crosses or touches the VDL, it is shown on the TSI, becoming detectable\ref{fig:TSI}.
+Such images can also be perceived as a sequence from a line-detector, or an information condenser. 
 
+An approach similar to the aforementioned was first introduced in 2001 by Albiol et. al., and was proposed for counting people on video sequences using "stack of lines" -- equivalent to a TSI\cite{Albiol2001}.
+An approach with virtual line groups placed both perpendicular and parallel to the traffic flow direction was proposed later for counting\cite{Anan2006,Wu2007}.
+A background subtraction method based on frame differencing was used in \cite{Anan2006, Wu2007}, wherein background estimation and detection took place solely on the VDLs.
+This has the advantages of high operation speed and strong real-time ability, due to processing only a rather small portion of the image, however this method is unable to measure vehicle length and other distinctive features necessary for classification.
+In 2008 Li et. al. proposed a time-spatial imagery based algorithm to analyse congestions on urban roads.
+Li used perpendicular lines to detect and count vehicles in normal traffic flow, and parallel lines to identify a congestion scene\cite{Li2008}.
+Yue evaluated traffic-flow parameters under urban road environment with the same method\cite{Yue2009}.
+A similar technique was also introduced by Rashid et. al., wherein vehicles were detected and counted on a TSI, and feature-based classification was performed using attributes like width, area and rectangularity extracted from both the TSI and frames\cite{Rashid2010}.
+Mithun et. al. proposes a kNN classification scheme using shape-based, shape-invariant, and texture-based features of the segmented regions corresponding to the vehicles on the TSIs\cite{Mithun2012a}.
+Both Yue, Rashid and Mithn uses an appearance-based detection method, since TSIs are extracted from the original video sequence without background subtraction performed, and vehicles are identified using an edge detector.
+
+In 2013 Yang et. al. discussed a new approach for time-spatial imagery extraction.
+Their motion-based method includes background subtraction and feature extraction (colour and edge invariants) on each frame before the TSI is created.
+The resulting foreground- and feature-TSIs were used to detect vehicles, eliminate shadows and manage occlusions.
+Yang also evaluated several traffic flow parameters, including velocity, flow, road occupancy and density by measurements carried out on the original frames. 
+Vehicle length and region size was used to classify vehicles.
+
+%The TSI-based method is still popular, and in the recent years several 
+Kryjak et. al.'s concept is based on detecting the presence of vehicles by analysing only the local neighbourhood of a VDL.
+Kryjak also implemented the method in real-time for an embedded hardware\cite{Kryjak2014}.
+
+In a recent study by Kamkar et. al. generate TSIs to measure vehicle length and classify them using a pre-trained random forest classifier\cite{Kamkar2016}. 
+Kamkar's approach analyses both the time-spatial domain, and corresponding regions on the original frames to extract classifying features.
+Note that in this study TSIs are used solely for classification purposes, the detection takes place on the original images.
+
+On of the latest studies on this topic is Zhang's, in which a foreground time-spatial image (FTSI) is proposed for counting vehicles in complex urban traffic scenes\cite{Zhang2016}.
+
+TSIs are still widely popular to this day
 Function under a wide range of traffic conditions: light traffic, congestion, varying speeds in different lanes.
 Function under a wide variety of lighting conditions: sunny, overcast, twilight, night, rainy, etc.
 
@@ -111,15 +139,20 @@ series of efficient video processing algorithms and optimization techniques are 
 it does the surveillance from a zenital position above the train door
 
 An example of the camera view is depicted in Fig. 1.
+
+
+If no object moves in the detect region, there is no
+gray changed. Otherwise, gray will be changed by
+moving objects
  
 %----------------------------------------------------------------------------
 \section{Thesis goals and organization}
 %----------------------------------------------------------------------------
 In this work the operation and structure of the Solsun Traffic Sensor is detailed, in particular with regard to the core software architecture, the hardware environment, network organization and supplementary software elements.
-The thesis also focuses on the results of the performance tests and software experiments.
+The thesis also focuses on the results of the performance tests and software experiments, and further improvement propositions.
 
 This thesis is structured as follows.
-The \ref{chap:Concepsts}.~chapter introduces some basic terms and concepts that are essential for understanding the operation of the Traffic Sensor. 
+The \ref{chap:Concepsts}.~chapter introduces some basic terms and concepts essential for understanding the operation of the Traffic Sensor. 
 The \ref{chap:Core software}.~chapter presents the structure of the core software side by side with the video processing steps.
 In chapter \ref{chap:Environment}.~the supplementary software and hardware elements linking the system together are detailed.
-The \ref{chap:Tests}.~chapter details the results of the hardware and software experiments and proposes solutions for the most commonly occurring error cases.
+The \ref{chap:Tests}.~chapter details the results of the hardware and software experiments, discusses prevalent error impacts, and proposes related methods to improve detection rate
