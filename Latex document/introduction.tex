@@ -98,7 +98,7 @@ A virtual detection line is a one-pixel wide straight line placed perpendicular 
 A time-spatial image reflects the state of a fixed line changes with time, thus if a vehicle crosses or touches the VDL, it is shown on the TSI, becoming detectable\ref{fig:TSI}.
 Such images can also be perceived as a sequence from a line-detector, or an information condenser. 
 
-An approach similar to the aforementioned was first introduced in 2001 by Albiol et. al., and was proposed for counting people on video sequences using "stack of lines" -- equivalent to a TSI\cite{Albiol2001}.
+An approach similar to the aforementioned was first introduced in 2001 by Albiol et. al., and was proposed for counting people on video sequences using a "stack of lines" -- equivalent to a TSI\cite{Albiol2001}.
 An approach with virtual line groups placed both perpendicular and parallel to the traffic flow direction was proposed later for counting\cite{Anan2006,Wu2007}.
 A background subtraction method based on frame differencing was used in \cite{Anan2006, Wu2007}, wherein background estimation and detection took place solely on the VDLs.
 This has the advantages of high operation speed and strong real-time ability, due to processing only a rather small portion of the image, however this method is unable to measure vehicle length and other distinctive features necessary for classification.
@@ -109,47 +109,65 @@ A similar technique was also introduced by Rashid et. al., wherein vehicles were
 Mithun et. al. proposes a kNN classification scheme using shape-based, shape-invariant, and texture-based features of the segmented regions corresponding to the vehicles on the TSIs\cite{Mithun2012a}.
 Both Yue, Rashid and Mithn uses an appearance-based detection method, since TSIs are extracted from the original video sequence without background subtraction performed, and vehicles are identified using an edge detector.
 
-In 2013 Yang et. al. discussed a new approach for time-spatial imagery extraction.
+In 2013 Yang et. al. discussed a new approach for time-spatial imagery extraction\cite{Yang2013a}.
 Their motion-based method includes background subtraction and feature extraction (colour and edge invariants) on each frame before the TSI is created.
 The resulting foreground- and feature-TSIs were used to detect vehicles, eliminate shadows and manage occlusions.
 Yang also evaluated several traffic flow parameters, including velocity, flow, road occupancy and density by measurements carried out on the original frames. 
 Vehicle length and region size was used to classify vehicles.
 
-%The TSI-based method is still popular, and in the recent years several 
 Kryjak et. al.'s concept is based on detecting the presence of vehicles by analysing only the local neighbourhood of a VDL.
 Kryjak also implemented the method in real-time for an embedded hardware\cite{Kryjak2014}.
 
 In a recent study by Kamkar et. al. generate TSIs to measure vehicle length and classify them using a pre-trained random forest classifier\cite{Kamkar2016}. 
 Kamkar's approach analyses both the time-spatial domain, and corresponding regions on the original frames to extract classifying features.
-Note that in this study TSIs are used solely for classification purposes, the detection takes place on the original images.
+Note that in this study TSIs are used solely for classification purposes, the detection is performed on the original images.
 
 On of the latest studies on this topic is Zhang's, in which a foreground time-spatial image (FTSI) is proposed for counting vehicles in complex urban traffic scenes\cite{Zhang2016}.
+In this study a self-adaptive sample consensus background model is created, and foreground is estimated only on the VDL.
+Occlusion are filtered using the convexity of the objects of the FTSI.
 
-TSIs are still widely popular to this day
-Function under a wide range of traffic conditions: light traffic, congestion, varying speeds in different lanes.
-Function under a wide variety of lighting conditions: sunny, overcast, twilight, night, rainy, etc.
+As the above examples show, TSI approaches are often implemented for real-time monitoring due to its low computational cost.
+It can be realized as a part of an intelligent transportation system owing to its ability to function under a wide range of traffic situations, like occlusion, dense traffic, slow or temporarily stopped vehicles; and also a variety of lighting conditions, including sunny weather, night, rain, twilight, etc.
 
+The drawback to using a TSI-based method for detection purposes is that the analysis on the time-spatial imagery is one-dimensional, making it impossible to measure and extract features perpendicular to the detection line.
+Therefore most systems utilize a combination of frame-based and TSI-based features for classification purposes and for making the counting more accurate, as seen in \cite{Kryjak2014, Yang2013a}. 
+This approach can moderately slow down the processing, although opens a wide range of other possible usages, including occlusion detection and traffic flow parameter evaluation.
 %----------------------------------------------------------------------------
 \section{The SOLSUN project}
+The intelligent transportation system detailed in this work is a part of a complex suite, the SOLSUN (Sustainable Outdoor Lighting \& Sensory Urban Networks) system.
+The goal of the SOLSUN project is to deploy an intelligent sensor network installed within existing street lighting to monitor the urban environment.
+The nodes of the network contain several sensors capable of monitoring emission, noise, weather and traffic.
+The 
+
+The project devoted to design the traffic sensor started in 2015 on ...
+
+A dolgozatom témájaként bemutatott forgalomszámláló rendszer egy nagyobb egység – a
+SOLSUN () projekt – keretében jött
+létre. A projekt 2015 júniusában indult a BME Automatizálási és Alkalmazott Informatika Tanszékén
+[32]. Célja egy intelligens, lámpatestekbe épített egységekb˝ol álló szenzorhálózat kialakítása.
+A hálózat elemei számos szenzort egyesítenek – az érzékel˝ok adatokat gy˝ujtenek a leveg
+˝oszennyezésr˝ol, zajról, és a forgalom jellemz˝oir˝ol, majd ezt megosztják a központtal egy kommunikációs
+hálózaton keresztül. A cél nemcsak az adatgy˝ujtés, hanem az így kapott információk
+ért˝o felhasználása az energiafogyasztás csökkentésére, a világítás költséghatékonyabbá tételére,
+a leveg˝oszennyezés mérséklésére. Emellett az adatok a forgalom szervezéséhez, tervezéséhez is
+hozzájárulnak.
+
+The Sustainable Outdoor Lighting and Sensory Urban Network (SOLSUN) uses street lighting control systems to provide connectivity for ‘smart city’ applications. Using EnLight technology and the deployment of networked sensors to monitor the chosen urban environment, SOLSUN demonstrates how an intelligent city infrastructure can be created in a cost-effective and sustainable way.
+The platform brings together a strong core of public, private and academic partners with the combined expertise to develop outcomes that can be exploited on a global scale.
+Using street-lighting control systems to provide connectivity for ‘smart city’ applications is a cost-effective way to deploy the required network infrastructure.
+Technology will be installed to reduce energy consumption at the same time as turning street lights into nodes on a scalable network that is also expandable for other applications. Sensors will capture data on air pollution, noise pollution and traffic density; information gathered will be used to address traffic congestion, another key contributor of Green House Gas (GHG) emissions in cities.
 %----------------------------------------------------------------------------
 \subsection{Project goals and constraints}
 %precision, speed constraints, SW, HW
-series of efficient video processing algorithms and optimization techniques are proposed
+A series of efficient video processing algorithms and optimization techniques are proposed.
+Surveillance is performed from a zenital position above the road.
+An example of the camera view is depicted in figure \ref{fig:camera_position}.
 
-it does the surveillance from a zenital position above the train door
-
-An example of the camera view is depicted in Fig. 1.
-
-
-If no object moves in the detect region, there is no
-gray changed. Otherwise, gray will be changed by
-moving objects
- 
 %----------------------------------------------------------------------------
 \section{Thesis goals and organization}
 %----------------------------------------------------------------------------
 In this work the operation and structure of the Solsun Traffic Sensor is detailed, in particular with regard to the core software architecture, the hardware environment, network organization and supplementary software elements.
-The thesis also focuses on the results of the performance tests and software experiments, and further improvement propositions.
+The thesis focuses on the results of the performance tests and software experiments also, as well as further improvement propositions.
 
 This thesis is structured as follows.
 The \ref{chap:Concepsts}.~chapter introduces some basic terms and concepts essential for understanding the operation of the Traffic Sensor. 
