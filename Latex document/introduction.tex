@@ -129,33 +129,21 @@ Occlusion are filtered using the convexity of the objects of the FTSI.
 As the above examples show, TSI approaches are often implemented for real-time monitoring due to its low computational cost.
 It can be realized as a part of an intelligent transportation system owing to its ability to function under a wide range of traffic situations, like occlusion, dense traffic, slow or temporarily stopped vehicles; and also a variety of lighting conditions, including sunny weather, night, rain, twilight, etc.
 
-The drawback to using a TSI-based method for detection purposes is that the analysis on the time-spatial imagery is one-dimensional, making it impossible to measure and extract features perpendicular to the detection line.
+Drawback to using a TSI-based method for detection purposes is that the analysis on the time-spatial imagery is one-dimensional, making it impossible to measure and extract data perpendicular to the detection line.
 Therefore most systems utilize a combination of frame-based and TSI-based features for classification purposes and for making the counting more accurate, as seen in \cite{Kryjak2014, Yang2013a}. 
-This approach can moderately slow down the processing, although opens a wide range of other possible usages, including occlusion detection and traffic flow parameter evaluation.
+Although this approach slows down the processing moderately, it opens a wide range of other possible usages, including occlusion detection and traffic flow parameter evaluation.
 %----------------------------------------------------------------------------
 \section{The SOLSUN project}
-The intelligent transportation system detailed in this work is a part of a complex suite, the SOLSUN (Sustainable Outdoor Lighting \& Sensory Urban Networks) system.
+The intelligent transportation system detailed in this work has been developed as a sub-project of the SOLSUN (Sustainable Outdoor Lighting \& Sensory Urban Networks) project\cite{SOLSUN}.
 The goal of the SOLSUN project is to deploy an intelligent sensor network installed within existing street lighting to monitor the urban environment.
-The nodes of the network contain several sensors capable of monitoring emission, noise, weather and traffic.
-The 
+Each node of the network is a street light lamp containing a complex sensor suite made up by several sensors capable of monitoring both emission, noise pollution, weather and traffic density at the same time.
+The data collected by these nodes gets transferred to a centre through a communication network, where it can be interpreted.
+Information gathered will be used to reduce energy consumption by increasing cost-effectiveness of the street lights.
+Traffic flow data can also contribute to management and planning of traffic dynamics of the monitored region and thus reducing the emission of greenhouse gases.
+SOLSUN's goal is also to demonstrate how an intelligent city infrastructure can be created in a cost-effective and sustainable way.
 
-The project devoted to design the traffic sensor started in 2015 on ...
+The sub-project devoted to design the traffic sensor part of the SOLSUN system started in 2015 at the
 
-A dolgozatom témájaként bemutatott forgalomszámláló rendszer egy nagyobb egység – a
-SOLSUN () projekt – keretében jött
-létre. A projekt 2015 júniusában indult a BME Automatizálási és Alkalmazott Informatika Tanszékén
-[32]. Célja egy intelligens, lámpatestekbe épített egységekb˝ol álló szenzorhálózat kialakítása.
-A hálózat elemei számos szenzort egyesítenek – az érzékel˝ok adatokat gy˝ujtenek a leveg
-˝oszennyezésr˝ol, zajról, és a forgalom jellemz˝oir˝ol, majd ezt megosztják a központtal egy kommunikációs
-hálózaton keresztül. A cél nemcsak az adatgy˝ujtés, hanem az így kapott információk
-ért˝o felhasználása az energiafogyasztás csökkentésére, a világítás költséghatékonyabbá tételére,
-a leveg˝oszennyezés mérséklésére. Emellett az adatok a forgalom szervezéséhez, tervezéséhez is
-hozzájárulnak.
-
-The Sustainable Outdoor Lighting and Sensory Urban Network (SOLSUN) uses street lighting control systems to provide connectivity for ‘smart city’ applications. Using EnLight technology and the deployment of networked sensors to monitor the chosen urban environment, SOLSUN demonstrates how an intelligent city infrastructure can be created in a cost-effective and sustainable way.
-The platform brings together a strong core of public, private and academic partners with the combined expertise to develop outcomes that can be exploited on a global scale.
-Using street-lighting control systems to provide connectivity for ‘smart city’ applications is a cost-effective way to deploy the required network infrastructure.
-Technology will be installed to reduce energy consumption at the same time as turning street lights into nodes on a scalable network that is also expandable for other applications. Sensors will capture data on air pollution, noise pollution and traffic density; information gathered will be used to address traffic congestion, another key contributor of Green House Gas (GHG) emissions in cities.
 %----------------------------------------------------------------------------
 \subsection{Project goals and constraints}
 %precision, speed constraints, SW, HW
