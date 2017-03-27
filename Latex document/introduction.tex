@@ -131,25 +131,54 @@ It can be realized as a part of an intelligent transportation system owing to it
 
 Drawback to using a TSI-based method for detection purposes is that the analysis on the time-spatial imagery is one-dimensional, making it impossible to measure and extract data perpendicular to the detection line.
 Therefore most systems utilize a combination of frame-based and TSI-based features for classification purposes and for making the counting more accurate, as seen in \cite{Kryjak2014, Yang2013a}. 
-Although this approach slows down the processing moderately, it opens a wide range of other possible usages, including occlusion detection and traffic flow parameter evaluation.
+Although this approach slows down the processing moderately, it opens a wide range of other possible applications, including occlusion detection and traffic flow parameter evaluation.
 %----------------------------------------------------------------------------
+
 \section{The SOLSUN project}
-The intelligent transportation system detailed in this work has been developed as a sub-project of the SOLSUN (Sustainable Outdoor Lighting \& Sensory Urban Networks) project\cite{SOLSUN}.
+The intelligent transportation system detailed in this work has been developed as a sub-project of the SOLSUN (Sustainable Outdoor Lighting \& Sensory Urban Networks) international project\cite{SOLSUN}.
 The goal of the SOLSUN project is to deploy an intelligent sensor network installed within existing street lighting to monitor the urban environment.
-Each node of the network is a street light lamp containing a complex sensor suite made up by several sensors capable of monitoring both emission, noise pollution, weather and traffic density at the same time.
-The data collected by these nodes gets transferred to a centre through a communication network, where it can be interpreted.
+Each node of the network is a street light lamp containing a complex sensor suite made up by several sensors, capable of monitoring both emission, noise pollution, weather and traffic density at the same time.
+The data collected by these nodes gets transferred to a central backend system through a communications network to be interpreted.
 Information gathered will be used to reduce energy consumption by increasing cost-effectiveness of the street lights.
-Traffic flow data can also contribute to management and planning of traffic dynamics of the monitored region and thus reducing the emission of greenhouse gases.
-SOLSUN's goal is also to demonstrate how an intelligent city infrastructure can be created in a cost-effective and sustainable way.
-
-The sub-project devoted to design the traffic sensor part of the SOLSUN system started in 2015 at the
+Traffic flow data will contribute to management and planning of traffic dynamics of the monitored region and thus reducing the emission of greenhouse gases as well.
+SOLSUN supports the objective of demonstrating how an intelligent city infrastructure can be created in a cost-effective and sustainable way.
 
 %----------------------------------------------------------------------------
-\subsection{Project goals and constraints}
-%precision, speed constraints, SW, HW
-A series of efficient video processing algorithms and optimization techniques are proposed.
-Surveillance is performed from a zenital position above the road.
-An example of the camera view is depicted in figure \ref{fig:camera_position}.
+\subsection{Goals and constraints of the SOLSUN Traffic Sensor sub-project}
+The sub-project dedicated to the traffic sensor as part of the SOLSUN system, started in 2015 at the Department of Automation and Applied Informatics at BME\cite{SOLSUN_BME}.
+The goal of the sub-project is to device a conceptional prototype software system for traffic monitoring purposes, that is able to function real-time in an embedded environment.
+The done product is stable enough to work for extended periods of time in the production environment for further testing and improvement.
+
+The primary task of the application is traffic flow estimation, that is done by counting the recorded vehicles with a 70\% error-rate at least.
+Secondary aim is classification: the vehicles may be categorized into five types, namely car, bicycle, truck, pedestrian and other.
+The categorization is important, hence it contributes to emission-estimation when data is interpreted at the centre\cite{}.
+Other features, like speed and following distance estimation should be supported as well.
+
+Real-time requirements imply that the processing speed exceeds \SI{25}{frame/s}, as under this speed the risk of missing vehicles is reasonably high.
+
+The traffic sensor application will run on its own built-in core integrated into the sensor suite.
+The hardware itself was chosen to be able to function with passive cooling due to the embedded environment: SOLSUN sensor system will be installed inside a street-lighting lamp box.
+The target hardware is an UDOO Quad minicomputer using a small and effective Linux-based UDOObuntu 2 operating system.
+The board has an i.MX6 ARM\reg Cortex\reg-A9 Quad, \SI{1}{GHz} CPU.
+
+Traffic monitoring is done by a camera sensor, which connects to the board through a USB port.
+The complete video processing takes place on the board, and the resulted data, including the vehicle count and type, speed, and following distance, is transferred to the backend through a communications network in a compact file format.
+The communication is managed through the EnTalk\textsuperscript{TM} network, the hardware manufacturer's own data channel and remote street light management system\cite{EnTalk}.
+
+Surveillance is performed from a street-lighting lamp, from the side of the road, and the camera's optical axis is vertical.
+To record the complete width of the road from this position and angle, a panoramic camera is essential.
+Moreover the precise position of the camera is varying based on the particular setting where the sensor is placed, thus a robust application supporting slightly heterogeneous conditions and surroundings needs to be deployed. 
+An example of the view is depicted in figure \ref{fig:camera_position}.
+Additionally the application needs to operate through extended periods of time with changing light, weather and traffic conditions, increasing the need for the robustness of the detection method.
+
+The criteria detailed above, including the robustness of the application, the requirement of passive cooling -- which limits hardware performance --, alongside with the demand of real-time operation generate strict specifications for the software itself.
+Therefore whilst developing the system framework, our team's goal was to combine computationally effective, real-time video processing algorithms and software engineering paradigms in order to create an efficient product satisfying all of the above requirements.
+
+\subsection{Contribution of this thesis}
+
+I have been working on the Traffic Sensor sub-project since the start, developing and implementing video processing methods and algorithms, and designing the architecture of the application.
+Although the results and methods discussed in this thesis are product of the collective work of the project team, some particular solutions are my own. 
+Even though my own contributions are emphasized throughout the thesis, to fully understand the operation and architecture of the application, the entire product is outlined in this work.
 
 %----------------------------------------------------------------------------
 \section{Thesis goals and organization}
@@ -161,4 +190,4 @@ This thesis is structured as follows.
 The \ref{chap:Concepsts}.~chapter introduces some basic terms and concepts essential for understanding the operation of the Traffic Sensor. 
 The \ref{chap:Core software}.~chapter presents the structure of the core software side by side with the video processing steps.
 In chapter \ref{chap:Environment}.~the supplementary software and hardware elements linking the system together are detailed.
-The \ref{chap:Tests}.~chapter details the results of the hardware and software experiments, discusses prevalent error impacts, and proposes related methods to improve detection rate
+The \ref{chap:Tests}.~chapter details the results of the hardware and software experiments, discusses prevalent error impacts, and proposes related methods to improve the detection rate
