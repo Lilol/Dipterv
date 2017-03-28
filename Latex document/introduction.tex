@@ -158,7 +158,7 @@ The done product is stable enough to work for extended periods of time in the pr
 
 The primary task of the application is traffic flow estimation, that is done by counting the recorded vehicles with a 70\% error-rate at least.
 Secondary aim is classification: the vehicles may be categorized into five types, namely car, bicycle, truck, pedestrian and other.
-The categorization is important, hence it contributes to emission-estimation when data is interpreted at the centre\cite{}.
+The categorization is important, hence it contributes to emission-estimation when data is interpreted at the centre\cite{Csorba2016}.
 Other features, like speed and following distance estimation should be supported as well.
 
 Real-time requirements imply that the processing speed exceeds \SI{25}{frame/s}, as under this speed the risk of missing vehicles is reasonably high.
@@ -172,11 +172,11 @@ Traffic monitoring is done by a camera sensor, which connects to the board throu
 The complete video processing takes place on the board, and the resulted data, including the vehicle count and type, speed, and following distance, is transferred to the backend through a communications network in a compact file format.
 The communication is managed through the EnTalk\textsuperscript{TM} network, the hardware manufacturer's own data channel and remote street light management system\cite{EnTalk}.
 
-Surveillance is performed from a street-lighting lamp, from the side of the road, and the camera's focal axis is vertical.
+Since surveillance is performed from a street-lighting lamp, from the side of the road, the camera's focal axis is vertical.
 To record the complete width of the road from this position and angle, a panoramic camera is essential.
-Moreover the precise position of the camera is varying based on the particular setting where the sensor is placed, thus a robust application supporting slightly heterogeneous conditions and surroundings needs to be deployed. 
+Moreover, the precise position of the camera is varying based on the particular setting where the sensor is placed, thus a robust application supporting slightly heterogeneous conditions and surroundings needs to be deployed. 
 An example of the view is depicted in figure \ref{fig:camera_position}.
-Additionally the application needs to operate through extended periods of time with changing light, weather and traffic conditions, increasing the need for the robustness of the detection method.
+Additionally, the application needs to operate through extended periods of time with changing light, weather and traffic conditions, increasing the need for the robustness of the detection method.
 
 \begin{figure}
 	\centering
@@ -196,7 +196,7 @@ Additionally the application needs to operate through extended periods of time w
 	\label{fig:camera_position}
 \end{figure}
 
-The criteria detailed above, including the robustness of the application, the requirement of passive cooling -- which limits hardware performance --, alongside with the demand of real-time operation generate strict specifications for the software itself.
+The criteria detailed above, including the robustness of the application, the requirement of passive cooling -- which limits hardware performance --, alongside with the demand of real-time operation, generate strict specifications for the software itself.
 Therefore whilst developing the system framework, our team's goal was to combine computationally effective, real-time video processing algorithms and software engineering paradigms in order to create an efficient product satisfying all of the above requirements.
 
 The application was implemented in C++ with QT framework.
