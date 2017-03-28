@@ -14,7 +14,7 @@ Typical traffic data such as flow, density, and average speed can be extracted.
 Some systems also recognize various situations including traffic violations or accidents (e.g., cars, motorbikes, and pedestrians).
 Other real-time applications notify users about congestions, roadworks and accidents, or control traffic lights in order to influence traffic flow intensity in one direction \cite{AzoSensor, Thiruverahan2015, Ghazal2016}.
 It is also possible to estimate environmental measures such as greenhouse gases, pollutant emissions, and fuel consumption in real time using high-resolution video traffic data combined with instantaneous emission models\cite{Morris2012a}. 
-In the long term surveillance systems will be integral parts of the smart city infrastructure, modelling, identifying and influencing these city's traffic dynamics\cite{enLight}.
+In the long term surveillance systems will be integral parts of the smart city infrastructure, modelling, identifying and influencing these city's traffic dynamics\cite{SOLSUN}.
 
 \subsection{Traffic monitoring techniques}
 Nowadays a variety of sensing modalities is available for on-road vehicle detection.
@@ -30,7 +30,7 @@ Video cameras have been installed for a long time for traffic monitoring purpose
 Nowadays cameras became even cheaper, smaller, and of higher quality than ever before, and vision-based surveillance is becoming the most popular form of vehicle detection.
 In contradistinction to active sensors, cameras provide a wide field of view, allowing for detection across multiple lanes. 
 Vision also integrates well with active sensor suites\cite{Garcia2012}.
-The drawbacks to vision-based vehicle detection include sensitivity to light and weather conditions and increased computational cost\cite{Shivaraman2013}.
+The drawbacks to vision-based vehicle detection include sensitivity to light and weather conditions and increased computational cost\cite{Sivaraman2013}.
 
 Multi-modal suites use sensor fusion to combine the data that results from the approaches outlined above\cite{Swarco}.
 
@@ -52,13 +52,13 @@ The two upper levels use information extracted from the lower ones, since vehicl
 
 At the first level, the goal is to tell vehicles apart from the background using distinctive features: appearance or motion.
 
-On of the two main approaches is appearance-based selection, wherein basic image characteristics such as colour\cite{Chang2005}, edges\cite{Blanc2007}, symmetry\cite{Aytekin2010}, HOG\cite{TehraniNiknejad2012}, Haar-like\cite{Sivaraman2012}, Gabor\cite{Zhang2006}, SIFT\cite{Zhang2011} or SURF\cite{Lin2012} features are used to identify vehicles.
+On of the two main approaches is appearance-based selection, wherein basic image characteristics such as colour\cite{Chang2005}, edges\cite{Blanc2007}, symmetry\cite{Aytekin2010}, HOG\cite{Niknejad2012}, Haar-like\cite{Sivaraman2012}, Gabor\cite{Zhang2006}, SIFT\cite{Zhang2011} or SURF\cite{Lin2012} features are used to identify vehicles.
 In recent years, there has been a transition from simpler image features like edges and symmetry to general and robust feature sets\cite{Sivaraman2012}.
 These detection methods are both applicable for moving and stationary objects or cameras, but requires prior information about foreground object appearances.
 
 These extracted features along with others are widely used for vehicle classification.
 Most common distinctive attributes are heigh and length\cite{Huang2004}, linearity feature -- meaning the roughness of the vehicle contour\cite{Zhang2008} --, convex hull of the silhouette\cite{Buch2010} and distance between contour points\cite{Lou2005}.
-Well-known descriptors like SIFT\cite{Zhang2011}, SURF\cite{Lin2012}, HOG\cite{Niknejad2012a} and a handful of others are also popular.
+Well-known descriptors like SIFT\cite{Zhang2011}, SURF\cite{Lin2012}, HOG\cite{Niknejad2012} and a handful of others are also popular.
 Automatic license plate recognition, which is also extensively used, relies on these features\cite{Luvizon2016}. 
 
 Classifiers can be broadly split into two categories: the less popular discriminative classifiers, that learn the underlying distribution of a given class; and generative ones relying upon hard decision boundaries between classes\cite{Sivaraman2012}.
@@ -77,7 +77,7 @@ The implementation in \cite{Kaewtrakulpong2001} is available in the OpenCV libra
 
 One level up dynamic parameters are measured and the position of road-users is approximated using various tracking algorithms. 
 The main purposes of following vehicles across frames is to estimate  motion, predict vehicle positions, and enforce temporal coherence to omit false positives in counting.
-Tracking algorithms range from simplest -- like geometric constraints\cite{Rabe2007}, optical flow\cite{Bhaskar2015}, template matching\cite{Liu2007}, feature-based tracking\cite{Haselhoff2009} -- to most complex, including particle filtering\cite{Danescu2011}, Kalman-filter\cite{Bresson2015}, spatial–temporal Markov random field (S-T MRF)\cite{Zhu2005}, graph correspondence\cite{Lai2010} and event cones\cite{Andrienko2015} along with others. 
+Tracking algorithms range from simplest -- like geometric constraints\cite{Rabe2007}, optical flow\cite{Bhaskar2015}, template matching\cite{Liu2007}, feature-based tracking\cite{Haselhoff2009} -- to most complex, including particle filtering\cite{Danescu2011}, Kalman-filter\cite{Bresson2015}, spatial-temporal Markov random field (S-T MRF)\cite{Zhu2005}, graph correspondence\cite{Lai2010} and event cones\cite{Andrienko2015} along with others. 
 
 The highest level of semantic interpretation lies in characterizing the behaviour of vehicles on the road\cite{Sivaraman2013}.
 An aggregate of spatio-temporal features is used to learn, model, classify, and predict the behaviour and goals of other vehicles on the road.
@@ -91,12 +91,19 @@ Many traditional methods fail in real-time, embedded environments for traffic co
 Hence one of the challenges of real-time traffic monitoring is to decrease the aforementioned computation time by minimizing the information processed by filtering the image domain.
 
 The selection of relevant information often relies on a priori knowledge of the scene, including direction of traffic flow and assumed trajectory of bypassing vehicles.
-Many of these selection techniques restrict the calculation to an interested region in the traffic scene, e.g. virtual loops\cite{Tursun2013a, He2008} or detection regions\cite{Miller2015s, Engel2016} placed in the way of vehicles.
+Many of these selection techniques restrict the calculation to an interested region in the traffic scene, e.g. virtual loops\cite{Tursun2013a, He2008} or detection regions\cite{Miller2015, Engel2016} placed in the way of vehicles.
+
+\begin{figure}[bh]
+	\centering
+	\includegraphics[width=0.9\textwidth]{original_frame_timeline.png}
+	\label{fig:TSI}
+	\caption{Virtual detection line on a frame (left), and a time-spatial image created from the original frame sequence (right).}
+\end{figure}
 
 One of the most cost-effective, image-domain reducing techniques is based on virtual detection lines (VDLs) and time-spatial images (TSIs).
 A virtual detection line is a one-pixel wide straight line placed perpendicular or parallel to the vehicle trajectory, whilst a time-spatial image can be considered itself as an image, where the vertical dimension corresponds to the VDL in the original frame, and the horizontal one corresponds to time in the original sequence.
 A time-spatial image reflects the state of a fixed line changes with time, thus if a vehicle crosses or touches the VDL, it is shown on the TSI, becoming detectable\ref{fig:TSI}.
-Such images can also be perceived as a sequence from a line-detector, or an information condenser. 
+Such images can also be perceived as a sequence from a line-detector, the cross-section of the traffic flow that condenses essential information. 
 
 An approach similar to the aforementioned was first introduced in 2001 by Albiol et. al., and was proposed for counting people on video sequences using a "stack of lines" -- equivalent to a TSI\cite{Albiol2001}.
 An approach with virtual line groups placed both perpendicular and parallel to the traffic flow direction was proposed later for counting\cite{Anan2006,Wu2007}.
@@ -165,14 +172,35 @@ Traffic monitoring is done by a camera sensor, which connects to the board throu
 The complete video processing takes place on the board, and the resulted data, including the vehicle count and type, speed, and following distance, is transferred to the backend through a communications network in a compact file format.
 The communication is managed through the EnTalk\textsuperscript{TM} network, the hardware manufacturer's own data channel and remote street light management system\cite{EnTalk}.
 
-Surveillance is performed from a street-lighting lamp, from the side of the road, and the camera's optical axis is vertical.
+Surveillance is performed from a street-lighting lamp, from the side of the road, and the camera's focal axis is vertical.
 To record the complete width of the road from this position and angle, a panoramic camera is essential.
 Moreover the precise position of the camera is varying based on the particular setting where the sensor is placed, thus a robust application supporting slightly heterogeneous conditions and surroundings needs to be deployed. 
 An example of the view is depicted in figure \ref{fig:camera_position}.
 Additionally the application needs to operate through extended periods of time with changing light, weather and traffic conditions, increasing the need for the robustness of the detection method.
 
+\begin{figure}
+	\centering
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=0.9\linewidth]{kamera_placement.pdf}
+		%\caption{A subfigure}
+		%\label{fig:sub1}
+	\end{subfigure}%
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=0.8\linewidth]{raw_frame_perspective.png}
+		%\caption{A subfigure}
+		%\label{fig:sub2}
+	\end{subfigure}
+	\caption{Camera placement and a typical frame scene of the Traffic Sensor. The camera's optical axis is vertical. To monitor the entire with of the road a panoramic camera with a wide view angle was used for testing purposes.}
+	\label{fig:camera_position}
+\end{figure}
+
 The criteria detailed above, including the robustness of the application, the requirement of passive cooling -- which limits hardware performance --, alongside with the demand of real-time operation generate strict specifications for the software itself.
 Therefore whilst developing the system framework, our team's goal was to combine computationally effective, real-time video processing algorithms and software engineering paradigms in order to create an efficient product satisfying all of the above requirements.
+
+The application was implemented in C++ with QT framework.
+For image processing tasks some algorithms from the OpenCV (Open Source Computer Vision Library) were used.
 
 \subsection{Contribution of this thesis}
 
@@ -184,10 +212,10 @@ Even though my own contributions are emphasized throughout the thesis, to fully 
 \section{Thesis goals and organization}
 %----------------------------------------------------------------------------
 In this work the operation and structure of the Solsun Traffic Sensor is detailed, in particular with regard to the core software architecture, the hardware environment, network organization and supplementary software elements.
-The thesis focuses on the results of the performance tests and software experiments also, as well as further improvement propositions.
+The thesis focuses on the results of the performance tests and software experiments, as well as further improvement propositions.
 
 This thesis is structured as follows.
-The \ref{chap:Concepsts}.~chapter introduces some basic terms and concepts essential for understanding the operation of the Traffic Sensor. 
+The \ref{chap:Concepts}.~chapter introduces some basic terms and concepts essential for understanding the operation of the Traffic Sensor. 
 The \ref{chap:Core software}.~chapter presents the structure of the core software side by side with the video processing steps.
 In chapter \ref{chap:Environment}.~the supplementary software and hardware elements linking the system together are detailed.
-The \ref{chap:Tests}.~chapter details the results of the hardware and software experiments, discusses prevalent error impacts, and proposes related methods to improve the detection rate
+The \ref{chap:Tests}.~chapter describes the results of the hardware and software experiments, discusses prevalent error impacts, and proposes related methods to improve the detection rate.

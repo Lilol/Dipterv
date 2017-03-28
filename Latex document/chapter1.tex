@@ -1,13 +1,40 @@
 %----------------------------------------------------------------------------
-\chapter{Basic concepts and terms}\label{chapt:Concepts}
+\chapter{Basic concepts and terms}\label{chap:Concepts}
 %----------------------------------------------------------------------------
+In the following chapter I discuss and formalize certain basic definitions and ideas necessary for understanding the operation of the Traffic Sensor.
+
+Let the intensities of each pixel of a given frame be denoted by $I(x,y,t)$, where $x, y$ are the variables of the discrete spatial axes, and $t$ notes the discrete time, where:
+\begin{displaymath}
+x=0,1,2,\dotsc,n_{cols-1}
+\end{displaymath} 
+,
+\begin{displaymath}
+y=0,1,2,\dotsc,n_{rows-1}
+\end{displaymath}
+,
+\begin{displaymath}
+t=0,1,2,\dotsc,n_{frames-1}
+\end{displaymath}.
+
+$I$ is a three-element vector consisting of the intensities of each channel of an RGB image.
+
 \section{Tripwire}
 %----------------------------------------------------------------------------
-
+The tripwire is a straight line in the frame, where the detection takes place.
+Let the intensities of the pixels of the tripwire be denoted by $T(x,y)$, where $x$ and $y$ form a 4-connected line on the image pane.
+An example of a tripwire is depicted in figure \ref{fig:tripwire}.
+The intensities of tripwire on the $t$. frame is: $T(x,y,t)$.
+For detection purposes the tripwire must be approximately perpendicular to the traffic direction.
+In the discussed application to ensure this angle the tripwire is configured manually.
+In recent scholarly articles the tripwire is mostly called either virtual detection line (VDL) or check-line.
 %----------------------------------------------------------------------------
 \section{Timeline image}
 %----------------------------------------------------------------------------
-
+the horizontal axis represents the spatial
+distribution on the check-line, and the vertical axis indicates
+the temporal distribution. In other words, the ith row in the
+profile image is filled with the extracted foreground on the
+check-line in the ith time frame
 %----------------------------------------------------------------------------
 \section{Framestrip}
 %----------------------------------------------------------------------------
