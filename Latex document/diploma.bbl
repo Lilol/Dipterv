@@ -1,3 +1,493 @@
-\begin{thebibliography}{}
+\begin{thebibliography}{10}
+
+\bibitem{Buch2011}
+N.~Buch, S.~A. Velastin, and J.~Orwell, ``A review of computer vision
+  techniques for the analysis of urban traffic,'' {\em IEEE Transactions on
+  Intelligent Transportation Systems}, vol.~12, pp.~920--939, Sept 2011.
+
+\bibitem{MagyarKozut}
+``Magyar kzút, forgalomszámlálás.''
+\newblock \url{http://internet.kozut.hu/Lapok/forgalomszamlalas.aspx}, Last
+  access: 2016. 10. 06.
+
+\bibitem{AzoSensor}
+``Azo sensors.''
+\newblock \url{http://www.azosensors.com/article.aspx?ArticleID=95}, Last
+  access: 2016. 10. 06.
+
+\bibitem{Thiruverahan2015}
+N.~Thiruverahan, P.~Ravi, and S.~G. Jacob, ``Adaptive traffic management and
+  dynamic optimal redirection using particle swarm optimization,'' in {\em 2015
+  International Conference on Applied and Theoretical Computing and
+  Communication Technology (iCATccT)}, pp.~477--480, Oct 2015.
+
+\bibitem{Ghazal2016}
+B.~Ghazal, K.~ElKhatib, K.~Chahine, and M.~Kherfan, ``Smart traffic light
+  control system,'' in {\em 2016 Third International Conference on Electrical,
+  Electronics, Computer Engineering and their Applications (EECEA)},
+  pp.~140--145, April 2016.
+
+\bibitem{Morris2012a}
+B.~T. Morris, C.~Tran, G.~Scora, M.~M. Trivedi, and M.~J. Barth, ``Real-time
+  video-based traffic measurement and visualization system for
+  energy/emissions,'' {\em IEEE Transactions on Intelligent Transportation
+  Systems}, vol.~13, pp.~1667--1678, Dec 2012.
+
+\bibitem{SOLSUN}
+``Solsun - sustainable outdoor lighting and sensory urban network.''
+\newblock \url{http://enlight.network/case-studies/solsun/}, Last access: 2016.
+  03. 26.
+
+\bibitem{Diamond}
+``Diamond traffic.''
+\newblock \url{http://diamondtraffic.com/technicaldescription/124}, Last
+  access: 2016. 10. 06.
+
+\bibitem{Zhang2016}
+Y.~Zhang, C.~Zhao, and Q.~Zhang, ``Counting vehicles in urban traffic scenes
+  using foreground time-spatial images,'' {\em IET Intelligent Transport
+  Systems}, vol.~11, no.~2, pp.~61--67, 2016.
+
+\bibitem{DeepBlue}
+``Deepblue sensor: radar based surveillance.''
+\newblock \url{http://deepbluesensor.com/}, Last access: 2016. 10. 03.
+
+\bibitem{Swarco}
+``Swarco products.''
+\newblock
+  \url{https://www.swarco.com/en/Products-Services/Traffic-Management/Urban-Traffic-Management/Traffic-Detectors},
+  Last access: 2016. 10. 03.
+
+\bibitem{Hussain1995}
+T.~M. Hussain, A.~M. Baig, T.~N. Saadawi, and S.~A. Ahmed, ``Infrared
+  pyroelectric sensor for detection of vehicular traffic using digital signal
+  processing techniques,'' {\em IEEE Transactions on Vehicular Technology},
+  vol.~44, pp.~683--689, Aug 1995.
+
+\bibitem{SICK}
+``Sick - sensor intelligence.''
+\newblock \url{http://www.roadtraffic-technology.com/products/vps-pro}, Last
+  access: 2016. 10. 03.
+
+\bibitem{Gallego2009}
+N.~Gallego, A.~Mocholi, M.~Menendez, and R.~Barrales, ``Traffic monitoring:
+  Improving road safety using a laser scanner sensor,'' in {\em 2009
+  Electronics, Robotics and Automotive Mechanics Conference (CERMA)},
+  pp.~281--286, Sept 2009.
+
+\bibitem{Te}
+``Te connectivity.''
+\newblock
+  \url{http://www.te.com/usa-en/products/sensors/traffic-sensors.html?tab=pgp-story},
+  Last access: 2016. 10. 03.
+
+\bibitem{Rivas2017}
+J.~Rivas, R.~Wunderlich, and S.~J. Heinen, ``Road vibrations as a source to
+  detect the presence and speed of vehicles,'' {\em IEEE Sensors Journal},
+  vol.~17, pp.~377--385, Jan 2017.
+
+\bibitem{Tian2011}
+B.~Tian, Q.~Yao, Y.~Gu, K.~Wang, and Y.~Li, ``Video processing techniques for
+  traffic flow monitoring: A survey,'' in {\em 2011 14th International IEEE
+  Conference on Intelligent Transportation Systems (ITSC)}, pp.~1103--1108, Oct
+  2011.
+
+\bibitem{VideoSurveillance}
+``Video surveillance.''
+\newblock \url{https://www.videosurveillance.com/traffic.asp}, Last access:
+  2016. 10. 03.
+
+\bibitem{LaSemaforica}
+``La semaforica: video based traffic surveillance.''
+\newblock
+  \url{http://www.lasemaforica.com/en/products/traffic-data-survey-systems/video-detectors/traficam},
+  Last access: 2016. 10. 03.
+
+\bibitem{Garcia2012}
+F.~Garcia, P.~Cerri, A.~Broggi, A.~de~la Escalera, and J.~M. Armingol, ``Data
+  fusion for overtaking vehicle detection based on radar and optical flow,'' in
+  {\em 2012 IEEE Intelligent Vehicles Symposium}, pp.~494--499, June 2012.
+
+\bibitem{Sivaraman2013}
+S.~Sivaraman and M.~M. Trivedi, ``Looking at vehicles on the road: A survey of
+  vision-based vehicle detection, tracking, and behavior analysis,'' {\em IEEE
+  Transactions on Intelligent Transportation Systems}, vol.~14, pp.~1773--1795,
+  Dec 2013.
+
+\bibitem{Bramberger2004}
+M.~Bramberger, J.~Brunner, B.~Rinner, and H.~Schwabach, ``Real-time video
+  analysis on an embedded smart camera for traffic surveillance,'' in {\em
+  Proceedings. RTAS 2004. 10th IEEE Real-Time and Embedded Technology and
+  Applications Symposium, 2004.}, pp.~174--181, May 2004.
+
+\bibitem{Chang2005}
+P.~Chang, D.~Hirvonen, T.~Camus, and B.~Southall, ``Stereo-based object
+  detection, classification, and quantitative evaluation with automotive
+  applications,'' in {\em 2005 IEEE Computer Society Conference on Computer
+  Vision and Pattern Recognition (CVPR'05) - Workshops}, pp.~62--62, June 2005.
+
+\bibitem{Blanc2007}
+N.~Blanc, B.~Steux, and T.~Hinz, ``Larasidecam: a fast and robust vision-based
+  blindspot detection system,'' in {\em 2007 IEEE Intelligent Vehicles
+  Symposium}, pp.~480--485, June 2007.
+
+\bibitem{Aytekin2010}
+B.~Aytekin and E.~Altu\u{g}, ``Increasing driving safety with a multiple
+  vehicle detection and tracking system using ongoing vehicle shadow
+  information,'' in {\em 2010 IEEE International Conference on Systems, Man and
+  Cybernetics}, pp.~3650--3656, Oct 2010.
+
+\bibitem{Niknejad2012}
+H.~T. Niknejad, A.~Takeuchi, S.~Mita, and D.~McAllester, ``On-road multivehicle
+  tracking using deformable object model and particle filter with improved
+  likelihood estimation,'' {\em IEEE Transactions on Intelligent Transportation
+  Systems}, vol.~13, pp.~748--758, June 2012.
+
+\bibitem{Sivaraman2012}
+S.~Sivaraman and M.~M. Trivedi, ``Real-time vehicle detection using parts at
+  intersections,'' in {\em 2012 15th International IEEE Conference on
+  Intelligent Transportation Systems}, pp.~1519--1524, Sept 2012.
+
+\bibitem{Zhang2006}
+Y.~Zhang, S.~J. Kiselewich, and W.~A. Bauson, ``Legendre and gabor moments for
+  vehicle recognition in forward collision warning,'' in {\em 2006 IEEE
+  Intelligent Transportation Systems Conference}, pp.~1185--1190, Sept 2006.
+
+\bibitem{Zhang2011}
+X.~Zhang, N.~Zheng, Y.~He, and F.~Wang, ``Vehicle detection using an extended
+  hidden random field model,'' in {\em 2011 14th International IEEE Conference
+  on Intelligent Transportation Systems (ITSC)}, pp.~1555--1559, Oct 2011.
+
+\bibitem{Lin2012}
+B.-F. Lin, Y.-M. Chan, L.-C. Fu, P.-Y. Hsiao, L.-A. Chuang, S.-S. Huang, and
+  M.-F. Lo, ``Integrating appearance and edge features for sedan vehicle
+  detection in the blind-spot area,'' {\em IEEE Transactions on Intelligent
+  Transportation Systems}, vol.~13, pp.~737--747, June 2012.
+
+\bibitem{Huang2004}
+C.-L. Huang and W.-C. Liao, ``A vision-based vehicle identification system,''
+  in {\em Proceedings of the 17th International Conference on Pattern
+  Recognition, 2004. ICPR 2004.}, vol.~4, pp.~364--367 Vol.4, Aug 2004.
+
+\bibitem{Zhang2008}
+W.~Zhang, Q.~M.~J. Wu, X.~Yang, and X.~Fang, ``Multilevel framework to detect
+  and handle vehicle occlusion,'' {\em IEEE Transactions on Intelligent
+  Transportation Systems}, vol.~9, pp.~161--174, March 2008.
+
+\bibitem{Buch2010}
+N.~Buch, J.~Orwell, and S.~A. Velastin, ``Urban road user detection and
+  classification using 3d wire frame models,'' {\em IET Computer Vision},
+  vol.~4, pp.~105--116, June 2010.
+
+\bibitem{Lou2005}
+J.~Lou, T.~Tan, W.~Hu, H.~Yang, and S.~J. Maybank, ``3-d model-based vehicle
+  tracking,'' {\em IEEE Transactions on Image Processing}, vol.~14,
+  pp.~1561--1569, Oct 2005.
+
+\bibitem{Luvizon2016}
+D.~C. Luvizon, B.~T. Nassu, and R.~Minetto, ``A video-based system for vehicle
+  speed measurement in urban roadways,'' {\em IEEE Transactions on Intelligent
+  Transportation Systems}, vol.~PP, no.~99, pp.~1--12, 2016.
+
+\bibitem{Xia2006}
+L.~Xia, ``Vehicle recognition using boosting neural network classifiers,'' in
+  {\em 2006 6th World Congress on Intelligent Control and Automation}, vol.~2,
+  pp.~9641--9644, 2006.
+
+\bibitem{Cornelis2008}
+N.~Cornelis, B.~Leibe, K.~Cornelis, and L.~Van~Gool, ``3d urban scene modeling
+  integrating recognition and reconstruction,'' {\em International Journal of
+  Computer Vision}, vol.~78, no.~2, pp.~121--141, 2008.
+
+\bibitem{Morris2006}
+B.~Morris and M.~Trivedi, ``Robust classification and tracking of vehicles in
+  traffic video streams,'' in {\em 2006 IEEE Intelligent Transportation Systems
+  Conference}, pp.~1078--1083, Sept 2006.
+
+\bibitem{Khammari2005}
+A.~Khammari, F.~Nashashibi, Y.~Abramson, and C.~Laurgeau, ``Vehicle detection
+  combining gradient analysis and adaboost classification,'' in {\em
+  Proceedings. 2005 IEEE Intelligent Transportation Systems, 2005.},
+  pp.~66--71, Sept 2005.
+
+\bibitem{Jazayeri2011}
+A.~Jazayeri, H.~Cai, J.~Y. Zheng, and M.~Tuceryan, ``Vehicle detection and
+  tracking in car video based on motion model,'' {\em IEEE Transactions on
+  Intelligent Transportation Systems}, vol.~12, pp.~583--595, June 2011.
+
+\bibitem{Park2007}
+K.~Park, D.~Lee, and Y.~Park, ``Video-based detection of street-parking
+  violation.,'' in {\em IPCV} (H.~R. Arabnia, ed.), pp.~152--156, CSREA Press,
+  2007.
+
+\bibitem{Kanhere2008}
+N.~K. Kanhere and S.~T. Birchfield, ``Real-time incremental segmentation and
+  tracking of vehicles at low camera angles using stable features,'' {\em IEEE
+  Transactions on Intelligent Transportation Systems}, vol.~9, pp.~148--160,
+  March 2008.
+
+\bibitem{Woodford2009}
+O.~J. Woodford, C.~Rother, and V.~Kolmogorov, ``A global perspective on map
+  inference for low-level vision,'' in {\em 2009 IEEE 12th International
+  Conference on Computer Vision}, pp.~2319--2326, Sept 2009.
+
+\bibitem{Kumar2003}
+P.~Kumar, S.~Ranganath, and H.~Weimin, ``Bayesian network based computer vision
+  algorithm for traffic monitoring using video,'' in {\em Proceedings of the
+  2003 IEEE International Conference on Intelligent Transportation Systems},
+  vol.~1, pp.~897--902 vol.1, Oct 2003.
+
+\bibitem{Zheng2006}
+J.~Zheng, Y.~Wang, N.~L. Nihan, and M.~E. Hallenbeck, ``Extracting roadway
+  background image: a mode-based approach,'' 2006.
+
+\bibitem{Messelodi2005}
+S.~Messelodi, C.~M. Modena, N.~Segata, and M.~Zanin, ``A kalman filter based
+  background updating algorithm robust to sharp illumination changes,'' in {\em
+  Proceedings of the 13th International Conference on Image Analysis and
+  Processing}, ICIAP'05, (Berlin, Heidelberg), pp.~163--170, Springer-Verlag,
+  2005.
+
+\bibitem{Gao2009}
+T.~Gao, Z.-g. Liu, W.-c. Gao, and J.~Zhang, {\em A Robust Technique for
+  Background Subtraction in Traffic Video}, pp.~736--744.
+\newblock Berlin, Heidelberg: Springer Berlin Heidelberg, 2009.
+
+\bibitem{Wang2009}
+J.~Wang, Y.~Ma, C.~Li, H.~Wang, and J.~Liu, ``An efficient multi-object
+  tracking method using multiple particle filters,'' in {\em 2009 WRI World
+  Congress on Computer Science and Information Engineering}, vol.~6,
+  pp.~568--572, March 2009.
+
+\bibitem{Zhang2016a}
+Y.~Zhang, C.~Zhao, J.~He, and A.~Chen, ``Vehicles detection in complex urban
+  traffic scenes using gaussian mixture model with confidence measurement,''
+  {\em IET Intelligent Transport Systems}, vol.~10, no.~6, pp.~445--452, 2016.
+
+\bibitem{Stauffer1999}
+C.~Stauffer and W.~E.~L. Grimson, ``Adaptive background mixture models for
+  real-time tracking,'' in {\em Proceedings. 1999 IEEE Computer Society
+  Conference on Computer Vision and Pattern Recognition (Cat. No PR00149)},
+  vol.~2, p.~252 Vol. 2, 1999.
+
+\bibitem{Stauffer2000}
+C.~Stauffer and W.~E.~L. Grimson, ``Learning patterns of activity using
+  real-time tracking,'' {\em IEEE Transactions on Pattern Analysis and Machine
+  Intelligence}, vol.~22, pp.~747--757, Aug 2000.
+
+\bibitem{Kaewtrakulpong2001}
+P.~Kaewtrakulpong and R.~Bowden, ``{An improved adaptive background mixture
+  model for real-time tracking with shadow detection},'' in {\em Proceedings of
+  2nd European Workshop on Advanced Video Based Surveillance Systems},
+  vol.~5308, 2001.
+
+\bibitem{OpenCVMog2}
+``Open source computer vision library.''
+\newblock
+  \url{http://docs.opencv.org/3.0.0/d7/d7b/classcv_1_1BackgroundSubtractorMOG2.html},
+  Last access: 2017. 03. 18.
+
+\bibitem{Rabe2007}
+C.~Rabe, U.~Franke, and S.~Gehrig, ``Fast detection of moving objects in
+  complex scenarios,'' in {\em 2007 IEEE Intelligent Vehicles Symposium},
+  pp.~398--403, June 2007.
+
+\bibitem{Bhaskar2015}
+P.~K. Bhaskar, S.~P. Yong, and L.~T. Jung, ``Enhanced and effective parallel
+  optical flow method for vehicle detection and tracking,'' in {\em 2015
+  International Symposium on Mathematical Sciences and Computing Research
+  (iSMSC)}, pp.~138--143, May 2015.
+
+\bibitem{Liu2007}
+W.~Liu, X.~Wen, B.~Duan, H.~Yuan, and N.~Wang, ``Rear vehicle detection and
+  tracking for lane change assist,'' in {\em 2007 IEEE Intelligent Vehicles
+  Symposium}, pp.~252--257, June 2007.
+
+\bibitem{Haselhoff2009}
+A.~Haselhoff and A.~Kummert, ``An evolutionary optimized vehicle tracker in
+  collaboration with a detection system,'' in {\em 2009 12th International IEEE
+  Conference on Intelligent Transportation Systems}, pp.~1--6, Oct 2009.
+
+\bibitem{Danescu2011}
+R.~Danescu, F.~Oniga, and S.~Nedevschi, ``Modeling and tracking the driving
+  environment with a particle-based occupancy grid,'' {\em IEEE Transactions on
+  Intelligent Transportation Systems}, vol.~12, pp.~1331--1342, Dec 2011.
+
+\bibitem{Bresson2015}
+G.~Bresson, T.~Féraud, R.~Aufrère, P.~Checchin, and R.~Chapuis, ``Real-time
+  monocular slam with low memory requirements,'' {\em IEEE Transactions on
+  Intelligent Transportation Systems}, vol.~16, pp.~1827--1839, Aug 2015.
+
+\bibitem{Zhu2005}
+L.~Zhu, J.~Song, Q.~Huang, M.~Zhang, and H.~Liu, ``A novel module of tracking
+  vehicles with occlusion,'' in {\em IEEE Proceedings. Intelligent Vehicles
+  Symposium, 2005.}, pp.~894--899, June 2005.
+
+\bibitem{Lai2010}
+J.~C. Lai, S.~S. Huang, and C.~C. Tseng, ``Image-based vehicle tracking and
+  classification on the highway,'' in {\em The 2010 International Conference on
+  Green Circuits and Systems}, pp.~666--670, June 2010.
+
+\bibitem{Andrienko2015}
+N.~Andrienko, G.~Andrienko, G.~Fuchs, S.~Rinzivillo, and H.~D. Betz,
+  ``Detection, tracking, and visualization of spatial event clusters for real
+  time monitoring,'' in {\em 2015 IEEE International Conference on Data Science
+  and Advanced Analytics (DSAA)}, pp.~1--10, Oct 2015.
+
+\bibitem{Cherng2009}
+S.~Cherng, C.~Y. Fang, C.~P. Chen, and S.~W. Chen, ``Critical motion detection
+  of nearby moving vehicles in a vision-based driver-assistance system,'' {\em
+  IEEE Transactions on Intelligent Transportation Systems}, vol.~10,
+  pp.~70--82, March 2009.
+
+\bibitem{Hermes2009}
+C.~Hermes, C.~Wohler, K.~Schenk, and F.~Kummert, ``Long-term vehicle motion
+  prediction,'' in {\em 2009 IEEE Intelligent Vehicles Symposium},
+  pp.~652--657, June 2009.
+
+\bibitem{Kamijo2004}
+S.~Kamijo, M.~Harada, and M.~Sakauchi, ``Incident detection based on semantic
+  hierarchy composed of the spatio-temporal mrf model and statistical
+  reasoning,'' in {\em 2004 IEEE International Conference on Systems, Man and
+  Cybernetics (IEEE Cat. No.04CH37583)}, vol.~1, pp.~415--421 vol.1, Oct 2004.
+
+\bibitem{Sivaraman2011}
+S.~Sivaraman, B.~Morris, and M.~Trivedi, ``Learning multi-lane trajectories
+  using vehicle-based vision,'' in {\em 2011 IEEE International Conference on
+  Computer Vision Workshops (ICCV Workshops)}, pp.~2070--2076, Nov 2011.
+
+\bibitem{Kasper2012}
+D.~Kasper, G.~Weidl, T.~Dang, G.~Breuel, A.~Tamke, A.~Wedel, and W.~Rosenstiel,
+  ``Object-oriented bayesian networks for detection of lane change maneuvers,''
+  {\em IEEE Intelligent Transportation Systems Magazine}, vol.~4, pp.~19--31,
+  Fall 2012.
+
+\bibitem{Wiest2012}
+J.~Wiest, M.~Höffken, U.~Kresel, and K.~Dietmayer, ``Probabilistic trajectory
+  prediction with gaussian mixture models,'' in {\em 2012 IEEE Intelligent
+  Vehicles Symposium}, pp.~141--146, June 2012.
+
+\bibitem{Yu2015}
+C.~C. Yu, H.~Y. Cheng, and Y.~F. Jian, ``Raindrop-tampered scene detection and
+  traffic flow estimation for nighttime traffic surveillance,'' {\em IEEE
+  Transactions on Intelligent Transportation Systems}, vol.~16, pp.~1518--1527,
+  June 2015.
+
+\bibitem{Barnum2010}
+P.~C. Barnum, S.~Narasimhan, and T.~Kanade, ``Analysis of rain and snow in
+  frequency space,'' {\em Int. J. Comput. Vision}, vol.~86, pp.~256--274, Jan.
+  2010.
+
+\bibitem{Zhou2014a}
+P.~Zhou and Y.~Zhou, ``Single image haze removal using dark channel prior and
+  fields of experts model,'' in {\em 2014 11th International Conference on
+  Fuzzy Systems and Knowledge Discovery (FSKD)}, pp.~820--824, Aug 2014.
+
+\bibitem{Tarel2009}
+J.~P. Tarel and N.~Hautière, ``Fast visibility restoration from a single color
+  or gray level image,'' in {\em 2009 IEEE 12th International Conference on
+  Computer Vision}, pp.~2201--2208, Sept 2009.
+
+\bibitem{Bi2009}
+L.~Bi, O.~Tsimhoni, and Y.~Liu, ``Using image-based metrics to model pedestrian
+  detection performance with night-vision systems,'' {\em IEEE Transactions on
+  Intelligent Transportation Systems}, vol.~10, pp.~155--164, March 2009.
+
+\bibitem{Robert2009}
+K.~Robert, ``Night-time traffic surveillance: A robust framework for
+  multi-vehicle detection, classification and tracking,'' in {\em 2009 Sixth
+  IEEE International Conference on Advanced Video and Signal Based
+  Surveillance}, pp.~1--6, Sept 2009.
+
+\bibitem{Kamkar2016}
+S.~Kamkar and R.~Safabakhsh, ``Vehicle detection, counting and classification
+  in various conditions,'' {\em IET Intelligent Transport Systems}, vol.~10,
+  no.~6, pp.~406--413, 2016.
+
+\bibitem{Miller2015}
+N.~Miller, M.~A. Thomas, J.~A. Eichel, and A.~Mishra, ``A hidden markov model
+  for vehicle detection and counting,'' in {\em 2015 12th Conference on
+  Computer and Robot Vision}, pp.~269--276, June 2015.
+
+\bibitem{Tursun2013a}
+M.~Tursun and G.~Amrulla, ``A video based real-time vehicle counting system
+  using optimized virtual loop method,'' in {\em 2013 8th International
+  Workshop on Systems, Signal Processing and their Applications (WoSSPA)},
+  pp.~75--78, May 2013.
+
+\bibitem{He2008}
+Z.~He, Y.~Liu, H.~Yu, and X.~Ye, ``Optimized algorithms for traffic information
+  collecting in an embedded system,'' in {\em 2008 Congress on Image and Signal
+  Processing}, vol.~4, pp.~220--223, May 2008.
+
+\bibitem{Engel2016}
+J.~I. Engel, J.~Martín, and R.~Barco, ``A low-complexity vision-based system
+  for real-time traffic monitoring,'' {\em IEEE Transactions on Intelligent
+  Transportation Systems}, vol.~PP, no.~99, pp.~1--10, 2016.
+
+\bibitem{Albiol2001}
+A.~Albiol, I.~Mora, and V.~Naranjo, ``Real-time high density people counter
+  using morphological tools,'' {\em IEEE Transactions on Intelligent
+  Transportation Systems}, vol.~2, pp.~204--218, Dec 2001.
+
+\bibitem{Anan2006}
+L.~Anan, Y.~Zhaoxuan, and L.~Jintao, ``Video vehicle detection algorithm based
+  on virtual-line group,'' in {\em APCCAS 2006 - 2006 IEEE Asia Pacific
+  Conference on Circuits and Systems}, pp.~1148--1151, Dec 2006.
+
+\bibitem{Wu2007}
+J.~Wu, Z.~Yang, J.~Wu, and A.~Liu, ``Virtual line group based video vehicle
+  detection algorithm utilizing both luminance and chrominance,'' in {\em 2007
+  2nd IEEE Conference on Industrial Electronics and Applications},
+  pp.~2854--2858, May 2007.
+
+\bibitem{Li2008}
+L.~Li, L.~Chen, X.~Huang, and J.~Huang, ``A traffic congestion estimation
+  approach from video using time-spatial imagery,'' in {\em 2008 First
+  International Conference on Intelligent Networks and Intelligent Systems},
+  pp.~465--469, Nov 2008.
+
+\bibitem{Yue2009}
+Y.~Yue, ``A traffic-flow parameters evaluation approach based on urban road
+  video,'' 2009.
+
+\bibitem{Rashid2010}
+N.~U. Rashid, N.~C. Mithun, B.~R. Joy, and S.~M.~M. Rahman, ``Detection and
+  classification of vehicles from a video using time-spatial image,'' in {\em
+  International Conference on Electrical Computer Engineering (ICECE 2010)},
+  pp.~502--505, Dec 2010.
+
+\bibitem{Mithun2012a}
+N.~C. Mithun, N.~U. Rashid, and S.~M.~M. Rahman, ``Detection and classification
+  of vehicles from video using multiple time-spatial images,'' {\em IEEE
+  Transactions on Intelligent Transportation Systems}, vol.~13, pp.~1215--1225,
+  Sept 2012.
+
+\bibitem{Yang2013a}
+M.~T. Yang, R.~K. Jhang, and J.~S. Hou, ``Traffic flow estimation and
+  vehicle-type classification using vision-based spatial-temporal profile
+  analysis,'' {\em IET Computer Vision}, vol.~7, pp.~394--404, October 2013.
+
+\bibitem{Kryjak2014}
+T.~Kryjak, M.~Komorkiewicz, and M.~Gorgon, ``Hardware-software implementation
+  of vehicle detection and counting using virtual detection lines,'' in {\em
+  Proceedings of the 2014 Conference on Design and Architectures for Signal and
+  Image Processing}, pp.~1--8, Oct 2014.
+
+\bibitem{SOLSUN_BME}
+``Solsun at bme.''
+\newblock
+  \url{https://www.vik.bme.hu/hir/857-solsun-a-fenntarthato-kulteri-vilagitas},
+  Last access: 2017. 03. 26.
+
+\bibitem{Csorba2016}
+K.~Csorba, L.~Barancsuk, and L.~Blázovics, ``Visual traffic load sensor for
+  emission estimation,'' {\em Sensors}, 2016.
+\newblock Accepted for inclusion.
+
+\bibitem{EnTalk}
+``The entalk network.''
+\newblock \url{http://www.solsun.co.uk/index.php/products/entalk}, Last access:
+  2017. 03. 27.
 
 \end{thebibliography}

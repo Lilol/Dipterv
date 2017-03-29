@@ -3,44 +3,75 @@
 %----------------------------------------------------------------------------
 In the following chapter certain basic definitions and ideas necessary for understanding the operation of the Traffic Sensor will be discussed and formalized.
 
-Let the intensities of each pixel of a given frame be denoted by $I(x,y,t)$, where $x, y$ are the variables of the discrete spatial axes, and $t$ notes the discrete time:
+Let one pixel of a red-green-blue (RGB) image be denoted by $\boldsymbol{I}(x,y,t)$, where $x, y$ are the variables of the discrete spatial axes, and $t$ notes the discrete time.
+$\boldsymbol{I}(x,y,t)$ is a three-element vector consisting of the intensities of each channel of an RGB image.
+
+\begin{figure}[h!]
+	\centering
+	\scalebox{.7}{\input{figures/notations.pdf_tex}}
+	\label{fig:notations}
+	\caption{No??.}
+\end{figure}
+
+\section{Frame}
+Let a frame at a given $t$ time be denoted by
 \begin{displaymath}
-x=0,1,2,\dotsc,n_{cols-1}
-\end{displaymath} 
-,
-\begin{displaymath}
-y=0,1,2,\dotsc,n_{rows-1}
+	\boldsymbol{F}_t=\boldsymbol{F}_t(x,y),\\
+	x=0,1,2,\dotsc,n_{\text{cols}}-1,\\
+	y=0,1,2,\dotsc,n_{\text{rows}}-1,
 \end{displaymath}
-,
+where $n_{\text{cols}}$ stands for the number of columns, and $n_{\text{rows}}$ is the number of rows in a frame. 
+
+\section{Frame-strip}
+%----------------------------------------------------------------------------
+A frame-strip is a sequence of frames in the order of recording, denoted by:
 \begin{displaymath}
-t=0,1,2,\dotsc,n_{frames-1}
-\end{displaymath}.
-
-$I$ is a three-element vector consisting of the intensities of each channel of an RGB image.
-
+	\boldsymbol{FS}=\boldsymbol{FS}(t)=\boldsymbol{F}_t(x,y),
+	t=0,1,2,\dotsc,n_{\text{frames}}-1,
+\end{displaymath}
+where $n_{\text{frames}}$ denotes the frame count in a video sequence.
+%--------------------------------------------------------------------------
 \section{Tripwire}
 %----------------------------------------------------------------------------
 The tripwire is a straight line in the frame, where the detection takes place.
-Let the intensities of the pixels of the tripwire be denoted by $T(x,y)=T(k)$, where $x$ and $y$ form a 4-connected line on the image pane, and $k$ means the series of the successive pixels of the line:
+Let the intensities of the tripwire at a given $t$ time be denoted by 
 \begin{displaymath}
-	k=0,1,\dotsc,l_{line}
-\end{displaymath},
-where $l_{line}$ means the length of the tripwire, that is the number of points in the line.
-An example of a tripwire is depicted in figure \ref{fig:tripwire}.
-The intensities of tripwire-pixels on the $t$th frame is: $T(x,y,t)$.
+\boldsymbol{T}_t=\boldsymbol{F}_t(x,y)=\boldsymbol{T}_t(k),
+\end{displaymath}
+where $x$ and $y$ form a 4-connected line on the image pane of the $t$th frame, and the series of the successive pixels of the line are numbered with $k$:
+\begin{displaymath}
+	k=0,1,\dotsc,l_{\text{tripwire}}-1,
+\end{displaymath}
+where $l_{\text{tripwire}}$ stands for the number of pixels of the line, that is the length of the tripwire.
+
 For detection purposes the tripwire must be approximately perpendicular to the traffic direction.
 To ensure this angle the tripwire is configured manually in the Traffic Sensor application .
 In recent scholarly articles the tripwire is mostly called either virtual detection line (VDL) or check-line.
 %----------------------------------------------------------------------------
 \section{Timeline image}
 %----------------------------------------------------------------------------
-A timeline image (TI) is a sequence of the the states of the tripwire on successive frames.
-The horizontal axis of the TI represents time, and the vertical axis corresponds to the pixels of the tripwire itself. 
-In other words, the $i$th column in the timeline image is filled with the tripwire pixels of the $i$th time frame.
-The creation process of a TI is depicted in figure \ref{fig:TI_creation}.
-%----------------------------------------------------------------------------
-\section{Frame-strip}
-%----------------------------------------------------------------------------
-A frame-strip is a sequence of frames in the order of recording.
+A timeline image (TI) is a sequence of the the states of the tripwire on successive frames, denoted by
+\begin{displaymath}
+	\boldsymbol{TI}=\boldsymbol{TI}(t,k),
+\end{displaymath}
+where the horizontal axis of the TI represents time ($t$), and the vertical axis corresponds to the pixels of the tripwire itself ($k$).
+ 
+In other words, the $\text{i}$th column in the timeline image is filled with the tripwire pixels of the $\text{i}$th time frame:
+\begin{displaymath}
+	\boldsymbol{TI}(t=\text{i},k)=\boldsymbol{T}_\text{i},
+\end{displaymath}
+and the $\text{i}$th row corresponds to the $\text{i}$th tripwire pixel changes throughout the video stream:
+\begin{displaymath}
+\boldsymbol{TI}(t,k=\text{i})=\boldsymbol{T}(\text{i}),
+\end{displaymath}
 
-%--------------------------------------------------------------------------
+The creation of a TI is depicted in figure \ref{fig:TI_creation}.
+In the literature timeline images are called stack of lines or time-spatial images.
+
+\begin{figure}[bh]
+	\centering
+	\scalebox{.7}{\input{figures/TI_creation.pdf_tex}}
+	\label{fig:TI_creation}
+	\caption{The generation procedure of a timeline image. Each column corresponds to a tripwire state. The horizontal axis represents time.}
+\end{figure}
+%----------------------------------------------------------------------------

@@ -15,3 +15,6 @@ Kamerás forgalomszámláló rendszer fejlesztése és integrációja.pptx
 *.bak
 Latex document/TDK_ref.bib
 *.dvi
+*.pdf_tex
+*.pdf
+Latex document/figures/succ_frames/
