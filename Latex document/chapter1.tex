@@ -5,22 +5,30 @@ In the following chapter certain basic definitions and ideas necessary for under
 
 Let one pixel of a red-green-blue (RGB) image be denoted by $\boldsymbol{I}(x,y,t)$, where $x, y$ are the variables of the discrete spatial axes, and $t$ notes the discrete time.
 $\boldsymbol{I}(x,y,t)$ is a three-element vector consisting of the intensities of each channel of an RGB image.
-
+%----------------------------------------------------------------------------
+\begin{figure}[bh]
+	\centering
+	\scalebox{.7}{\input{figures/TI_creation.pdf_tex}}
+	\label{fig:TI_creation}
+	\caption{The generation procedure of a timeline image. Each column corresponds to a tripwire state. The horizontal axis represents time.}
+\end{figure}
+%----------------------------------------------------------------------------
 \begin{figure}[h!]
 	\centering
 	\scalebox{.7}{\input{figures/notations.pdf_tex}}
 	\label{fig:notations}
-	\caption{No??.}
+	\caption{Notations used in the thesis, and relationship between the discussed data structures. Each frame is an element of a frame-strip, whilst the tripwire is a straight line on each frame. The consecutive states of the tripwire are considered a timeline image, where the detection takes place.}
 \end{figure}
-
+%----------------------------------------------------------------------------
 \section{Frame}
 Let a frame at a given $t$ time be denoted by
 \begin{displaymath}
-	\boldsymbol{F}_t=\boldsymbol{F}_t(x,y),\\
+	\boldsymbol{F}_t=\boldsymbol{F}_t(x,y)=\boldsymbol{I}(x,y,t),\\
 	x=0,1,2,\dotsc,n_{\text{cols}}-1,\\
 	y=0,1,2,\dotsc,n_{\text{rows}}-1,
 \end{displaymath}
-where $n_{\text{cols}}$ stands for the number of columns, and $n_{\text{rows}}$ is the number of rows in a frame. 
+where $n_{\text{cols}}$ stands for the number of columns, and $n_{\text{rows}}$ is the number of rows in a frame.
+Each frame is a matrix of pixels composed of three-element vectors. 
 
 \section{Frame-strip}
 %----------------------------------------------------------------------------
@@ -33,7 +41,7 @@ where $n_{\text{frames}}$ denotes the frame count in a video sequence.
 %--------------------------------------------------------------------------
 \section{Tripwire}
 %----------------------------------------------------------------------------
-The tripwire is a straight line in the frame, where the detection takes place.
+The tripwire is a straight line on each frame, where the detection takes place (figure \ref{fig:TI_creation}.).
 Let the intensities of the tripwire at a given $t$ time be denoted by 
 \begin{displaymath}
 \boldsymbol{T}_t=\boldsymbol{F}_t(x,y)=\boldsymbol{T}_t(k),
@@ -50,7 +58,7 @@ In recent scholarly articles the tripwire is mostly called either virtual detect
 %----------------------------------------------------------------------------
 \section{Timeline image}
 %----------------------------------------------------------------------------
-A timeline image (TI) is a sequence of the the states of the tripwire on successive frames, denoted by
+A timeline image (TI) is a sequence of the the states of the tripwire on successive frames (figure \ref{fig:notations}.), denoted by
 \begin{displaymath}
 	\boldsymbol{TI}=\boldsymbol{TI}(t,k),
 \end{displaymath}
@@ -65,13 +73,6 @@ and the $\text{i}$th row corresponds to the $\text{i}$th tripwire pixel changes 
 \boldsymbol{TI}(t,k=\text{i})=\boldsymbol{T}(\text{i}),
 \end{displaymath}
 
-The creation of a TI is depicted in figure \ref{fig:TI_creation}.
-In the literature timeline images are called stack of lines or time-spatial images.
-
-\begin{figure}[bh]
-	\centering
-	\scalebox{.7}{\input{figures/TI_creation.pdf_tex}}
-	\label{fig:TI_creation}
-	\caption{The generation procedure of a timeline image. Each column corresponds to a tripwire state. The horizontal axis represents time.}
-\end{figure}
+The generation process of a TI is depicted in figure \ref{fig:TI_creation}.
+In the literature timeline images are mostly mentioned as stack of lines or time-spatial images.
 %----------------------------------------------------------------------------
