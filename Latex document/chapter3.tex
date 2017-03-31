@@ -1,9 +1,22 @@
 %----------------------------------------------------------------------------
 \chapter{The core software}\label{chap:Core software}
 %----------------------------------------------------------------------------
+This chapter presents the structure and processing procedure of the core software system of the Traffic Sensor, in particular with regard to the effective image processing algorithms and software development paradigms, that facilitate the real-time operation of the system.
+%----------------------------------------------------------------------------
 \section{Processing steps}
 %----------------------------------------------------------------------------
+The processing of the video-stream has four main stages, as depicted in figure \ref{fig:processing_steps}.
 
+The first step is preprocessing, that is the remapping of each frame to achieve a standard form for effective processing.
+Second, a background-subtraction and its post-correction are applied to detect the moving vehicles precisely.
+The third stage is data extraction, including vehicle detection, classification and parameter calculation.
+The final step is evaluation and testing. 
+This step is optional, and is only available when the system is tested and the operation is not continuous.
+
+In each phase a series of different timeline images are used for data storage.
+Timeline images can be either for 
+%----------------------------------------------------------------------------
+\subsection{The parameter evaluation process}
 %----------------------------------------------------------------------------
 \section{Software architecture}
 %----------------------------------------------------------------------------

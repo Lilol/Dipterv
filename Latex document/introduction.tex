@@ -138,7 +138,7 @@ It can be realized as a part of an intelligent transportation system owing to it
 
 Drawback to using a TSI-based method for detection purposes is that the analysis on the time-spatial imagery is one-dimensional, making it impossible to measure and extract data perpendicular to the detection line.
 Therefore most systems utilize a combination of frame-based and TSI-based features for classification purposes and for making the counting more accurate, as seen in \cite{Kryjak2014, Yang2013a}. 
-Although this approach slows down the processing moderately, it opens a wide range of other possible applications, including occlusion detection and traffic flow parameter evaluation.
+Although this approach moderately slows down the processing, it opens a wide range of other possible applications, including occlusion detection and traffic flow parameter evaluation.
 %----------------------------------------------------------------------------
 
 \section{The SOLSUN project}
@@ -173,7 +173,7 @@ The complete video processing takes place on the board, and the resulted data, i
 The communication is managed through the EnTalk\textsuperscript{TM} network, the hardware manufacturer's own data channel and remote street light management system\cite{EnTalk}.
 
 Since surveillance is performed from a street-lighting lamp, from the side of the road, the camera's focal axis is vertical.
-To record the complete width of the road from this position and angle, a panoramic camera is essential.
+To record the complete width of the road from this position and angle, a camera with wide field of view (e.g. a panoramic one) is essential.
 Moreover, the precise position of the camera is varying based on the particular setting where the sensor is placed, thus a robust application supporting slightly heterogeneous conditions and surroundings needs to be deployed. 
 An example of the view is depicted in figure \ref{fig:camera_position}.
 Additionally, the application needs to operate through extended periods of time with changing light, weather and traffic conditions, increasing the need for the robustness of the detection method.
@@ -192,7 +192,7 @@ Additionally, the application needs to operate through extended periods of time 
 		%\caption{A subfigure}
 		%\label{fig:sub2}
 	\end{subfigure}
-	\caption{Camera placement and a typical frame scene of the Traffic Sensor. The camera's optical axis is vertical. To monitor the entire with of the road a panoramic camera with a wide view angle was used for testing purposes.}
+	\caption{Camera placement and a typical frame scene of the Traffic Sensor. The camera's optical axis is vertical. To monitor the entire width of the road a panoramic camera with a wide view angle was used for testing purposes.}
 	\label{fig:camera_position}
 \end{figure}
 
@@ -211,8 +211,8 @@ Even though my own contributions are emphasized throughout the thesis, to fully 
 %----------------------------------------------------------------------------
 \section{Thesis goals and organization}
 %----------------------------------------------------------------------------
-In this work the operation and structure of the Solsun Traffic Sensor is detailed, in particular with regard to the core software architecture, the hardware environment, network organization and supplementary software elements.
-The thesis focuses on the results of the performance tests and software experiments, as well as further improvement propositions.
+In this thesis the operation and structure of the Solsun Traffic Sensor is detailed, in particular with regard to the core software architecture, the hardware environment, network organization and supplementary software elements.
+The work focuses on the results of the performance tests and software experiments, as well as further improvement propositions.
 
 This thesis is structured as follows.
 The \ref{chap:Concepts}.~chapter introduces some basic terms and concepts essential for understanding the operation of the Traffic Sensor. 
