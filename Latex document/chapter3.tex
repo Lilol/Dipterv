@@ -1,11 +1,27 @@
 %----------------------------------------------------------------------------
 \chapter{The core software}\label{chap:Core software}
 %----------------------------------------------------------------------------
-This chapter presents the structure and processing procedure of the core software system of the Traffic Sensor, in particular with regard to the effective image processing algorithms and software development paradigms, that facilitate the real-time operation of the system.
+This chapter presents the structure and operation procedure of the core software system of the Traffic Sensor, in particular with regard to the effective image processing algorithms and software development paradigms, that facilitate the real-time operation of the system.
+%----------------------------------------------------------------------------
+\section{Software architecture}
+%----------------------------------------------------------------------------
+The core of the Traffic Sensor is the software system responsible for the processing of the video stream itself.
+The framework i
+In this section the architectural parts of the framework, including the data storage, the processing objects and parallel processing are discussed.
+
+\subsection{Media storage}
+Timeline images can either be extracted from transformed versions of the original frame, or created from the latter calculated data.
+
+\subsubsection{Timeline images}
+\subsubsection{Frame-strips}
+
+\section{Plug-in architecture}
+\section{Parallel processing}
+%----------------------------------------------------------------------------
 %----------------------------------------------------------------------------
 \section{Processing steps}
 %----------------------------------------------------------------------------
-The processing of the video-stream has four main stages, as depicted in figure \ref{fig:processing_steps}.
+The processing of the video-stream consists of four main stages, as depicted in figure \ref{fig:processing_steps}.
 
 The first step is preprocessing, that is the remapping of each frame to achieve a standard form for effective processing.
 Second, a background-subtraction and its post-correction are applied to detect the moving vehicles precisely.
@@ -13,20 +29,36 @@ The third stage is data extraction, including vehicle detection, classification 
 The final step is evaluation and testing. 
 This step is optional, and is only available when the system is tested and the operation is not continuous.
 
-In each phase a series of different timeline images are used for data storage.
-Timeline images can be either for 
+In each processing stage a series of different timeline images and frame-strips are used.
 %----------------------------------------------------------------------------
-\subsection{The parameter evaluation process}
+\subsection{Preprocessing}
 %----------------------------------------------------------------------------
-\section{Software architecture}
-%----------------------------------------------------------------------------
-\subsection{Media storage}
-\subsubsection{Timeline images}
-\subsubsection{Framestrips}
+In the preprocessing stage a series of transforms are performed on each frame\ref{fig:transforms}.
+Remapping creates a standard frame-scheme regardless of the video file format, camera type, placement and environment.
+This regular form ??? has a pre-defined size, that is small enough to be processed in real-time, and is simple enough to be searched and measured on.
 
-\subsection{Plug-in architecture}
-\subsection{Parallel processing}
+The first stage is perspective compensation.
+At this point, the image, distorted by perspective transform, is remapped based on a calibration rectangle, so that lengths on the frame become independent from the distance of the camera.
+The later performed vehicle-size calculation and classification strongly relies on the assumption that vehicle-lengths are not subject to perspective distortion, and their lengths are irrelative to their position on the frame.
+The calibration rectangle is defined manually using the Project Configurator user interface (UI)\ref{subs:ProjectConfigurator}.
 
+The second stage is rotation of the frame, so that the tripwire becomes vertical.
+This form allows measurements in the dimension perpendicular to the tripwire to be performed by reading solely certain rows of the image.
+This method, considering the image-storage technique of the OpenCV library, where frames are stored as an array of rows in the memory, speeds up the computation significantly, and simplifies the search on the frame.
+
+At the third step of preprocessing a resizing is performed in order to decrease the number of pixels, the computation time and increase the speed of the processing.
+%----------------------------------------------------------------------------
+\subsection{Background-subtraction}
+%----------------------------------------------------------------------------
+The second stage of
+%----------------------------------------------------------------------------
+\subsection{Data extraction}
+%----------------------------------------------------------------------------
+
+%----------------------------------------------------------------------------
+\subsection{Evaluation}
+%----------------------------------------------------------------------------
+\subsubsection{The parameter evaluation process}
 %----------------------------------------------------------------------------
 
 
