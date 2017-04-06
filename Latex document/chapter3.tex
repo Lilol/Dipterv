@@ -2,20 +2,36 @@
 \chapter{The core software}\label{chap:Core software}
 %----------------------------------------------------------------------------
 This chapter presents the structure and operation procedure of the core software system of the Traffic Sensor, in particular with regard to the effective image processing algorithms and software development paradigms, that facilitate the real-time operation of the system.
+
+The core software is responsible for the processing of the video stream itself.
+Besides that other 
 %----------------------------------------------------------------------------
 \section{Software architecture}
 %----------------------------------------------------------------------------
-The core of the Traffic Sensor is the software system responsible for the processing of the video stream itself.
-The framework i
-In this section the architectural parts of the framework, including the data storage, the processing objects and parallel processing are discussed.
+In this section the architectural parts of the framework, including the data storage technique, the processing method and the parallel operation of the Traffic Sensor core software are discussed.
 
 \subsection{Media storage}
 Timeline images can either be extracted from transformed versions of the original frame, or created from the latter calculated data.
 
 \subsubsection{Timeline images}
-\subsubsection{Frame-strips}
+\begin{enumerate}
+	\item \textbf{Original Timeline}
+	\item \textbf{MOG2 Timeline} 
+	\item \textbf{Morphology Timeline}
+	\item \textbf{Motionless Timeline}
+	\item \textbf{Size, Speed, Following Distance Timeline: Parameter Timelines}
+\end{enumerate}
 
-\section{Plug-in architecture}
+\subsubsection{Frame-strips}
+\begin{enumerate}
+	\item \textbf{Raw Frame-strip}
+	\item \textbf{Original Frame-strip}
+	\item \textbf{MOG2 Frame-strip}
+\end{enumerate}
+
+\section{Plug-in architecture, Processors}
+Processors
+
 \section{Parallel processing}
 %----------------------------------------------------------------------------
 %----------------------------------------------------------------------------
@@ -23,38 +39,78 @@ Timeline images can either be extracted from transformed versions of the origina
 %----------------------------------------------------------------------------
 The processing of the video-stream consists of four main stages, as depicted in figure \ref{fig:processing_steps}.
 
+\begin{figure}[bh]
+	\centering
+	\scalebox{0.7}{	\LARGE\input{figures/full_system_flowchart.pdf_tex}}
+	\caption{Steps of the processing of the video stream in the core software of the Traffic Sensor.\label{fig:processing_steps}}
+\end{figure}
+
 The first step is preprocessing, that is the remapping of each frame to achieve a standard form for effective processing.
-Second, a background-subtraction and its post-correction are applied to detect the moving vehicles precisely.
+Second, a background-subtraction and its post-corrections are applied to detect the moving vehicles precisely.
 The third stage is data extraction, including vehicle detection, classification and parameter calculation.
 The final step is evaluation and testing. 
-This step is optional, and is only available when the system is tested and the operation is not continuous.
+This step is optional, and is only available when the system is tested during development and the operation is not continuous.
 
 In each processing stage a series of different timeline images and frame-strips are used.
 %----------------------------------------------------------------------------
 \subsection{Preprocessing}
 %----------------------------------------------------------------------------
-In the preprocessing stage a series of transforms are performed on each frame\ref{fig:transforms}.
+In the preprocessing stage a series of transforms are performed on each Raw Frame as seen on figure \ref{fig:transforms}.
 Remapping creates a standard frame-scheme regardless of the video file format, camera type, placement and environment.
-This regular form ??? has a pre-defined size, that is small enough to be processed in real-time, and is simple enough to be searched and measured on.
+This regular form has a pre-defined size, that is small enough to be processed in real-time, and is simple enough to be searched and measured on.
+As a result, an Original Frame is created, and a new column extracted from the Original Frame is added to the Original Timeline.
+
+\begin{figure}[!h]
+	\centering
+	\scalebox{0.5}{\input{figures/frame_transforms.pdf_tex}}
+	\caption{Preprocessing steps: the series of transformations performed on each frame before detection. The goal is to create an effective frame format for the following processing steps.\label{fig:transforms}}
+\end{figure}
 
 The first stage is perspective compensation.
 At this point, the image, distorted by perspective transform, is remapped based on a calibration rectangle, so that lengths on the frame become independent from the distance of the camera.
-The later performed vehicle-size calculation and classification strongly relies on the assumption that vehicle-lengths are not subject to perspective distortion, and their lengths are irrelative to their position on the frame.
+The later performed vehicle-size calculation and classification strongly relies on the assumption that vehicle-lengths are not subject to perspective distortion, and are irrelative to their position on the frame.
 The calibration rectangle is defined manually using the Project Configurator user interface (UI)\ref{subs:ProjectConfigurator}.
 
 The second stage is rotation of the frame, so that the tripwire becomes vertical.
 This form allows measurements in the dimension perpendicular to the tripwire to be performed by reading solely certain rows of the image.
-This method, considering the image-storage technique of the OpenCV library, where frames are stored as an array of rows in the memory, speeds up the computation significantly, and simplifies the search on the frame.
+This method, considering the image-storage technique of the OpenCV library, where frames are stored as an array of rows in the memory, speeds up the computation significantly, and simplifies searching on frames.
 
-At the third step of preprocessing a resizing is performed in order to decrease the number of pixels, the computation time and increase the speed of the processing.
+In the third level of preprocessing a resizing is performed in order to decrease the number of pixels and the computation time, and increase the speed of processing.
+The end-size of the frame can be specified through the configuration files, and is usually 320 by 240 pixels.
 %----------------------------------------------------------------------------
 \subsection{Background-subtraction}
 %----------------------------------------------------------------------------
-The second stage of
+The second phase of processing is background-subtraction, that is the separation of moving objects form the static background on each frame.
+This step creates the MOG2 Frame and Timeline as a result of background-subtraction.
+The correction of the subtraction method use the Motionless Timeline.
+
+This step is performed by a GMM-based method, Mixture of Gaussians 2 (MOG2), that is available in the OpenCV library.
+This method associates each pixel with a mixture of Gaussian intensity-distributions, and identifies each new data as background, if it is part of the constructed distribution-model, or as a moving object, if it falls out of its range.
+
+The drawback of this technique is its complexity, that comes with an increased computational cost and time.
+Throughout the processing, background subtraction has the highest computation time, causing it to be the most computationally expensive of all of the outlined processing steps.
+However, since the following steps rely on the accuracy of the result of the background-subtraction, the robustness and precision of the approach are essential.
+
+Another drawback of background-modelling is that temporarily stopped objects that have been motionless for a while are missed, as they are being included into the background model.
+The errors caused by this is corrected later on, by detecting immobile vehicles.
+
+Subtraction is performed on the whole frame, although some approaches model only the tripwire's pixels as background--foreground.
+That is, because features, such as size and velocity are calculated by measuring the foreground-object's lengths that are perpendicular to the tripwire on the MOG2 Frame.
+
+After the background-subtraction post-corrections are performed, in order to filter some errors on the MOG2 output.
+
+First, morphological opening followed by closing removes punctual noises, and smooths object contours.
+As a result, the Morphology Timeline is created.
+After, stopped vehicles are detected, using the Motionless Timeline.
+As sudden light changes can cause an overreaction of MOG2, to prevent this, the MOG2 Frames are filtered.
+If a the count of a frame's white pixels exceeds a limit, the frame is cleared, and switched to background, to avoid false detections.
+Although this process causes some vehicles to be missed, empirical analysis shows, that error rate is reasonably lower if the overreaction frames are filtered.
 %----------------------------------------------------------------------------
 \subsection{Data extraction}
 %----------------------------------------------------------------------------
-
+After the MOG2 Timeline and Frame are created, and pixels of moving objects are identified, data extraction is performed.
+First, vehicles are detected with connected component analysis on the MOG2 Timeline image.
+Since some vehicles can fuse on the timeline image, if they reach the tripwire together, the result of counting is
 %----------------------------------------------------------------------------
 \subsection{Evaluation}
 %----------------------------------------------------------------------------

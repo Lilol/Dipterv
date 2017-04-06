@@ -102,7 +102,7 @@ Many of these selection techniques restrict the calculation to an interested reg
 
 One of the most cost-effective, image-domain reducing techniques is based on virtual detection lines (VDLs) and time-spatial images (TSIs).
 A virtual detection line is a one-pixel wide straight line placed perpendicular or parallel to the vehicle trajectory, whilst a time-spatial image can be considered itself as an image, where the vertical dimension corresponds to the VDL in the original frame, and the horizontal one corresponds to time in the original sequence.
-A time-spatial image reflects the state of a fixed line changes with time, thus if a vehicle crosses or touches the VDL, it is shown on the TSI, becoming detectable\ref{fig:TSI}.
+A time-spatial image reflects the state of a fixed line changes with time, thus if a vehicle crosses or touches the VDL, it appears on the TSI, thus becomes detectable\ref{fig:TSI}.
 Such images can also be perceived as a sequence from a line-detector, the cross-section of the traffic flow that condenses essential information. 
 
 An approach similar to the aforementioned was first introduced in 2001 by Albiol et. al., and was proposed for counting people on video sequences using a "stack of lines" -- equivalent to a TSI\cite{Albiol2001}.
@@ -153,10 +153,10 @@ SOLSUN supports the objective of demonstrating how an intelligent city infrastru
 %----------------------------------------------------------------------------
 \subsection{Goals and constraints of the SOLSUN Traffic Sensor sub-project}
 The sub-project dedicated to the traffic sensor as part of the SOLSUN system, started in 2015 at the Department of Automation and Applied Informatics at BME\cite{SOLSUN_BME}.
-The goal of the sub-project is to device a conceptional prototype software system for traffic monitoring purposes, that is able to function real-time in an embedded environment.
+The goal of the sub-project is to device a conceptional prototype software system for traffic monitoring purposes, that is able to function in real-time in an embedded environment.
 The done product is stable enough to work for extended periods of time in the production environment for further testing and improvement.
 
-The primary task of the application is traffic flow estimation, that is done by counting the recorded vehicles with a 70\% error-rate at least.
+The primary task of the application is traffic flow estimation, that is performed by counting the recorded vehicles with a 70\% error-rate at least.
 Secondary aim is classification: the vehicles may be categorized into five types, namely car, bicycle, truck, pedestrian and other.
 The categorization is important, hence it contributes to emission-estimation when data is interpreted at the centre\cite{Csorba2016}.
 Other features, like speed and following distance estimation should be supported as well.
@@ -169,7 +169,7 @@ The target hardware is an UDOO Quad minicomputer using a small and effective Lin
 The board has an i.MX6 ARM\reg Cortex\reg-A9 Quad, \SI{1}{GHz} CPU.
 
 Traffic monitoring is done by a camera sensor, which connects to the board through a USB port.
-The complete video processing takes place on the board, and the resulted data, including the vehicle count and type, speed, and following distance, is transferred to the backend through a communications network in a compact file format.
+The complete video processing takes place on the board, and the resulted data, including vehicle count and type, speed, and following distance, is transferred to the backend through a communications network in a compact file format.
 The communication is managed through the EnTalk\textsuperscript{TM} network, the hardware manufacturer's own data channel and remote street light management system\cite{EnTalk}.
 
 Since surveillance is performed from a street-lighting lamp, from the side of the road, the camera's focal axis is vertical.

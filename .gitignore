@@ -18,3 +18,7 @@ Latex document/TDK_ref.bib
 *.pdf_tex
 *.pdf
 Latex document/figures/succ_frames/
+Latex document/figures/flowchart_ims/
+*.ind
+*.ilg
+*.idx
