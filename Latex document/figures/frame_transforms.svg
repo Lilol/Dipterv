@@ -206,13 +206,13 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.98994949"
-     inkscape:cx="653.13747"
+     inkscape:cx="806.97907"
      inkscape:cy="656.85258"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
      inkscape:window-width="1366"
-     inkscape:window-height="693"
+     inkscape:window-height="741"
      inkscape:window-x="-9"
      inkscape:window-y="-9"
      inkscape:window-maximized="1"
@@ -225,7 +225,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -280,7 +280,7 @@
          id="tspan4540"
          x="40.833145"
          y="95.511047"
-         style="stroke-width:0.26458332">$\fontsize{22pt}{1em}\text{raw frame}$</tspan></text>
+         style="stroke-width:0.26458332">raw frame</tspan></text>
     <image
        y="103.70374"
        x="1.8781977"
@@ -293,14 +293,14 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:3.88055563px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="234.58391"
+       x="240.40466"
        y="103.61478"
        id="text4542-6"><tspan
          sodipodi:role="line"
          id="tspan4540-5"
-         x="234.58391"
+         x="240.40466"
          y="103.61478"
-         style="stroke-width:0.26458332">$\fontsize{22pt}{1em}\text{original frame}$</tspan></text>
+         style="stroke-width:0.26458332">original frame</tspan></text>
     <path
        style="fill:none;stroke:#838596;stroke-width:2.64583333;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none;marker-end:url(#EmptyTriangleOutS);fill-opacity:1"
        d="m 75.124226,133.2485 c 6.871985,4.96348 16.332262,8.46186 24.609508,0.0754"
@@ -329,18 +329,18 @@
          id="tspan4579"
          x="58.217735"
          y="143.08504"
-         style="stroke-width:0.26458332">$\fontsize{22pt}{1em}\text{perspective compensation}$</tspan></text>
+         style="stroke-width:0.26458332">perspective compensation</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:3.88055563px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="136.9711"
+       x="142.79185"
        y="90.667931"
        id="text4585"><tspan
          sodipodi:role="line"
          id="tspan4583"
-         x="136.9711"
+         x="142.79185"
          y="90.667931"
-         style="stroke-width:0.26458332">$\fontsize{22pt}{1em}\text{tripwire rotation}$</tspan></text>
+         style="stroke-width:0.26458332">tripwire rotation</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:3.88055563px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
@@ -351,7 +351,7 @@
          id="tspan4579-6"
          x="216.31142"
          y="138.4753"
-         style="stroke-width:0.26458332">$\fontsize{22pt}{1em}\text{resizing}$</tspan></text>
+         style="stroke-width:0.26458332">resizing</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="M 28.933224,97.090294 20.980658,110.31224"

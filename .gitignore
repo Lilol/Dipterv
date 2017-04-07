@@ -22,3 +22,5 @@ Latex document/figures/flowchart_ims/
 *.ind
 *.ilg
 *.idx
+*.png
+Latex document/figures/TDK_saved/

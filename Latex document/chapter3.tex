@@ -17,7 +17,6 @@ Timeline images can either be extracted from transformed versions of the origina
 \begin{enumerate}
 	\item \textbf{Original Timeline}
 	\item \textbf{MOG2 Timeline} 
-	\item \textbf{Morphology Timeline}
 	\item \textbf{Motionless Timeline}
 	\item \textbf{Size, Speed, Following Distance Timeline: Parameter Timelines}
 \end{enumerate}
@@ -41,15 +40,17 @@ The processing of the video-stream consists of four main stages, as depicted in 
 
 \begin{figure}[bh]
 	\centering
-	\scalebox{0.7}{	\LARGE\input{figures/full_system_flowchart.pdf_tex}}
+	\includesvg[width=\textwidth]{full_system_flowchart}
+	%\scalebox{0.7}{	\LARGE\input{figures/full_system_flowchart.pdf_tex}}
 	\caption{Steps of the processing of the video stream in the core software of the Traffic Sensor.\label{fig:processing_steps}}
 \end{figure}
 
 The first step is preprocessing, that is the remapping of each frame to achieve a standard form for effective processing.
 Second, a background-subtraction and its post-corrections are applied to detect the moving vehicles precisely.
 The third stage is data extraction, including vehicle detection, classification and parameter calculation.
-The final step is evaluation and testing. 
-This step is optional, and is only available when the system is tested during development and the operation is not continuous.
+
+The final step is system evaluation and testing. 
+Since, this step is optional, and is only available when the system is tested during development, when the operation is not continuous, it is considered a supplementary software element, and is discussed in detail in chapter \ref{sec:SupplementarySoftware}.
 
 In each processing stage a series of different timeline images and frame-strips are used.
 %----------------------------------------------------------------------------
@@ -62,7 +63,8 @@ As a result, an Original Frame is created, and a new column extracted from the O
 
 \begin{figure}[!h]
 	\centering
-	\scalebox{0.5}{\input{figures/frame_transforms.pdf_tex}}
+	\includesvg[clean,width=\textwidth,pretex=\relsize{2}]{frame_transforms}
+	%\scalebox{0.5}{\input{figures/frame_transforms.pdf_tex}}
 	\caption{Preprocessing steps: the series of transformations performed on each frame before detection. The goal is to create an effective frame format for the following processing steps.\label{fig:transforms}}
 \end{figure}
 
@@ -85,10 +87,10 @@ This step creates the MOG2 Frame and Timeline as a result of background-subtract
 The correction of the subtraction method use the Motionless Timeline.
 
 This step is performed by a GMM-based method, Mixture of Gaussians 2 (MOG2), that is available in the OpenCV library.
-This method associates each pixel with a mixture of Gaussian intensity-distributions, and identifies each new data as background, if it is part of the constructed distribution-model, or as a moving object, if it falls out of its range.
+This method associates every pixel with a mixture of Gaussian intensity-distributions, and identifies each new data as background, if it is part of the constructed distribution-model, or as a moving object, if it falls out of the model's range.
 
-The drawback of this technique is its complexity, that comes with an increased computational cost and time.
-Throughout the processing, background subtraction has the highest computation time, causing it to be the most computationally expensive of all of the outlined processing steps.
+The drawback of this technique is its complexity, that results in an increased computational cost and time.
+Throughout the processing, background-subtraction is the most time-consuming of all of the outlined processing steps.
 However, since the following steps rely on the accuracy of the result of the background-subtraction, the robustness and precision of the approach are essential.
 
 Another drawback of background-modelling is that temporarily stopped objects that have been motionless for a while are missed, as they are being included into the background model.
@@ -97,26 +99,71 @@ The errors caused by this is corrected later on, by detecting immobile vehicles.
 Subtraction is performed on the whole frame, although some approaches model only the tripwire's pixels as background--foreground.
 That is, because features, such as size and velocity are calculated by measuring the foreground-object's lengths that are perpendicular to the tripwire on the MOG2 Frame.
 
-After the background-subtraction post-corrections are performed, in order to filter some errors on the MOG2 output.
+After the background-subtraction, post-corrections are performed, in order to filter errors of the MOG2 output.
 
-First, morphological opening followed by closing removes punctual noises, and smooths object contours.
-As a result, the Morphology Timeline is created.
-After, stopped vehicles are detected, using the Motionless Timeline.
+First, morphological opening followed by closing removes punctual noises, and smooths object contours on the MOG2 Frame.
+As a result, the MOG2 Timeline is created.
+After, stopped vehicles are detected, and saved to the Motionless Timeline.
 As sudden light changes can cause an overreaction of MOG2, to prevent this, the MOG2 Frames are filtered.
-If a the count of a frame's white pixels exceeds a limit, the frame is cleared, and switched to background, to avoid false detections.
+If the count of a frame's white pixels exceeds a limit, the frame is cleared, and switched to background, to avoid false detections.
 Although this process causes some vehicles to be missed, empirical analysis shows, that error rate is reasonably lower if the overreaction frames are filtered.
 %----------------------------------------------------------------------------
 \subsection{Data extraction}
 %----------------------------------------------------------------------------
 After the MOG2 Timeline and Frame are created, and pixels of moving objects are identified, data extraction is performed.
-First, vehicles are detected with connected component analysis on the MOG2 Timeline image.
-Since some vehicles can fuse on the timeline image, if they reach the tripwire together, the result of counting is
-%----------------------------------------------------------------------------
-\subsection{Evaluation}
-%----------------------------------------------------------------------------
-\subsubsection{The parameter evaluation process}
-%----------------------------------------------------------------------------
+First, blobs are selected with connected component analysis using the MOG2 Timeline image.
 
+Afterwards the detection results are revised and corrected.
+Since vehicles can fuse on the TI, if they cross the tripwire together, these merged objects are split based on their shapes, and saved as vehicles.
+
+Also, errors may occur because of stopping vehicles, since their blobs disappear and reappear on the MOG2 timeline, causing it to separate.
+The split blobs are identified and recombined using the Motionless Timeline. 
+
+\begin{figure}[!h]
+	\centering
+	\includesvg[clean,width=\textwidth,pretex=\relsize{2}]{speed_size_following_distance}
+	%\scalebox{0.5}{\input{figures/frame_transforms.pdf_tex}}
+	\caption{.\label{fig:size_speed_following_distance}}
+\end{figure}
+
+\subsubsection{Parameter evaluation}
+The next phase of data extraction is parameter calculation.
+At this point, the length, speed and following distance of the identified vehicles are estimated and stored in the form of a timeline image.
+This step is based on distance measurements carried out on the MOG2 Frames.
+
+\subsubsection{Classification}
+%----------------------------------------------------------------------------
+\begin{figure}[!h]
+	\centering
+	\begin{subfigure}[!h]{0.25\textwidth}
+	\includesvg[width=\textwidth]{cars}
+	\caption{Cars.}
+	\end{subfigure}
+	\quad
+	\begin{subfigure}[!h]{0.25\textwidth}
+	\includesvg[width=\textwidth]{trucks}
+	\caption{Trucks.}
+	\end{subfigure}
+	\quad
+	\begin{subfigure}[!h]{0.21\textwidth}
+	\includesvg[width=\textwidth]{bicicle}
+	\caption{Bicycles.}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[!h]{0.3\textwidth}
+	\includesvg[width=\textwidth]{ped}
+	\caption{Pedestrians.}
+	\end{subfigure}
+	\quad
+	\begin{subfigure}[!h]{0.5\textwidth}
+	\includesvg[width=\textwidth]{other}
+	\caption{Other.}
+	\end{subfigure}
+
+	%\scalebox{0.5}{\input{figures/frame_transforms.pdf_tex}}
+	\caption{Types.\label{fig:types}}
+\end{figure}
+%----------------------------------------------------------------------------
 
 
 
