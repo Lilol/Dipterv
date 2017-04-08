@@ -93,11 +93,10 @@ Hence one of the challenges of real-time traffic monitoring is to decrease the a
 The selection of relevant information often relies on a priori knowledge of the scene, including direction of traffic flow and assumed trajectory of bypassing vehicles.
 Many of these selection techniques restrict the calculation to an interested region in the traffic scene, e.g. virtual loops\cite{Tursun2013a, He2008} or detection regions\cite{Miller2015, Engel2016} placed in the way of vehicles.
 
-\begin{figure}[bh]
+\begin{figure}[!h]
 	\centering
-	\includegraphics[width=0.9\textwidth]{original_frame_timeline.png}
-	\label{fig:TSI}
-	\caption{Virtual detection line on a frame (left), and a time-spatial image created from the original frame sequence (right).}
+	\includesvg[width=0.9\textwidth]{original_frame_timeline.svg}
+	\caption{Virtual detection line on a frame (left), and a time-spatial image created from the original frame sequence (right).\label{fig:TSI}}
 \end{figure}
 
 One of the most cost-effective, image-domain reducing techniques is based on virtual detection lines (VDLs) and time-spatial images (TSIs).

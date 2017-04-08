@@ -57,27 +57,28 @@ In each processing stage a series of different timeline images and frame-strips 
 \subsection{Preprocessing}
 %----------------------------------------------------------------------------
 In the preprocessing stage a series of transforms are performed on each Raw Frame as seen on figure \ref{fig:transforms}.
-Remapping creates a standard frame-scheme regardless of the video file format, camera type, placement and environment.
+As a result of remapping, a standard frame-scheme is created, that is independent of the video file format, camera type, placement and the sensor's environment.
 This regular form has a pre-defined size, that is small enough to be processed in real-time, and is simple enough to be searched and measured on.
-As a result, an Original Frame is created, and a new column extracted from the Original Frame is added to the Original Timeline.
+The result of the remapping of the Raw Frame is an Original Frame.
+After s new column extracted from the Original Frame is added to the Original Timeline.
 
 \begin{figure}[!h]
 	\centering
 	\includesvg[clean,width=\textwidth,pretex=\relsize{2}]{frame_transforms}
 	%\scalebox{0.5}{\input{figures/frame_transforms.pdf_tex}}
-	\caption{Preprocessing steps: the series of transformations performed on each frame before detection. The goal is to create an effective frame format for the following processing steps.\label{fig:transforms}}
+	\caption{Preprocessing steps: the transformations performed on each frame before the background-subtraction and detection phase. The goal is to create an effective frame format for the following processing steps.\label{fig:transforms}}
 \end{figure}
 
 The first stage is perspective compensation.
 At this point, the image, distorted by perspective transform, is remapped based on a calibration rectangle, so that lengths on the frame become independent from the distance of the camera.
-The later performed vehicle-size calculation and classification strongly relies on the assumption that vehicle-lengths are not subject to perspective distortion, and are irrelative to their position on the frame.
-The calibration rectangle is defined manually using the Project Configurator user interface (UI)\ref{subs:ProjectConfigurator}.
+The following vehicle-size calculation and classification strongly relies on the assumption that vehicle-lengths are not subject to perspective distortion, and are irrelative to their position on the frame.
+The calibration rectangle is defined manually using the Project Configurator user interface (UI), that is detailed in chapter \ref{subs:ProjectConfigurator}.
 
 The second stage is rotation of the frame, so that the tripwire becomes vertical.
-This form allows measurements in the dimension perpendicular to the tripwire to be performed by reading solely certain rows of the image.
+As a result of the vertical tripwire, it is possible to measure in the dimension perpendicular to the tripwire simply by reading certain rows of the image.
 This method, considering the image-storage technique of the OpenCV library, where frames are stored as an array of rows in the memory, speeds up the computation significantly, and simplifies searching on frames.
 
-In the third level of preprocessing a resizing is performed in order to decrease the number of pixels and the computation time, and increase the speed of processing.
+In the third level of preprocessing a frames are resized in order to decrease the number of pixels and the computation time, and increase the speed of processing.
 The end-size of the frame can be specified through the configuration files, and is usually 320 by 240 pixels.
 %----------------------------------------------------------------------------
 \subsection{Background-subtraction}
@@ -86,7 +87,7 @@ The second phase of processing is background-subtraction, that is the separation
 This step creates the MOG2 Frame and Timeline as a result of background-subtraction.
 The correction of the subtraction method use the Motionless Timeline.
 
-This step is performed by a GMM-based method, Mixture of Gaussians 2 (MOG2), that is available in the OpenCV library.
+The background is labelled using a GMM-based method, Mixture of Gaussians 2 (MOG2), that is available in the OpenCV library.
 This method associates every pixel with a mixture of Gaussian intensity-distributions, and identifies each new data as background, if it is part of the constructed distribution-model, or as a moving object, if it falls out of the model's range.
 
 The drawback of this technique is its complexity, that results in an increased computational cost and time.
@@ -96,10 +97,9 @@ However, since the following steps rely on the accuracy of the result of the bac
 Another drawback of background-modelling is that temporarily stopped objects that have been motionless for a while are missed, as they are being included into the background model.
 The errors caused by this is corrected later on, by detecting immobile vehicles.
 
-Subtraction is performed on the whole frame, although some approaches model only the tripwire's pixels as background--foreground.
-That is, because features, such as size and velocity are calculated by measuring the foreground-object's lengths that are perpendicular to the tripwire on the MOG2 Frame.
-
-After the background-subtraction, post-corrections are performed, in order to filter errors of the MOG2 output.
+Although some approaches model only the tripwire's pixels as background--foreground, in our method background-subtraction takes place on the whole frame.
+That is, because features, such as size and velocity are calculated by measuring objects' lengths on the MOG2 Frame, as further detailed in section \ref{chap:parameter_evaluation}.
+After the background-subtraction, the result is corrected, in order to filter errors of the MOG2 output.
 
 First, morphological opening followed by closing removes punctual noises, and smooths object contours on the MOG2 Frame.
 As a result, the MOG2 Timeline is created.
@@ -110,14 +110,15 @@ Although this process causes some vehicles to be missed, empirical analysis show
 %----------------------------------------------------------------------------
 \subsection{Data extraction}
 %----------------------------------------------------------------------------
-After the MOG2 Timeline and Frame are created, and pixels of moving objects are identified, data extraction is performed.
-First, blobs are selected with connected component analysis using the MOG2 Timeline image.
+The required data is extracted after the MOG2 Timeline and Frame are created, and pixels of moving objects are identified.
+First, blobs are selected with connected component analysis on the MOG2 Timeline image.
 
 Afterwards the detection results are revised and corrected.
-Since vehicles can fuse on the TI, if they cross the tripwire together, these merged objects are split based on their shapes, and saved as vehicles.
+Some errors occur, because vehicles can fuse on the TI, if they cross the tripwire together. These merged objects are split based on their shapes, and saved as vehicles.
 
-Also, errors may occur because of stopping vehicles, since their blobs disappear and reappear on the MOG2 timeline, causing it to separate.
-The split blobs are identified and recombined using the Motionless Timeline. 
+Also, errors may occur because of stopping vehicles, since their blobs slowly disappear and reappear on the MOG2 timeline.
+Thus these vehicles have two separate blobs.
+The split blobs are identified and recombined using the data of the Motionless Timeline. 
 
 \begin{figure}[!h]
 	\centering
@@ -126,10 +127,35 @@ The split blobs are identified and recombined using the Motionless Timeline.
 	\caption{.\label{fig:size_speed_following_distance}}
 \end{figure}
 
-\subsubsection{Parameter evaluation}
+After the detection, parameters are evaluated and stored on timeline images.
+The following section discusses the estimation of these parameters.
+
+\subsubsection{Parameter evaluation}\label{chap:parameter_evaluation}
 The next phase of data extraction is parameter calculation.
 At this point, the length, speed and following distance of the identified vehicles are estimated and stored in the form of a timeline image.
-This step is based on distance measurements carried out on the MOG2 Frames.
+The length, speed and distance of the vehicles is measured on the MOG2 Frames, and projected back to the Parameter Timelines.
+
+At each point on the Size Timeline the intensity value is calculated as follows:
+
+\begin{displaymath}
+ 	\boldsymbol{S}(t,k) = 
+	\begin{cases}
+	l_{\text{perp}}        & \quad \text{if } \boldsymbol{F_{\text{MOG2},t}} \text{ at } \boldsymbol{T_t}(k) \text{ is occupied}\\
+  	0		& \quad \text{if } \boldsymbol{F_{\text{MOG2},t}} \text{ at } \boldsymbol{T_t}(k)  \text{ is empty}\\
+	\end{cases},
+\end{displaymath}
+
+where $l_{\text{perp}}$ means the perpendicular length of the object occupying the tripwire in pixels.
+
+The intensities of the Speed Timeline are calculated:
+
+\begin{displaymath}
+\boldsymbol{S}(t,k) = 
+\begin{cases}
+l_{\text{perp}}        & \quad \text{if } \boldsymbol{F_{\text{MOG2},t}} \text{ at } \boldsymbol{T_t}(k) \text{ is occupied}\\
+0		& \quad \text{if } \boldsymbol{F_{\text{MOG2},t}} \text{ at } \boldsymbol{T_t}(k)  \text{ is empty}\\
+\end{cases}
+\end{displaymath}
 
 \subsubsection{Classification}
 %----------------------------------------------------------------------------
