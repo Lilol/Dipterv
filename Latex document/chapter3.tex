@@ -1,10 +1,13 @@
 %----------------------------------------------------------------------------
 \chapter{The core software}\label{chap:Core software}
 %----------------------------------------------------------------------------
-This chapter presents the structure and operation procedure of the core software system of the Traffic Sensor, in particular with regard to the effective image processing algorithms and software development paradigms, that facilitate the real-time operation of the system.
+This chapter presents the structure and operation of the core software system of the Traffic Sensor, in particular with regard to the effective image processing algorithms and software development paradigms that facilitate the real-time operation of the system.
 
 The core software is responsible for the processing of the video stream itself.
-Besides that other 
+It identifies the vehicles, classifies them and estimates parameters, including speed and following distance.
+ 
+Besides that, the software supports other supplementary features, like the evaluation of the system's precision and correction of the calibration rectangle.
+Although these features are implemented architecturally in the same software unit, the supplementary elements are discussed in chapter \ref{sec:SupplementarySoftware}., since they do not strictly belong to the core of the Traffic Sensor.
 %----------------------------------------------------------------------------
 \section{Software architecture}
 %----------------------------------------------------------------------------
@@ -127,35 +130,57 @@ The split blobs are identified and recombined using the data of the Motionless T
 	\caption{.\label{fig:size_speed_following_distance}}
 \end{figure}
 
-After the detection, parameters are evaluated and stored on timeline images.
+After the vehicle detection, parameters are evaluated and stored on timeline images.
 The following section discusses the estimation of these parameters.
 
 \subsubsection{Parameter evaluation}\label{chap:parameter_evaluation}
 The next phase of data extraction is parameter calculation.
 At this point, the length, speed and following distance of the identified vehicles are estimated and stored in the form of a timeline image.
-The length, speed and distance of the vehicles is measured on the MOG2 Frames, and projected back to the Parameter Timelines.
+The length, speed and distance of the vehicles are measured on the MOG2 Frames, and projected back to the Parameter Timelines.
 
 At each point on the Size Timeline the intensity value is calculated as follows:
 
 \begin{displaymath}
- 	\boldsymbol{S}(t,k) = 
+ 	\boldsymbol{TI_{\text{Size}}}(t,k) = 
 	\begin{cases}
-	l_{\text{perp}}        & \quad \text{if } \boldsymbol{F_{\text{MOG2},t}} \text{ at } \boldsymbol{T_t}(k) \text{ is occupied}\\
-  	0		& \quad \text{if } \boldsymbol{F_{\text{MOG2},t}} \text{ at } \boldsymbol{T_t}(k)  \text{ is empty}\\
-	\end{cases},
+	l_{\text{L},t} + l_{\text{R},t}        & \quad \text{if } \boldsymbol{F_{\text{MOG2},t}} \text{ at the } k\text{th} \text{ point of the tripwire is occupied}\\
+  	0		& \quad \text{if } \boldsymbol{F_{\text{MOG2},t}} \text{ at the } k\text{th} \text{ point of the tripwire is empty,}\\
+	\end{cases}
 \end{displaymath}
 
-where $l_{\text{perp}}$ means the perpendicular length of the object occupying the tripwire in pixels.
+with $l_{\text{L},t}$, $l_{\text{R},t}$ being the perpendicular length of the left and right side of the object that occupies the tripwire.
+The lengths are measured in pixels.
 
-The intensities of the Speed Timeline are calculated:
+The intensities of the Speed Timeline are calculated with the lengths measured on 2 successive frames, as follows:
 
 \begin{displaymath}
-\boldsymbol{S}(t,k) = 
+\boldsymbol{TI_{\text{Speed}}}(t_0,k) = 
 \begin{cases}
-l_{\text{perp}}        & \quad \text{if } \boldsymbol{F_{\text{MOG2},t}} \text{ at } \boldsymbol{T_t}(k) \text{ is occupied}\\
-0		& \quad \text{if } \boldsymbol{F_{\text{MOG2},t}} \text{ at } \boldsymbol{T_t}(k)  \text{ is empty}\\
+\frac{\Delta r_{\text{L}} + \Delta r_{\text{R}}}{2}      & \quad \text{if } \boldsymbol{F_{\text{MOG2},t_0}} \text{ and } \boldsymbol{F_{\text{MOG2},t_1}} \text{ at the } k\text{th} \text{ point of the tripwire are occupied}\\
+0		& \quad \text{otherwise,}\\
 \end{cases}
 \end{displaymath}
+ 
+where $\Delta r_{\text{L}}$ and $\Delta r_{\text{R}}$ are the displacements of the left and right edge of the object, that occupies the tripwire.
+The displacements are calculated with the left and right sides' lengths:
+ 
+\begin{gather*}
+\Delta r_{\text{L}} = \left( l_{\text{L},t_0} - l_{\text{L},t_1} \right),  \\
+\Delta r_{\text{R}} = \left( l_{\text{R},t_1} - l_{\text{R},t_0}\right).
+\end{gather*}
+
+The intensity values of the Following Distance Timeline are calculated as follows:
+
+\begin{displaymath}
+\boldsymbol{TI_{\text{FD}}}(t,k) = 
+\begin{cases}
+d_{\text{L},t} + d_{\text{R},t} 		& \quad \text{if } \boldsymbol{F_{\text{MOG2},t}} \text{ at the } k\text{th} \text{ point of the tripwire is empty, and objects are deteted on each side of the} k \text{th point}\\
+0		& \quad \text{otherwise},
+\end{cases}
+\end{displaymath}
+
+with $d_{\text{L},t}$ and $d_{\text{R},t}$ being the left and right side distances of the nearest objects.
+The distances are estimated by counting the empty pixels on each side of the tripwire.
 
 \subsubsection{Classification}
 %----------------------------------------------------------------------------

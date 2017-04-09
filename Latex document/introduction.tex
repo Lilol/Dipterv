@@ -9,7 +9,7 @@ Formerly traffic estimation was performed by operators, by the means of on-the-s
 Automating these processes, the main concept of traffic analysis is to aid or fully avoid human operators.
 
 The information obtained by traffic monitoring systems are widely used to regulate traffic flow and contribute to administrative decisions about transportation infrastructure development, maintenance and investments \cite{MagyarKozut}.
-In addition to the detection and classification of road users, which is an elementary task, several other monitoring objectives can be supported. 
+In addition to the detection and classification of road users, that is an elementary task, several other monitoring objectives can be supported. 
 Typical traffic data such as flow, density, and average speed can be extracted.
 Some systems also recognize various situations including traffic violations or accidents (e.g., cars, motorbikes, and pedestrians).
 Other real-time applications notify users about congestions, roadworks and accidents, or control traffic lights in order to influence traffic flow intensity in one direction \cite{AzoSensor, Thiruverahan2015, Ghazal2016}.
@@ -39,7 +39,7 @@ Although most vision sensor networks use a digital backend system where the capt
 These embedded sensors are capable of on-board high-level video processing with limited resources for computation, memory and power \cite{Bramberger2004}.
 These platforms have the ability to reliably detect and track on-road vehicles in real time, since they utilize the new image-processing paradigms and advanced hardware: parallelization, multi-core processing and graphical processing units (GPUs)\cite{Sivaraman2013}.
 Although the embedded platforms can provide sufficient computing performance, efficiently developing and porting software for these platforms is still a difficult and tedious task\cite{Bramberger2004}.
-In this thesis an efficient traffic estimation method for embedded hardware is proposed, which can operate in real time for extended periods.
+In this thesis an efficient traffic estimation method for embedded hardware is proposed, that can operate in real time for extended periods.
 The implementation and realization details are discussed in the following chapters.
 
 \subsection{Some results in video-based traffic monitoring}
@@ -59,7 +59,7 @@ These detection methods are both applicable for moving and stationary objects or
 These extracted features along with others are widely used for vehicle classification.
 Most common distinctive attributes are heigh and length\cite{Huang2004}, linearity feature -- meaning the roughness of the vehicle contour\cite{Zhang2008} --, convex hull of the silhouette\cite{Buch2010} and distance between contour points\cite{Lou2005}.
 Well-known descriptors like SIFT\cite{Zhang2011}, SURF\cite{Lin2012}, HOG\cite{Niknejad2012} and a handful of others are also popular.
-Automatic license plate recognition, which is also extensively used, relies on these features\cite{Luvizon2016}. 
+Automatic license plate recognition, that is also extensively used, relies on these features\cite{Luvizon2016}. 
 
 Classifiers can be broadly split into two categories: the less popular discriminative classifiers, that learn the underlying distribution of a given class; and generative ones relying upon hard decision boundaries between classes\cite{Sivaraman2012}.
 Discriminative methods include artificial neural network classifiers\cite{Xia2006}, support vector machines\cite{Cornelis2008}, k-nearest neighbour (kNN) classifier\cite{Morris2006}, and AdaBoost\cite{Khammari2005}.
@@ -167,7 +167,7 @@ The hardware itself was chosen to be able to function with passive cooling due t
 The target hardware is an UDOO Quad minicomputer using a small and effective Linux-based UDOObuntu 2 operating system.
 The board has an i.MX6 ARM\reg Cortex\reg-A9 Quad, \SI{1}{GHz} CPU.
 
-Traffic monitoring is done by a camera sensor, which connects to the board through a USB port.
+Traffic monitoring is done by a camera sensor, that connects to the board through a USB port.
 The complete video processing takes place on the board, and the resulted data, including vehicle count and type, speed, and following distance, is transferred to the backend through a communications network in a compact file format.
 The communication is managed through the EnTalk\textsuperscript{TM} network, the hardware manufacturer's own data channel and remote street light management system\cite{EnTalk}.
 
@@ -195,7 +195,7 @@ Additionally, the application needs to operate through extended periods of time 
 	\label{fig:camera_position}
 \end{figure}
 
-The criteria detailed above, including the robustness of the application, the requirement of passive cooling -- which limits hardware performance --, alongside with the demand of real-time operation, generate strict specifications for the software itself.
+The criteria detailed above, including the robustness of the application, the requirement of passive cooling -- that limits hardware performance --, alongside with the demand of real-time operation, generate strict specifications for the software itself.
 Therefore whilst developing the system framework, our team's goal was to combine computationally effective, real-time video processing algorithms and software engineering paradigms in order to create an efficient product satisfying all of the above requirements.
 
 The application was implemented in C++ with QT framework.
