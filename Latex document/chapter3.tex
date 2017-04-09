@@ -13,30 +13,44 @@ Although these features are implemented architecturally in the same software uni
 %----------------------------------------------------------------------------
 In this section the architectural parts of the framework, including the data storage technique, the processing method and the parallel operation of the Traffic Sensor core software are discussed.
 
+\section{Plug-in architecture, Processors}
+Since the Traffic Sensor software ought to meet several requirements, like real-time operation in a resource-limited environment, it is necessary that the software exploits the given hardware as far as possible.
+Moreover, because the framework is a conceptional prototype, the possibility of further improvement of features -- especially the implementation of processing steps -- is important.
+
+To satisfy these specifications, a plug-in architecture was implemented.
+Each of the processing steps are executed by its own software component, called a Processor.
+The execution is controlled by a central unit, the Arbiter.
+The Processors have a unified interface, through which they communicate with the Arbiter.
+The Arbiter can control an arbitrary number of Processors, and thanks to their unified interface, each of them can be replaced, or deleted, also other steps can be integrated into the system if needed.
+
+\section{Parallel processing}
+Although each Processor can process a single Frame and Timeline Image column at once, to processth Processors operate simultaneously in a pipline-like manner.gle Frame and Timeline Image column at the same time.
+This solution exploits the hardware, since 10--15 columns and images can be processed at the same time, depending on the number of Processor units.
+
 \subsection{Media storage}
-Timeline images can either be extracted from transformed versions of the original frame, or created from the latter calculated data.
+The Processors reach the required data through the system's Media Store.
+The Media Store keep the data in the form of Timeline Images and Frame-strips.
+The Timeline images can either be extracted from the Frame-strips (Original Timeline or MOG2 Timeline) or created from the latter calculated data (Motionless Timeline, Parameter Timelines).
+Each of the Frame-strips store the successive frames of the video stream, either in its raw form, or transformed.
+
+Since the memory of the embedded hardware is limited, only a finite amount of data can be stored in the form of Frame-strips and Timeline Images.
+Thus 
+
+\subsubsection{Frame-strips}
+\begin{enumerate}
+	\item \textbf{Raw Frame-strip:} The
+	\item \textbf{Original Frame-strip}
+	\item \textbf{MOG2 Frame-strip}
+\end{enumerate}
 
 \subsubsection{Timeline images}
 \begin{enumerate}
-	\item \textbf{Original Timeline}
+	\item \textbf{Original Timeline:} The Original Timeline is extracted from the Original Frame-strip, by stacking the tripwire of the Original Frame.
 	\item \textbf{MOG2 Timeline} 
 	\item \textbf{Motionless Timeline}
 	\item \textbf{Size, Speed, Following Distance Timeline: Parameter Timelines}
 \end{enumerate}
 
-\subsubsection{Frame-strips}
-\begin{enumerate}
-	\item \textbf{Raw Frame-strip}
-	\item \textbf{Original Frame-strip}
-	\item \textbf{MOG2 Frame-strip}
-\end{enumerate}
-
-\section{Plug-in architecture, Processors}
-Processors
-
-\section{Parallel processing}
-%----------------------------------------------------------------------------
-%----------------------------------------------------------------------------
 \section{Processing steps}
 %----------------------------------------------------------------------------
 The processing of the video-stream consists of four main stages, as depicted in figure \ref{fig:processing_steps}.
@@ -61,9 +75,8 @@ In each processing stage a series of different timeline images and frame-strips 
 %----------------------------------------------------------------------------
 In the preprocessing stage a series of transforms are performed on each Raw Frame as seen on figure \ref{fig:transforms}.
 As a result of remapping, a standard frame-scheme is created, that is independent of the video file format, camera type, placement and the sensor's environment.
-This regular form has a pre-defined size, that is small enough to be processed in real-time, and is simple enough to be searched and measured on.
-The result of the remapping of the Raw Frame is an Original Frame.
-After s new column extracted from the Original Frame is added to the Original Timeline.
+This regular form has a pre-defined size, that is small enough to be processed in real-time, and is simple enough to be rapidly searched and measured on.
+The result of the remapping of the Raw Frame is an Original Frame, from which a column is extracted and added to the Original Timeline.
 
 \begin{figure}[!h]
 	\centering
@@ -156,7 +169,7 @@ The intensities of the Speed Timeline are calculated with the lengths measured o
 \begin{displaymath}
 \boldsymbol{TI_{\text{Speed}}}(t_0,k) = 
 \begin{cases}
-\frac{\Delta r_{\text{L}} + \Delta r_{\text{R}}}{2}      & \quad \text{if } \boldsymbol{F_{\text{MOG2},t_0}} \text{ and } \boldsymbol{F_{\text{MOG2},t_1}} \text{ at the } k\text{th} \text{ point of the tripwire are occupied}\\
+\frac{\Delta r_{\text{L}} + \Delta r_{\text{R}}}{2}      & \quad \text{if } \boldsymbol{F_{\text{MOG2},t_0}} \text{ and } \boldsymbol{F_{\text{MOG2},t_1}} \text{ at the } k\text{th} \text{ point of} \\ & \quad \text{the tripwire are occupied}\\
 0		& \quad \text{otherwise,}\\
 \end{cases}
 \end{displaymath}
@@ -174,7 +187,7 @@ The intensity values of the Following Distance Timeline are calculated as follow
 \begin{displaymath}
 \boldsymbol{TI_{\text{FD}}}(t,k) = 
 \begin{cases}
-d_{\text{L},t} + d_{\text{R},t} 		& \quad \text{if } \boldsymbol{F_{\text{MOG2},t}} \text{ at the } k\text{th} \text{ point of the tripwire is empty, and objects are deteted on each side of the} k \text{th point}\\
+d_{\text{L},t} + d_{\text{R},t} 		& \quad \text{if } \boldsymbol{F_{\text{MOG2},t}} \text{ at the } k\text{th} \text{ point of the tripwire is empty,} \\ & \quad \text{and objects are deteted on each side of the} k \text{th point}\\
 0		& \quad \text{otherwise},
 \end{cases}
 \end{displaymath}
