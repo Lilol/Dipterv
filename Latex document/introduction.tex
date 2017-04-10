@@ -6,7 +6,7 @@
 In recent years, there has been an increased scope for the automatic analysis of urban traffic activity\cite{Buch2011}.
 This case is due to the increasing number of vehicles, the need for better understanding traffic dynamics for investment purposes, and also the accessibility of various sensors.
 Formerly traffic estimation was performed by operators, by the means of on-the-spot observation or video analysis.
-Automating these processes, the main concept of traffic analysis is to aid or fully avoid human operators.
+The main concept of traffic analysis is to aid or fully avoid human operators by automating these processes.
 
 The information obtained by traffic monitoring systems are widely used to regulate traffic flow and contribute to administrative decisions about transportation infrastructure development, maintenance and investments \cite{MagyarKozut}.
 In addition to the detection and classification of road users, that is an elementary task, several other monitoring objectives can be supported. 
@@ -101,18 +101,25 @@ Many of these selection techniques restrict the calculation to an interested reg
 
 One of the most cost-effective, image-domain reducing techniques is based on virtual detection lines (VDLs) and time-spatial images (TSIs).
 A virtual detection line is a one-pixel wide straight line placed perpendicular or parallel to the vehicle trajectory, whilst a time-spatial image can be considered itself as an image, where the vertical dimension corresponds to the VDL in the original frame, and the horizontal one corresponds to time in the original sequence.
-A time-spatial image reflects the state of a fixed line changes with time, thus if a vehicle crosses or touches the VDL, it appears on the TSI, thus becomes detectable\ref{fig:TSI}.
-Such images can also be perceived as a sequence from a line-detector, the cross-section of the traffic flow that condenses essential information. 
+A time-spatial image reflects the state of a fixed line changes with time, thus if a vehicle crosses or touches the VDL, it appears on the TSI, thus becomes detectable, as seen on figure \ref{fig:TSI}.
+Such images can also be perceived as a sequence from a line-detector, or the cross-section of the traffic flow that condenses essential information. 
 
 An approach similar to the aforementioned was first introduced in 2001 by Albiol et. al., and was proposed for counting people on video sequences using a "stack of lines" -- equivalent to a TSI\cite{Albiol2001}.
+
 An approach with virtual line groups placed both perpendicular and parallel to the traffic flow direction was proposed later for counting\cite{Anan2006,Wu2007}.
+
 A background subtraction method based on frame differencing was used in \cite{Anan2006, Wu2007}, wherein background estimation and detection took place solely on the VDLs.
 This has the advantages of high operation speed and strong real-time ability, due to processing only a rather small portion of the image, however this method is unable to measure vehicle length and other distinctive features necessary for classification.
+
 In 2008 Li et. al. proposed a time-spatial imagery based algorithm to analyse congestions on urban roads.
 Li used perpendicular lines to detect and count vehicles in normal traffic flow, and parallel lines to identify a congestion scene\cite{Li2008}.
+
 Yue evaluated traffic-flow parameters under urban road environment with the same method\cite{Yue2009}.
+
 A similar technique was also introduced by Rashid et. al., wherein vehicles were detected and counted on a TSI, and feature-based classification was performed using attributes like width, area and rectangularity extracted from both the TSI and frames\cite{Rashid2010}.
+
 Mithun et. al. proposes a kNN classification scheme using shape-based, shape-invariant, and texture-based features of the segmented regions corresponding to the vehicles on the TSIs\cite{Mithun2012a}.
+
 Both Yue, Rashid and Mithn uses an appearance-based detection method, since TSIs are extracted from the original video sequence without background subtraction performed, and vehicles are identified using an edge detector.
 
 In 2013 Yang et. al. discussed a new approach for time-spatial imagery extraction\cite{Yang2013a}.
@@ -124,7 +131,7 @@ Vehicle length and region size was used to classify vehicles.
 Kryjak et. al.'s concept is based on detecting the presence of vehicles by analysing only the local neighbourhood of a VDL.
 Kryjak also implemented the method in real-time for an embedded hardware\cite{Kryjak2014}.
 
-In a recent study by Kamkar et. al. generate TSIs to measure vehicle length and classify them using a pre-trained random forest classifier\cite{Kamkar2016}. 
+In a recent study by Kamkar et. al. TSIs are generated to measure vehicle length. Vehicles are classified using a pre-trained random forest classifier\cite{Kamkar2016}. 
 Kamkar's approach analyses both the time-spatial domain, and corresponding regions on the original frames to extract classifying features.
 Note that in this study TSIs are used solely for classification purposes, the detection is performed on the original images.
 
@@ -156,7 +163,7 @@ The goal of the sub-project is to device a conceptional prototype software syste
 The done product is stable enough to work for extended periods of time in the production environment for further testing and improvement.
 
 The primary task of the application is traffic flow estimation, that is performed by counting the recorded vehicles with a 70\% error-rate at least.
-Secondary aim is classification: the vehicles may be categorized into five types, namely car, bicycle, truck, pedestrian and other.
+Secondary aim is classification: the vehicles may be categorized into five types, namely car, cyclist, truck, pedestrian and other.
 The categorization is important, hence it contributes to emission-estimation when data is interpreted at the centre\cite{Csorba2016}.
 Other features, like speed and following distance estimation should be supported as well.
 
@@ -213,7 +220,8 @@ Even though my own contributions are emphasized throughout the thesis, to fully 
 In this thesis the operation and structure of the Solsun Traffic Sensor is detailed, in particular with regard to the core software architecture, the hardware environment, network organization and supplementary software elements.
 The work focuses on the results of the performance tests and software experiments, as well as further improvement propositions.
 
-This thesis is structured as follows.
+The thesis is structured as follows.
+
 The \ref{chap:Concepts}.~chapter introduces some basic terms and concepts essential for understanding the operation of the Traffic Sensor. 
 The \ref{chap:Core software}.~chapter presents the structure of the core software side by side with the video processing steps.
 In chapter \ref{chap:Environment}.~the supplementary software and hardware elements linking the system together are detailed.

@@ -13,7 +13,13 @@ Although these features are implemented architecturally in the same software uni
 %----------------------------------------------------------------------------
 In this section the architectural structure of the framework, including the data storage technique, the processing method and the parallel operation of the system are discussed.
 
-\section{Plug-in architecture, Processors}
+\begin{figure}[!h]
+	\centering
+	\includesvg[width=0.8\textwidth,pretex=\Large]{arbiter_pipeline.pdf_tex}
+	\caption{The function and operation of the Arbiter, Processors and the Media Store. The Processors that implement a unified interface are controlled by the Arbiter. There are an arbitrary number of Processors in the system, each of them can be exchanged, deleted, and the sequence of processors can be expanded with new functions as well, thus realizing a plug-in architecture. Although each Processor can manage a single Frame or Timeline Image column at once, since they operate simultaneously on their threads, a large amount of data is processed at the same time. The data resources of the system are accessed through the Media Store protected by mutexes.\label{fig:arbiter_pipeline}}
+\end{figure}
+
+\subsection{Plug-in architecture, Processors}
 Since the Traffic Sensor software ought to meet several requirements, like real-time operation in a resource-limited environment, it is necessary that the software exploits the given hardware as far as possible.
 Moreover, because the framework is a conceptional prototype, the possibility of further improvement of features -- especially the implementation of additional processing steps -- is important.
 
@@ -23,8 +29,8 @@ The execution is controlled by a central unit, the Arbiter.
 The Processors have a unified interface, through which they communicate with the Arbiter.
 The Arbiter can control an arbitrary number of Processors, and thanks to their unified interface, each of them can be deleted or replaced with a different implementation, and if needed, further steps can be integrated into the system as well.
 
-\section{Parallel processing}
-To utilize the hardware and for the sake of real-time processing, Processors operate simultaneously in a pipeline-like manner as depicted on figure \ref{fig:architecture}.
+\subsection{Parallel processing}
+To utilize the hardware and for the sake of real-time processing, Processors operate simultaneously in a pipeline-like manner as depicted on figure \ref{fig:arbiter_pipeline}.
 For process synchronization are thread-pool is used, where every Processor owns a thread, and the Arbiter controls their work-flow.
 Thanks to this, although each unit can only process a single Frame and Timeline Image column at once, the system can manage 10--15 columns and images at the same time, depending on the number of Processors.
 
@@ -42,11 +48,11 @@ The specific Timeline Images and Frame-strips used by the Traffic Sensor are det
 \subsubsection{Frame-strips}
 Each of the Frame-strips store the successive frames of the video stream, either in its raw form, or transformed.
 \begin{enumerate}
-	\item \textbf{Raw Frame-strip:} The Raw Frame-strip is the sequence of images directly recorded by the camera.
+	\item \textbf{Raw Frame-strip:} The Raw Frame-strip is the sequence of images directly recorded by the camera. (Figure \ref{fig:raw_frame}.)
 	
-	\item \textbf{Original Frame-strip:} The Original Frames are transformed versions of the Raw Frames. The transformation creates a standard frame format that is independent of the Raw Frames' size or the specific traffic scene, and that supports effective processing. 
+	\item \textbf{Original Frame-strip:} The Original Frames are transformed versions of the Raw Frames. The transformation creates a standard frame format that is independent of the Raw Frames' size or the specific traffic scene, and that supports effective processing. (Figure \ref{fig:original_frame}.)
 	
-	\item \textbf{MOG2 Frame-strip:} The MOG2 Frame-strip is a sequence of the result images of the MOG2 background-subtraction algorithm, the MOG2 Frames. MOG2 Frames are one-channel, binary images, with foreground objects labelled with the value 255 (white), and background labelled with 0 (black). The Foreground objects of the MOG2 Frames are blobs.
+	\item \textbf{MOG2 Frame-strip:} The MOG2 Frame-strip is a sequence of the result images of the MOG2 background-subtraction algorithm, the MOG2 Frames. MOG2 Frames are one-channel, binary images, with foreground objects labelled with the value 255 (white), and background labelled with 0 (black). The Foreground objects of the MOG2 Frames are blobs. (Figure \ref{fig:mog2_frame}.)
 \end{enumerate}
 
 \subsubsection{Timeline images}
@@ -66,21 +72,21 @@ The Timeline images can either be extracted from the Frame-strips (Original Time
 
 \begin{figure}[!h]
 	\centering
-		\begin{subfigure}[!h]{0.5\textwidth}
+	\begin{subfigure}[!h]{0.5\textwidth}
 		\includegraphics[width=\textwidth]{raw_frame.png}
 		\caption{Raw Frame. \label{fig:raw_frame}}
 	\end{subfigure}
-	\hfill
-	\begin{subfigure}[!h]{0.5\textwidth}
+	\quad
+	\begin{subfigure}[!h]{0.35\textwidth}
 		\includegraphics[width=\textwidth]{original_frame.png}
 		\caption{Original Frame.\label{fig:original_frame}}
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}[!h]{0.5\textwidth}
+	\begin{subfigure}[!h]{0.35\textwidth}
 		\includegraphics[width=\textwidth]{mog2_frame.png}
-		\caption{MOG2 Frame. \label{fig:mog2_frame}
+		\caption{MOG2 Frame. \label{fig:mog2_frame}}
 	\end{subfigure}
-	\caption{A Frames representing each type of Frame-strips used by the Traffic Sensor system.\label{fig:timeline_types}}
+	\caption{A Frames representing each type of Frame-strips used by the Traffic Sensor system.\label{fig:frame_types}}
 \end{figure}
 
 \begin{figure}[!h]
@@ -92,7 +98,7 @@ The Timeline images can either be extracted from the Frame-strips (Original Time
 	\hfill
 	\begin{subfigure}[!h]{0.9\textwidth}
 		\includegraphics[width=\textwidth]{Mog2_tl.png}
-		\caption{MOG2 Timeline. \label{fig:mog2_timeline}}
+		\caption{MOG2 Timeline.\label{fig:mog2_timeline}}
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}[!h]{0.9\textwidth}
@@ -206,7 +212,7 @@ The split timeline-blobs are identified and recombined using the data of the Mot
 \begin{figure}[p]
 	\centering
 	\thisfloatpagestyle{plainlower}
-	\includesvg[clean,width=\textwidth,pretex=\relsize{2}]{speed_size_following_distance}
+	\includesvg[clean,width=\textwidth,pretex=\relsize{1.2}]{speed_size_following_distance}
 	%\scalebox{0.5}{\input{figures/frame_transforms.pdf_tex}}
 	\caption{.\label{fig:size_speed_following_distance}}
 \end{figure}
@@ -244,7 +250,6 @@ The intensities of the Speed Timeline are calculated with the lengths measured o
  
 where $\Delta r_{\text{L}}$ and $\Delta r_{\text{R}}$ are the displacements of the left and right edge of the object, that occupies the tripwire.
 The displacements are calculated with the left and right sides' lengths as follows:
- 
 \begin{gather*}
 \Delta r_{\text{L}} = \left( l_{\text{L},t_0} - l_{\text{L},t_1} \right),  \\
 \Delta r_{\text{R}} = \left( l_{\text{R},t_1} - l_{\text{R},t_0}\right).
@@ -255,7 +260,7 @@ The intensity values of the Following Distance Timeline are calculated as follow
 \begin{displaymath}
 \boldsymbol{TI_{\text{FD}}}(t,k) = 
 \begin{cases}
-d_{\text{L},t} + d_{\text{R},t} 		& \quad \text{if } \boldsymbol{F_{\text{MOG2},t}} \text{ at the } k\text{th} \text{ point of the tripwire is empty,} \\ & \quad \text{and objects are deteted on each side of the} k \text{th point}\\
+d_{\text{L},t} + d_{\text{R},t} 		& \quad \text{if } \boldsymbol{F_{\text{MOG2},t}} \text{ at the } k\text{th} \text{ point of the tripwire is empty,} \\ & \quad \text{and objects are deteted on each side of the } k \text{th point}\\
 0		& \quad \text{otherwise},
 \end{cases}
 \end{displaymath}
@@ -265,6 +270,46 @@ The distances are estimated by counting the empty pixels on each side of the tri
 
 \subsubsection{Classification}
 %----------------------------------------------------------------------------
+The classifier of the Traffic Sensor is a computationally cheap and not a resource-intensive algorithm, similar to the other methods outlined above.
+
+The vehicles are categorized based on one feature, their estimated length, that are calculated using the Size Timeline.
+Each vehicle's Timeline Blob is projected to the Size Timeline, and the values corresponding to the blob's region are averaged, as depicted on figure \ref{fig:classification}. 
+The length of the vehicle is calculated as follows:
+
+\begin{displaymath}
+	l_{vehicle} = l_{avg} = \frac{\sum\limits_{\substack{P \in \text{TB} \\ \boldsymbol{TI_{\text{Size}}}(P)\neq 0}} \boldsymbol{TI_{\text{Size}}}(P)}{n_{\text{points}}}
+\end{displaymath}
+
+The vehicles then categorized by hard decision classifier into five categories (figure \ref{fig:types}.) 
+The intervals of the categories were determined empirically and are noted in table \ref{tab:intervals}.
+
+\begin{figure}[!h]
+	\centering
+	\includesvg[width=\textwidth]{classification}
+	\caption{.\label{fig:classification}}
+\end{figure}
+
+\begin{table}[!h]
+	\centering
+	\caption{The categories of the classification.}
+	\label{tab:intervals}
+	\begin{tabular}{ll}
+		\textbf{Class} & \textbf{Length (m)} \\
+		Pedestrian     & $< 2$               \\
+		Cyclist        & $< 2.5$             \\
+		Car            & $< 5.5$             \\
+		Truck          & $< 7$               \\
+		Other          & $> 7$              
+	\end{tabular}
+\end{table}
+
+Length was chosen as the primary feature of the classification, because under the aforementioned conditions, including the camera position, it is the most robust and discriminative feature.
+Vehicle length is independent from the angle of the focal axis, and unlike width, it can be measured from the side of the road without being distorted.
+This feature is also less noise-sensitive than other simple features, like intensity and color, since it is not affected by light-changes during the day.
+
+The classification data is used for emission estimation after interpreted at the centre.
+Although cyclists and motorcycles belong to the same class based on their length, they influence the estimation moderately.
+
 \begin{figure}[!h]
 	\centering
 	\begin{subfigure}[!h]{0.25\textwidth}

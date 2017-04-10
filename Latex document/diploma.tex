@@ -3,7 +3,6 @@
 
 %\PassOptionsToPackage{chapternumber=Huordinal}{magyar.ldf}
 \usepackage{t1enc}
-%\usepackage[latin2]{inputenc}
 \usepackage[latin2]{inputenc}
 \usepackage[magyar, german, english]{babel}
 \usepackage{mathtools}
@@ -12,7 +11,7 @@
 \usepackage{enumerate}
 \usepackage[thmmarks]{ntheorem}
 \usepackage{graphics}
-\usepackage{graphicx}
+\usepackage{graphicx,floatpag,fancyhdr}
 \usepackage{epsfig}
 \usepackage{listings}
 \usepackage{color}
@@ -65,6 +64,18 @@
 \singlespacing
 \frenchspacing
 
+% This defines the fancy page style to be similar to plain
+\pagestyle{fancy}
+\fancyhf{}% Clear header/footer
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0pt}% Remove header rule
+
+% Page style plainlower is similar to plain, but lowers page number by 6 lines of text
+\fancypagestyle{plainlower}{
+	\fancyhf{}% Clear header/footer
+	\fancyfoot[C]{\raisebox{-6\baselineskip}{\thepage}}
+	\renewcommand{\headrulewidth}{0pt}% Remove header rule
+}
 %--------------------------------------------------------------------------------------
 %	Setup hyperref package
 %--------------------------------------------------------------------------------------
@@ -155,7 +166,7 @@ aboveskip=10pt}
 
 \renewcommand{\captionlabelfont}{\small\bf}
 \renewcommand{\captionfont}{\footnotesize\it}
-\graphicspath{{figures/}}
+\graphicspath{{figures/}{figures/for_timelines/}{figures/for_frames/}}
 
 %---------------
 % makeindex
