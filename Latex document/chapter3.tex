@@ -6,57 +6,124 @@ This chapter presents the structure and operation of the core software system of
 The core software is responsible for the processing of the video stream itself.
 It identifies the vehicles, classifies them and estimates parameters, including speed and following distance.
  
-Besides that, the software supports other supplementary features, like the evaluation of the system's precision and correction of the calibration rectangle.
+Besides that, the software supports other supplementary features, like the evaluation of the system's precision, and correction of the calibration rectangle.
 Although these features are implemented architecturally in the same software unit, the supplementary elements are discussed in chapter \ref{sec:SupplementarySoftware}., since they do not strictly belong to the core of the Traffic Sensor.
 %----------------------------------------------------------------------------
 \section{Software architecture}
 %----------------------------------------------------------------------------
-In this section the architectural parts of the framework, including the data storage technique, the processing method and the parallel operation of the Traffic Sensor core software are discussed.
+In this section the architectural structure of the framework, including the data storage technique, the processing method and the parallel operation of the system are discussed.
 
 \section{Plug-in architecture, Processors}
 Since the Traffic Sensor software ought to meet several requirements, like real-time operation in a resource-limited environment, it is necessary that the software exploits the given hardware as far as possible.
-Moreover, because the framework is a conceptional prototype, the possibility of further improvement of features -- especially the implementation of processing steps -- is important.
+Moreover, because the framework is a conceptional prototype, the possibility of further improvement of features -- especially the implementation of additional processing steps -- is important.
 
 To satisfy these specifications, a plug-in architecture was implemented.
 Each of the processing steps are executed by its own software component, called a Processor.
 The execution is controlled by a central unit, the Arbiter.
 The Processors have a unified interface, through which they communicate with the Arbiter.
-The Arbiter can control an arbitrary number of Processors, and thanks to their unified interface, each of them can be replaced, or deleted, also other steps can be integrated into the system if needed.
+The Arbiter can control an arbitrary number of Processors, and thanks to their unified interface, each of them can be deleted or replaced with a different implementation, and if needed, further steps can be integrated into the system as well.
 
 \section{Parallel processing}
-Although each Processor can process a single Frame and Timeline Image column at once, to processth Processors operate simultaneously in a pipline-like manner.gle Frame and Timeline Image column at the same time.
-This solution exploits the hardware, since 10--15 columns and images can be processed at the same time, depending on the number of Processor units.
+To utilize the hardware and for the sake of real-time processing, Processors operate simultaneously in a pipeline-like manner as depicted on figure \ref{fig:architecture}.
+For process synchronization are thread-pool is used, where every Processor owns a thread, and the Arbiter controls their work-flow.
+Thanks to this, although each unit can only process a single Frame and Timeline Image column at once, the system can manage 10--15 columns and images at the same time, depending on the number of Processors.
 
 \subsection{Media storage}
-The Processors reach the required data through the system's Media Store.
-The Media Store keep the data in the form of Timeline Images and Frame-strips.
-The Timeline images can either be extracted from the Frame-strips (Original Timeline or MOG2 Timeline) or created from the latter calculated data (Motionless Timeline, Parameter Timelines).
-Each of the Frame-strips store the successive frames of the video stream, either in its raw form, or transformed.
+The Processors reach the required Frames and columns through the Media Store unit.
+The Media Store contains the system's resources in the form of Timeline Images and Frame-strips.
+Since the memory of the embedded hardware is very limited, only a finite amount of data can be cached.
+To achieve this, after detection and data extraction are finished, the henceforward unused Timeline Images and Frame Strips are discarded.
+To attain a continuous operation with a constant memory usage, approximately 20--30 Frames in a Frame-strip and 500 columns in a Timeline Image are usually stored.
+For further changes and improvements, the maximum number of saved units can be specified through the system's configuration files (detailed in chapter \ref{subs:ProjectConfigurator}.).
+To prevent deadlocks, the resources are accessed through mutexes.
 
-Since the memory of the embedded hardware is limited, only a finite amount of data can be stored in the form of Frame-strips and Timeline Images.
-Thus 
+The specific Timeline Images and Frame-strips used by the Traffic Sensor are detailed as follows.
 
 \subsubsection{Frame-strips}
+Each of the Frame-strips store the successive frames of the video stream, either in its raw form, or transformed.
 \begin{enumerate}
-	\item \textbf{Raw Frame-strip:} The
-	\item \textbf{Original Frame-strip}
-	\item \textbf{MOG2 Frame-strip}
+	\item \textbf{Raw Frame-strip:} The Raw Frame-strip is the sequence of images directly recorded by the camera.
+	
+	\item \textbf{Original Frame-strip:} The Original Frames are transformed versions of the Raw Frames. The transformation creates a standard frame format that is independent of the Raw Frames' size or the specific traffic scene, and that supports effective processing. 
+	
+	\item \textbf{MOG2 Frame-strip:} The MOG2 Frame-strip is a sequence of the result images of the MOG2 background-subtraction algorithm, the MOG2 Frames. MOG2 Frames are one-channel, binary images, with foreground objects labelled with the value 255 (white), and background labelled with 0 (black). The Foreground objects of the MOG2 Frames are blobs.
 \end{enumerate}
 
 \subsubsection{Timeline images}
+The Timeline images can either be extracted from the Frame-strips (Original Timeline or MOG2 Timeline) or created from the latter calculated data (Motionless Timeline, Parameter Timelines).
+
 \begin{enumerate}
-	\item \textbf{Original Timeline:} The Original Timeline is extracted from the Original Frame-strip, by stacking the tripwire of the Original Frame.
-	\item \textbf{MOG2 Timeline} 
-	\item \textbf{Motionless Timeline}
-	\item \textbf{Size, Speed, Following Distance Timeline: Parameter Timelines}
+	\item \textbf{Original Timeline:} The Original Timeline is a three-channel, color image, extracted from the Original Frame-strip, by stacking the states of the tripwire of the Original Frame. (Figure \ref{fig:original_timeline}.)
+	
+	\item \textbf{MOG2 Timeline:} The MOG2 Timeline derives from the MOG2 Frame, thus it is a one-channel, binary image, where foreground objects are labelled with the value 255 (white), and background is labelled with 0 (black). The foreground objects of the MOG2 Timeline are called timeline-blobs later identified as vehicles. (Figure \ref{fig:mog2_timeline}.)
+	
+	\item \textbf{Motionless Timeline:} Motionless Timeline stores the data of stopped vehicle in the form of a one-channel image. (Figure \ref{fig:motionless_timeline}.)
+	
+	\item \textbf{Size, Speed, Following Distance Timeline: Parameter Timelines:}
+	The Parameter Timelines store the estimated data of the vehicles, including their speed, length and following distance. All of the above data are extracted using the MOG2 Frame-strip, by measuring the size, speed and distance of the objects that occupy or enclose the tripwire at a given time.
+	To limit memory usage, the data is stored in the form of one-channel matrices of signed (for speed that has a direction) or unsigned integers. For human understanding the data is transformed and represented as color and grayscale images. (Figures \ref{fig:size_timeline}--\ref{fig:fd_timeline}.)
 \end{enumerate}
+
+\begin{figure}[!h]
+	\centering
+		\begin{subfigure}[!h]{0.5\textwidth}
+		\includegraphics[width=\textwidth]{raw_frame.png}
+		\caption{Raw Frame. \label{fig:raw_frame}}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[!h]{0.5\textwidth}
+		\includegraphics[width=\textwidth]{original_frame.png}
+		\caption{Original Frame.\label{fig:original_frame}}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[!h]{0.5\textwidth}
+		\includegraphics[width=\textwidth]{mog2_frame.png}
+		\caption{MOG2 Frame. \label{fig:mog2_frame}
+	\end{subfigure}
+	\caption{A Frames representing each type of Frame-strips used by the Traffic Sensor system.\label{fig:timeline_types}}
+\end{figure}
+
+\begin{figure}[!h]
+	\centering
+	\begin{subfigure}[!h]{0.9\textwidth}
+		\includegraphics[width=\textwidth]{Original.png}
+		\caption{Original Timeline.\label{fig:original_timeline}}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[!h]{0.9\textwidth}
+		\includegraphics[width=\textwidth]{Mog2_tl.png}
+		\caption{MOG2 Timeline. \label{fig:mog2_timeline}}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[!h]{0.9\textwidth}
+		\includegraphics[width=\textwidth]{Motionless.png}
+		\caption{Motionless Timeline. \label{fig:motionless_timeline}}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[!h]{0.9\textwidth}
+		\includegraphics[width=\textwidth]{Size.png}
+		\caption{Size Timeline. \label{fig:size_timeline}}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[!h]{0.9\textwidth}
+		\includegraphics[width=\textwidth]{Speed.png}
+		\caption{Speed Timeline. \label{fig:speed_timeline}}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[!h]{0.9\textwidth}
+		\includegraphics[width=\textwidth]{Following_distance.png}
+		\caption{Following Distance Timeline. \label{fig:fd_timeline}}
+	\end{subfigure}
+	\caption{The representation of Timeline Image types used by the Traffic Sensor system for data storage.\label{fig:timeline_types}}
+\end{figure}
 
 \section{Processing steps}
 %----------------------------------------------------------------------------
 The processing of the video-stream consists of four main stages, as depicted in figure \ref{fig:processing_steps}.
 
-\begin{figure}[bh]
+\begin{figure}[p]
 	\centering
+	\thisfloatpagestyle{plainlower}
 	\includesvg[width=\textwidth]{full_system_flowchart}
 	%\scalebox{0.7}{	\LARGE\input{figures/full_system_flowchart.pdf_tex}}
 	\caption{Steps of the processing of the video stream in the core software of the Traffic Sensor.\label{fig:processing_steps}}
@@ -127,17 +194,18 @@ Although this process causes some vehicles to be missed, empirical analysis show
 \subsection{Data extraction}
 %----------------------------------------------------------------------------
 The required data is extracted after the MOG2 Timeline and Frame are created, and pixels of moving objects are identified.
-First, blobs are selected with connected component analysis on the MOG2 Timeline image.
+First, timeline-blobs are selected with connected component analysis on the MOG2 Timeline image.
 
 Afterwards the detection results are revised and corrected.
 Some errors occur, because vehicles can fuse on the TI, if they cross the tripwire together. These merged objects are split based on their shapes, and saved as vehicles.
 
 Also, errors may occur because of stopping vehicles, since their blobs slowly disappear and reappear on the MOG2 timeline.
 Thus these vehicles have two separate blobs.
-The split blobs are identified and recombined using the data of the Motionless Timeline. 
+The split timeline-blobs are identified and recombined using the data of the Motionless Timeline. 
 
-\begin{figure}[!h]
+\begin{figure}[p]
 	\centering
+	\thisfloatpagestyle{plainlower}
 	\includesvg[clean,width=\textwidth,pretex=\relsize{2}]{speed_size_following_distance}
 	%\scalebox{0.5}{\input{figures/frame_transforms.pdf_tex}}
 	\caption{.\label{fig:size_speed_following_distance}}
@@ -175,7 +243,7 @@ The intensities of the Speed Timeline are calculated with the lengths measured o
 \end{displaymath}
  
 where $\Delta r_{\text{L}}$ and $\Delta r_{\text{R}}$ are the displacements of the left and right edge of the object, that occupies the tripwire.
-The displacements are calculated with the left and right sides' lengths:
+The displacements are calculated with the left and right sides' lengths as follows:
  
 \begin{gather*}
 \Delta r_{\text{L}} = \left( l_{\text{L},t_0} - l_{\text{L},t_1} \right),  \\
