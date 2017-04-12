@@ -1,25 +1,76 @@
 %----------------------------------------------------------------------------
 \chapter{Hardware and software environment}\label{chap:Environment}
 %----------------------------------------------------------------------------
+The primary task of the SOLSUN Traffic Sensor is counting, that is performed by the core software.
+- hw and supplementary sw elements facilitate the operation of the sensor in the production environment
+- ssw is responsible for connecting the sw to the surrounding environment transfers the user input and output
+%----------------------------------------------------------------------------
 \section{Supplementary software elements}\label{sec:SupplementarySoftware}
+%---------------------------------------------------------------------------
+- user input: settings
+- facilitate functioning under heterogeneous circumstances
+- and the testing
+- evaluation and diagnostics
+- provide data to the user, generates user output: 
+- visualizes the data stored in the system in the form of timeline images, fram-strips and other container objects 
+- results of system diagnostics, 
+- the the result of counting and classification in different representations
+- for human understanding
+- these element help to test and evaluate the core software
+- and connect to the EnTalk Network
+%----------------------------------------------------------------------------
+\subsection{Configuration process}\label{subs:ProjectConfigurator}
+%----------------------------------------------------------------------------
+- various algorithm parameters
+- possibility of switch proessing steps
+
+\subsubsection{Calibration process}
+%----------------------------------------------------------------------------
+Manually thorugh the project Configurator
+- tripwire
+- calibration rectangle
+- optional road lanes
+- the beginning and ending frame index of the video to be processed
+%----------------------------------------------------------------------------
+\subsection{Evaluation}
 %----------------------------------------------------------------------------
 
-\subsection{Configuration process}\label{subs:ProjectConfigurator}
-
-\subsection{Calibration process}
-\subsubsection{Calibration correction}
-
-\subsection{Evaluation}
 \subsubsection{Ground truth}
 
-\subsection{Display, views}
+
+%----------------------------------------------------------------------------
+\subsection{Data representation}
+%----------------------------------------------------------------------------
+\subsubsection{Timeline Images}
+
+\subsubsection{Videos}
+%----------------------------------------------------------------------------
+\subsection{Operation modes of the Traffic Sensor}
+%----------------------------------------------------------------------------
+\subsubsection{Single-run or test mode} 
+- from video file or camera stream with a specified amount of frames 
+- at the end of the operation, evaluation is possible, 
+- entire timeline images can be saved, 
+- demo video creation is possible and the recording of the raw video stream is possible
+
+\begin{figure}[!h]
+	\centering
+	\includesvg[width=\textwidth]{process_run_types}
+	\caption{. \label{fig:run_types}}
+\end{figure}
+
+\subsubsection{Continuous run}
+- operation with a video stream from a camera (works with files as well for testing purposes)
+- timeline images can be saved only in pieces
+- evaluation and other features that is not possible, because there is no definite end to the process
 %----------------------------------------------------------------------------
 \section{Hardware environment}
 %----------------------------------------------------------------------------
 
 \subsection{The board}
+
 \subsection{Network architecture}
-\subsection{Real-life operation of the Traffic Sensor}
+
 
 %----------------------------------------------------------------------------
 

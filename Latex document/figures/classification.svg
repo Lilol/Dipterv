@@ -257,14 +257,14 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.7"
-     inkscape:cx="472.49591"
-     inkscape:cy="306.81566"
+     inkscape:cx="211.10439"
+     inkscape:cy="387.56307"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
      inkscape:window-width="1366"
-     inkscape:window-height="693"
-     inkscape:window-x="1357"
+     inkscape:window-height="741"
+     inkscape:window-x="-9"
      inkscape:window-y="-9"
      inkscape:window-maximized="1"
      fit-margin-top="0"
@@ -452,12 +452,12 @@
          id="tspan8332"
          x="133.7684"
          y="202.38657"
-         style="stroke-width:0.26458332">{\LARGE $l_{\text{avg}}$}</tspan></text>
+         style="stroke-width:0.26458332">{\LARGE $l_{\text{vehicle}}$}</tspan></text>
     <rect
        style="opacity:1;fill:none;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.5291667;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="rect8336"
-       width="16.738407"
-       height="16.53598"
+       width="25.52635"
+       height="16.252499"
        x="132.19591"
        y="191.6929" />
     <g
@@ -564,25 +564,28 @@
     </g>
     <path
        style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker10138)"
-       d="m 148.93431,208.22888 -17.3986,40.76814"
+       d="m 157.72226,207.9454 -26.18655,41.05162"
        id="path10114"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc" />
     <path
        style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow2Lend)"
-       d="m 148.93431,208.22888 21.91093,43.41397"
+       d="m 157.72226,207.9454 13.12298,43.69745"
        id="path10116"
-       inkscape:connector-curvature="0" />
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc" />
     <path
        style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:url(#Arrow2Lstart);marker-end:url(#marker10332)"
-       d="m 202.43151,240.72101 -53.4972,-32.49213 71.38966,-9.1e-4"
+       d="m 211.21946,240.43753 -53.4972,-32.49213 62.60171,0.28257"
        id="path10118"
-       inkscape:connector-curvature="0" />
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccc" />
     <path
        style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker10226)"
-       d="M 148.93431,208.22888 199.9494,183.22916"
+       d="M 157.72226,207.9454 199.9494,183.22916"
        id="path10120"
-       inkscape:connector-curvature="0" />
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc" />
     <path
        style="fill:#f20000;fill-opacity:1;stroke:none;stroke-width:0.10150849px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 128.59107,198.31091 v 4.64039 l 3.98714,-2.30197 z"
@@ -593,27 +596,27 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:4.93888855px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="-30.111292"
-       y="264.19766"
+       x="-30.894623"
+       y="267.66"
        id="text10508"
        transform="rotate(-39.313584)"
        inkscape:transform-center-y="5.6696429"><tspan
          sodipodi:role="line"
          id="tspan10506"
-         x="-30.111292"
-         y="264.19766"
+         x="-30.894623"
+         y="267.66"
          style="fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:0.26458332;stroke-opacity:1">{\LARGE \color{red} decision}</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:4.93888855px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="-154.75201"
-       y="229.42966"
+       x="-153.76935"
+       y="231.30441"
        id="text11732"
        transform="rotate(-62.33817)"><tspan
          sodipodi:role="line"
          id="tspan11730"
-         x="-154.75201"
-         y="229.42966"
+         x="-153.76935"
+         y="231.30441"
          style="stroke-width:0.26458332">$&lt;2$</tspan></text>
     <text
        xml:space="preserve"
@@ -629,28 +632,28 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:4.93888855px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="276.18732"
-       y="-16.454115"
+       x="266.73257"
+       y="-79.222839"
        id="text11740"
-       transform="rotate(58.270476)"><tspan
+       transform="rotate(70.546459)"><tspan
          sodipodi:role="line"
          id="tspan11738"
-         x="276.18732"
-         y="-16.454115"
+         x="266.73257"
+         y="-79.222839"
          style="stroke-width:0.26458332">$&lt;5.5$</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:4.93888855px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="274.32962"
-       y="63.113239"
+       x="267.08279"
+       y="90.069305"
        id="text11744"
-       transform="rotate(38.682721)"
-       inkscape:transform-center-x="-5.35382"
-       inkscape:transform-center-y="-2.7221819"><tspan
+       transform="rotate(32.264425)"
+       inkscape:transform-center-x="-5.0159649"
+       inkscape:transform-center-y="-3.3036008"><tspan
          sodipodi:role="line"
          id="tspan11742"
-         x="274.32962"
-         y="63.113239"
+         x="267.08279"
+         y="90.069305"
          style="stroke-width:0.26458332">$&lt;7$</tspan></text>
     <text
        xml:space="preserve"
