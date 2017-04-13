@@ -46,13 +46,21 @@ Software upgrades are sent to the sensor, and the results of counting and other 
 %----------------------------------------------------------------------------
 \subsection{System diagnostics}
 %----------------------------------------------------------------------------
+The system diagnostics features are responsible for evaluating the precision of the operation and converting information stored in the system into an easily interpretable form.
+
 \subsubsection{Evaluation}
-	\subsubsection{Ground truth}
+The evaluating is responsible fo calculating the precision of the system.
+For measuring the accuracy of the operation, the system was tested on a series of various test videos.
 
-
+\textbf{Ground truth}
+The the correct results of counting are stored in a data set, called the ground truth.
+The ground truth is created manually based on an Original Timeline Image of the studied video stream.
 %----------------------------------------------------------------------------
 \subsubsection{Data representation}
 %----------------------------------------------------------------------------
+- converting the raw information stored in the system into a form  human interpretation
+- meaning the visual
+
 \textbf{Timeline Images}
 
 \textbf{Videos}
@@ -80,14 +88,11 @@ Although most output files are generated at the end of the operation, the report
 Continuous run is for operation it the production environment.
 In the continuous run mode, events are periodic. 
 During each period, detection takes place, and the columns of the Timeline Images are collected for saving.
-At the end of each iteration, the collected Timeline Image parts are exported, and result of detection and classification is sent as a report.
-The Sensor reads each frame with a video stream from a camera (works with files as well for testing purposes)
-- timeline images can be saved only in pieces
-- evaluation and other features that is not possible, because there is no definite end to the process
+At the end of each iteration, the collected Timeline Image piece are exported, and result of detection and classification is sent as a report.
+In this mode evaluation and correction features are not accessible.
 %----------------------------------------------------------------------------
 \section{Hardware environment}
 %----------------------------------------------------------------------------
-
 \subsection{The board}
 
 \subsection{Network architecture}
