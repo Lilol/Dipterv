@@ -1057,15 +1057,15 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.979899"
-     inkscape:cx="13.268011"
-     inkscape:cy="496.51188"
+     inkscape:zoom="0.9899495"
+     inkscape:cx="-24.544645"
+     inkscape:cy="32.919208"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
      inkscape:window-width="1366"
      inkscape:window-height="693"
-     inkscape:window-x="1357"
+     inkscape:window-x="1671"
      inkscape:window-y="-9"
      inkscape:window-maximized="1"
      showguides="false" />
@@ -1717,36 +1717,36 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:17.5px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.9375"
-       x="34.092648"
-       y="245.56"
+       x="28.45318"
+       y="251.185"
        id="text5144"><tspan
          sodipodi:role="line"
          id="tspan5142"
-         x="34.092648"
-         y="245.56"
+         x="28.45318"
+         y="251.185"
          style="stroke-width:0.9375">MOG2 Frame</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:17.50000191px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.9375"
-       x="30.189341"
-       y="1017.0551"
+       x="31.37475"
+       y="1022.6801"
        id="text5144-3"><tspan
          sodipodi:role="line"
          id="tspan5142-2"
-         x="30.189341"
-         y="1017.0551"
+         x="31.37475"
+         y="1022.6801"
          style="stroke-width:0.9375">MOG2 Frame</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:17.50000191px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.9375"
-       x="40.568489"
-       y="587.14697"
+       x="40.852795"
+       y="598.39697"
        id="text5144-8"><tspan
          sodipodi:role="line"
          id="tspan5142-6"
-         x="40.568489"
-         y="587.14697"
-         style="stroke-width:0.9375;font-size:17.4999998px">2 successive</tspan></text>
+         x="40.852795"
+         y="598.39697"
+         style="font-size:17.5px;stroke-width:0.9375">2 successive</tspan></text>
     <path
        style="opacity:1;fill:none;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.70135826;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="path5174"
@@ -1788,13 +1788,13 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:17.5px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.9375"
-       x="31.706066"
-       y="608.21075"
+       x="33.581066"
+       y="619.46075"
        id="text5161"><tspan
          sodipodi:role="line"
          id="tspan5159"
-         x="31.706066"
-         y="608.21075"
-         style="stroke-width:0.9375;font-size:17.4999998px">MOG2 Frames</tspan></text>
+         x="33.581066"
+         y="619.46075"
+         style="font-size:17.5px;stroke-width:0.9375">MOG2 Frames</tspan></text>
   </g>
 </svg>

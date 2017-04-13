@@ -55,7 +55,7 @@ Each of the Frame-strips store the successive frames of the video stream, either
 	\item \textbf{MOG2 Frame-strip:} The MOG2 Frame-strip is a sequence of the result images of the MOG2 background-subtraction algorithm, the MOG2 Frames. MOG2 Frames are one-channel, binary images, with foreground objects labelled with the value 255 (white), and background labelled with 0 (black). The Foreground objects of the MOG2 Frames are blobs. (Figure \ref{fig:mog2_frame}.)
 \end{enumerate}
 
-\subsubsection{Timeline images}
+\subsubsection{Timeline Images}
 The Timeline images can either be extracted from the Frame-strips (Original Timeline or MOG2 Timeline) or created from the latter calculated data (Motionless Timeline, Parameter Timelines).
 
 \begin{enumerate}
@@ -297,15 +297,13 @@ To estimate their length $l_{vehicle}$, each vehicle's Timeline Blob ($TB$) is p
 The length-feature is calculated using the following equation:
 
 \begin{displaymath}
-	l_{vehicle} = \frac{\sum\limits_{\substack{(x,y) \in \text{TB} \\ \boldsymbol{TI_{\text{Size}}}(x,y)\neq 0}} \boldsymbol{TI_{\text{Size}}}(x,y)}{n_{\text{NZpoints}}},
+	l_{vehicle} = \frac{\mathlarger{\mathlarger{\sum}}\limits_{\substack{(x,y) \in \text{TB} \\ \boldsymbol{TI_{\text{Size}}}(x,y)\neq 0}} \boldsymbol{TI_{\text{Size}}}(x,y)}{n_{\text{NZpoints}}},
 \end{displaymath}
 
 with $n_{\text{NZpoints}}$ being the number of non-zero points on the Size Timeline.
 
 \begin{table}[!h]
 	\centering
-	\caption{The five categories of the classification and their length-intervals.}
-	\label{tab:intervals}
 	\begin{tabular}{ll}
 		\textbf{Class} & \textbf{Length (m)} \\
 		Pedestrian     & $< 2$               \\
@@ -314,6 +312,8 @@ with $n_{\text{NZpoints}}$ being the number of non-zero points on the Size Timel
 		Truck          & $< 7$               \\
 		Other          & $> 7$              
 	\end{tabular}
+\caption{The five categories of the classification and their length-intervals.}
+\label{tab:intervals}
 \end{table}
 
 The vehicles then categorized by a hard-decision classifier into five categories (figure \ref{fig:types}.) 
@@ -321,8 +321,10 @@ The types were configured for common urban traffic scenes, thus they represent t
 Since the classification data is used for emission estimation of greenhouse gases as well, the vehicle categories consist of vehicles with similar greenhouse emission profiles.
 Although the class of cyclists and motorcycles is not homogeneous concerning their emission, this anomaly influences the estimation very moderately.
 The "other" class represents vehicles with significant emission, including buses and lorries. 
+
 The intervals of the categories were determined empirically and are noted in table \ref{tab:intervals}.
-The sizes on the Size Timeline are converted to metrics with a scaling-factor that is specified in the configuration files, and depends on the specific traffic scene and frame setting.
+
+The sizes on the Size Timeline are converted to metrics with a scaling-factor that is specified in the configuration files, and depends on the particular traffic scene and frame setting.
 
 \begin{figure}[!t]
 	\centering
