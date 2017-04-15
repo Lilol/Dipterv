@@ -55,23 +55,10 @@ The videos were recorded in various weather, light and traffic conditions to ens
 To be able to quantify the performance of the counting, the correct detection and classification values were gathered into a reference data set, called the ground truth, and were compared to the results of the counting.
 The data set is created manually for each test video, based on the Original Timeline Image of the corresponding video stream.
 
-A ground truth file can be considered itself as an image, with points that match the vehicles of the Original Timeline.
-Every point is marked with a coloured dot, with the colour indicating the type of the vehicle.
-At the end of the process, the detection results are compared to the GT's  points, and precision is evaluated based on the error rates.
-
-For quantitative evaluation the typical binary classification measures were used:
-\begin{enumerate}
-\item \textbf{TP -- true positive:} correctly detected vehicles, where a vehicle on the MOG2 Timeline matches a point on the GT image.
-\item \textbf{FP -- false positive:} a vehicle was detected, but no matching point on the GT image.
-\item \textbf{FN -- false negative:} no vehicle was detected, but a point is present on the GT. 
-\item \textbf{TN -- true negative:} true negative cases are undefined.
-\item  \textbf{ME -- misclassification error:} the point on the GT marks a different vehicle class than which the detected vehicle is supposedly in.
-\end{enumerate}
-
 \begin{figure}[!h]
 	\centering
-		\begin{subfigure}[!h]{0.9\textwidth}
-		\includegraphics[width=\textwidth]{original.png}
+	\begin{subfigure}[!h]{0.9\textwidth}
+		\includegraphics[width=\textwidth]{original_GT.png}
 		\caption{Original timeline, with the vehicles marked with type-dependent colours.\label{fig:GT_original}}
 	\end{subfigure}
 	\hfill
@@ -91,6 +78,36 @@ For quantitative evaluation the typical binary classification measures were used
 	\end{subfigure}
 	\caption{The creation process of the reference data set, the ground truth.\label{fig:GT}}
 \end{figure}
+
+A ground truth file can be considered itself as an image, with points that match the vehicles of the Original Timeline.
+Every point is marked with a coloured dot, with the colour indicating the type of the vehicle.
+At the end of the process, the detection results are compared to the GT's  points, and precision is evaluated based on the error rates.
+
+\begin{figure}[!h]
+	\centering
+	\includesvg[width=0.35\textwidth]{error_cases}
+	\caption{ \label{fig:error_cases}}
+\end{figure}
+
+For evaluation the typical binary classification cases were used (as shown on figure \ref{error_cases}.):
+\begin{enumerate}
+\item \textbf{TP -- true positive:} correctly detected vehicles, where a vehicle on the MOG2 Timeline matches a point on the GT image.
+\item \textbf{FP -- false positive:} a vehicle was detected, but no matching point on the GT image.
+\item \textbf{FN -- false negative:} no vehicle was detected, but a point is present on the GT. 
+\item \textbf{TN -- true negative:} true negative cases are undefined.
+\item  \textbf{ME -- misclassification error:} the point on the GT marks a different vehicle class than which the detected vehicle is supposedly in.
+\end{enumerate}
+
+To quantitatively estimate the performance of the system, the following measures were used:
+\begin{gather}
+	\text{Precision:}
+	\text{Accuracy: }
+	\text{False positive rate: }
+	\text{False negative rate: }
+	\text{Misclassification rate: }
+\end{gather}
+
+with $NAC$ being the number of all cases.
 %----------------------------------------------------------------------------
 \subsubsection{Data representation}
 %----------------------------------------------------------------------------
