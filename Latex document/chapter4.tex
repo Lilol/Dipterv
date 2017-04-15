@@ -7,32 +7,32 @@ However, the entire system requires other supplementary software that facilitate
 \section{Supplementary software elements}\label{sec:SupplementarySoftware}
 %---------------------------------------------------------------------------
 The auxiliary software elements' main responsibility is connecting the core to its surroundings.
-They provide access to the sensor by transferring the input data (e.g. settings files), from the user to the sensor software, and sending upgrades to the hardware.
-These modules are responsible for returning data to the user by managing the EnTalk connection and sending the result of the counting back to the backend system.
+They provide access to the sensor by transferring the input data (e.g. settings files), from the user to the core software, and upgrades to the hardware.
+These modules are responsible for returning information to the user by managing the EnTalk connection and sending the result of the counting back to the backend system.
 
 The supporting software has various other features.
-The configuration tools facilitate the operation under heterogeneous circumstances by providing individual settings for each environment.
+The configuration tools facilitate the operation under heterogeneous circumstances by providing the ability to set individual settings for each environment.
 Diagnostics tools evaluate the operation and visualize the data stored in the system in various representations.
-They are also responsible for the exporting of the result of counting, classification and diagnostics.
+They are also responsible for the exporting of the result of counting, classification and diagnostics in text files.
 %----------------------------------------------------------------------------
 \subsection{Configuration process}\label{subs:ProjectConfigurator}
 %----------------------------------------------------------------------------
-Since the position of the camera and the surrounding environment of the Traffic Sensor are undetermined and varying, the system's properties has to be adaptable to meet the particular requirements.
+Since the position of the camera and the surrounding environment of the Traffic Sensor are undetermined and varying, the system's properties has to be adjustable to meet the particular requirements.
 To be able to calibrate the Traffic Sensor's several parameters in a group, a two-level configuration method has been implemented.
 The system's settings are listed in two separate INI files: the settings file and the project file, each of them specifying parameters and their values.
 
 On the first level, the settings file contains basic configuration values, as default parameters for the operation.
-Each of these values can be overridden by the projects file's settings if needed, for an environment-specific configuration.
+Each of these properties can be overridden by the projects file's specifications if needed, for an environment-specific configuration.
 
 Most of the listed properties are algorithm parameters, for example threshold values for image processing methods.
-Other parameters affect the operation by specifying the run mode (discussed further in section \ref{sec:run_modes}.), changing the report frequency, the maximal number of stored timeline columns or deactivating processing steps.
-There are strictly environment-specific properties, like the position of the Tripwire on the frame, and the calibration rectangle.
+Other parameters affect the operation by specifying the run mode (discussed further in section \ref{sec:run_modes}.), changing the report frequency and the maximal number of stored timeline columns, or deactivating processing steps.
+Some properties are strictly environment-specific, like the position of the Tripwire on the frame, and the calibration rectangle.
 The display and saving of miscellaneous media -- e.g. timeline images, videos and diagnostics files -- can be set as well.
 
 \subsubsection{Manual calibration}
 %----------------------------------------------------------------------------
 Some environment-specific parameters can be manually configured with a user interface, the Project Configurator.
-Using the Project Configurator the position of the Tripwire, the calibration rectangle and optionally the centre of road-lanes can be set up and adjusted, simply by drawing on a frame recorded form the camera, or read from the video file.
+Using the Project Configurator, the position of the Tripwire, the calibration rectangle and optionally the centre of road-lanes can be set up and adjusted, simply by drawing on a frame recorded form the camera, or read from the video file.
 Other numeric parameters, like the beginning and ending frame of the video, or the length of the sides of the calibration rectangle can be pre-set as well.
 
 \begin{figure}[!h]
@@ -42,24 +42,59 @@ Other numeric parameters, like the beginning and ending frame of the video, or t
 \end{figure}
 
 Besides the configuration tasks, the Project Configurator also communicates with the Sensor through a remote connection.
-Software upgrades are sent to the sensor, and the results of counting and other diagnostic files are downloaded from the memory of the hardware using the Configurator's connection.
+Software upgrades are sent to the core, and the results of counting and other diagnostic files are downloaded from the memory of the hardware using the Configurator's connection.
 %----------------------------------------------------------------------------
 \subsection{System diagnostics}
 %----------------------------------------------------------------------------
-The system diagnostics features are responsible for evaluating the precision of the operation and converting information stored in the system into an easily interpretable form.
+The system diagnostics features are responsible for evaluating the precision of the operation and converting information stored into a quickly and simply interpretable form.
 
 \subsubsection{Evaluation}
-The evaluating is responsible fo calculating the precision of the system.
-For measuring the accuracy of the operation, the system was tested on a series of various test videos.
+For measuring the accuracy of the operation, the system was tested on a series of test videos.
+The videos were recorded in various weather, light and traffic conditions to ensure the system's robustness.
 
-\textbf{Ground truth}
-The the correct results of counting are stored in a data set, called the ground truth.
-The ground truth is created manually based on an Original Timeline Image of the studied video stream.
+To be able to quantify the performance of the counting, the correct detection and classification values were gathered into a reference data set, called the ground truth, and were compared to the results of the counting.
+The data set is created manually for each test video, based on the Original Timeline Image of the corresponding video stream.
+
+A ground truth file can be considered itself as an image, with points that match the vehicles of the Original Timeline.
+Every point is marked with a coloured dot, with the colour indicating the type of the vehicle.
+At the end of the process, the detection results are compared to the GT's  points, and precision is evaluated based on the error rates.
+
+For quantitative evaluation the typical binary classification measures were used:
+\begin{enumerate}
+\item \textbf{TP -- true positive:} correctly detected vehicles, where a vehicle on the MOG2 Timeline matches a point on the GT image.
+\item \textbf{FP -- false positive:} a vehicle was detected, but no matching point on the GT image.
+\item \textbf{FN -- false negative:} no vehicle was detected, but a point is present on the GT. 
+\item \textbf{TN -- true negative:} true negative cases are undefined.
+\item  \textbf{ME -- misclassification error:} the point on the GT marks a different vehicle class than which the detected vehicle is supposedly in.
+\end{enumerate}
+
+\begin{figure}[!h]
+	\centering
+		\begin{subfigure}[!h]{0.9\textwidth}
+		\includegraphics[width=\textwidth]{original.png}
+		\caption{Original timeline, with the vehicles marked with type-dependent colours.\label{fig:GT_original}}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[!h]{0.9\textwidth}
+		\includegraphics[width=\textwidth]{GT_GT.png}
+		\caption{Ground truth image.\label{fig:GT_GT}}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[!h]{0.9\textwidth}
+		\includegraphics[width=\textwidth]{MOG2_GT.png}
+		\caption{GT points matched with the detected vehicles. \label{fig:GT_MOG}}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[!h]{0.9\textwidth}
+		\includegraphics[width=\textwidth]{result_GT.png}
+		\caption{The result of the evaluation. True positive cases are marked with neutral colours, false positive cases are crossed out with red, blue dots indicate false negative errors.\label{fig:GT_result}}
+	\end{subfigure}
+	\caption{The creation process of the reference data set, the ground truth.\label{fig:GT}}
+\end{figure}
 %----------------------------------------------------------------------------
 \subsubsection{Data representation}
 %----------------------------------------------------------------------------
-- converting the raw information stored in the system into a form  human interpretation
-- meaning the visual
+The Traffic Sensor software supports several features for converting the raw information stored in the system into a form for human interpretation.
 
 \textbf{Timeline Images}
 
@@ -67,35 +102,42 @@ The ground truth is created manually based on an Original Timeline Image of the 
 %----------------------------------------------------------------------------
 \subsection{Operation modes of the Traffic Sensor}
 %----------------------------------------------------------------------------
-Depending on the particular situation and needs, the Traffic Sensor has two different operation modes.
+Depending on the particular situation and the user's aim, the Traffic Sensor is able to function in two different operation modes.
 %----------------------------------------------------------------------------
 \subsubsection{Single-run or test mode}\label{sec:run_modes}
 First, for testing, development and evaluation purposes the single-run mode is used.
-The input video is a file or a video stream from a camera, both with a specified number of frames to be processed.
+The input video is a file or a stream from a camera, both with a specified number of frames to be processed.
 Since in the single-run mode the process has an exact end, and the length of the procedure is known, it is possible to create GT files in advance, and at the close of the operation, be evaluated.
 Post-corrections, like calibration correction are possible as well.
-At the end of the procedure other files, such as entire Timeline Images and video files, like the recorded video stream, or a demo video are saved from the data collected throughout the process.
-Although most output files are generated at the end of the operation, the reporting of the results of the counting is iterative, the Sensor sends a report file after a time interval -- specified in the configuration files-- has elapsed.
+At the end of the procedure, other files, such as entire Timeline Images and video files, including the recorded video stream, or a demo video are saved from the data collected throughout the process.
+Although most output files are generated at the end of the operation, reporting of the results of the counting is iterative, the Sensor sends a report file after a time interval -- specified in the configuration files-- has elapsed.
 
 \begin{figure}[!h]
 	\centering
 	\includesvg[width=\textwidth]{process_run_types}
-	\caption{Operation modes o fthe Traffic Sensor. The single-run mode is for testing and development (above), when a video file or a video stream with pre-set amout of frames is processed. The single-run mode has a definite ending, when post-process evaluations and tests are carried out, and entire Timeline Images are be saved. \label{fig:run_types}}
+	\caption{Operation modes of the Traffic Sensor. The single-run mode is for testing and development (above), when a video file or a stream with pre-set amount of frames is processed. The single-run mode has a definite ending, when post-process evaluations and tests are carried out, and entire Timeline Images are be saved. The Sensor functions in a continuous mode in the production environment. Since the amount of memory is finite, and the process is not predictable, in continuous mode, all events happen periodically. Reporting is cyclic at fixed intervals for both run modes. \label{fig:run_types}}
 \end{figure}
 %----------------------------------------------------------------------------
 \subsubsection{Continuous run}
 %----------------------------------------------------------------------------
-Continuous run is for operation it the production environment.
-In the continuous run mode, events are periodic. 
-During each period, detection takes place, and the columns of the Timeline Images are collected for saving.
-At the end of each iteration, the collected Timeline Image piece are exported, and result of detection and classification is sent as a report.
+For constant operation it the production environment, the continuous.
+In this run mode all milestone events, such as reporting and TI saving are periodic. 
+Detection takes place during the course of each period. 
+Meanwhile, columns of the Timeline Images built are collected for saving.
+Considering that the memory of the target hardware is limited, Timeline Images are built and saved in parts with pre-defined lengths.
+
+At the end of the iteration, the collected Timeline Image columns are exported in a png image format, and results of detection and classification are sent as a report file.
 In this mode evaluation and correction features are not accessible.
 %----------------------------------------------------------------------------
 \section{Hardware environment}
 %----------------------------------------------------------------------------
-\subsection{The board}
+\subsection{The target board}
+Since the hardware will be installed inside a street-lighting lamp box, it must be able to function using a passive cooling system.
+The target hardware is an UDOO Quad minicomputer using a small and effective Linux-based UDOObuntu 2 operating system.
+The board has an i.MX6 ARM\reg Cortex\reg-A9 Quad, \SI{1}{GHz} CPU.
 
 \subsection{Network architecture}
+The data sent
 
 
 %----------------------------------------------------------------------------

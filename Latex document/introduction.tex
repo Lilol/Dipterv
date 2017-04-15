@@ -170,9 +170,7 @@ Other features, like speed and following distance estimation should be supported
 Real-time requirements imply that the processing speed exceeds \SI{25}{frame/s}, as under this speed the risk of missing vehicles is reasonably high.
 
 The traffic sensor application will run on its own built-in core integrated into the sensor suite.
-The hardware itself was chosen to be able to function with passive cooling due to the embedded environment: SOLSUN sensor system will be installed inside a street-lighting lamp box.
-The target hardware is an UDOO Quad minicomputer using a small and effective Linux-based UDOObuntu 2 operating system.
-The board has an i.MX6 ARM\reg Cortex\reg-A9 Quad, \SI{1}{GHz} CPU.
+The hardware itself must be able to function with passive cooling due to the embedded environment: SOLSUN sensor system will be installed inside a street-lighting lamp box.
 
 Traffic monitoring is done by a camera sensor, that connects to the board through a USB port.
 The complete video processing takes place on the board, and the resulted data, including vehicle count and type, speed, and following distance, is transferred to the backend through a communications network in a compact file format.
