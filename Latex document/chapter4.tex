@@ -2,7 +2,19 @@
 \chapter{Hardware and software environment}\label{chap:Environment}
 %----------------------------------------------------------------------------
 The primary task of the SOLSUN Traffic Sensor is counting, that is performed by the core software.
-However, the entire system requires other supplementary software that facilitate the operation in the production environment, as well as on the target hardware, and provide diagnostic tools for testing and evaluation.
+However, since the system is embedded in its environment, it requires other supplementary software that facilitates the operation in the production environment, as well as on the target hardware, and provide diagnostic tools for testing and evaluation.
+%---------------------------------------------------------------------------
+\section{Hardware environment}
+%----------------------------------------------------------------------------
+\subsection{The target board}
+Since the hardware will be installed inside a street-lighting lamp box, it must be able to function using a passive cooling system.
+The target hardware is an UDOO Quad minicomputer using a small and effective Linux-based UDOObuntu 2 operating system.
+The board has an i.MX6 ARM\reg Cortex\reg-A9 Quad, \SI{1}{GHz} CPU.
+
+\subsection{Network architecture}
+The data sent
+
+
 %----------------------------------------------------------------------------
 \section{Supplementary software elements}\label{sec:SupplementarySoftware}
 %---------------------------------------------------------------------------
@@ -95,27 +107,58 @@ For evaluation the typical binary classification cases were used (as shown on fi
 \item \textbf{FP -- false positive:} a vehicle was detected, but no matching point on the GT image.
 \item \textbf{FN -- false negative:} no vehicle was detected, but a point is present on the GT. 
 \item \textbf{TN -- true negative:} true negative cases are undefined.
-\item  \textbf{ME -- misclassification error:} the point on the GT marks a different vehicle class than which the detected vehicle is supposedly in.
+\item  \textbf{CC -- correct classification:} the point on the GT and the matching vehicle have the same types.
 \end{enumerate}
 
-To quantitatively estimate the performance of the system, the following measures were used:
-\begin{gather}
-	\text{Precision:}
-	\text{Accuracy: }
-	\text{False positive rate: }
-	\text{False negative rate: }
-	\text{Misclassification rate: }
-\end{gather}
+To quantify the performance of the system, the following measures were used:
+\\[5pt]
+\noindent Recall:
+\begin{displaymath}
+\text{R} = \frac{\text{TP}}{\text{TP}+\text{FN}} = \frac{\text{TP}}{\text{NGP}}
+\end{displaymath}
+\\[5pt]
+\noindent Accuracy:
+\begin{displaymath}
+\text{A} = \frac{\text{TP}+\text{TN}}{\text{NAC}} = \frac{\text{TP}}{\text{NAC}} = \frac{\text{TP}}{\text{TP}+\text{FP}+\text{FN}}
+\end{displaymath}
+\\[5pt]
+\noindent False positive rate:
+\begin{displaymath}
+\text{FPR} = \frac{\text{FP}}{\text{NAC}}
+\end{displaymath}
+\\[5pt]
+\noindent False negative rate:
+\begin{displaymath}
+\text{FNR} = \frac{\text{FN}}{\text{NAC}}
+\end{displaymath}
+\\[5pt]
+\noindent Type recall:
+\begin{displaymath}
+\text{TR} = \frac{\text{CC}}{\text{TP}},
+\end{displaymath}
 
-with $NAC$ being the number of all cases.
+with $\text{NAC}$ being the number of all cases, and $\text{NGP}$ is the number of GT points.
+For each test video, the aforementioned measures were calculated.
+The experimental results are presented in chapter \ref{chap:Tests}.~in detail.
 %----------------------------------------------------------------------------
 \subsubsection{Data representation}
 %----------------------------------------------------------------------------
 The Traffic Sensor software supports several features for converting the raw information stored in the system into a form for human interpretation.
+The exportation of visual information is assigned to the Output Builders classes.
+They either transform existing Timeline Images into more visually ... form, or draw the contents of container objects on Timeline Images.
 
 \textbf{Timeline Images}
+With the use of the Output Builders, the following visualizations can be exported in the form of a Timeline Image:
+\begin{enumerate}
+	\item \textbf{Untransformed Timelines -- Original, MOG2 Timeline: }
+	\item \textbf{Transformed Timeline -- Speed, Size, Following Distance Timeline: }
+	\item \textbf{Result Timeline: }
+	\item \textbf{Evaluation Timeline: }
+	\item \textbf{Error Timeline Images: }
+\end{enumerate} 
 
 \textbf{Videos}
+The system gives t
 %----------------------------------------------------------------------------
 \subsection{Operation modes of the Traffic Sensor}
 %----------------------------------------------------------------------------
@@ -145,17 +188,5 @@ Considering that the memory of the target hardware is limited, Timeline Images a
 
 At the end of the iteration, the collected Timeline Image columns are exported in a png image format, and results of detection and classification are sent as a report file.
 In this mode evaluation and correction features are not accessible.
-%----------------------------------------------------------------------------
-\section{Hardware environment}
-%----------------------------------------------------------------------------
-\subsection{The target board}
-Since the hardware will be installed inside a street-lighting lamp box, it must be able to function using a passive cooling system.
-The target hardware is an UDOO Quad minicomputer using a small and effective Linux-based UDOObuntu 2 operating system.
-The board has an i.MX6 ARM\reg Cortex\reg-A9 Quad, \SI{1}{GHz} CPU.
 
-\subsection{Network architecture}
-The data sent
-
-
-%----------------------------------------------------------------------------
 
