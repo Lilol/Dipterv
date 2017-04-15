@@ -12,8 +12,7 @@ The target hardware is an UDOO Quad minicomputer using a small and effective Lin
 The board has an i.MX6 ARM\reg Cortex\reg-A9 Quad, \SI{1}{GHz} CPU.
 
 \subsection{Network architecture}
-The data sent
-
+The result of the detection is exported as a text file, and sent through the EnTalk Network to transfer to the backend.
 
 %----------------------------------------------------------------------------
 \section{Supplementary software elements}\label{sec:SupplementarySoftware}
@@ -60,7 +59,7 @@ Software upgrades are sent to the core, and the results of counting and other di
 %----------------------------------------------------------------------------
 The system diagnostics features are responsible for evaluating the precision of the operation and converting information stored into a quickly and simply interpretable form.
 
-\subsubsection{Evaluation}
+\subsubsection{Evaluation}\label{chap:evaluation}
 For measuring the accuracy of the operation, the system was tested on a series of test videos.
 The videos were recorded in various weather, light and traffic conditions to ensure the system's robustness.
 
@@ -147,20 +146,20 @@ The Traffic Sensor software supports several features for converting the raw inf
 The exportation of visual information is assigned to the Output Builders classes.
 They either transform existing Timeline Images into more visually ... form, or draw the contents of container objects on Timeline Images.
 
-\textbf{Timeline Images}
-With the use of the Output Builders, the following visualizations can be exported in the form of a Timeline Image:
+The Output Builders visualize and save the data stored in the system, in the form of the following timeline images:
 \begin{enumerate}
-	\item \textbf{Untransformed Timelines -- Original, MOG2 Timeline: }
-	\item \textbf{Transformed Timeline -- Speed, Size, Following Distance Timeline: }
-	\item \textbf{Result Timeline: }
-	\item \textbf{Evaluation Timeline: }
-	\item \textbf{Error Timeline Images: }
+	\item \textbf{Untransformed Timelines -- Original, MOG2 Timeline: } Exported directly from the raw data stored.
+	\item \textbf{Transformed Timeline -- Speed, Size, Following Distance Timeline: } The raw data is rescaled and normalized before saving. The lightness of the pixels indicate a higher value. Speed values are marked with either red or blue depending on the direction of the movement. 
+	\item \textbf{Result Timeline: } The Result Timeline contains vehicle occurrences, each of them drawn with a separate colour. Other features, such as size and vehicle type can be displayed as well.
+	\item \textbf{Evaluation Timeline: } The Evaluation Timeline shows the result of the evaluation, each classification case (described in chapter \ref{chap:evaluation}.) marked perceptively.
+	\item \textbf{Error Timeline Images: } For each error type (false positive, false negative, misclassification error) a Timeline Image can be exported.
 \end{enumerate} 
 
-\textbf{Videos}
-The system gives t
+Depending on the operation mode of the Traffic Sensor (discussed in chapter \ref{chap:operation_modes}), either a complete Timeline Image can be saved at the end of the full process, or parts of it can be exported periodically, each time the size of the stored data overrun a pre-defined limit.
+
+The system is possible to build and save video files too for demonstration purposes. 
 %----------------------------------------------------------------------------
-\subsection{Operation modes of the Traffic Sensor}
+\subsection{Operation modes of the Traffic Sensor}\label{chap:operation_modes}
 %----------------------------------------------------------------------------
 Depending on the particular situation and the user's aim, the Traffic Sensor is able to function in two different operation modes.
 %----------------------------------------------------------------------------
