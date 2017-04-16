@@ -47,14 +47,14 @@ In this section approaches in video-based on-road traffic monitoring are discuss
 
 Even though very diverse solutions has been suggested in the literature for vision-based surveillance problems, these methods are similar in the fact that they utilize the high information-content of the video stream, whilst the useless data are being identified and omitted for speed purposes.
 
-Most vehicle counting methods are composed of three levels of perception depending upon each other: detection, tracking and behaviour understanding.
+Most vehicle counting methods are composed of three levels of perception built upon each other: detection, tracking and behaviour understanding.
 The two upper levels use information extracted from the lower ones, since vehicles are continuously detected across several frames for tracking purposes, and behaviour understanding relies strongly on the trajectory of the object.
 
 At the first level, the goal is to tell vehicles apart from the background using distinctive features: appearance or motion.
 
 On of the two main approaches is appearance-based selection, wherein basic image characteristics such as colour\cite{Chang2005}, edges\cite{Blanc2007}, symmetry\cite{Aytekin2010}, HOG\cite{Niknejad2012}, Haar-like\cite{Sivaraman2012}, Gabor\cite{Zhang2006}, SIFT\cite{Zhang2011} or SURF\cite{Lin2012} features are used to identify vehicles.
 In recent years, there has been a transition from simpler image features like edges and symmetry to general and robust feature sets\cite{Sivaraman2012}.
-These detection methods are both applicable for moving and stationary objects or cameras, but requires prior information about foreground object appearances.
+These detection methods are both applicable for moving and stationary objects or cameras, but require prior information about foreground object appearances.
 
 These extracted features along with others are widely used for vehicle classification.
 Most common distinctive attributes are heigh and length\cite{Huang2004}, linearity feature -- meaning the roughness of the vehicle contour\cite{Zhang2008} --, convex hull of the silhouette\cite{Buch2010} and distance between contour points\cite{Lou2005}.
@@ -101,10 +101,10 @@ Many of these selection techniques restrict the calculation to an interested reg
 
 One of the most cost-effective, image-domain reducing techniques is based on virtual detection lines (VDLs) and time-spatial images (TSIs).
 A virtual detection line is a one-pixel wide straight line placed perpendicular or parallel to the vehicle trajectory, whilst a time-spatial image can be considered itself as an image, where the vertical dimension corresponds to the VDL in the original frame, and the horizontal one corresponds to time in the original sequence.
-A time-spatial image reflects the state of a fixed line changes with time, thus if a vehicle crosses or touches the VDL, it appears on the TSI, thus becomes detectable, as seen on figure \ref{fig:TSI}.
+A time-spatial image reflects the state of a fixed line changes with time, thus if a vehicle crosses or touches the VDL, it appears on the TSI and becomes detectable, as seen on figure \ref{fig:TSI}.
 Such images can also be perceived as a sequence from a line-detector, or the cross-section of the traffic flow that condenses essential information. 
 
-An approach similar to the aforementioned was first introduced in 2001 by Albiol et. al., and was proposed for counting people on video sequences using a "stack of lines" -- equivalent to a TSI\cite{Albiol2001}.
+An approach similar to the aforementioned was first introduced in 2001 by Albiol et. al., and was proposed for counting people on video sequences using a "stack of lines" -- that is the equivalent of a TSI\cite{Albiol2001}.
 
 An approach with virtual line groups placed both perpendicular and parallel to the traffic flow direction was proposed later for counting\cite{Anan2006,Wu2007}.
 
@@ -167,7 +167,7 @@ Secondary aim is classification: the vehicles may be categorized into five types
 The categorization is important, hence it contributes to emission-estimation when data is interpreted at the centre\cite{Csorba2016}.
 Other features, like speed and following distance estimation should be supported as well.
 
-Real-time requirements imply that the processing speed exceeds \SI{25}{frame/s}, as under this speed the risk of missing vehicles is reasonably high.
+Real-time requirements imply that the processing speed exceeds \SI{25}{frame/s}, as under this speed the risk of missing frames, thus missing vehicles as well is reasonably high.
 
 The traffic sensor application will run on its own built-in core integrated into the sensor suite.
 The hardware itself must be able to function with passive cooling due to the embedded environment: SOLSUN sensor system will be installed inside a street-lighting lamp box.

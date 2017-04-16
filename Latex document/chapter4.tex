@@ -2,35 +2,102 @@
 \chapter{Hardware and software environment}\label{chap:Environment}
 %----------------------------------------------------------------------------
 The primary task of the SOLSUN Traffic Sensor is counting, that is performed by the core software.
-However, since the system is embedded in its environment, it requires other supplementary software that facilitates the operation in the production environment, as well as on the target hardware, and provide diagnostic tools for testing and evaluation.
+However, since the system is nested into its surroundings, it requires other supplementary software that facilitates the operation in the production environment on the target hardware, connects the Sensor to the user, and provides diagnostic tools for testing and evaluation.
+
+The aim of this section is to offer an insight into the operation and structure of the hardware and software environment of the Sensor.
+Although the supplementary elements are integral parts of the system, their characteristics will be merely sketched without going into details, because they are out of the main scope of this thesis work.
+For further details, see the work of Tam{\'a}s T{\'o}th\cite{Toth2016} and Istv{\'a}n Vincze\cite{Vincze2016}.
 %---------------------------------------------------------------------------
 \section{Hardware environment}
 %----------------------------------------------------------------------------
 \subsection{The target board}
 Since the hardware will be installed inside a street-lighting lamp box, it must be able to function using a passive cooling system.
-The target hardware is an UDOO Quad minicomputer using a small and effective Linux-based UDOObuntu 2 operating system.
-The board has an i.MX6 ARM\reg Cortex\reg-A9 Quad, \SI{1}{GHz} CPU.
+The target hardware is an UDOO Quad minicomputer using a small and effective Ubuntu Linux-based UDOObuntu 2 operating system.
+The board has an i.MX6 ARM\reg Cortex\reg-A9 Quad, \SI{1}{GHz}, multi-core CPU\cite{UDOO, UDOO2}.
+A CSI camera interface and a USB 2.0 port is available on the hardware, for connecting the camera.
 
-\subsection{Network architecture}
-The result of the detection is exported as a text file, and sent through the EnTalk Network to transfer to the backend.
+\subsection{Network architecture and communication}
+The Sensor deployed into the lamp boxes communicate with each other and the central server via a radio frequency (RF) channel, that uses an open, ISM (Industrial Scientific Medical) band.
+Although RF communication has a limited bandwidth, since only a rather small amount of information (only the result of the counting) is transmitted, it is sufficient for this purpose.
+The data transmission is mediated by the EnTalk\textsuperscript{TM} communication protocol\cite{EnTalk}.
+The sending and receiving of the information is organized as a multi-hop mesh system, wherein each communication node is connected solely to its direct neighbours, namely the two closest lamp posts (as seen on figure \ref{fig:network}).
+This way, the short range RF communication cannot impede the data transfer.
 
+\begin{figure}[!h]
+	\centering
+	\includesvg[width=0.5\textwidth]{network}
+	\caption{The structure of the multi-hop mesh network. Each node transfers the information to its closest neighbours, thus communication is short-ranged. \label{fig:network}}
+\end{figure}
+
+The server communicates through an API (Application Programming Interface), that implements the REST (Representational State Transfer) principles. 
+In both directions JSON (JavaScript Object Notation) syntax files are transmitted.
 %----------------------------------------------------------------------------
 \section{Supplementary software elements}\label{sec:SupplementarySoftware}
 %---------------------------------------------------------------------------
 The auxiliary software elements' main responsibility is connecting the core to its surroundings.
-They provide access to the sensor by transferring the input data (e.g. settings files), from the user to the core software, and upgrades to the hardware.
-These modules are responsible for returning information to the user by managing the EnTalk connection and sending the result of the counting back to the backend system.
+They provide access to the sensor by transferring the input data (e.g. settings files, software upgrades), from the user to the core software, and returning information (such as the result of counting and diagnostic data) to the backend server, via the EnTalk\textsuperscript{TM} connection.
 
 The supporting software has various other features.
 The configuration tools facilitate the operation under heterogeneous circumstances by providing the ability to set individual settings for each environment.
-Diagnostics tools evaluate the operation and visualize the data stored in the system in various representations.
-They are also responsible for the exporting of the result of counting, classification and diagnostics in text files.
+Diagnostics tools evaluate the operation and visualize the data stored in the system in various representations, and are also responsible for the exporting of the result of counting, classification and diagnostics in text files.
 %----------------------------------------------------------------------------
-\subsection{Configuration process}\label{subs:ProjectConfigurator}
+\subsection{Communication}
+%----------------------------------------------------------------------------
+\subsubsection{Reporting}
+
+
+\subsubsection{Remote management}
+Since the Sensors are installed in street-lighting lamp boxes high above the road, thus accessible with difficulty, and will be deployed en masse, therefore control functions and software upgrades must be managed remotely.
+
+To achieve this, each instance of the sensor can be accessed through a graphical user interface (GUI), the Project Configurator.
+The Project Configurator itself is a separate, autonomous software component of the Traffic Sensor system.
+Although it is in charge of a handful of tasks, including the manual configuration of the calibration features (detailed in \ref{chap:calibration}), its main purpose is to enable the remote control of the Sensors by managing the EnTalk\textsuperscript{TM} communication.
+
+The management functions include the uploading of calibration files and new software versions (updates) to the sensor, and the downloading of log files and diagnostic data (such as images and calibration videos).
+The UI is capable of sending control commands as well.
+%----------------------------------------------------------------------------
+\subsection{Configuration}\label{subs:ProjectConfigurator}
 %----------------------------------------------------------------------------
 Since the position of the camera and the surrounding environment of the Traffic Sensor are undetermined and varying, the system's properties has to be adjustable to meet the particular requirements.
-To be able to calibrate the Traffic Sensor's several parameters in a group, a two-level configuration method has been implemented.
-The system's settings are listed in two separate INI files: the settings file and the project file, each of them specifying parameters and their values.
+To be able to calibrate the Traffic Sensor's several parameters in a group, a two-level configuration method was implemented.
+The system's settings are listed in two separate files, the settings file and the project file.
+These are standard INI format files, each of them specifying parameters and their values as key--value pairs, grouped into sections.
+
+\begin{lstlisting}[frame=single,float=!ht,caption={Part of a configuration file. The features are rganized into groups, and presented as key--value pairs.},label=lst:config_file]
+[mog2]
+backgroundRatio = 0.95
+complexityReductionThreshold = 0.1
+shadowDetection = true
+history = 300
+nMixtures = 4
+shadowThreshold = 0.5
+shadowValue = 0
+varInit = 15.0
+varMax = 75.0
+varMin = 4.0
+varThreshold = 35.0
+varThresholdGen = 9.0
+maxWhitenessPercentage = 15.0
+blacknessHoldCountAfterOverreaction = 40
+
+[VideoFrameTransform]
+enable = true
+targetWidth = 320
+targetHeight = 240
+perspectiveCompensation = true
+tripwireRotation = true
+processLanesOnly = false
+pixelRowPerLane = 5
+laneClearance = 5
+
+[CalibrationCorrection]
+slopeThreshold = 0.15
+
+[Output]
+RecordDemoVideo = false
+Evaluation = true
+...
+\end{lstlisting}
 
 On the first level, the settings file contains basic configuration values, as default parameters for the operation.
 Each of these properties can be overridden by the projects file's specifications if needed, for an environment-specific configuration.
@@ -38,27 +105,26 @@ Each of these properties can be overridden by the projects file's specifications
 Most of the listed properties are algorithm parameters, for example threshold values for image processing methods.
 Other parameters affect the operation by specifying the run mode (discussed further in section \ref{sec:run_modes}.), changing the report frequency and the maximal number of stored timeline columns, or deactivating processing steps.
 Some properties are strictly environment-specific, like the position of the Tripwire on the frame, and the calibration rectangle.
-The display and saving of miscellaneous media -- e.g. timeline images, videos and diagnostics files -- can be set as well.
+The visualization and saving of miscellaneous media -- e.g. timeline images, videos and diagnostics files -- can be switched on and off as well.
 
-\subsubsection{Manual calibration}
+\subsection{Calibration}\ref{chap:calibration}
 %----------------------------------------------------------------------------
-Some environment-specific parameters can be manually configured with a user interface, the Project Configurator.
-Using the Project Configurator, the position of the Tripwire, the calibration rectangle and optionally the centre of road-lanes can be set up and adjusted, simply by drawing on a frame recorded form the camera, or read from the video file.
-Other numeric parameters, like the beginning and ending frame of the video, or the length of the sides of the calibration rectangle can be pre-set as well.
+Some environment-specific parameters can be manually configured using the aforementioned Project Configurator GUI.
+The position of the Tripwire, the calibration rectangle and optionally the centre of road-lanes can be set and adjusted.
+To specify these features, the user simply draws on a proper frame, chosen from a short video sequence, that is recorded form the camera, or read from the video file by the Configurator itself.
+Other numeric parameters, like the beginning and ending frame of the video, or the length of the sides of the calibration rectangle can be pre-set.
+The GUI is able to write the specified values into the appropriate configuration file, and send the file to the Sensor. 
 
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=0.5\textwidth]{projectConfigurator.png}
-	\caption{The user interface of the Project Configurator. Using the UI several parameters can be set, including the Tripwire (with lilac), the calibration rectangle (with yellow), and other numeric values in text input fields. The Tripwire's beginning and ending point determine the order, in which its points are processed. \label{fig:project_configurator}}
+	\caption{The user interface of the Project Configurator. Using the UI several parameters can be set, including the Tripwire (with lilac), the calibration rectangle (with yellow), and other numeric values in text input fields. The Tripwire's beginning and ending point determine the order, in which its points are processed. Since the Project Configurator can read, write and upload configuration files, the above functions can be managed jointly through the GUI. \label{fig:project_configurator}}
 \end{figure}
-
-Besides the configuration tasks, the Project Configurator also communicates with the Sensor through a remote connection.
-Software upgrades are sent to the core, and the results of counting and other diagnostic files are downloaded from the memory of the hardware using the Configurator's connection.
 %----------------------------------------------------------------------------
 \subsection{System diagnostics}
 %----------------------------------------------------------------------------
-The system diagnostics features are responsible for evaluating the precision of the operation and converting information stored into a quickly and simply interpretable form.
-
+The system diagnostics features are responsible for evaluating the precision of the operation and converting information stored, into a quickly and simply interpretable form.
+%----------------------------------------------------------------------------
 \subsubsection{Evaluation}\label{chap:evaluation}
 For measuring the accuracy of the operation, the system was tested on a series of test videos.
 The videos were recorded in various weather, light and traffic conditions to ensure the system's robustness.
@@ -109,7 +175,7 @@ For evaluation the typical binary classification cases were used (as shown on fi
 \item  \textbf{CC -- correct classification:} the point on the GT and the matching vehicle have the same types.
 \end{enumerate}
 
-To quantify the performance of the system, the following measures were used:
+To quantify the performance of the system, the following measures -- known in binary classification theory -- were used:
 \\[5pt]
 \noindent Recall:
 \begin{displaymath}
@@ -157,35 +223,50 @@ The Output Builders visualize and save the data stored in the system, in the for
 
 Depending on the operation mode of the Traffic Sensor (discussed in chapter \ref{chap:operation_modes}), either a complete Timeline Image can be saved at the end of the full process, or parts of it can be exported periodically, each time the size of the stored data overrun a pre-defined limit.
 
-The system is possible to build and save video files too for demonstration purposes. 
+If the correction of the calibration process is (presented in chapter \ref{chap:cal_corr}.)
+
+The system is possible to build and save video files for demonstration purposes as well. 
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=0.5\textwidth]{frame_demo_vide.png}
+	\caption{An example of frame from the demo video. The frame structure of the demo video can defined in the configuration files.  \label{fig:demo_video}}
+\end{figure}
+
+Other information is exported as test file, such as the result of counting...
+
 %----------------------------------------------------------------------------
-\subsection{Operation modes of the Traffic Sensor}\label{chap:operation_modes}
+\subsubsection{Continuous integration tests}
+%----------------------------------------------------------------------------
+
+%----------------------------------------------------------------------------
+\section{Operation modes of the Traffic Sensor}\label{chap:operation_modes}
 %----------------------------------------------------------------------------
 Depending on the particular situation and the user's aim, the Traffic Sensor is able to function in two different operation modes.
 %----------------------------------------------------------------------------
 \subsubsection{Single-run or test mode}\label{sec:run_modes}
 First, for testing, development and evaluation purposes the single-run mode is used.
 The input video is a file or a stream from a camera, both with a specified number of frames to be processed.
-Since in the single-run mode the process has an exact end, and the length of the procedure is known, it is possible to create GT files in advance, and at the close of the operation, be evaluated.
+Since in the single-run mode the process has an exact end, thus the length of the procedure is known, it is possible to create GT files in advance, and at the close of the operation, be evaluated.
 Post-corrections, like calibration correction are possible as well.
-At the end of the procedure, other files, such as entire Timeline Images and video files, including the recorded video stream, or a demo video are saved from the data collected throughout the process.
-Although most output files are generated at the end of the operation, reporting of the results of the counting is iterative, the Sensor sends a report file after a time interval -- specified in the configuration files-- has elapsed.
+At the end of the procedure, other files, such as entire Timeline Images and video files, including the recorded video stream, or a demo video are created and exported using the data collected throughout the process.
+Although most output files are generated at the end of the operation, reporting is iterative.
+The Sensor sends a report every time after a fixed time interval -- specified in the configuration files-- has elapsed.
 
 \begin{figure}[!h]
 	\centering
 	\includesvg[width=\textwidth]{process_run_types}
-	\caption{Operation modes of the Traffic Sensor. The single-run mode is for testing and development (above), when a video file or a stream with pre-set amount of frames is processed. The single-run mode has a definite ending, when post-process evaluations and tests are carried out, and entire Timeline Images are be saved. The Sensor functions in a continuous mode in the production environment. Since the amount of memory is finite, and the process is not predictable, in continuous mode, all events happen periodically. Reporting is cyclic at fixed intervals for both run modes. \label{fig:run_types}}
+	\caption{Operation modes of the Traffic Sensor. The single-run mode is for testing and development (above), when a video file or a stream with a pre-set count of frames is processed. The single-run mode has a definite ending, when post-process evaluations and tests are carried out, and entire Timeline Images are saved. In the production environment, the Sensor functions in a continuous mode. Since the amount of memory is finite, and the end of the process is not predictable, in continuous mode, all events happen periodically. The only exception is reporting, that happens periodically after fixed intervals in both run modes. \label{fig:run_types}}
 \end{figure}
 %----------------------------------------------------------------------------
 \subsubsection{Continuous run}
 %----------------------------------------------------------------------------
-For constant operation it the production environment, the continuous.
-In this run mode all milestone events, such as reporting and TI saving are periodic. 
+For constant operation it the production environment, the continuous run mode is used.
+During continuous run, all milestone events, such as reporting and TI saving, are periodic. 
 Detection takes place during the course of each period. 
-Meanwhile, columns of the Timeline Images built are collected for saving.
+Meanwhile, columns of the required output Timeline Images are collected for saving.
 Considering that the memory of the target hardware is limited, Timeline Images are built and saved in parts with pre-defined lengths.
 
 At the end of the iteration, the collected Timeline Image columns are exported in a png image format, and results of detection and classification are sent as a report file.
 In this mode evaluation and correction features are not accessible.
-
 
