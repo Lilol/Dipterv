@@ -7,7 +7,7 @@ The core software is responsible for the processing of the video stream itself.
 It identifies the vehicles, classifies them and estimates parameters, including speed and following distance.
  
 Besides that, the software supports other supplementary features, like the evaluation of the system's precision, and correction of the calibration rectangle.
-Although these features are implemented architecturally in the same software unit, the supplementary elements are discussed in chapter \ref{sec:SupplementarySoftware}., since they do not strictly belong to the core of the Traffic Sensor.
+Although these features are implemented architecturally in the same software unit, the supplementary elements are discussed in section \ref{sec:SupplementarySoftware}., since they do not strictly belong to the core of the Traffic Sensor.
 %----------------------------------------------------------------------------
 \section{Software architecture}
 %----------------------------------------------------------------------------
@@ -40,7 +40,7 @@ The Media Store contains the system's resources in the form of Timeline Images a
 Since the memory of the embedded hardware is very limited, only a finite amount of data can be cached.
 To achieve this, after detection and data extraction are finished, the henceforward unused Timeline Images and Frame Strips are discarded.
 To attain a continuous operation with a constant memory usage, approximately 20--30 Frames in a Frame-strip and 500 columns in a Timeline Image are usually stored.
-For further changes and improvements, the maximum number of saved units can be specified through the system's configuration files (detailed in chapter \ref{subs:ProjectConfigurator}.).
+For further changes and improvements, the maximum number of saved units can be specified through the system's configuration files (detailed in section \ref{subs:ProjectConfigurator}.).
 To prevent deadlocks, the resources are accessed through mutexes.
 
 The specific Timeline Images and Frame-strips used by the Traffic Sensor are detailed as follows.
@@ -139,7 +139,7 @@ Second, a background-subtraction and its post-corrections are applied to detect 
 The third stage is data extraction, including vehicle detection, classification and parameter calculation.
 
 The final step is system evaluation and testing. 
-Since, this step is optional, and is only available when the system is tested during development, when the operation is not continuous, it is considered a supplementary software element, and is discussed in detail in chapter \ref{sec:SupplementarySoftware}.
+Since, this step is optional, and is only available when the system is tested during development, when the operation is not continuous, it is considered a supplementary software element, and is discussed in detail in section \ref{sec:SupplementarySoftware}.
 
 In each processing stage a series of different Timeline Images and Frame-strips are used.
 %----------------------------------------------------------------------------
@@ -159,7 +159,7 @@ The result of the remapping of the Raw Frame is an Original Frame, from which a 
 The first stage is perspective compensation.
 At this point, the image, distorted by perspective transform, is remapped based on a calibration rectangle, so that lengths on the frame become independent from the distance of the camera.
 The following vehicle-size calculation and classification strongly relies on the assumption that vehicle-lengths are not subject to perspective distortion, and are irrelative to their position on the frame.
-The calibration rectangle is defined manually using the Project Configurator user interface (UI), that is detailed in chapter \ref{subs:ProjectConfigurator}.
+The calibration rectangle is defined manually using the Project Configurator user interface (UI), that is detailed in section \ref{subs:ProjectConfigurator}.
 
 The second stage is rotation of the frame, so that the tripwire becomes vertical.
 As a result of the vertical tripwire, it is possible to measure in the dimension perpendicular to the tripwire simply by reading certain rows of the image.
@@ -316,7 +316,7 @@ with $n_{\text{NZpoints}}$ being the number of non-zero points on the Size Timel
 \label{tab:intervals}
 \end{table}
 
-The vehicles then categorized by a hard-decision classifier into five categories (figure \ref{fig:types}.) 
+The vehicles then categorized by a hard-decision classifier into five categories (figure \ref{fig:types}.) .
 The types were configured for common urban traffic scenes, thus they represent the most typical road user categories.
 Since the classification data is used for emission estimation of greenhouse gases as well, the vehicle categories consist of vehicles with similar greenhouse emission profiles.
 Although the class of cyclists and motorcycles is not homogeneous concerning their emission, this anomaly influences the estimation very moderately.

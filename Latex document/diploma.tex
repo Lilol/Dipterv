@@ -26,6 +26,7 @@
 \usepackage{titlesec}
 \usepackage{relsize}
 \usepackage{anyfontsize}
+\usepackage{pdfpages}
 \usepackage{makeidx}
 \usepackage[export]{adjustbox}
 \usepackage[inkscapeopt= -D -z]{svg}
@@ -112,7 +113,7 @@
 	columns=fixed,
 	backgroundcolor=\color{lightgray},
 } 		
-\def\lstlistingname{lista}	
+\def\lstlistingname{code-listing}	
 
 %--------------------------------------------------------------------------------------
 %	Some new commands and declarations
@@ -186,6 +187,7 @@ aboveskip=10pt}
 \singlespacing
 \pagenumbering{arabic}
 \onehalfspacing
+\includepdf[pages={1}]{../Kameras-forgalomszamlalo-rendszer-fejlesztese-Feladatkiiras-2.pdf}
 \include{titlepage}
 \tableofcontents\vfill
 \include{declaration}

@@ -12,7 +12,7 @@ For further details, see the work of Tam{\'a}s T{\'o}th\cite{Toth2016} and Istv{
 %----------------------------------------------------------------------------
 \subsection{The target board}
 Since the hardware will be installed inside a street-lighting lamp box, it must be able to function using a passive cooling system.
-The target hardware is an UDOO Quad minicomputer using a small and effective Ubuntu Linux-based UDOObuntu 2 operating system.
+The target hardware chosen to suit this requirement, is an UDOO Quad minicomputer using a small and effective Ubuntu Linux-based UDOObuntu 2 operating system.
 The board has an i.MX6 ARM\reg Cortex\reg-A9 Quad, \SI{1}{GHz}, multi-core CPU\cite{UDOO, UDOO2}.
 A CSI camera interface and a USB 2.0 port is available on the hardware, for connecting the camera.
 
@@ -21,21 +21,22 @@ The Sensor deployed into the lamp boxes communicate with each other and the cent
 Although RF communication has a limited bandwidth, since only a rather small amount of information (only the result of the counting) is transmitted, it is sufficient for this purpose.
 The data transmission is mediated by the EnTalk\textsuperscript{TM} communication protocol\cite{EnTalk}.
 The sending and receiving of the information is organized as a multi-hop mesh system, wherein each communication node is connected solely to its direct neighbours, namely the two closest lamp posts (as seen on figure \ref{fig:network}).
-This way, the short range RF communication cannot impede the data transfer.
+This way, the short range of RF communication cannot impede the data transfer.
 
 \begin{figure}[!h]
 	\centering
 	\includesvg[width=0.5\textwidth]{network}
-	\caption{The structure of the multi-hop mesh network. Each node transfers the information to its closest neighbours, thus communication is short-ranged. \label{fig:network}}
+	\caption{The structure of the multi-hop mesh network. For a short-ranged communication, each node transfers the information to its closest neighbours. \label{fig:network}}
 \end{figure}
 
 The server communicates through an API (Application Programming Interface), that implements the REST (Representational State Transfer) principles. 
 In both directions JSON (JavaScript Object Notation) syntax files are transmitted.
+Each node is identified by the server with an EnTalk\textsuperscript{TM} ID.
 %----------------------------------------------------------------------------
 \section{Supplementary software elements}\label{sec:SupplementarySoftware}
 %---------------------------------------------------------------------------
 The auxiliary software elements' main responsibility is connecting the core to its surroundings.
-They provide access to the sensor by transferring the input data (e.g. settings files, software upgrades), from the user to the core software, and returning information (such as the result of counting and diagnostic data) to the backend server, via the EnTalk\textsuperscript{TM} connection.
+They provide access to the sensor by transferring the input data (e.g. settings files, software upgrades), from the user to the core software, and returning information (such as the result of counting and diagnostics data) to the backend server, via the EnTalk\textsuperscript{TM} connection.
 
 The supporting software has various other features.
 The configuration tools facilitate the operation under heterogeneous circumstances by providing the ability to set individual settings for each environment.
@@ -44,14 +45,47 @@ Diagnostics tools evaluate the operation and visualize the data stored in the sy
 \subsection{Communication}
 %----------------------------------------------------------------------------
 \subsubsection{Reporting}
+At the production environment the Sensor operates continuously, and the result of the detection is regularly sent through the EnTalk\textsuperscript{TM} connection as JSON syntax report file. 
+This reporting procedure is periodical, and the time interval of each period can be set as a configuration parameter.
+The report file contains the number of counted vehicles in each category along with their average speed and following distance.
+An example is shown on code-listing \ref{lst:report_file}.
 
+\begin{lstlisting}[frame=single,float=!ht,caption={Part of a report file. The result of the counting is sent as a JSON format file, including the number of vehicles detected in each category.},label=lst:report_file]
+{
+	"entalkid" : "BMETS001",
+	"pid" : 8,
+	"period" : 300,
+	"sampleutc" : 1453740815,
+	"samples":
+			{
+				"cars":
+				{
+					"count" : 10,
+					"avg_speed" : 24.8,
+					"avg_distance" : 5.8
+				},
+				"trucks":
+				{
+					"count" : 5,
+					"avg_speed" : 23.9,
+					"avg_distance" : 7.1
+				},
+				...
+				"total_objects" : 37
+			}
+}
+\end{lstlisting}
+
+The reporting is part of the regular operation of the Sensor, and the core software is responsible for its.
+Other control and management functions are handled through the EnTalk\textsuperscript{TM} Network by the Project Configurator application, and are detailed in the following section.
 
 \subsubsection{Remote management}
-Since the Sensors are installed in street-lighting lamp boxes high above the road, thus accessible with difficulty, and will be deployed en masse, therefore control functions and software upgrades must be managed remotely.
+Since the Sensors are installed in street-lighting lamp boxes high above the road, where accessed with difficulty, and will be deployed en masse, therefore control functions and software upgrades must be managed remotely.
 
 To achieve this, each instance of the sensor can be accessed through a graphical user interface (GUI), the Project Configurator.
-The Project Configurator itself is a separate, autonomous software component of the Traffic Sensor system.
-Although it is in charge of a handful of tasks, including the manual configuration of the calibration features (detailed in \ref{chap:calibration}), its main purpose is to enable the remote control of the Sensors by managing the EnTalk\textsuperscript{TM} communication.
+The Project Configurator itself is a separate, autonomous application of the Traffic Sensor system.
+The GUI is show on figure \ref{fig:project_configurator}.
+Although it is in charge of a handful of tasks, including the manual configuration of the calibration features (detailed in section \ref{chap:calibration}.), its main purpose is to enable the remote control of the Sensors by managing the EnTalk\textsuperscript{TM} communication.
 
 The management functions include the uploading of calibration files and new software versions (updates) to the sensor, and the downloading of log files and diagnostic data (such as images and calibration videos).
 The UI is capable of sending control commands as well.
@@ -61,9 +95,9 @@ The UI is capable of sending control commands as well.
 Since the position of the camera and the surrounding environment of the Traffic Sensor are undetermined and varying, the system's properties has to be adjustable to meet the particular requirements.
 To be able to calibrate the Traffic Sensor's several parameters in a group, a two-level configuration method was implemented.
 The system's settings are listed in two separate files, the settings file and the project file.
-These are standard INI format files, each of them specifying parameters and their values as key--value pairs, grouped into sections.
+These are standard INI format files, each of them specifying parameters and their values as key--value pairs, grouped into sections as seen in code-listing \ref{lst:config_file}.
 
-\begin{lstlisting}[frame=single,float=!ht,caption={Part of a configuration file. The features are rganized into groups, and presented as key--value pairs.},label=lst:config_file]
+\begin{lstlisting}[frame=single,float=!ht,caption={Part of a configuration file. The features are organized into groups, called section and presented as key--value pairs.},label=lst:config_file]
 [mog2]
 backgroundRatio = 0.95
 complexityReductionThreshold = 0.1
@@ -107,7 +141,7 @@ Other parameters affect the operation by specifying the run mode (discussed furt
 Some properties are strictly environment-specific, like the position of the Tripwire on the frame, and the calibration rectangle.
 The visualization and saving of miscellaneous media -- e.g. timeline images, videos and diagnostics files -- can be switched on and off as well.
 
-\subsection{Calibration}\ref{chap:calibration}
+\subsection{Calibration}\label{chap:calibration}
 %----------------------------------------------------------------------------
 Some environment-specific parameters can be manually configured using the aforementioned Project Configurator GUI.
 The position of the Tripwire, the calibration rectangle and optionally the centre of road-lanes can be set and adjusted.
@@ -210,35 +244,65 @@ The experimental results are presented in chapter \ref{chap:Tests}.~in detail.
 %----------------------------------------------------------------------------
 The Traffic Sensor software supports several features for converting the raw information stored in the system into a form for human interpretation.
 The exportation of visual information is assigned to the Output Builders classes.
-They either transform existing Timeline Images into more visually ... form, or draw the contents of container objects on Timeline Images.
 
-The Output Builders visualize and save the data stored in the system, in the form of the following timeline images:
+The main diagnostic feature is the exporting of the data in the form of the following timeline images.
 \begin{enumerate}
 	\item \textbf{Untransformed Timelines -- Original, MOG2 Timeline: } Exported directly from the raw data stored.
 	\item \textbf{Transformed Timeline -- Speed, Size, Following Distance Timeline: } The raw data is rescaled and normalized before saving. The lightness of the pixels indicate a higher value. Speed values are marked with either red or blue depending on the direction of the movement. 
+	\item \textbf{Blob Timeline: } The content of the vehicle storage object drawn on a Timeline Image. Different from the MOG2 Timeline, since after the counting that takes place on the MOG2 Timeline Image, the found objects are post-corrected. The post corrections include size-filtering, the fusing separated blobs, and the reconnection of the split objects belonging to stopped vehicles.
 	\item \textbf{Result Timeline: } The Result Timeline contains vehicle occurrences, each of them drawn with a separate colour. Other features, such as size and vehicle type can be displayed as well.
-	\item \textbf{Evaluation Timeline: } The Evaluation Timeline shows the result of the evaluation, each classification case (described in chapter \ref{chap:evaluation}.) marked perceptively.
+	\item \textbf{Evaluation Timeline: } The Evaluation Timeline shows the result of the evaluation, each classification case (described in section \ref{chap:evaluation}.) marked perceptively.
 	\item \textbf{Error Timeline Images: } For each error type (false positive, false negative, misclassification error) a Timeline Image can be exported.
 \end{enumerate} 
+The Timelines are either saved in their raw state (e.g MOG2 Timeline), transformed into a more visually understandable form (e.g. Speed Timeline), or the contents of container objects are drawn on blank Timeline Images (like Blob Timeline, Error Timelines).
 
-Depending on the operation mode of the Traffic Sensor (discussed in chapter \ref{chap:operation_modes}), either a complete Timeline Image can be saved at the end of the full process, or parts of it can be exported periodically, each time the size of the stored data overrun a pre-defined limit.
+Depending on the operation mode of the Traffic Sensor (discussed in section \ref{chap:operation_modes}), either complete Timeline Images can be saved at the end of the full process, or parts of them can be exported periodically, each time the size of the stored data overruns a pre-defined limit.
 
-If the correction of the calibration process is (presented in chapter \ref{chap:cal_corr}.)
+The system is able to build and save video files for demonstration purposes as well, namely a raw video sequence (with the intention of manual calibration in the Project Configurator or later testing), and a demo video file with user-defined frame structure for demonstration.
+The demo video frames can be made up by any Frame-strip or Timeline Image, along with counting statistics.
+An example of a demo video frame is shown on figure \ref{fig:demo_video}.
 
-The system is possible to build and save video files for demonstration purposes as well. 
+The result of the calibration correction can be displayed as well, in the form of two images, containing the measured average vehicle lengths along the Tripwire, or the original calibration rectangle with the revised one. 
+An example of these images are shown on figure \ref{fig:cal_corr_example}, and the process is further detailed in section \ref{chap:cal_corr}.
 
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=0.5\textwidth]{frame_demo_vide.png}
-	\caption{An example of frame from the demo video. The frame structure of the demo video can defined in the configuration files.  \label{fig:demo_video}}
+	\caption{An example of frame from the demo video. The desired structure of the demo video frame is defined in the configuration files.  \label{fig:demo_video}}
 \end{figure}
 
-Other information is exported as test file, such as the result of counting...
+Along with the report files containing the result of the counting in a JASON format, it is possible to export other characteristic information as text files.
+The diagnostic files are as follows:
+\begin{enumerate}
+	\item \textbf{Log file: } Contains the timing values of the operation. Used for speed-testing purposes.
+	\item \textbf{Evaluation result file: } Displays the numeric result of the evaluation. The number of each cases and the value of the calculated measures (defined in section \ref{chap:evaluation}.) are listed in an HTML (Hypertext Markup Language) format.
+	\item \textbf{Corrected calibration rectangle: } This file contains the plain list of the edges of the corrected calibration rectangle.
+\end{enumerate}
+
+\begin{figure}[!h]
+	\centering
+	\begin{subfigure}[!h]{0.4\textwidth}
+		\includegraphics[width=\textwidth]{calibration_values.png}
+		\caption{Average vehicle length values along the Tripwire. All length data are in meter.}
+	\end{subfigure}
+	\quad
+	\begin{subfigure}[!h]{0.4\textwidth}
+		\includegraphics[width=\textwidth]{calibratedRectangle.png}
+		\caption{The corrected calibration rectangle (with blue) drawn over the original one (with yellow).}
+	\end{subfigure}
+	\caption{The result and diagnostics data of the calibration correction exported as images.\label{fig:cal_corr_example}}
+\end{figure}
+
+
+The videos, calibration correction frames, and result files can be exported by the Sensor at the end of the operation (in single-run mode), and timeline images and log files during it (in continuous mode).
+The exported files can be remotely accessed using the Project Configurator.
 
 %----------------------------------------------------------------------------
 \subsubsection{Continuous integration tests}
 %----------------------------------------------------------------------------
-
+To test the proper operation of the system at all times, and to ensure discovering potential errors at the earlies possible, a functional test script runs automatically at each nigh.
+The script compiles and runs the latest Traffic Sensor version accessible in the version control system.
+The results of the operation are then shortly shared via an on-line interface with the developers.
 %----------------------------------------------------------------------------
 \section{Operation modes of the Traffic Sensor}\label{chap:operation_modes}
 %----------------------------------------------------------------------------
