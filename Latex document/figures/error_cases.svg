@@ -26,14 +26,14 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.98994949"
-     inkscape:cx="229.61478"
+     inkscape:cx="174.381"
      inkscape:cy="941.0051"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
      inkscape:window-width="1366"
      inkscape:window-height="693"
-     inkscape:window-x="1357"
+     inkscape:window-x="-9"
      inkscape:window-y="-9"
      inkscape:window-maximized="1" />
   <metadata
@@ -44,7 +44,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -78,7 +78,7 @@
       </g>
     </g>
     <path
-       style="fill:#ff0000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.43412033;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.68837208"
+       style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.43412033;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.68837208"
        d="m 40.803643,42.918383 c -1.637073,0.467324 -1.382026,0.914259 -2.525199,2.057425 -0.398371,0.398371 -0.648785,1.116552 -1.052464,1.52023 -0.666284,0.666284 -3.071828,1.53384 -3.840775,2.046465 -2.183758,1.455839 -3.038118,6.432076 -1.311929,7.582871 2.765263,1.843512 12.674169,2.053771 16.130549,2.053771 2.2001,0 6.071923,0.815499 8.189526,0.109632 0.185882,-0.06194 0.839257,-1.092036 1.015927,-1.180367 3.033699,-1.51685 0.305966,-8.482857 -1.35579,-10.144613 -0.794141,-0.79414 -3.820285,-0.312066 -4.443745,-0.935526 -0.137218,-0.137217 -1.040539,-3.14643 -1.052475,-3.14643 -0.232505,0 -1.870584,-0.01187 -2.050125,-0.131566 -0.562472,-0.374973 -3.485508,0.205444 -3.844434,-0.153482 -0.443599,-0.443599 -3.151993,0.498333 -3.859066,0.32159 z"
        id="path4164-0"
        inkscape:connector-curvature="0"
@@ -152,7 +152,7 @@
          id="tspan5289"
          x="106.90781"
          y="62.871891"
-         style="stroke-width:0.26458332">false negative</tspan></text>
+         style="stroke-width:0.26458332">false positive</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:4.93888855px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
@@ -174,7 +174,7 @@
          id="tspan5302"
          x="6.4144688"
          y="10.219796"
-         style="stroke-width:0.26458332">misclassification</tspan></text>
+         style="stroke-width:0.26458332">(possible) misclassification</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:4.93888855px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"

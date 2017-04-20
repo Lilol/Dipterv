@@ -96,15 +96,15 @@ Many of these selection techniques restrict the calculation to an interested reg
 \begin{figure}[!h]
 	\centering
 	\includesvg[width=0.9\textwidth]{original_frame_timeline.svg}
-	\caption{Virtual detection line on a frame (left), and a time-spatial image created from the original frame sequence (right).\label{fig:TSI}}
+	\caption{Virtual detection line in a frame (left), and a time-spatial image created from the original frame sequence (right).\label{fig:TSI}}
 \end{figure}
 
 One of the most cost-effective, image-domain reducing techniques is based on virtual detection lines (VDLs) and time-spatial images (TSIs).
 A virtual detection line is a one-pixel wide straight line placed perpendicular or parallel to the vehicle trajectory, whilst a time-spatial image can be considered itself as an image, where the vertical dimension corresponds to the VDL in the original frame, and the horizontal one corresponds to time in the original sequence.
-A time-spatial image reflects the state of a fixed line changes with time, thus if a vehicle crosses or touches the VDL, it appears on the TSI and becomes detectable, as seen on figure \ref{fig:TSI}.
+A time-spatial image reflects the state of a fixed line changes with time, thus if a vehicle crosses or touches the VDL, it appears in the TSI and becomes detectable, as seen in figure \ref{fig:TSI}.
 Such images can also be perceived as a sequence from a line-detector, or the cross-section of the traffic flow that condenses essential information. 
 
-An approach similar to the aforementioned was first introduced in 2001 by Albiol et. al., and was proposed for counting people on video sequences using a "stack of lines" -- that is the equivalent of a TSI\cite{Albiol2001}.
+An approach similar to the aforementioned was first introduced in 2001 by Albiol et. al., and was proposed for counting people in video sequences using a "stack of lines" -- that is the equivalent of a TSI\cite{Albiol2001}.
 
 An approach with virtual line groups placed both perpendicular and parallel to the traffic flow direction was proposed later for counting\cite{Anan2006,Wu2007}.
 
@@ -118,7 +118,7 @@ Yue evaluated traffic-flow parameters under urban road environment with the same
 
 A similar technique was also introduced by Rashid et. al., wherein vehicles were detected and counted on a TSI, and feature-based classification was performed using attributes like width, area and rectangularity extracted from both the TSI and frames\cite{Rashid2010}.
 
-Mithun et. al. proposes a kNN classification scheme using shape-based, shape-invariant, and texture-based features of the segmented regions corresponding to the vehicles on the TSIs\cite{Mithun2012a}.
+Mithun et. al. proposes a kNN classification scheme using shape-based, shape-invariant, and texture-based features of the segmented regions corresponding to the vehicles in the TSIs\cite{Mithun2012a}.
 
 Both Yue, Rashid and Mithn uses an appearance-based detection method, since TSIs are extracted from the original video sequence without background subtraction performed, and vehicles are identified using an edge detector.
 
@@ -132,7 +132,7 @@ Kryjak et. al.'s concept is based on detecting the presence of vehicles by analy
 Kryjak also implemented the method in real-time for an embedded hardware\cite{Kryjak2014}.
 
 In a recent study by Kamkar et. al. TSIs are generated to measure vehicle length. Vehicles are classified using a pre-trained random forest classifier\cite{Kamkar2016}. 
-Kamkar's approach analyses both the time-spatial domain, and corresponding regions on the original frames to extract classifying features.
+Kamkar's approach analyses both the time-spatial domain, and corresponding regions in the original frames to extract classifying features.
 Note that in this study TSIs are used solely for classification purposes, the detection is performed on the original images.
 
 On of the latest studies on this topic is Zhang's, in which a foreground time-spatial image (FTSI) is proposed for counting vehicles in complex urban traffic scenes\cite{Zhang2016}.
@@ -184,19 +184,19 @@ Additionally, the application needs to operate through extended periods of time 
 
 \begin{figure}
 	\centering
-	\begin{subfigure}{.5\textwidth}
+	\begin{subfigure}[b]{.5\textwidth}
 		\centering
 		\includegraphics[width=0.9\linewidth]{kamera_placement.pdf}
 		%\caption{A subfigure}
 		%\label{fig:sub1}
 	\end{subfigure}%
-	\begin{subfigure}{.5\textwidth}
+	\begin{subfigure}[b]{.5\textwidth}
 		\centering
 		\includegraphics[width=0.8\linewidth]{raw_frame_perspective.png}
 		%\caption{A subfigure}
 		%\label{fig:sub2}
 	\end{subfigure}
-	\caption{Camera placement and a typical frame scene of the Traffic Sensor. The camera's optical axis is vertical. To monitor the entire width of the road a panoramic camera with a wide view angle was used for testing purposes.}
+	\caption{Camera placement and a typical frame scene of the Traffic Sensor. The camera's optical axis is vertical. To monitor the entire width of the road a panoramic camera with a wide angle of view was used for testing purposes.}
 	\label{fig:camera_position}
 \end{figure}
 

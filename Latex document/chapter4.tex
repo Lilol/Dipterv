@@ -5,22 +5,22 @@ The primary task of the SOLSUN Traffic Sensor is counting, that is performed by 
 However, since the system is nested into its surroundings, it requires other supplementary software that facilitates the operation in the production environment on the target hardware, connects the Sensor to the user, and provides diagnostic tools for testing and evaluation.
 
 The aim of this section is to offer an insight into the operation and structure of the hardware and software environment of the Sensor.
-Although the supplementary elements are integral parts of the system, their characteristics will be merely sketched without going into details, because they are out of the main scope of this thesis work.
-For further details, see the work of Tam{\'a}s T{\'o}th\cite{Toth2016} and Istv{\'a}n Vincze\cite{Vincze2016}.
+Although the supplementary elements are integral parts of the system, their characteristics will be merely sketched without going into detail, because they are out of the main scope of this thesis work.
+For further detail, see the work of Tam{\'a}s T{\'o}th\cite{Toth2016} and Istv{\'a}n Vincze\cite{Vincze2016}.
 %---------------------------------------------------------------------------
 \section{Hardware environment}
 %----------------------------------------------------------------------------
 \subsection{The target board}
 Since the hardware will be installed inside a street-lighting lamp box, it must be able to function using a passive cooling system.
-The target hardware chosen to suit this requirement, is an UDOO Quad minicomputer using a small and effective Ubuntu Linux-based UDOObuntu 2 operating system.
+The target hardware, chosen to suit this requirement, is an UDOO Quad minicomputer using a small and effective Ubuntu Linux-based UDOObuntu 2 operating system.
 The board has an i.MX6 ARM\reg Cortex\reg-A9 Quad, \SI{1}{GHz}, multi-core CPU\cite{UDOO, UDOO2}.
 A CSI camera interface and a USB 2.0 port is available on the hardware, for connecting the camera.
 
 \subsection{Network architecture and communication}
-The Sensor deployed into the lamp boxes communicate with each other and the central server via a radio frequency (RF) channel, that uses an open, ISM (Industrial Scientific Medical) band.
-Although RF communication has a limited bandwidth, since only a rather small amount of information (only the result of the counting) is transmitted, it is sufficient for this purpose.
-The data transmission is mediated by the EnTalk\textsuperscript{TM} communication protocol\cite{EnTalk}.
-The sending and receiving of the information is organized as a multi-hop mesh system, wherein each communication node is connected solely to its direct neighbours, namely the two closest lamp posts (as seen on figure \ref{fig:network}).
+The Sensor instances deployed into the lamp boxes communicate with each other and the central server via a radio frequency (RF) channel, that uses an open, ISM (Industrial Scientific Medical) band.
+Although RF communication has limited bandwidth, since only a rather small amount of information (only the result of the counting) is transmitted, it is sufficient for this purpose.
+Data transmission is mediated by the EnTalk\textsuperscript{TM} communication protocol\cite{EnTalk}.
+The sending and receiving of the information is organized as a multi-hop mesh system, wherein each communication node is connected solely to its direct neighbours, namely the two closest lamp posts (as seen in figure \ref{fig:network}).
 This way, the short range of RF communication cannot impede the data transfer.
 
 \begin{figure}[!h]
@@ -40,7 +40,7 @@ They provide access to the sensor by transferring the input data (e.g. settings 
 
 The supporting software has various other features.
 The configuration tools facilitate the operation under heterogeneous circumstances by providing the ability to set individual settings for each environment.
-Diagnostics tools evaluate the operation and visualize the data stored in the system in various representations, and are also responsible for the exporting of the result of counting, classification and diagnostics in text files.
+Diagnostics tools evaluate the operation and visualize the data stored in the system in various representations, and are also responsible for the exporting of the result of counting, classification and quantified diagnostics in text files.
 %----------------------------------------------------------------------------
 \subsection{Communication}
 %----------------------------------------------------------------------------
@@ -48,9 +48,9 @@ Diagnostics tools evaluate the operation and visualize the data stored in the sy
 At the production environment the Sensor operates continuously, and the result of the detection is regularly sent through the EnTalk\textsuperscript{TM} connection as JSON syntax report file. 
 This reporting procedure is periodical, and the time interval of each period can be set as a configuration parameter.
 The report file contains the number of counted vehicles in each category along with their average speed and following distance.
-An example is shown on code-listing \ref{lst:report_file}.
+An example is shown in code-listing \ref{lst:report_file}.
 
-\begin{lstlisting}[frame=single,float=!ht,caption={Part of a report file. The result of the counting is sent as a JSON format file, including the number of vehicles detected in each category.},label=lst:report_file]
+\begin{lstlisting}[frame=single,float=!ht,caption={Part of a report file. The result of the counting is sent as a JSON syntax file, including the number of vehicles detected in each category.},label=lst:report_file]
 {
 	"entalkid" : "BMETS001",
 	"pid" : 8,
@@ -76,18 +76,18 @@ An example is shown on code-listing \ref{lst:report_file}.
 }
 \end{lstlisting}
 
-The reporting is part of the regular operation of the Sensor, and the core software is responsible for its.
-Other control and management functions are handled through the EnTalk\textsuperscript{TM} Network by the Project Configurator application, and are detailed in the following section.
+The reporting is part of the regular operation of the Sensor, that is core software's responsibility.
+Other irregular, időnkénti! control and management functions are handled by the Project Configurator application, and are detailed in the following section.
 
 \subsubsection{Remote management}
-Since the Sensors are installed in street-lighting lamp boxes high above the road, where accessed with difficulty, and will be deployed en masse, therefore control functions and software upgrades must be managed remotely.
+Since the Sensors are installed in street-lighting lamp boxes high above the road, where accessed with difficulty, and will be deployed en masse, control functions and software upgrades must be managed remotely.
 
 To achieve this, each instance of the sensor can be accessed through a graphical user interface (GUI), the Project Configurator.
 The Project Configurator itself is a separate, autonomous application of the Traffic Sensor system.
-The GUI is show on figure \ref{fig:project_configurator}.
+The GUI is show in figure \ref{fig:project_configurator}.
 Although it is in charge of a handful of tasks, including the manual configuration of the calibration features (detailed in section \ref{chap:calibration}.), its main purpose is to enable the remote control of the Sensors by managing the EnTalk\textsuperscript{TM} communication.
 
-The management functions include the uploading of calibration files and new software versions (updates) to the sensor, and the downloading of log files and diagnostic data (such as images and calibration videos).
+The management functions include the uploading of calibration files and new software versions (updates) to the sensor, and the downloading of log files and diagnostics ????? data (such as images and calibration videos).
 The UI is capable of sending control commands as well.
 %----------------------------------------------------------------------------
 \subsection{Configuration}\label{subs:ProjectConfigurator}
@@ -97,7 +97,7 @@ To be able to calibrate the Traffic Sensor's several parameters in a group, a tw
 The system's settings are listed in two separate files, the settings file and the project file.
 These are standard INI format files, each of them specifying parameters and their values as key--value pairs, grouped into sections as seen in code-listing \ref{lst:config_file}.
 
-\begin{lstlisting}[frame=single,float=!ht,caption={Part of a configuration file. The features are organized into groups, called section and presented as key--value pairs.},label=lst:config_file]
+\begin{lstlisting}[frame=single,float=!ht,caption={Part of a configuration file. The features are organized into sections, and presented as key--value pairs.},label=lst:config_file]
 [mog2]
 backgroundRatio = 0.95
 complexityReductionThreshold = 0.1
@@ -134,37 +134,37 @@ Evaluation = true
 \end{lstlisting}
 
 On the first level, the settings file contains basic configuration values, as default parameters for the operation.
-Each of these properties can be overridden by the projects file's specifications if needed, for an environment-specific configuration.
+Each of these properties can be overridden by the specifications listen is the project file if needed, for an environment-specific configuration.
 
-Most of the listed properties are algorithm parameters, for example threshold values for image processing methods.
+Most of the listed properties are algorithm parameters, e.g. threshold values for image processing methods.
 Other parameters affect the operation by specifying the run mode (discussed further in section \ref{sec:run_modes}.), changing the report frequency and the maximal number of stored timeline columns, or deactivating processing steps.
-Some properties are strictly environment-specific, like the position of the Tripwire on the frame, and the calibration rectangle.
+Some properties are strictly environment-specific, like the position of the Tripwire in the frame, and the calibration rectangle.
 The visualization and saving of miscellaneous media -- e.g. timeline images, videos and diagnostics files -- can be switched on and off as well.
 
 \subsection{Calibration}\label{chap:calibration}
 %----------------------------------------------------------------------------
 Some environment-specific parameters can be manually configured using the aforementioned Project Configurator GUI.
-The position of the Tripwire, the calibration rectangle and optionally the centre of road-lanes can be set and adjusted.
+The position of the Tripwire, the calibration rectangle, and optionally, the centre of road-lanes can be set and adjusted.
 To specify these features, the user simply draws on a proper frame, chosen from a short video sequence, that is recorded form the camera, or read from the video file by the Configurator itself.
-Other numeric parameters, like the beginning and ending frame of the video, or the length of the sides of the calibration rectangle can be pre-set.
+Other numeric parameters, like the beginning and ending frame of the video, or the length of the sides of the calibration rectangle can be pre-set as well.
 The GUI is able to write the specified values into the appropriate configuration file, and send the file to the Sensor. 
 
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=0.5\textwidth]{projectConfigurator.png}
-	\caption{The user interface of the Project Configurator. Using the UI several parameters can be set, including the Tripwire (with lilac), the calibration rectangle (with yellow), and other numeric values in text input fields. The Tripwire's beginning and ending point determine the order, in which its points are processed. Since the Project Configurator can read, write and upload configuration files, the above functions can be managed jointly through the GUI. \label{fig:project_configurator}}
+	\caption{The user interface of the Project Configurator. Using the GUI several parameters can be set, including the Tripwire (with lilac), the calibration rectangle (with yellow), and other numeric values in text input fields. The Tripwire's beginning and ending point determine the order, in which its pixels are processed. Since the Project Configurator can read, write and upload configuration files to the Sensor, the above functions can be managed jointly through the GUI. \label{fig:project_configurator}}
 \end{figure}
 %----------------------------------------------------------------------------
 \subsection{System diagnostics}
 %----------------------------------------------------------------------------
-The system diagnostics features are responsible for evaluating the precision of the operation and converting information stored, into a quickly and simply interpretable form.
+The system diagnostics features are responsible for evaluating the precision of the operation and converting information stored, into a simply interpretable form.
 %----------------------------------------------------------------------------
 \subsubsection{Evaluation}\label{chap:evaluation}
-For measuring the accuracy of the operation, the system was tested on a series of test videos.
+To quantify the accuracy of the operation, the system was tested on a series of test videos.
 The videos were recorded in various weather, light and traffic conditions to ensure the system's robustness.
 
-To be able to quantify the performance of the counting, the correct detection and classification values were gathered into a reference data set, called the ground truth, and were compared to the results of the counting.
-The data set is created manually for each test video, based on the Original Timeline Image of the corresponding video stream.
+To be able to evaluate the performance of the counting, the correct detection and classification values were gathered into a reference data set, called the ground truth, and were compared to the results of the counting.
+The data set is created manually, based on the Original Timeline Image of the corresponding video stream of each test video.
 
 \begin{figure}[!h]
 	\centering
@@ -187,12 +187,12 @@ The data set is created manually for each test video, based on the Original Time
 		\includegraphics[width=\textwidth]{result_GT.png}
 		\caption{The result of the evaluation. True positive cases are marked with neutral colours, false positive cases are crossed out with red, blue dots indicate false negative errors.\label{fig:GT_result}}
 	\end{subfigure}
-	\caption{The creation process of the reference data set, the ground truth.\label{fig:GT}}
+	\caption{The creation and evaluation process of the reference data set, the ground truth.\label{fig:GT}}
 \end{figure}
 
 A ground truth file can be considered itself as an image, with points that match the vehicles of the Original Timeline.
 Every point is marked with a coloured dot, with the colour indicating the type of the vehicle.
-At the end of the process, the detection results are compared to the GT's  points, and precision is evaluated based on the error rates.
+At the end of the process, the detection results are compared to the GT's  points, and precision is evaluated based on the error rates of the comparison.
 
 \begin{figure}[!h]
 	\centering
@@ -200,16 +200,19 @@ At the end of the process, the detection results are compared to the GT's  point
 	\caption{ \label{fig:error_cases}}
 \end{figure}
 
-For evaluation the typical binary classification cases were used (as shown on figure \ref{error_cases}.):
+For evaluation the following typical binary classification cases were used (as shown in figure \ref{fig:error_cases}.):
 \begin{enumerate}
-\item \textbf{TP -- true positive:} correctly detected vehicles, where a vehicle on the MOG2 Timeline matches a point on the GT image.
-\item \textbf{FP -- false positive:} a vehicle was detected, but no matching point on the GT image.
-\item \textbf{FN -- false negative:} no vehicle was detected, but a point is present on the GT. 
+\item \textbf{TP -- true positive:} correctly detected vehicles, where a vehicle in the MOG2 Timeline matches a point in the GT image.
+\item \textbf{FP -- false positive:} a vehicle was detected, but has no matching point in the GT image.
+\item \textbf{FN -- false negative:} no vehicle was detected, but a point is present in the GT. 
 \item \textbf{TN -- true negative:} true negative cases are undefined.
-\item  \textbf{CC -- correct classification:} the point on the GT and the matching vehicle have the same types.
+\item  \textbf{CC -- correct classification:} the point in the GT and the matching vehicle have the same types.
 \end{enumerate}
 
-To quantify the performance of the system, the following measures -- known in binary classification theory -- were used:
+The above abbreviations have two distinct meanings. 
+Firstly, they refer to instances of the described cases, and secondly, in equations, they mean the number of cases found whilst evaluating a specific test video.
+
+To quantify the performance of the system, the following measures -- also known in binary classification theory -- were used:
 \\[5pt]
 \noindent Recall:
 \begin{displaymath}
@@ -245,25 +248,26 @@ The experimental results are presented in chapter \ref{chap:Tests}.~in detail.
 The Traffic Sensor software supports several features for converting the raw information stored in the system into a form for human interpretation.
 The exportation of visual information is assigned to the Output Builders classes.
 
-The main diagnostic feature is the exporting of the data in the form of the following timeline images.
+The main diagnostic feature is the exportation of the data in the form of the following timeline images.
 \begin{enumerate}
 	\item \textbf{Untransformed Timelines -- Original, MOG2 Timeline: } Exported directly from the raw data stored.
-	\item \textbf{Transformed Timeline -- Speed, Size, Following Distance Timeline: } The raw data is rescaled and normalized before saving. The lightness of the pixels indicate a higher value. Speed values are marked with either red or blue depending on the direction of the movement. 
-	\item \textbf{Blob Timeline: } The content of the vehicle storage object drawn on a Timeline Image. Different from the MOG2 Timeline, since after the counting that takes place on the MOG2 Timeline Image, the found objects are post-corrected. The post corrections include size-filtering, the fusing separated blobs, and the reconnection of the split objects belonging to stopped vehicles.
-	\item \textbf{Result Timeline: } The Result Timeline contains vehicle occurrences, each of them drawn with a separate colour. Other features, such as size and vehicle type can be displayed as well.
+	\item \textbf{Transformed Timelines -- Speed, Size, Following Distance Timeline: } The raw image data is rescaled, normalized and optionally assigned to three channels before saving. The lightness of the pixels indicate a higher original numeric value. Speed values are marked with either red or blue depending on the direction of the movement. 
+	\item \textbf{Blob Timeline: } The found vehicles, stored in the vehicle storage object, drawn on a Timeline Image. Different from the MOG2 Timeline, because after the blobs of the MOG2 Timeline Image are counted, the found objects are post-corrected. The post corrections include size-filtering, the fusion of separated blobs, and the reconnection of the split objects.
+	\item \textbf{Result Timeline: } Similar to the Blob Timeline, the Result Timeline contains vehicle occurrences, each of them drawn with a separate colour. Other features, such as size, average speed and vehicle type can be displayed as well.
 	\item \textbf{Evaluation Timeline: } The Evaluation Timeline shows the result of the evaluation, each classification case (described in section \ref{chap:evaluation}.) marked perceptively.
-	\item \textbf{Error Timeline Images: } For each error type (false positive, false negative, misclassification error) a Timeline Image can be exported.
+	\item \textbf{Error Timeline Images: } For each error type (false positive, false negative, misclassification error) a Timeline Image can be exported, showing only the respective error cases.
 \end{enumerate} 
 The Timelines are either saved in their raw state (e.g MOG2 Timeline), transformed into a more visually understandable form (e.g. Speed Timeline), or the contents of container objects are drawn on blank Timeline Images (like Blob Timeline, Error Timelines).
+Some examples of the visualizations of Timelines are found in appendix \ref{app:TIs}.
 
 Depending on the operation mode of the Traffic Sensor (discussed in section \ref{chap:operation_modes}), either complete Timeline Images can be saved at the end of the full process, or parts of them can be exported periodically, each time the size of the stored data overruns a pre-defined limit.
 
-The system is able to build and save video files for demonstration purposes as well, namely a raw video sequence (with the intention of manual calibration in the Project Configurator or later testing), and a demo video file with user-defined frame structure for demonstration.
-The demo video frames can be made up by any Frame-strip or Timeline Image, along with counting statistics.
-An example of a demo video frame is shown on figure \ref{fig:demo_video}.
+The system is able to build and save video files for demonstration purposes as well, namely a raw video sequence (with the intention of manual calibration in the Project Configurator, or later testing), and a demo video file with user-defined frame structure for demonstration.
+The demo video frames can be made up by any Frame-strip or Timeline Image, along with the visualization of counting statistics.
+An example of a demo video frame is shown in figure \ref{fig:demo_video}.
 
 The result of the calibration correction can be displayed as well, in the form of two images, containing the measured average vehicle lengths along the Tripwire, or the original calibration rectangle with the revised one. 
-An example of these images are shown on figure \ref{fig:cal_corr_example}, and the process is further detailed in section \ref{chap:cal_corr}.
+An example of these images are shown in figure \ref{fig:cal_corr_example}, and the calibration correction process is further detailed in section \ref{chap:cal_corr}.
 
 \begin{figure}[!h]
 	\centering
@@ -271,42 +275,41 @@ An example of these images are shown on figure \ref{fig:cal_corr_example}, and t
 	\caption{An example of frame from the demo video. The desired structure of the demo video frame is defined in the configuration files.  \label{fig:demo_video}}
 \end{figure}
 
-Along with the report files containing the result of the counting in a JASON format, it is possible to export other characteristic information as text files.
+Along with the report files containing the result of the counting in a JSON format, it is possible to export other characteristic information as text files.
 The diagnostic files are as follows:
 \begin{enumerate}
-	\item \textbf{Log file: } Contains the timing values of the operation. Used for speed-testing purposes.
-	\item \textbf{Evaluation result file: } Displays the numeric result of the evaluation. The number of each cases and the value of the calculated measures (defined in section \ref{chap:evaluation}.) are listed in an HTML (Hypertext Markup Language) format.
-	\item \textbf{Corrected calibration rectangle: } This file contains the plain list of the edges of the corrected calibration rectangle.
+	\item \textbf{Log file: } Contains the timing values of the operation. Used for speed-testing purposes. Evaluated during the run on the target hardware.
+	\item \textbf{Evaluation result file: } Displays the numeric results of evaluation. The number of each cases and the value of the calculated measures (defined in section \ref{chap:evaluation}.) are listed in an HTML (Hypertext Markup Language) format file.
+	\item \textbf{Corrected calibration rectangle: } This file contains the plain list of the edges of the corrected calibration rectangle, can be copied later to redefine the original edges.
 \end{enumerate}
 
 \begin{figure}[!h]
 	\centering
-	\begin{subfigure}[!h]{0.4\textwidth}
+	\begin{subfigure}[b]{0.4\textwidth}
 		\includegraphics[width=\textwidth]{calibration_values.png}
 		\caption{Average vehicle length values along the Tripwire. All length data are in meter.}
 	\end{subfigure}
 	\quad
-	\begin{subfigure}[!h]{0.4\textwidth}
+	\begin{subfigure}[b]{0.4\textwidth}
 		\includegraphics[width=\textwidth]{calibratedRectangle.png}
 		\caption{The corrected calibration rectangle (with blue) drawn over the original one (with yellow).}
 	\end{subfigure}
 	\caption{The result and diagnostics data of the calibration correction exported as images.\label{fig:cal_corr_example}}
 \end{figure}
 
-
-The videos, calibration correction frames, and result files can be exported by the Sensor at the end of the operation (in single-run mode), and timeline images and log files during it (in continuous mode).
-The exported files can be remotely accessed using the Project Configurator.
+The videos, calibration correction frames, and result files can be exported by the Sensor at the end of the operation (in single-run mode), and timeline images and log files during (in continuous mode).
+The exported files can be remotely downloaded using the Project Configurator.
 
 %----------------------------------------------------------------------------
 \subsubsection{Continuous integration tests}
 %----------------------------------------------------------------------------
-To test the proper operation of the system at all times, and to ensure discovering potential errors at the earlies possible, a functional test script runs automatically at each nigh.
+To test the proper operation of the system at all times, and to ensure discovering potential errors at the earliest possible, a functional test script runs automatically each nigh.
 The script compiles and runs the latest Traffic Sensor version accessible in the version control system.
 The results of the operation are then shortly shared via an on-line interface with the developers.
 %----------------------------------------------------------------------------
 \section{Operation modes of the Traffic Sensor}\label{chap:operation_modes}
 %----------------------------------------------------------------------------
-Depending on the particular situation and the user's aim, the Traffic Sensor is able to function in two different operation modes.
+Depending on the particular situation and the user's aim, the Traffic Sensor is able to function in two different operation modes (shown in figure \ref{fig:run_types}.).
 %----------------------------------------------------------------------------
 \subsubsection{Single-run or test mode}\label{sec:run_modes}
 First, for testing, development and evaluation purposes the single-run mode is used.
@@ -320,7 +323,7 @@ The Sensor sends a report every time after a fixed time interval -- specified in
 \begin{figure}[!h]
 	\centering
 	\includesvg[width=\textwidth]{process_run_types}
-	\caption{Operation modes of the Traffic Sensor. The single-run mode is for testing and development (above), when a video file or a stream with a pre-set count of frames is processed. The single-run mode has a definite ending, when post-process evaluations and tests are carried out, and entire Timeline Images are saved. In the production environment, the Sensor functions in a continuous mode. Since the amount of memory is finite, and the end of the process is not predictable, in continuous mode, all events happen periodically. The only exception is reporting, that happens periodically after fixed intervals in both run modes. \label{fig:run_types}}
+	\caption{Operation modes of the Traffic Sensor. The single-run mode is for testing and development (above), when a video file or a stream with a pre-set count of frames is processed. The single-run mode has a definite ending, when post-process evaluations and tests are carried out, and entire Timeline Images are saved. In the production environment, the Sensor functions in a continuous mode. Since the amount of memory is finite, and the end of the process is not predictable, in continuous mode, all events happen periodically. The only exception is reporting, that happens regularly after fixed intervals in both run modes. \label{fig:run_types}}
 \end{figure}
 %----------------------------------------------------------------------------
 \subsubsection{Continuous run}

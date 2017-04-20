@@ -30,7 +30,7 @@ The Processors have a unified interface, through which they communicate with the
 The Arbiter can control an arbitrary number of Processors, and thanks to their unified interface, each of them can be deleted or replaced with a different implementation, and if needed, further steps can be integrated into the system as well.
 
 \subsection{Parallel processing}
-To utilize the hardware and for the sake of real-time processing, Processors operate simultaneously in a pipeline-like manner as depicted on figure \ref{fig:arbiter_pipeline}.
+To utilize the hardware and for the sake of real-time processing, Processors operate simultaneously in a pipeline-like manner as depicted in figure \ref{fig:arbiter_pipeline}.
 For process synchronization are thread-pool is used, where every Processor owns a thread, and the Arbiter controls their work-flow.
 Thanks to this, although each unit can only process a single Frame and Timeline Image column at once, the system can manage 10--15 columns and images at the same time, depending on the number of Processors.
 
@@ -145,9 +145,9 @@ In each processing stage a series of different Timeline Images and Frame-strips 
 %----------------------------------------------------------------------------
 \subsection{Preprocessing}
 %----------------------------------------------------------------------------
-In the preprocessing stage a series of transforms are performed on each Raw Frame as seen on figure \ref{fig:transforms}.
+In the preprocessing stage a series of transforms are performed on each Raw Frame as seen in figure \ref{fig:transforms}.
 As a result of remapping, a standard frame-scheme is created, that is independent of the video file format, camera type, placement and the sensor's environment.
-This regular form has a pre-defined size, that is small enough to be processed in real-time, and is simple enough to be rapidly searched and measured on.
+This regular form has a pre-defined size, that is small enough to be processed in real-time, and is simple enough to be rapidly searched and measured.
 The result of the remapping of the Raw Frame is an Original Frame, from which a column is extracted and added to the Original Timeline.
 
 \begin{figure}[!h]
@@ -157,20 +157,20 @@ The result of the remapping of the Raw Frame is an Original Frame, from which a 
 \end{figure}
 
 The first stage is perspective compensation.
-At this point, the image, distorted by perspective transform, is remapped based on a calibration rectangle, so that lengths on the frame become independent from the distance of the camera.
-The following vehicle-size calculation and classification strongly relies on the assumption that vehicle-lengths are not subject to perspective distortion, and are irrelative to their position on the frame.
+At this point, the image, distorted by perspective transform, is remapped based on a calibration rectangle, so that lengths in the frame become independent from the distance of the camera.
+The following vehicle-size calculation and classification strongly relies on the assumption that vehicle-lengths are not subject to perspective distortion, and are irrelative to their position in the frame.
 The calibration rectangle is defined manually using the Project Configurator user interface (UI), that is detailed in section \ref{subs:ProjectConfigurator}.
 
 The second stage is rotation of the frame, so that the tripwire becomes vertical.
 As a result of the vertical tripwire, it is possible to measure in the dimension perpendicular to the tripwire simply by reading certain rows of the image.
-This method, considering the image-storage technique of the OpenCV library, where frames are stored as an array of rows in the memory, speeds up the computation significantly, and simplifies searching on frames.
+This method, considering the image-storage technique of the OpenCV library, where frames are stored as an array of rows in the memory, speeds up the computation significantly, and simplifies searching in frames.
 
 In the third level of preprocessing a frames are resized in order to decrease the number of pixels and the computation time, and increase the speed of processing.
 The end-size of the frame can be specified through the configuration files, and is usually 320 by 240 pixels.
 %----------------------------------------------------------------------------
 \subsection{Background-subtraction}
 %----------------------------------------------------------------------------
-The second phase of processing is background-subtraction, that is the separation of moving objects form the static background on each frame.
+The second phase of processing is background-subtraction, that is the separation of moving objects form the static background in each frame.
 This step creates the MOG2 Frame and Timeline as a result of background-subtraction.
 The correction of the subtraction method use the Motionless Timeline.
 
@@ -185,10 +185,10 @@ Another drawback of background-modelling is that temporarily stopped objects tha
 The errors caused by this is corrected later on, by detecting immobile vehicles.
 
 Although some approaches model only the tripwire's pixels as background--foreground, in our method background-subtraction takes place on the whole frame.
-That is, because features, such as size and velocity are calculated by measuring objects' lengths on the MOG2 Frame, as further detailed in section \ref{chap:parameter_evaluation}.
+That is, because features, such as size and velocity are calculated by measuring objects' lengths in the MOG2 Frame, as further detailed in section \ref{chap:parameter_evaluation}.
 After the background-subtraction, the result is corrected, in order to filter errors of the MOG2 output.
 
-First, morphological opening followed by closing removes punctual noises, and smooths object contours on the MOG2 Frame.
+First, morphological opening followed by closing removes punctual noises, and smooths object contours in the MOG2 Frame.
 As a result, the MOG2 Timeline is created.
 After, stopped vehicles are detected, and saved to the Motionless Timeline.
 As sudden light changes can cause an overreaction of MOG2, to prevent this, the MOG2 Frames are filtered.
@@ -201,27 +201,27 @@ The required data is extracted after the MOG2 Timeline and Frame are created, an
 First, timeline-blobs are selected with connected component analysis on the MOG2 Timeline image.
 
 Afterwards the detection results are revised and corrected.
-Some errors occur, because vehicles can fuse on the TI, if they cross the tripwire together. These merged objects are split based on their shapes, and saved as vehicles.
+Some errors occur, because vehicles can fuse in the TI, if they cross the tripwire together. These merged objects are split based on their shapes, and saved as vehicles.
 
-Also, errors may occur because of stopping vehicles, since their blobs slowly disappear and reappear on the MOG2 timeline.
+Also, errors may occur because of stopping vehicles, since their blobs slowly disappear and reappear in the MOG2 timeline.
 Thus these vehicles have two separate blobs.
 The split timeline-blobs are identified and recombined using the data of the Motionless Timeline. 
 
 \begin{figure}[p]
 	\centering
 	\thisfloatpagestyle{plainlower}
-	\includesvg[clean,width=\textwidth,pretex=\relsize{1.2}]{speed_size_following_distance}
+	\includesvg[clean,width=\textwidth,pretex=\relsize{0.8}]{speed_size_following_distance}
 	\caption{The basic idea of parameter calculation. Each feature is estimated with measuring lengths perpendicular to the Tripwire.\label{fig:size_speed_following_distance}}
 \end{figure}
 
-After the vehicle detection, parameters are evaluated and stored on timeline images.
+After the vehicle detection, parameters are evaluated and stored as timeline images.
 The following section discusses the estimation of these parameters.
 
 \subsubsection{Parameter evaluation}\label{chap:parameter_evaluation}
 The next phase of data extraction is parameter calculation.
 At this point, the length, speed and following distance of the identified vehicles are estimated and stored in the form of a timeline image.
-The length, speed and distance of the vehicles are measured on the MOG2 Frames, and projected back to the Parameter Timelines.
-The notation used in this section are explained on figure \ref{fig:parameter_notations}.
+The length, speed and distance of the vehicles are measured in the MOG2 Frames, and projected back to the Parameter Timelines.
+The notation used in this section are explained in figure \ref{fig:parameter_notations}.
 
 \begin{figure}[!h]
 	\centering
@@ -229,7 +229,7 @@ The notation used in this section are explained on figure \ref{fig:parameter_not
 	\caption{Notations used in section \ref{chap:parameter_evaluation}. \label{fig:parameter_notations}}
 \end{figure}
 
-At each point on the Size Timeline the intensity value is calculated as follows:
+At each point in the Size Timeline the intensity value is calculated as follows:
 
 \begin{displaymath}
  	\boldsymbol{TI_{\text{Size}}}(t,k) = 
@@ -242,7 +242,7 @@ At each point on the Size Timeline the intensity value is calculated as follows:
 with $l_{\text{L},t}$, $l_{\text{R},t}$ being the perpendicular length of the left and right side of the object that occupies the tripwire.
 The lengths are measured in pixels.
 
-The intensities of the Speed Timeline are calculated with the lengths measured on 2 successive frames, as follows:
+The intensities of the Speed Timeline are calculated with the lengths measured in 2 successive frames, as follows:
 
 \begin{displaymath}
 \boldsymbol{TI_{\text{Speed}}}(t_0,k) = 
@@ -253,7 +253,7 @@ The intensities of the Speed Timeline are calculated with the lengths measured o
 \end{displaymath}
  
 where $\Delta r_{\text{L}}$ and $\Delta r_{\text{R}}$ are the displacements of the left and right edge of the object, that occupies the tripwire.
-The vehicle lengths stored on the Size Time are later used for classification purposes.
+The vehicle lengths stored in the Size Time are later used for classification purposes.
 
 The displacements are calculated with the left and right sides' lengths as follows:
 \begin{gather*}
@@ -293,14 +293,14 @@ This feature is also less noise-sensitive than other simple features, like inten
 	\caption{The classification process. Each vehicle's length is estimated based on the corresponding size data, then categorized with a hard-decision classifier into four separate categories. \label{fig:classification}}
 \end{figure}
 
-To estimate their length $l_{vehicle}$, each vehicle's Timeline Blob ($TB$) is projected to the Size Timeline, and the values corresponding to the blob's region are averaged, as depicted on figure \ref{fig:classification}. 
+To estimate their length $l_{vehicle}$, each vehicle's Timeline Blob ($TB$) is projected to the Size Timeline, and the values corresponding to the blob's region are averaged, as depicted in figure \ref{fig:classification}. 
 The length-feature is calculated using the following equation:
 
 \begin{displaymath}
 	l_{vehicle} = \frac{\mathlarger{\mathlarger{\sum}}\limits_{\substack{(x,y) \in \text{TB} \\ \boldsymbol{TI_{\text{Size}}}(x,y)\neq 0}} \boldsymbol{TI_{\text{Size}}}(x,y)}{n_{\text{NZpoints}}},
 \end{displaymath}
 
-with $n_{\text{NZpoints}}$ being the number of non-zero points on the Size Timeline.
+with $n_{\text{NZpoints}}$ being the number of non-zero points in the Size Timeline.
 
 \begin{table}[!h]
 	\centering
@@ -324,32 +324,32 @@ The "other" class represents vehicles with significant emission, including buses
 
 The intervals of the categories were determined empirically and are noted in table \ref{tab:intervals}.
 
-The sizes on the Size Timeline are converted to metrics with a scaling-factor that is calculated based on the size of the calibration rectangle's sides, and depends on the particular traffic scene and frame setting.
+The sizes in the Size Timeline are converted to metrics with a scaling-factor that is calculated based on the size of the calibration rectangle's sides, and depends on the particular traffic scene and frame setting.
 
 \begin{figure}[!t]
 	\centering
 	\begin{adjustbox}{minipage=\linewidth,scale=0.8}
-	\begin{subfigure}[!h]{0.25\textwidth}
+	\begin{subfigure}[b]{0.25\textwidth}
 	\includesvg[width=\textwidth]{cars}
 	\caption{Cars.}
 	\end{subfigure}
 	\quad
-	\begin{subfigure}[!h]{0.25\textwidth}
+	\begin{subfigure}[b]{0.25\textwidth}
 	\includesvg[width=\textwidth]{trucks}
 	\caption{Trucks.}
 	\end{subfigure}
 	\quad
-	\begin{subfigure}[!h]{0.21\textwidth}
+	\begin{subfigure}[b]{0.21\textwidth}
 	\includesvg[width=\textwidth]{bicicle}
 	\caption{Bicycles.}
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}[!h]{0.3\textwidth}
+	\begin{subfigure}[b]{0.3\textwidth}
 	\includesvg[width=\textwidth]{ped}
 	\caption{Pedestrians.}
 	\end{subfigure}
-	\quad
-	\begin{subfigure}[!h]{0.5\textwidth}
+	\qquad
+	\begin{subfigure}[b]{0.5\textwidth}
 	\includesvg[width=\textwidth]{other}
 	\caption{Other.}
 	\end{subfigure}

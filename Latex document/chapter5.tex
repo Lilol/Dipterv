@@ -1,12 +1,30 @@
 %----------------------------------------------------------------------------
 \chapter{Experimental results}\label{chap:Tests}
 %----------------------------------------------------------------------------
-\section{Evaluation}
+In the following chapter the results of the system tests will be discussed. 
+Performance criteria 
 %----------------------------------------------------------------------------
+\section{Evaluation results}
+%----------------------------------------------------------------------------
+\subsection{Test videos and }
 
-\subsection{Evaluation tools}
-\subsection{Grand truth}
-\subsection{Test videos}
+
+\subsection{Results}
+\subsubsection{Initial setting}
+- minSize: 250
+- lanes: defined for most videos
+
+\subsubsection{The minimal size of blobs redefined}
+- minSize: 200
+- lanes: defined for most videos
+
+\subsubsection{No lanes defined}
+- minSize: 200
+- lanes: no lanes
+
+\subsubsection{Split size added}
+- minSize: 100
+- splitMinSize : 100
 
 \subsection{Common errors and solutions}
 \subsubsection{False positives}
@@ -16,13 +34,55 @@
 %----------------------------------------------------------------------------
 \section{Calibration correction}\label{chap:cal_corr}
 %----------------------------------------------------------------------------
+In the Raw Frames, 
+in the image-domain vehicle lengths depend on the distance from the camera caused by perspective deformation
+- since vehicle lengths are the basis of classification, perspective distortion must be transformed back/eliminated
+- a calibration rectangle based pespective compensation method was used, that is available in the OpenCV library \cite{PersComp}
+
+- the rectangle is defined manually int the Project Configurator during the calibration process presented in section \ref{chap:calibration}
+- the calibration rectangle is drawn and its sides' lengths are estimated based on any occurring road lanes, or simply on naked eye examination
+- the inaccuracy of human perception
+- causes a significant uncertainty
+- and empirical analysis shows that errors are actually present in many hand-calibrated videos
+
+- although automatizing this process would help to avoid manual calibration, in heterogeneous environment it is a complex problem and is not implemented in the current version of the system
+
+- to correct the existent settings, the miscalibration can be evaluated examining the length of the vehicles depending on the distance from the camera
+- but the manual calibration method can be corrected during an evaluation phase
 
 \subsection{The miscalibration problem}
+\subsubsection{Perspective compensation method}
+- calibration rectangle that is a square in the ??? space
+- distorted on the image, looking like a trapeze or a general rectangle
+- the four corners are projected back into a square, and the other pixels are perspectively
+- using a transformation map  (OpenCV algorithm)
+- as a result, further from the camera the lengths remain the same, and can be correctly classified
+
+\subsubsection{Miscalibrated streams}
+- if the edges of the rectangle do not fit a perfect square in reality (valóság)
+- the vehicles on the compensated frames are not the same length
+- in most cases their lengths still decrease as (távolodva) from the camera
+- easily (felismerhető) (jelenség): the int the farest?? road lane cares are classified as bicycles
+
 \subsection{Solutions}
-\subsection{Results}
+\begin{enumerate}
+	\item  \textbf{Estimate decrease}
+	\item  \textbf{Calculate proper size ratios}
+	\item  \textbf{Redraw calibration rectangle}
+\end{enumerate}
+- quantify the decrease of the lengths
+- based on the correct lengths, redraw the calibration rect
+
+\subsection{Calibration correction results}
 
 %----------------------------------------------------------------------------
 \section{Speed testing}
 %----------------------------------------------------------------------------
+- Speed criteria to meet:
+	- minimum speed \SI{25}{frame/s}
+	- loosing frames and thus vehicles
+	- the optimum is higher, \SI{30}{frame/s}
+	- important to be higher for the integration of new functions, processing steps, or extending existing ones
+	- e.g. shadow-detection feature, or a more sophisticated classifier
 
 \subsection{Results}
