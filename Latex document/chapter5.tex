@@ -2,11 +2,11 @@
 \chapter{Experimental results}\label{chap:Tests}
 %----------------------------------------------------------------------------
 In the following chapter the results of the system tests will be discussed. 
-Performance criteria 
+Performance and precision criteria 
 %----------------------------------------------------------------------------
 \section{Evaluation results}
 %----------------------------------------------------------------------------
-\subsection{Test videos and }
+\subsection{Test videos}
 
 
 \subsection{Results}
@@ -34,35 +34,40 @@ Performance criteria
 %----------------------------------------------------------------------------
 \section{Calibration correction}\label{chap:cal_corr}
 %----------------------------------------------------------------------------
-In the Raw Frames, 
-in the image-domain vehicle lengths depend on the distance from the camera caused by perspective deformation
-- since vehicle lengths are the basis of classification, perspective distortion must be transformed back/eliminated
-- a calibration rectangle based pespective compensation method was used, that is available in the OpenCV library \cite{PersComp}
+Due to perspective distortion, vehicles, that in effect have the same sizes differ in length on the Raw Frames.
+Since vehicle lengths are the basis of classification, perspective distortion is eliminated using a quadrangle, called the calibration rectangle, that is defined by the user.
 
-- the rectangle is defined manually int the Project Configurator during the calibration process presented in section \ref{chap:calibration}
-- the calibration rectangle is drawn and its sides' lengths are estimated based on any occurring road lanes, or simply on naked eye examination
-- the inaccuracy of human perception
-- causes a significant uncertainty
-- and empirical analysis shows that errors are actually present in many hand-calibrated videos
+The calibration rectangle is hand-drawn on a frame in the Project Configurator GUI (section \ref{chap:calibration}.) as part of the calibration process.
+The position and the sides' lengths are estimated with the help of any occurring road lanes, or simply based on naked eye examination.
+On this wise, due to the inaccuracy of human perception, the location and size of the calibration rectangle are significantly uncertain.
+Empirical analysis shows that errors are actually present in many hand-calibrated videos.
 
-- although automatizing this process would help to avoid manual calibration, in heterogeneous environment it is a complex problem and is not implemented in the current version of the system
+To avoid manual calibration, some traffic surveillance systems automatize this process.
+However in heterogeneous environment, it is a highly complex problem, and is not implemented in the current version of the Traffic Sensor system.
 
-- to correct the existent settings, the miscalibration can be evaluated examining the length of the vehicles depending on the distance from the camera
-- but the manual calibration method can be corrected during an evaluation phase
+To correct the existent settings, the extent of the miscalibration is evaluated examining the length of the vehicles close to and far from the camera.
+This way the calibration rectangle is redefined for later use during the evaluation phase of the processing.
 
 \subsection{The miscalibration problem}
 \subsubsection{Perspective compensation method}
-- calibration rectangle that is a square in the ??? space
-- distorted on the image, looking like a trapeze or a general rectangle
-- the four corners are projected back into a square, and the other pixels are perspectively
-- using a transformation map  (OpenCV algorithm)
-- as a result, further from the camera the lengths remain the same, and can be correctly classified
+The calibration rectangle is constructed by defining its four edges from the upper left corner, to the lower left one in order.
+The edges must correspond to a square's in the 3D world, that due to the perspective transformation, show as a general rectangle on the image plane.
+On most frames, lane markings are used for this purpose.
+
+The transform projects the four vertices back into a square, along with the entire pixel grid of the image using a transformation map to speed up the process.
+For defining the transform and constructing the map two universal OpenCV methods were used\cite{PersTrans, WrapPers}.
+
+In the result images -- the Original Frame -- the vehicle lengths are independent of the position in the image plane. 
+This opens the possibility of correct calibration.
+
+The calibration rectangle's sides are also used to define a scaling factor between the 3d world and the image plane.
+This can convert all lengths in the image to a metric scale.
 
 \subsubsection{Miscalibrated streams}
-- if the edges of the rectangle do not fit a perfect square in reality (valóság)
+- if the edges of the rectangle do not fit a perfect square in reality (valosag)
 - the vehicles on the compensated frames are not the same length
 - in most cases their lengths still decrease as (távolodva) from the camera
-- easily (felismerhető) (jelenség): the int the farest?? road lane cares are classified as bicycles
+- easily (felismerheto) (jelenseg): the int the farest?? road lane cares are classified as bicycles
 
 \subsection{Solutions}
 \begin{enumerate}
