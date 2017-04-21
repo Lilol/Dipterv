@@ -8,6 +8,35 @@ Performance and precision criteria
 %----------------------------------------------------------------------------
 \subsection{Test videos}
 
+\begin{table}[]
+		%\centering
+	\begin{adjustbox}{center}
+\begin{tabular}{|l|l|l|l|l|}
+	\hline
+	\multicolumn{1}{|c|}{\textbf{Video code}} & \multicolumn{1}{c|}{\textbf{Characteristics}}                                                     & \multicolumn{1}{c|}{\textbf{Lanes set}} & \multicolumn{1}{c|}{\textbf{\begin{tabular}[c]{@{}c@{}}Number of\\ GT\\  points\end{tabular}}} & \multicolumn{1}{c|}{\textbf{Special features}}                                                \\ \hline \hline
+	\textbf{BorA1}                            & night, pedestrians                                                                                & no                                      & 14                                                                                             & minSize = 20                                                                                  \\ \hline
+	\textbf{BorA2}                            & \begin{tabular}[c]{@{}l@{}}daytime, pedestrians, \\ stopping tram\end{tabular}                    & no                                      & 13                                                                                             & minSize = 10                                                                                  \\ \hline
+	\textbf{ErA1}                             & night, low traffic                                                                                & yes                                     & 8                                                                                              & --                                                                                            \\ \hline
+	\textbf{ErA2}                             & daytime, low traffic                                                                              & yes                                     & 59                                                                                             & --                                                                                            \\ \hline
+	\textbf{ErC1}                             & \begin{tabular}[c]{@{}l@{}}daytime, stopping tram, \\ pedestrians\end{tabular}                    & yes                                     & 45                                                                                             & minSize = 40                                                                                  \\ \hline
+	\textbf{ErE5}                             & \begin{tabular}[c]{@{}l@{}}recorded at the \\ IBikeBudapest cyclist \\ demonstration\end{tabular} & no                                      & 202                                                                                            & minSize = 10                                                                                  \\ \hline
+	\textbf{ErzsC\_N}                         & \begin{tabular}[c]{@{}l@{}}night, low traffic, \\ some pedestrians\end{tabular}                   & yes                                     & 18                                                                                             & --                                                                                            \\ \hline
+	\textbf{ErzsC\_S}                         & \begin{tabular}[c]{@{}l@{}}daytime, many\\ pedestrians, occlusion\end{tabular}                    & no                                      & 18                                                                                             & \begin{tabular}[c]{@{}l@{}}MOG2 overreaction \\ detection: higher \\ sensitivity\end{tabular} \\ \hline
+	\textbf{ErzsD}                            & daytime, low traffic                                                                              & yes                                     & 32                                                                                             & --                                                                                            \\ \hline
+	\textbf{FovamC\_D}                        & sundown, low traffic                                                                              & yes                                     & 79                                                                                             & --                                                                                            \\ \hline
+	\textbf{FovamC\_N}                        & \begin{tabular}[c]{@{}l@{}}night, low traffic, \\ stopping vehicles\end{tabular}                  & no                                      & 38                                                                                             & --                                                                                            \\ \hline
+	\textbf{FovC1}                            & sundown, low traffic                                                                              & yes                                     & 95                                                                                             & --                                                                                            \\ \hline
+	\textbf{GoldA1}                           & night, medium traffic                                                                             & yes                                     & 13                                                                                             & --                                                                                            \\ \hline
+	\textbf{GoldA2}                           & \begin{tabular}[c]{@{}l@{}}daytime, heavy traffic, \\ stopping vehicles\end{tabular}              & yes                                     & 68                                                                                             & calibration corrected                                                                         \\ \hline
+	\textbf{GoldB1}                           & \begin{tabular}[c]{@{}l@{}}daytime, heavy traffic, \\ stopping vehicles\end{tabular}              & no                                      & 46                                                                                             & calibration corrected                                                                         \\ \hline
+	\textbf{GoldB2}                           & daytime, low traffic                                                                              & yes                                     & 10                                                                                             & --                                                                                            \\ \hline
+	\textbf{SasA1}                            & daytime, medium traffic                                                                           & yes                                     & 194                                                                                            & --                                                                                            \\ \hline
+	\textbf{SasadA1}                          & daytime, heavy traffic                                                                            & yes                                     & 195                                                                                            & \begin{tabular}[c]{@{}l@{}}MOG2 overreaction \\ detection: higher \\ sensitivity\end{tabular} \\ \hline
+\end{tabular}
+\end{adjustbox}
+\caption{My caption}
+\label{my-label}
+\end{table}
 
 \subsection{Results}
 \subsubsection{Initial setting}
@@ -24,7 +53,7 @@ Performance and precision criteria
 
 \subsubsection{Split size added}
 - minSize: 100
-- splitMinSize : 100
+- splitMinSize : 200
 
 \subsection{Common errors and solutions}
 \subsubsection{False positives}
@@ -51,23 +80,64 @@ This way the calibration rectangle is redefined for later use during the evaluat
 \subsection{The miscalibration problem}
 \subsubsection{Perspective compensation method}
 The calibration rectangle is constructed by defining its four edges from the upper left corner, to the lower left one in order.
-The edges must correspond to a square's in the 3D world, that due to the perspective transformation, show as a general rectangle on the image plane.
-On most frames, lane markings are used for this purpose.
+The edges must be coplanar in the plane of the street, and correspond to a square's vertices in the 3D world.
+The square, due to the perspective transformation, shows as a general rectangle on the image plane.
+On most frames, lane markings are used to find and define the square, since they are parallel lines in the road.
 
-The transform projects the four vertices back into a square, along with the entire pixel grid of the image using a transformation map to speed up the process.
-For defining the transform and constructing the map two universal OpenCV methods were used\cite{PersTrans, WrapPers}.
+The four vertices are then projected back into a square, along with the entire pixel grid of the image using a transformation map to speed up the process.
+Examples of the Frames before and after the perspective compensation transformation are seen in figure \ref{fig:perscomp}.
+For defining the transform and constructing the map, universal OpenCV methods were used\cite{PersTrans, WrapPers}.
 
-In the result images -- the Original Frame -- the vehicle lengths are independent of the position in the image plane. 
-This opens the possibility of correct calibration.
+\begin{figure}[!t]
+	\centering
+		\begin{subfigure}[b]{0.4\textwidth}
+			\includegraphics[width=\textwidth]{raw_frame_ibike.png}
+			\caption{A Raw Frame from the ErE5 video sequence.}
+		\end{subfigure}
+		\quad
+		\begin{subfigure}[b]{0.4\textwidth}
+			\includegraphics[width=\textwidth]{original_frame_ibike.png}
+			\caption{An Original Frame from the ErE5 video sequence.}
+		\end{subfigure}
+		\hfill
+		\begin{subfigure}[b]{0.4\textwidth}
+			\includegraphics[width=\textwidth]{raw_frame_fovam.png}
+			\caption{A Raw Frame from the FovamC\_D video sequence.}
+		\end{subfigure}
+		\quad
+		\begin{subfigure}[b]{0.4\textwidth}
+			\includegraphics[width=\textwidth]{original_frame_fovam.png}
+			\caption{An Original Frame from the FovamC\_D video sequence.}
+		\end{subfigure}
+		
+		\caption{Frames before and after the perspective compensation. The calibration rectangle's edges are marked with their sequential numbers.\label{fig:perscomp}}
+\end{figure}
 
-The calibration rectangle's sides are also used to define a scaling factor between the 3d world and the image plane.
-This can convert all lengths in the image to a metric scale.
+In the result images -- the Original Frame-strip -- the vehicle lengths are independent of the vehicle's position in the image plane. 
+The calibration rectangle's sides are also used to define a scaling factor between the 3D world and the image plane.
+Using the scaling factor all lengths are converted to a metric scale, thus correct classification is possible.
 
 \subsubsection{Miscalibrated streams}
-- if the edges of the rectangle do not fit a perfect square in reality (valosag)
-- the vehicles on the compensated frames are not the same length
+A miscalibration is indicated with gradual decrease of vehicle lengths as moving further from the camera.
+It is caused by the edges of the rectangle that do not fit a perfect square in the 3D world.
+- the vehicles on the compensated frames are not the same length \ref{fig:calibrations}
 - in most cases their lengths still decrease as (távolodva) from the camera
 - easily (felismerheto) (jelenseg): the int the farest?? road lane cares are classified as bicycles
+
+\begin{figure}[!t]
+	\centering
+	\begin{subfigure}[b]{0.4\textwidth}
+		\includegraphics[width=\textwidth]{calibrationCorrection_OK_GoldB1_Sun.png}
+		\caption{GoldB1, correctly calibrated.}
+	\end{subfigure}
+	\quad
+	\begin{subfigure}[b]{0.4\textwidth}
+		\includegraphics[width=\textwidth]{calibrationCorrection_GoldA2_Not_OK.png}
+		\caption{FovamC\_D, miscalibrated.}
+	\end{subfigure}
+
+	\caption{Average vehicle lengths along the Tripwire calculated from a correctly calibrated and a miscalibrated Frame-strip. If the video stream is correctly calibrated, average sizes do not change along the Tripwire. The sizes show a slight decrease, if the video is miscalibrated.(The light blue line indicates the estimated slope of the length values.)\label{fig:calibrations}}
+\end{figure}
 
 \subsection{Solutions}
 \begin{enumerate}
@@ -79,7 +149,54 @@ This can convert all lengths in the image to a metric scale.
 - based on the correct lengths, redraw the calibration rect
 
 \subsection{Calibration correction results}
+\ref{fig:calibrations2}
 
+\addtolength{\topmargin}{-.6in}
+\begin{figure}[p]
+	\thispagestyle{empty}
+	\centering
+	\thisfloatpagestyle{empty}
+	\begin{subfigure}[t]{0.36\textwidth}
+		\includegraphics[width=\textwidth]{calibrationCorrection_GoldA2_Not_OK.png}
+		\caption{GoldA2, miscalibrated.}
+	\end{subfigure}
+	\quad
+	\begin{subfigure}[t]{0.36\textwidth}
+		\includegraphics[width=\textwidth]{calibrationCorrection_OK_GoldA2.png}
+		\caption{GoldA2, corrected.}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[t]{0.36\textwidth}
+		\includegraphics[width=\textwidth]{calibrationCorrection_Fovam_not_OK.png}
+		\caption{FovamC\_D, miscalibrated.}
+	\end{subfigure}
+	\quad
+	\begin{subfigure}[t]{0.36\textwidth}
+		\includegraphics[width=\textwidth]{calibrationCorrection_Fovam_OK.png}
+		\caption{FovamC\_D, corrected.}
+	\end{subfigure}
+\hfill
+\begin{subfigure}[t]{0.36\textwidth}
+	\includegraphics[width=\textwidth]{calibrationCorrection_OK_SasA1_Med.png}
+	\caption{SasA1, miscalibrated.}
+\end{subfigure}
+\quad
+\begin{subfigure}[t]{0.36\textwidth}
+	\includegraphics[width=\textwidth]{calibrationCorrection_not_OK_SasA1_Med.png}
+	\caption{SasA1, corrected.}
+\end{subfigure}
+\hfill
+\begin{subfigure}[t]{0.36\textwidth}
+	\includegraphics[width=\textwidth]{calibrationCorrection_not_OK_GoldB1_Sun.png}
+	\caption{GoldB1, miscalibrated.}
+\end{subfigure}
+\quad
+\begin{subfigure}[t]{0.36\textwidth}
+	\includegraphics[width=\textwidth]{calibrationCorrection_OK_GoldB1_Sun.png}
+	\caption{GoldB1, corrected.}
+\end{subfigure}
+	\caption{Average vehicle lengths along the Tripwire calculated from a the same Frame-strip before and after calibration correction. After the correction, average sizes are distributed uniformly along the Tripwire.(The light blue line indicates the estimated slope of the length values.)\label{fig:calibrations2}}
+\end{figure}
 %----------------------------------------------------------------------------
 \section{Speed testing}
 %----------------------------------------------------------------------------
