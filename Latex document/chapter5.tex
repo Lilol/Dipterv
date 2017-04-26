@@ -184,7 +184,7 @@ The three stages of the correction process are as follows:
 \end{enumerate}
 
 \noindent The calibration correction steps are detailed as follows:
-\begin{enumerate}
+\begin{enumerate}[align=parleft]
 	\item  \textbf{Line estimation:} 
 	Calibration correction is performed in single-run mode, after the entire length of the video is processed.
 	During the detection phase, in each point of the Tripwire, the average vehicle lengths are iteratively recalculated with the newly computed size values of the Size Timeline.
@@ -194,8 +194,8 @@ The three stages of the correction process are as follows:
 	If the line is only slightly sloped, there is no need for calibration correction. 
 	
 	\item  \textbf{Size ratio calculation:}
-	First, the intersections of the Tripwire and the side lines of the calibration rectangle ($T(K_{\text{CR}}), T(k_{\text{CR}})$) are approximated.
-	(Here, $k_{\text{CR}}$ and $T(K_{\text{CR}})$ denotes the intersection points' positions on the Tripwire in pixels.)
+	First, the intersections of the Tripwire and the side lines of the calibration rectangle ($\boldsymbol{T}(K_{\text{CR}}), \boldsymbol{T}(k_{\text{CR}})$) are approximated.
+	(Here, $k_{\text{CR}}$ and $K_{\text{CR}}$ denotes the intersection points' positions on the Tripwire in pixels.)
 	
 	Since the Traffic Sensor is placed on the side of the road, the typical frame scenery is customarily similar to the one seen on figure \ref{sfig:uncalib}.
 	The calibration rectangle has two sides ($s_{\text{CR}}$ and $S_{\text{CR}}c$) roughly perpendicular to the Tripwire.
@@ -203,7 +203,6 @@ The three stages of the correction process are as follows:
 	
 	If the video is undercalibrated, the rectangle sides' difference is too small, so that after the perspective compensation, average vehicle sizes are still significantly smaller at the top side of the rectangle (an example is seen on figure \ref{sfig:mcalib}.).
 	To diagnose this problem, the size values at the intersections are calculated using the fitted line:
-	
 	\begin{gather*}
 		l = fl(k_{\text{CR}}) \approx \avgt\{\boldsymbol{TI_{\text{Size}}}(\boldsymbol{T}(k_{\text{CR}}))\} \\
 		L = fl(K_{\text{CR}}) \approx \avgt\{\boldsymbol{TI_{\text{Size}}}(\boldsymbol{T}(K_{\text{CR}}))\},
@@ -213,7 +212,6 @@ The three stages of the correction process are as follows:
 	These length values correspond to the average values of the lengths stored in the proper rows of the Size Timeline.
 	 
 	After, the ratio of these two lengths is calculated, quantifying the degree of miscalibration, $r$:
-	
 	\begin{displaymath}
 		r = \frac{L}{l}.
 	\end{displaymath}
