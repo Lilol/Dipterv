@@ -11,6 +11,7 @@
 \usepackage{enumerate}
 \usepackage[thmmarks]{ntheorem}
 \usepackage{graphics}
+\usepackage{multirow}
 \usepackage{graphicx,floatpag,fancyhdr}
 \usepackage{epsfig}
 \usepackage{listings}
@@ -23,6 +24,7 @@
 \usepackage{subcaption}
 \usepackage{hyperref}
 \usepackage{afterpage}
+\usepackage{booktabs}
 % Own inclusions
 \usepackage{titlesec}
 \usepackage{relsize}
@@ -135,6 +137,8 @@
 %\DeclareMathOperator*[1]{\floor}{arg\,max}
 \DeclareMathOperator{\sign}{sgn}
 \DeclareMathOperator{\rot}{rot}
+\DeclareMathOperator{\avg}{avg}
+\DeclareMathOperator{\avgt}{\underset{\textit{t}}{avg}}
 %Math mode set\part{title}
 %\everymath{\displaystyle}
 
@@ -171,6 +175,18 @@ aboveskip=10pt}
 \renewcommand{\captionlabelfont}{\small\bf}
 \renewcommand{\captionfont}{\footnotesize\it}
 \graphicspath{{figures/}{figures/for_timelines/}{figures/for_frames/}{figures/GT/}{figures/calcorr/fovam/}{figures/calcorr/ibike/}{figures/calcorr/}{figures/calcorr/uncalib/}}
+
+\newcommand{\tablepath}{tables/}
+
+\makeatletter
+\newcommand{\includetable}[1]{%
+	\@ifundefined{tablepath}{%
+		\InputIfFileExists{#1}{}{}%
+	}{%
+		\InputIfFileExists{\tablepath/#1}{}{\InputIfFileExists{#1}{}{}}%
+	}
+}
+\makeatother 
 
 %---------------
 % makeindex

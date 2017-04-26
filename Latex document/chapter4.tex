@@ -44,7 +44,7 @@ Diagnostics tools evaluate the operation and visualize the data stored in the sy
 %----------------------------------------------------------------------------
 \subsection{Communication}
 %----------------------------------------------------------------------------
-\subsubsection{Reporting}
+\subsubsection{Reporting}\label{sec:reporting}
 At the production environment the Sensor operates continuously, and the result of the detection is regularly sent through the EnTalk\textsuperscript{TM} connection as JSON syntax report file. 
 This reporting procedure is periodical, and the time interval of each period can be set as a configuration parameter.
 The report file contains the number of counted vehicles in each category along with their average speed and following distance.
@@ -272,7 +272,7 @@ An example of these images are shown in figure \ref{fig:cal_corr_example}, and t
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=0.5\textwidth]{frame_demo_vide.png}
-	\caption{An example of frame from the demo video. The desired structure of the demo video frame is defined in the configuration files.  \label{fig:demo_video}}
+	\caption{An example frame from the demo video. The desired structure of the demo video frame is defined in the configuration files.  \label{fig:demo_video}}
 \end{figure}
 
 Along with the report files containing the result of the counting in a JSON format, it is possible to export other characteristic information as text files.

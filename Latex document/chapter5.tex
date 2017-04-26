@@ -63,9 +63,8 @@ Performance and precision criteria
 %----------------------------------------------------------------------------
 \section{Calibration correction}\label{chap:cal_corr}
 %----------------------------------------------------------------------------
-Due to perspective transform, vehicle sizes on frames decrease as moving away from the camera.
-Since vehicle lengths are the basis of classification, perspective distortion must be eliminated.
-For this purpose quadrangle-based compensation method is used in the Traffic Sensor.
+Due to perspective transform, vehicle lengths on frames decrease as moving away from the camera.
+Since vehicle lengths are the basis of classification, perspective distortion is eliminated during the preprocessing phase of the Traffic Sensor operation, using a quadrangle-based compensation method.
 
 The quadrangle, called the calibration rectangle, is manually defined by the user.
 It is hand-drawn on a frame in the Project Configurator GUI (section \ref{chap:calibration}.) as part of the calibration process.
@@ -81,11 +80,13 @@ To evaluate the degree of miscalibration, lengths of the vehicles are examined a
 After, during the finishing steps of the processing, the calibration rectangle is redefined for later use.
 To eliminate false detections of miscalibration, the proposed corrections are revised by the user or the developer.
 
+In the following section the correction method of the calibration is presented along with the experimental results of calibration correction.
+
 \subsection{The miscalibration problem}
 \subsubsection{Perspective compensation method}
 The calibration rectangle is constructed by defining its four edges from the upper left corner, to the lower left one in order.
 The edges must be coplanar in the plane of the street, and correspond to those of a square's in the 3-dimensional (3D) world.
-The square, due to the perspective transformation, shows as a general rectangle on the image plane.
+The square, due to the perspective transformation, shows as a general quadrilateral on the image plane.
 On most videos, lane markings are used to find and define the square, since they are parallel lines in the road.
 The length of the rectangle's sides are also approximated and set by the user.
 
@@ -120,8 +121,8 @@ For defining the transform and constructing the map, universal OpenCV methods we
 
 In the result images -- the Original Frame-strip -- the vehicle lengths are independent of the vehicle's position in the image. 
 
-The calibration rectangle's sides are also used to define a scaling factor between the 3D world and the image plane.
-Using the scaling factor, all lengths are converted to a metric scale, thus correct classification is possible.
+The calibration rectangle's side length is used to define a scaling factor between the 3D world and the image plane as well.
+Using the scaling factor, all lengths are converted to a metric scale, facilitating correct classification.
 
 \subsubsection{Miscalibrated streams}
 If the calibration rectangle's edges are significantly displaced from those of a perfect coplanar square in the 3D world, the ensuing miscalibration considerably influences the accuracy of the classification results.
@@ -166,13 +167,13 @@ To detect whether this problem occurs, vehicle lengths are analysed along the tr
 \end{figure}
 
 An uncalibrated stream is characterized by the decrease of vehicle lengths as moving away from the camera, due to perspective distortion, as seen on figure \ref{sfig:uncalib}.
-If the lengths still decrease despite that perspective compensation was performed, there is a a high chance of inaccurate calibration (an example is seen in figure \ref{sfig:mcalib}.), meaning that perspective distortion was not compensated well.
-Some exceptions may occur, e.g. when a walking route and a bicycle track runs next to the road, where the typical road users are of smaller size.
+If the lengths still decrease despite that perspective compensation was performed, there is a high chance of inaccurate calibration (an example is seen in figure \ref{sfig:mcalib}.), when perspective distortion was not compensated well.
+Some exceptions may occur, especially with a walking route and a bicycle track adjacent to the road, where the typical road users are of smaller size.
 
-To accurately estimate the average size of road users along a line, a rather long video sequence needs to be analysed to count enough vehicles for averaging.
-The video length was empirically approximated to be at least 6000-frame long.
+To accurately estimate the average size of road users along a line, a considerably long video sequence is analysed to count enough vehicles for averaging.
+The proper video length was empirically approximated to be at least 6000-frame long.
 
-\subsection{Solutions}
+\subsection{The calibration correction method}
 In the following section the method, proposed to correct the erroneous calibration, is presented.
 
 The three stages of the correction process are as follows:
@@ -182,27 +183,78 @@ The three stages of the correction process are as follows:
 \item Last, a the ratio of these sizes are used to reshape the sides of the calibration rectangle.
 \end{enumerate}
 
-The steps are detailed as follows:
+\noindent The calibration correction steps are detailed as follows:
 \begin{enumerate}
 	\item  \textbf{Line estimation:} 
 	Calibration correction is performed in single-run mode, after the entire length of the video is processed.
-	During the detection phase, in each point of the Tripwire, using the data of the Size Timeline, the average vehicle lengths are iteratively recalculated with the newly calculated size values.
+	During the detection phase, in each point of the Tripwire, the average vehicle lengths are iteratively recalculated with the newly computed size values of the Size Timeline.
 	The result of the calculation can then be visualized (as presented in section \ref{sec:data_representation}) as a curve of vehicle sizes as a function of position on the Tripwire.
-	For quantifying the degree of the decrease, a line is fitted to the data set with a simple least square approximation.
-	The parameters of the line are stored.
+	For quantifying the degree of the decrease in lengths, a line is fitted to the data set with simple least square approximation.
+	The parameters of the fitted line ($fl(k)$) are stored.
+	If the line is only slightly sloped, there is no need for calibration correction. 
 	
 	\item  \textbf{Size ratio calculation:}
-	\item  \textbf{Rectangle correction}
+	First, the intersections of the Tripwire and the side lines of the calibration rectangle ($T(K_{\text{CR}}), T(k_{\text{CR}})$) are approximated.
+	(Here, $k_{\text{CR}}$ and $T(K_{\text{CR}})$ denotes the intersection points' positions on the Tripwire in pixels.)
+	
+	Since the Traffic Sensor is placed on the side of the road, the typical frame scenery is customarily similar to the one seen on figure \ref{sfig:uncalib}.
+	The calibration rectangle has two sides ($s_{\text{CR}}$ and $S_{\text{CR}}c$) roughly perpendicular to the Tripwire.
+	Due to perspective transform, these perpendicular sides are subject to perspective distortion, thus differ in length, namely the top side of the rectangle is considerably shorter, as well as vehicle sizes at this distance.
+	
+	If the video is undercalibrated, the rectangle sides' difference is too small, so that after the perspective compensation, average vehicle sizes are still significantly smaller at the top side of the rectangle (an example is seen on figure \ref{sfig:mcalib}.).
+	To diagnose this problem, the size values at the intersections are calculated using the fitted line:
+	
+	\begin{gather*}
+		l = fl(k_{\text{CR}}) \approx \avgt\{\boldsymbol{TI_{\text{Size}}}(\boldsymbol{T}(k_{\text{CR}}))\} \\
+		L = fl(K_{\text{CR}}) \approx \avgt\{\boldsymbol{TI_{\text{Size}}}(\boldsymbol{T}(K_{\text{CR}}))\},
+	\end{gather*}
+	
+	with $fl(k_{\text{CR}}), fl(K_{\text{CR}})$ being the length values of the fitted line in the $k_{\text{CR}}$ and $K_{\text{CR}}$, intersection points of the Tripwire.
+	These length values correspond to the average values of the lengths stored in the proper rows of the Size Timeline.
+	 
+	After, the ratio of these two lengths is calculated, quantifying the degree of miscalibration, $r$:
+	
+	\begin{displaymath}
+		r = \frac{L}{l}.
+	\end{displaymath}
+	
+	The notations used are illustrated in figure \ref{fig:ratio_calculation}.
+	
+	\item  \textbf{Rectangle correction:}
+	After the ratio of the lengths are calculated, the longer side of the calibration rectangle, $S_{\text{CR}}$ is resized.
+	It is multiplied with the $r$ ratio, and expanded equally in both directions as seen on figure \ref{fig:resizing_cr}. 
+	The numbering of the edges stay consistent.
+	After the resizing the length of the sides are re-evaluated as well.
 \end{enumerate}
-- quantify the decrease of the lengths
-- based on the correct lengths, redraw the calibration rect
+
+\begin{figure}[!h]
+	\centering
+	\includesvg[width=0.9\textwidth]{configuration_correction}
+	\caption{The ratio calculation step of the calibration correction. The sizes at intersection of the Tripwire with the two intersecting calibration rectangle sides are calculated, and the ratio of these length values are stored. \label{fig:ratio_calculation}}
+\end{figure}
+
+\begin{figure}[!h]
+	\centering
+	\includesvg[width=0.4\textwidth,pretex=\relsize{1.5}]{resizing_of_cr}
+	\caption{The resizing of the calibration rectangle. The larger side is multiplied with the ratio, $r$, and expanded at each edges. \label{fig:resizing_cr}}
+\end{figure}
 
 \subsection{Calibration correction results}
-\ref{fig:calibrations2}
-
 The results of miscalibration are presented using four test videos, that were initially miscalibrated.
 
+The quantitative evaluation results before and after the calibration correction are summarized in table \ref{tab:cal_corr_results}.
 
+\begin{table}[htbp]
+	\centering
+	\begin{adjustbox}{center}
+	\includetable{cal_corr_table}
+\end{adjustbox}
+	\caption{Table detailing the results of calibration correction. All measures are in \%.}
+  	\label{tab:cal_corr_results}%
+\end{table}%
+
+
+\clearpage
 \addtolength{\topmargin}{-.6in}
 \begin{figure}[p]
 	\thispagestyle{empty}
@@ -249,6 +301,9 @@ The results of miscalibration are presented using four test videos, that were in
 \end{subfigure}
 	\caption{Average vehicle lengths along the Tripwire calculated from a the same Frame-strip before and after calibration correction. After the correction, average sizes are distributed uniformly along the Tripwire.(The light blue line indicates the estimated slope of the length values.)\label{fig:calibrations2}}
 \end{figure}
+
+\clearpage
+\addtolength{\topmargin}{+.6in}
 %----------------------------------------------------------------------------
 \section{Speed testing}
 %----------------------------------------------------------------------------

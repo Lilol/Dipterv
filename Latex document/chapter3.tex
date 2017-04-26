@@ -234,8 +234,8 @@ At each point in the Size Timeline the intensity value is calculated as follows:
 \begin{displaymath}
  	\boldsymbol{TI_{\text{Size}}}(t,k) = 
 	\begin{cases}
-	l_{\text{L},t} + l_{\text{R},t}        & \quad \text{if } \boldsymbol{F_{\text{MOG2},t}} \text{ at the } k\text{th} \text{ point of the tripwire is occupied}\\
-  	0		& \quad \text{if } \boldsymbol{F_{\text{MOG2},t}} \text{ at the } k\text{th} \text{ point of the tripwire is empty,}\\
+	l_{\text{L},t} + l_{\text{R},t}        & \quad \text{if } \boldsymbol{F_{\text{MOG2},t}} \text{ in the } k\text{th} \text{ point of the tripwire is occupied}\\
+  	0		& \quad \text{if } \boldsymbol{F_{\text{MOG2},t}} \text{ in the } k\text{th} \text{ point of the tripwire is empty,}\\
 	\end{cases}
 \end{displaymath}
 
@@ -247,7 +247,7 @@ The intensities of the Speed Timeline are calculated with the lengths measured i
 \begin{displaymath}
 \boldsymbol{TI_{\text{Speed}}}(t_0,k) = 
 \begin{cases}
-\frac{\Delta r_{\text{L}} + \Delta r_{\text{R}}}{2}      & \quad \text{if } \boldsymbol{F_{\text{MOG2},t_0}} \text{ and } \boldsymbol{F_{\text{MOG2},t_1}} \text{ at the } k\text{th} \text{ point of} \\ & \quad \text{the tripwire are occupied}\\
+\frac{\Delta r_{\text{L}} + \Delta r_{\text{R}}}{2}      & \quad \text{if } \boldsymbol{F_{\text{MOG2},t_0}} \text{ and } \boldsymbol{F_{\text{MOG2},t_1}} \text{ in the } k\text{th} \text{ point of} \\ & \quad \text{the tripwire are occupied}\\
 0		& \quad \text{otherwise,}\\
 \end{cases}
 \end{displaymath}
@@ -261,12 +261,12 @@ The displacements are calculated with the left and right sides' lengths as follo
 \Delta r_{\text{R}} = \left( l_{\text{R},t_1} - l_{\text{R},t_0}\right).
 \end{gather*}
 
-The intensity values of the Following Distance Timeline are calculated as follows:
+The intensity values of the Following Distance (FD) Timeline are calculated as follows:
 
 \begin{displaymath}
 \boldsymbol{TI_{\text{FD}}}(t,k) = 
 \begin{cases}
-d_{\text{L},t} + d_{\text{R},t} 		& \quad \text{if } \boldsymbol{F_{\text{MOG2},t}} \text{ at the } k\text{th} \text{ point of the tripwire is empty,} \\ & \quad \text{and objects are deteted on each side of the } k \text{th point}\\
+d_{\text{L},t} + d_{\text{R},t} 		& \quad \text{if } \boldsymbol{F_{\text{MOG2},t}} \text{ in the } k\text{th} \text{ point of the tripwire is empty,} \\ & \quad \text{and objects are detected on each side of the } k \text{th point}\\
 0		& \quad \text{otherwise},
 \end{cases}
 \end{displaymath}
@@ -274,14 +274,14 @@ d_{\text{L},t} + d_{\text{R},t} 		& \quad \text{if } \boldsymbol{F_{\text{MOG2},
 with $d_{\text{L},t}$ and $d_{\text{R},t}$ being the left and right side distances of the nearest objects.
 The distances are estimated by counting the empty pixels on each side of the tripwire.
 
-The calculated parameters are then either transferred in a raw form through the EnTalk Network (like average following distance), or used for classification purposes (size).
+The calculated parameters are then either transferred in a raw form through the EnTalk Network in the form of a report file (like following distance values, as detailed in section \ref{sec:reporting}.), or used for classification purposes (like size values).
 Although the speed measures are currently unused, possible future applications include the identification of road lanes, congestion detection, or the correction of Timeline Blobs of stopped vehicles.
 
 \subsubsection{Classification}
 %----------------------------------------------------------------------------
-The classifier of the Traffic Sensor is a computationally cheap and not a resource-intensive algorithm.
+The classifier of the Traffic Sensor is a computationally cheap and a rather less resource-intensive algorithm.
 
-The vehicles are categorized based on one feature, their estimated length, that are calculated using the Size Timeline.
+The vehicles are categorized based on one feature, their estimated length, that are computed using the Size Timeline.
 
 Length was chosen as the primary feature of the classification, because under the aforementioned conditions, including the camera position, it is the most robust and discriminative feature.
 Vehicle length is independent from the angle of the focal axis, and unlike width, it can be measured from the side of the road without being distorted.
@@ -293,7 +293,7 @@ This feature is also less noise-sensitive than other simple features, like inten
 	\caption{The classification process. Each vehicle's length is estimated based on the corresponding size data, then categorized with a hard-decision classifier into four separate categories. \label{fig:classification}}
 \end{figure}
 
-To estimate their length $l_{vehicle}$, each vehicle's Timeline Blob ($TB$) is projected to the Size Timeline, and the values corresponding to the blob's region are averaged, as depicted in figure \ref{fig:classification}. 
+To estimate their length $l_{vehicle}$, each vehicle's Timeline Blob (the blob region is denoted by $TB$) is projected to the Size Timeline, and the values corresponding to the blob's region are averaged, as depicted in figure \ref{fig:classification}. 
 The length-feature is calculated using the following equation:
 
 \begin{displaymath}
