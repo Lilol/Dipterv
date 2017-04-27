@@ -20,7 +20,7 @@ In this section the architectural structure of the framework, including the data
 \end{figure}
 
 \subsection{Plug-in architecture, Processors}
-Since the Traffic Sensor software ought to meet several requirements, like real-time operation in a resource-limited environment, it is necessary that the software exploits the given hardware as far as possible.
+Since the Traffic Sensor software ought to meet several requirements, like real-time operation in a resource-limited environment, it is necessary that the software exploits the target hardware as far as possible.
 Moreover, because the framework is a conceptional prototype, the possibility of further improvement of features -- especially the implementation of additional processing steps -- is important.
 
 To satisfy these specifications, a plug-in architecture was implemented.
@@ -66,7 +66,7 @@ The Timeline images can either be extracted from the Frame-strips (Original Time
 	\item \textbf{Motionless Timeline:} Motionless Timeline stores the data of stopped vehicle in the form of a one-channel image. (Figure \ref{fig:motionless_timeline}.)
 	
 	\item \textbf{Size, Speed, Following Distance Timeline: Parameter Timelines:}
-	The Parameter Timelines store the estimated data of the vehicles, including their speed, length and following distance. All of the above data are extracted using the MOG2 Frame-strip, by measuring the size, speed and distance of the objects that occupy or enclose the tripwire at a given time.
+	The Parameter Timelines store the estimated data of the vehicles, including their speed, length and following distance. All of the above data are extracted using the MOG2 Frame-strip, by measuring the size, speed and distance of the objects that occupy or enclose the tripwire at a specific time.
 	To limit memory usage, the data is stored in the form of one-channel matrices of signed (for speed that has a direction) or unsigned integers. For human understanding the data is transformed and represented as color and grayscale images. (Figures \ref{fig:size_timeline}--\ref{fig:fd_timeline}.)
 \end{enumerate}
 
