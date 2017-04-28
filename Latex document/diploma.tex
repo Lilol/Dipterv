@@ -9,6 +9,7 @@
 \usepackage{amssymb}
 \usepackage{siunitx}
 \usepackage{enumerate}
+\usepackage{pgfplots, pgfplotstable}
 \usepackage[thmmarks]{ntheorem}
 \usepackage{graphics}
 \usepackage{multirow}
@@ -35,9 +36,42 @@
 \usepackage[export]{adjustbox}
 \usepackage{enumitem}
 \usepackage[inkscapeopt= -D -z]{svg}
+
+%--------------------------------------------------------------------------------------
+% SVG package setup
+%--------------------------------------------------------------------------------------
 \setsvg{inkscape={"C:/Program Files/Inkscape/inkscape" -D -z}}
 
+%--------------------------------------------------------------------------------------
+% Path setups: figures, svgs, tables, charts
+%--------------------------------------------------------------------------------------
 \svgpath{{"C:/Users/{"Barancsuk_Lilla"}/Documents/{"current_semester"}/Dipterv_repo/{"Latex_document"}/figures/"}}
+\graphicspath{{figures/}{figures/for_timelines/}{figures/for_frames/}{figures/GT/}{figures/calcorr/fovam/}{figures/calcorr/ibike/}{figures/calcorr/}{figures/calcorr/uncalib/}}
+
+\newcommand{\tablepath}{tables/}
+
+\makeatletter
+\newcommand{\includetable}[1]{%
+	\@ifundefined{tablepath}{%
+		\InputIfFileExists{#1}{}{}%
+	}{%
+		\InputIfFileExists{\tablepath/#1}{}{\InputIfFileExists{#1}{}{}}%
+	}
+}
+\makeatother 
+
+\newcommand{\chartpath}{charts/}
+
+\makeatletter
+\newcommand{\includechart}[1]{%
+	\@ifundefined{chartpath}{%
+		\InputIfFileExists{#1}{}{}%
+	}{%
+		\InputIfFileExists{\chartpath/#1}{}{\InputIfFileExists{#1}{}{}}%
+	}
+}
+\makeatother 
+
 %--------------------------------------------------------------------------------------
 % Main variables
 %--------------------------------------------------------------------------------------
@@ -47,8 +81,6 @@
 \newcommand{\viktanszek}{Department of Automation and Applied Informatics}
 \newcommand{\vikdoktipus}{Masters thesis}
 \newcommand{\vikdepartmentr}{Barancsuk Lilla}
-
-%-------------------------------------
 
 %--------------------------------------------------------------------------------------
 % Page layout setup
@@ -83,6 +115,7 @@
 	\fancyfoot[C]{\raisebox{-6\baselineskip}{\thepage}}
 	\renewcommand{\headrulewidth}{0pt}% Remove header rule
 }
+
 %--------------------------------------------------------------------------------------
 %	Setup hyperref package
 %--------------------------------------------------------------------------------------
@@ -133,7 +166,9 @@
 \newcommand{\tabref}[1]{\ref{tab:#1}.}
 \newcommand{\hsp}{\hspace{0pt}}
 
+%--------------------------------------------------------------------------------------
 % Math operators
+%--------------------------------------------------------------------------------------
 \DeclareMathOperator*{\argmax}{arg\,max}
 %\DeclareMathOperator*[1]{\floor}{arg\,max}
 \DeclareMathOperator{\sign}{sgn}
@@ -143,8 +178,37 @@
 %Math mode set\part{title}
 %\everymath{\displaystyle}
 
+%--------------------------------------------------------------------------------------
 %Color declarations
+%--------------------------------------------------------------------------------------
 \definecolor{lightgray}{rgb}{0.95,0.95,0.95}
+\definecolor{indigo}{RGB}{47, 27, 60}
+\definecolor{darkviolet}{RGB}{62, 44, 102}
+\definecolor{lightviolet}{RGB}{96, 92, 153}
+\definecolor{taupe}{RGB}{176, 158, 141}
+\definecolor{lighttaupe}{RGB}{216, 208, 197}
+\definecolor{camel}{RGB}{232, 208, 174}
+
+%--------------------------------------------------------------------------------------
+%Chart color cycle
+%--------------------------------------------------------------------------------------
+\pgfplotscreateplotcyclelist{violets}{
+	{fill=indigo!60!white, draw=indigo},
+	{fill=taupe!60!white, draw=taupe},
+	{fill=darkviolet!60!white, draw=darkviolet},
+	{fill=camel!60!white, draw=camel},
+	{fill=lightviolet!60!white, draw=lightviolet},
+}
+
+
+%--------------------------------------------------------------------------------------
+%Chart setup
+%--------------------------------------------------------------------------------------
+\newcommand{\placelegend}{legend style={at={(1.2,1)}, anchor=north, legend columns=1},}
+\newcommand{\custombarwidth}{0.13cm}
+%--------------------------------------------------------------------------------------
+% Includes
+%--------------------------------------------------------------------------------------
 \author{\vikszerzo}
 \title{\viktitle}
 \includeonly{
@@ -163,6 +227,7 @@
 	acknowledgement,%
 	appendices,%
 }
+
 %--------------------------------------------------------------------------------------
 %	Setup captions
 %--------------------------------------------------------------------------------------
@@ -175,19 +240,6 @@ aboveskip=10pt}
 
 \renewcommand{\captionlabelfont}{\small\bf}
 \renewcommand{\captionfont}{\footnotesize\it}
-\graphicspath{{figures/}{figures/for_timelines/}{figures/for_frames/}{figures/GT/}{figures/calcorr/fovam/}{figures/calcorr/ibike/}{figures/calcorr/}{figures/calcorr/uncalib/}}
-
-\newcommand{\tablepath}{tables/}
-
-\makeatletter
-\newcommand{\includetable}[1]{%
-	\@ifundefined{tablepath}{%
-		\InputIfFileExists{#1}{}{}%
-	}{%
-		\InputIfFileExists{\tablepath/#1}{}{\InputIfFileExists{#1}{}{}}%
-	}
-}
-\makeatother 
 
 %---------------
 % makeindex
@@ -199,7 +251,7 @@ aboveskip=10pt}
 \begin{document}
 
 %-------------------------------------------------------------------
-%	Chapter header format with HUGE numbering
+%	Chapter header format with HUGE numbering <3 <3 <3 (Because it's pretty)
 %-------------------------------------------------------------------
 \titleformat{\chapter}[display]{\flushright\fontseries{b}\fontsize{120}{120}\selectfont}{\fontseries{b}\fontsize{180}{4}\selectfont\thechapter\hsp}{0pt}{\Huge\bfseries}[]
 

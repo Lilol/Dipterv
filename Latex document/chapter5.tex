@@ -8,15 +8,53 @@ Performance and precision criteria
 %----------------------------------------------------------------------------
 \subsection{Test videos}\label{sec:test_videos}
 
-\begin{table}[]
+\begin{table}[!h]
 	\begin{adjustbox}{center}
 	\includetable{test_videos}
 	\end{adjustbox}
 \caption{Characteristics of videos used for performance testing.}
-\label{my-label}
+\label{tab:test_videos}
+\end{table}
+
+\begin{table}[!h]
+	\begin{adjustbox}{center}
+		\includetable{versions_settings}
+	\end{adjustbox}
+	\caption{The settings at each testing session.}
+	\label{tab:settings_versions}
 \end{table}
 
 \subsection{Results}
+\begin{figure}[p]
+	\centering
+	\includechart{recalls}
+	\caption{Recalls}
+\end{figure}
+
+\begin{figure}[p]
+	\centering
+	\includechart{accuracies}
+	\caption{Accuracies}
+\end{figure}
+
+\begin{figure}[p]
+	\centering
+	\includechart{typerecalls}
+	\caption{Type recalls}
+\end{figure}
+
+\begin{figure}[p]
+	\centering
+	\includechart{falsePositives}
+	\caption{False positives}
+\end{figure}
+
+\begin{figure}[p]
+	\centering
+	\includechart{falseNegatives}
+	\caption{False negatives}
+\end{figure}
+
 \subsubsection{Initial setting}
 - minSize: 250
 - lanes: defined for most videos
@@ -297,7 +335,7 @@ Since the application is required to operate in real-time, it must meet strict s
 To not miss certain frames and consequently, vehicles, the software's frame request rate should exceed the camera's capture frequency most of the time.
 Along these lines, the minimal recommended processing rate of frames on the target hardware is \SI{25}{frame/s}, considering that most cameras operate around this speed.
 
-However, the optimal required operation speed of the Sensor is higher, \SI{30}{frame/s}, that even allows the integration of new functions, processing steps, or improving existing ones; especially, possible new features, that include highly resource-intensive algorithms, such as a shadow-detection processor, or a more sophisticated classifier.
+However, the optimal required operation speed of the Sensor is higher, \SI{30}{frame/s}, that even allows the integration of new functions, processing steps, or improving existing ones; especially, possible new features, that include highly resource-intensive algorithms, such as a shadow-detection processor (further discussion about shadow detection attempt is found in the work of Istv{\'a}n Vincze \cite{Vincze2016}), or a more sophisticated classifier.
 
 The performance test were all conducted on the target hardware.
 
