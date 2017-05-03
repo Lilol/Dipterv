@@ -16,10 +16,13 @@
 \usepackage{graphicx,floatpag,fancyhdr}
 \usepackage{epsfig}
 \usepackage{listings}
+\usepackage{makecell}
+\usepackage{booktabs}
 \usepackage{color}
 \usepackage{lastpage}
 \usepackage{anysize}
 \usepackage{sectsty}
+\usepackage{array}
 \usepackage{setspace}  % Ettol a tablazatok, abrak, labjegyzetek maradnak 1-es sorkozzel!
 \usepackage[hang]{caption} 
 \usepackage{subcaption}
@@ -31,6 +34,7 @@
 \usepackage{relsize}
 \usepackage{anyfontsize}
 \usepackage{pdfpages}
+\usepackage{placeins}
 \usepackage{makeidx}
 %\usepackage{adjustbox}
 \usepackage[export]{adjustbox}
@@ -117,6 +121,16 @@
 }
 
 %--------------------------------------------------------------------------------------
+%	Table settings
+%--------------------------------------------------------------------------------------
+\renewcommand\theadalign{cb}
+\renewcommand\theadfont{\bfseries}
+\renewcommand\theadgape{\Gape[4pt]}
+\renewcommand\cellgape{\Gape[4pt]}
+\renewcommand{\cellalign}{cc}
+\newcolumntype{?}{!{\vrule width 1pt}}
+
+%--------------------------------------------------------------------------------------
 %	Setup hyperref package
 %--------------------------------------------------------------------------------------
 \hypersetup{
@@ -200,12 +214,12 @@
 	{fill=lightviolet!60!white, draw=lightviolet},
 }
 
-
 %--------------------------------------------------------------------------------------
 %Chart setup
 %--------------------------------------------------------------------------------------
 \newcommand{\placelegend}{legend style={at={(1.2,1)}, anchor=north, legend columns=1},}
 \newcommand{\custombarwidth}{0.13cm}
+
 %--------------------------------------------------------------------------------------
 % Includes
 %--------------------------------------------------------------------------------------

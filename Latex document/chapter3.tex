@@ -168,7 +168,7 @@ This method, considering the image-storage technique of the OpenCV library, wher
 In the third level of preprocessing a frames are resized in order to decrease the number of pixels and the computation time, and increase the speed of processing.
 The end-size of the frame can be specified through the configuration files, and is usually 320 by 240 pixels.
 %----------------------------------------------------------------------------
-\subsection{Background-subtraction}
+\subsection{Background-subtraction}\label{sec:background-subtraction}
 %----------------------------------------------------------------------------
 The second phase of processing is background-subtraction, that is the separation of moving objects form the static background in each frame.
 This step creates the MOG2 Frame and Timeline as a result of background-subtraction.
@@ -289,7 +289,7 @@ This feature is also less noise-sensitive than other simple features, like inten
 
 \begin{figure}[!h]
 	\centering
-	\includesvg[width=\textwidth]{classification}
+	\includesvg[width=0.9\textwidth]{classification}
 	\caption{The classification process. Each vehicle's length is estimated based on the corresponding size data, then categorized with a hard-decision classifier into four separate categories. \label{fig:classification}}
 \end{figure}
 
@@ -305,12 +305,15 @@ with $n_{\text{NZpoints}}$ being the number of non-zero points in the Size Timel
 \begin{table}[!h]
 	\centering
 	\begin{tabular}{ll}
+		\toprule
 		\textbf{Class} & \textbf{Length (m)} \\
+		\midrule
 		Pedestrian     & $< 2$               \\
 		Cyclist        & $< 2.5$             \\
 		Car            & $< 5.5$             \\
 		Truck          & $< 7$               \\
-		Other          & $> 7$              
+		Other          & $ \geq 7$    \\
+		\bottomrule          
 	\end{tabular}
 \caption{The five categories of the classification and their length-intervals.}
 \label{tab:intervals}
@@ -328,7 +331,7 @@ The sizes in the Size Timeline are converted to metrics with a scaling-factor th
 
 \begin{figure}[!t]
 	\centering
-	\begin{adjustbox}{minipage=\linewidth,scale=0.8}
+	\begin{adjustbox}{minipage=\linewidth,scale=0.75}
 	\begin{subfigure}[b]{0.25\textwidth}
 	\includesvg[width=\textwidth]{cars}
 	\caption{Cars.}

@@ -2,29 +2,88 @@
 \chapter{Experimental results}\label{chap:Tests}
 %----------------------------------------------------------------------------
 In the following chapter the results of the system tests will be discussed. 
-Performance and precision criteria 
-%----------------------------------------------------------------------------
-\section{Evaluation results}
-%----------------------------------------------------------------------------
-\subsection{Test videos}\label{sec:test_videos}
+The speed and precision of the operation and the accuracy of the classification were tested using a set of diverse test videos.
+
+The results are revised and analysed with various parameter settings.
+A method to correct the errors caused by the miscalibration of the test videos is proposed as well.
+Lastly, the proper operation speed is ensured by testing the performance of the application on the target hardware.
+
+\section{Test videos}\label{sec:test_videos}
+For testing purposes a set of test videos, that capture miscellaneous urban scenes, are used.
+The videos were recorded at multiple places in Budapest.
+To ensure the robustness of the application, they represent diverse weather, light and traffic conditions, including heavy shadows, night-time, dawn, sundown, and various traffic densities and road users.
+The attributes of the test videos are presented in detail in table \ref{tab:test_videos}.
 
 \begin{table}[!h]
 	\begin{adjustbox}{center}
-	\includetable{test_videos}
+		\includetable{test_videos}
 	\end{adjustbox}
-\caption{Characteristics of videos used for performance testing.}
-\label{tab:test_videos}
+	\caption{Characteristics of videos used for performance testing.}
+	\label{tab:test_videos}
 \end{table}
+
+Besides the traffic and light conditions, in which the videos were recorded, table \ref{tab:test_videos}.~presents other important characteristics and specific settings, that determine the evaluation's quality and level of detail.
+
+The "Lanes set" option specifies whether the centre of lanes are defined in the configuration files, as an initial setting for the video.
+If it is, the parameter calculation is limited to these specified lane-regions on the Tripwire, that increases the operation speed.
+However it affects the precision of classification as well, because the average length value is calculated from less samples.
+
+The point count of the video's ground truth sets the resolution of the precision measures.
+
+Other, video-specific settings are also presented, when appropriate.
+The higher sensitivity of MOG2 overreaction is required for shadow-dense streams, where light changes can easily overwhelm the background-subtractor.
+A minimal blob size (minSize), smaller than the default setting is specified, whenever the possibility of smaller road-users (e.g. pedestrians, cyclists) is higher, to be able to detect them more precisely.
+The corrected calibration feature means higher precision and accuracy values for the video, but does not influence the effect of changing other settings. 
+\FloatBarrier
+
+%----------------------------------------------------------------------------
+\section{Evaluation results}
+%----------------------------------------------------------------------------
+This section presents the results of the evaluation of the measures described in section \ref{chap:evaluation}.
+The values were quantified using five different parameter-setting, each case specified to eliminate a specific, prevalent error cause.
+
+\subsection{Versions of test settings}
+The various settings used for testing are seen in table \ref{tab:settings_versions}.
+Although, the application uses several configuration parameters, in this section only the ones, that were modified between two evaluation session, are discussed.
+
+As mentioned before (in section \ref{subs:ProjectConfigurator}.), each video has specific parameters, depending on the environment characteristics.
+The particular values of these parameters were evaluated empirically for each video, to give the best results possible, and is not discussed in this work.
 
 \begin{table}[!h]
 	\begin{adjustbox}{center}
 		\includetable{versions_settings}
 	\end{adjustbox}
-	\caption{The settings at each testing session.}
+	\caption{The settings at each testing session. If not defined, the minimal cutting size equals the minimal size.}
 	\label{tab:settings_versions}
 \end{table}
 
+The modified parameters are as follows
+\begin{enumerate}
+	\item \textbf{minimal size of blobs:} Although the system detects blobs from all sizes, only the ones exceeding the size limit are accepted as vehicles. If the minimal size decreases, the number of both false negatives and positives increases, since more fake and real vehicles are detected.
+	
+	\item \textbf{lane centres defined or not:} The reason lane centres are specified is detailed in section \ref{sec:test_videos}. Depending on the traffic scene, lane centres cannot be set for every video (table \ref{tab:test_videos}), thus are not initially configured for some of them. Consequently the evaluation results of certain videos are not affected by this parameter change. As described before, lane settings influence the result of classification, and the speed of the operation.
+	
+	\item \textbf{minimal size for cutting:} Specifies the minimal size of split blobs. The method of blob splitting is presented in section \ref{sec:background-subtraction}., and is used to divide fused vehicles, that cross the Tripwire together. If the resulting blobs are of a smaller size than the limit, the splitting is cancelled, and the blob is stored as a whole. The optimal minimal split size is smaller than the regular minimal blob size, since due to the perspective, the fused vehicles can cover parts of each other, as seen on figure \ref{fig:cover_vehicles}. If the parameter value equals the minimal size, some fused vehicles are missed, although, when set to a very low value, the number of false splitting, thus the number of false detections can increase.
+\end{enumerate}
+
 \subsection{Results}
+
+\subsubsection{Initial setting}
+- minSize: 250
+- lanes: defined for most videos
+
+\subsubsection{Minimal size of blobs redefined}
+- minSize: 200
+- lanes: defined for most videos
+
+\subsubsection{No lanes defined}
+- minSize: 200
+- lanes: no lanes
+
+\subsubsection{Split size added}
+- minSize: 100
+- splitMinSize : 200
+
 \begin{figure}[p]
 	\centering
 	\includechart{recalls}
@@ -55,21 +114,7 @@ Performance and precision criteria
 	\caption{False negatives}
 \end{figure}
 
-\subsubsection{Initial setting}
-- minSize: 250
-- lanes: defined for most videos
-
-\subsubsection{The minimal size of blobs redefined}
-- minSize: 200
-- lanes: defined for most videos
-
-\subsubsection{No lanes defined}
-- minSize: 200
-- lanes: no lanes
-
-\subsubsection{Split size added}
-- minSize: 100
-- splitMinSize : 200
+\subsubsection{Split size final setting}
 
 \subsection{Common errors and solutions}
 \subsubsection{False positives}

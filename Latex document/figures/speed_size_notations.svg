@@ -9,12 +9,12 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="64.404358mm"
-   height="47.622047mm"
+   width="44.76215mm"
+   height="45.993206mm"
    id="svg2"
    version="1.1"
    inkscape:version="0.92.1 r15371"
-   viewBox="0 0 228.20441 168.73954"
+   viewBox="0 0 158.60604 162.96805"
    sodipodi:docname="speed_size_notations.svg">
   <defs
      id="defs4">
@@ -299,15 +299,15 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="5.6"
-     inkscape:cx="58.260787"
-     inkscape:cy="86.993614"
+     inkscape:zoom="1.4"
+     inkscape:cx="51.343218"
+     inkscape:cy="120.9916"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="1366"
-     inkscape:window-height="693"
-     inkscape:window-x="1671"
+     inkscape:window-width="1680"
+     inkscape:window-height="1023"
+     inkscape:window-x="-9"
      inkscape:window-y="-9"
      inkscape:window-maximized="1"
      fit-margin-top="0"
@@ -322,7 +322,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -330,7 +330,7 @@
      inkscape:label="1. réteg"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(-225.42747,-57.311249)">
+     transform="translate(-230.48485,-63.082733)">
     <path
        style="fill:none;fill-rule:evenodd;stroke:#978fa8;stroke-width:1.875;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.68837208"
        d="m 291.429,95.734771 c -7.07061,2.018413 -14.25547,4.659029 -19.1929,9.596449 -1.7206,1.7206 -2.80215,4.82246 -4.54569,6.566 -2.87773,2.87773 -8.29563,2.83668 -11.61675,5.05076 -9.43184,6.28789 -3.41495,22.80882 4.04061,27.77919 11.94338,7.96226 39.11484,5.55584 54.04316,5.55584 9.50232,0 22.67371,3.0487 31.81981,0 0.80282,-0.2676 1.25725,-1.63878 2.0203,-2.0203 13.1028,-6.5514 8.18739,-27.16795 1.01015,-34.34519 -3.42996,-3.42997 -16.50014,-1.34785 -19.19289,-4.04061 -0.59266,-0.59266 -12.07028,-9.09137 -12.12183,-9.09137 -1.00417,0 -0.7398,-0.998285 -1.51523,-1.515235 -2.42935,-1.619565 -6.53099,-1.480224 -8.08122,-3.030457 -1.91595,-1.915947 -13.61365,0.25839 -16.66752,-0.505077 z"
@@ -410,13 +410,13 @@
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc" />
     <path
-       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.49968749;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:;marker-start:url(#marker4710)"
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.49968749;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-start:url(#marker4710)"
        d="m 236.3949,155.42966 16.37654,-0.67096"
        id="path4183-2-1"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc" />
     <path
-       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-start:url(#Arrow1Mstart-6-6);marker-end:"
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-start:url(#Arrow1Mstart-6-6)"
        d="m 329.07641,158.46012 27.48821,-0.67096"
        id="path4183-2-0"
        inkscape:connector-curvature="0"
@@ -436,7 +436,7 @@
          id="tspan8373"
          x="289.91379"
          y="185.65129"
-         style="font-size:12.5px;line-height:1.25">{$\color{red} k$}</tspan></text>
+         style="font-size:5px;line-height:1.25">{$\color{red} k$}</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -447,7 +447,7 @@
          id="tspan8377"
          x="287.24704"
          y="123.09843"
-         style="font-size:12.5px;line-height:1.25">$l_{\text{R},t_1}$</tspan></text>
+         style="font-size:5px;line-height:1.25">$l_{\text{R},t_1}$</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -458,7 +458,7 @@
          id="tspan8377-6"
          x="292.19321"
          y="138.94846"
-         style="font-size:12.5px;line-height:1.25">$l_{\text{R},t_0}$</tspan></text>
+         style="font-size:5px;line-height:1.25">$l_{\text{R},t_0}$</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -469,7 +469,7 @@
          id="tspan8377-4"
          x="244.45967"
          y="124.82842"
-         style="font-size:12.5px;line-height:1.25">$l_{\text{L},t_1}$</tspan></text>
+         style="font-size:5px;line-height:1.25">$l_{\text{L},t_1}$</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -480,7 +480,7 @@
          id="tspan8377-4-2"
          x="259.36639"
          y="138.73399"
-         style="font-size:12.5px;line-height:1.25">$l_{\text{L},t_0}$</tspan></text>
+         style="font-size:10px;line-height:1.25">$l_{\text{L},t_0}$</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -491,7 +491,7 @@
          id="tspan8425"
          x="338.56354"
          y="166.49648"
-         style="font-size:7.5px;line-height:1.25">$\Delta r_\text{R}$</tspan></text>
+         style="font-size:5px;line-height:1.25">$\Delta r_\text{R}$</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -502,7 +502,7 @@
          id="tspan8425-3"
          x="236.29434"
          y="167.38837"
-         style="font-size:12.5px;line-height:1.25">$\Delta r_\text{L}$</tspan></text>
+         style="font-size:10px;line-height:1.25">$\Delta r_\text{L}$</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:0.9375px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 237.22801,70.778042 c 26.76805,24.956729 26.76805,24.956729 26.76805,24.956729"
@@ -523,7 +523,7 @@
          id="tspan4635"
          x="229.72801"
          y="70.778046"
-         style="stroke-width:0.9375">$t_1$</tspan></text>
+         style="font-size:10px;stroke-width:0.9375">$t_1$</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:17.5px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.9375"
@@ -534,7 +534,7 @@
          id="tspan4639"
          x="338.55893"
          y="77.880676"
-         style="stroke-width:0.9375">$t_0$</tspan></text>
+         style="font-size:5px;stroke-width:0.9375">$t_0$</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:0.9375px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker4908)"
        d="m 301.62523,80.248223 -36.9337,1.420527"
@@ -550,7 +550,7 @@
          id="tspan5006"
          x="282.68484"
          y="77.369095"
-         style="stroke-width:0.9375">$\vec{v}$</tspan></text>
+         style="font-size:10px;stroke-width:0.9375">$\vec{v}$</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:0.46875;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-start:url(#marker5013);marker-end:url(#marker5131)"
        d="m 235.8669,224.92905 92.55522,-1.94786"
@@ -582,6 +582,6 @@
          id="tspan5519"
          x="299.93301"
          y="199.17024"
-         style="font-size:11.25px;stroke-width:0.9375">$l_{t_0}$</tspan></text>
+         style="font-size:5px;stroke-width:0.9375">$l_{t_0}$</tspan></text>
   </g>
 </svg>
