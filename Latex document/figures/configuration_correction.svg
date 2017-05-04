@@ -168,14 +168,14 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.979899"
-     inkscape:cx="553.75648"
-     inkscape:cy="848.29859"
+     inkscape:zoom="0.9899495"
+     inkscape:cx="100.73596"
+     inkscape:cy="924.08889"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
      inkscape:window-width="1366"
-     inkscape:window-height="741"
+     inkscape:window-height="693"
      inkscape:window-x="-9"
      inkscape:window-y="-9"
      inkscape:window-maximized="1" />
@@ -366,24 +366,24 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="73.607124"
-       y="321.36218"
+       x="120.91995"
+       y="330.83237"
        id="text45090"><tspan
          sodipodi:role="line"
          id="tspan45092"
-         x="73.607124"
-         y="321.36218"
+         x="120.91995"
+         y="330.83237"
          style="font-size:25px;line-height:1.25">$l$</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="121.45306"
-       y="327.61835"
+       x="72.170052"
+       y="324.77731"
        id="text45094"><tspan
          sodipodi:role="line"
          id="tspan45096"
-         x="121.45306"
-         y="327.61835"
+         x="72.170052"
+         y="324.77731"
          style="font-size:25px;line-height:1.25">$L$</tspan></text>
     <path
        style="fill:none;stroke:#ff0000;stroke-width:1.875;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
@@ -461,7 +461,7 @@
            height="87.14286"
            x="510"
            y="-4.6231723" /></flowRegion><flowPara
-         id="flowPara4617"></flowPara></flowRoot>    <text
+         id="flowPara4617" /></flowRoot>    <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:12px;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        x="236.46367"
@@ -515,7 +515,7 @@
            height="291.42856"
            x="324.28571"
            y="96.805397" /></flowRegion><flowPara
-         id="flowPara4691"></flowPara></flowRoot>    <path
+         id="flowPara4691" /></flowRoot>    <path
        style="fill:none;fill-rule:evenodd;stroke:#666b70;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 280.83064,234.64848 -2.14285,26.42857"
        id="path45116-5"

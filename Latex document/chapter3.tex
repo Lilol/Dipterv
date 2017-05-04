@@ -146,9 +146,7 @@ Second, a background-subtraction and its post-corrections are applied to detect 
 The third stage is data extraction, including vehicle detection, classification and parameter calculation.
 
 The final step is system evaluation and testing. 
-Since, this step is optional, and is only available when the system is tested during development, when the operation is not continuous, it is considered a supplementary software element, and is discussed in detail in section \ref{sec:SupplementarySoftware}.
-
-In each processing stage a series of different Timeline Images and Frame-strips are used.
+Since this step is optional, and is only available when the system is tested during development, when the operation is not continuous, it is considered a supplementary software element, and is discussed in detail in section \ref{sec:SupplementarySoftware}.
 %----------------------------------------------------------------------------
 \subsection{Preprocessing}
 %----------------------------------------------------------------------------
@@ -281,10 +279,10 @@ d_{\text{L},t} + d_{\text{R},t} 		& \quad \text{if } \boldsymbol{F_{\text{MOG2},
 with $d_{\text{L},t}$ and $d_{\text{R},t}$ being the left and right side distances of the nearest objects.
 The distances are estimated by counting the empty pixels on each side of the tripwire.
 
-The calculated parameters are then either transferred in a raw form through the EnTalk Network in the form of a report file (like following distance values, as detailed in section \ref{sec:reporting}.), or used for classification purposes (like size values).
+The calculated parameters are then either transferred in a raw form through the EnTalk\textsuperscript{TM} Network in the form of a report file (like following distance values, as detailed in section \ref{sec:reporting}.), or used for classification purposes (like size values).
 Although the speed measures are currently unused, possible future applications include the identification of road lanes, congestion detection, or the correction of Timeline Blobs of stopped vehicles.
 
-\subsubsection{Classification}
+\subsubsection{Classification}\label{sec:classification}
 %----------------------------------------------------------------------------
 The classifier of the Traffic Sensor is a computationally cheap and a rather less resource-intensive algorithm.
 

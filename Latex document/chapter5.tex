@@ -25,22 +25,22 @@ The attributes of the test videos are presented in detail in table \ref{tab:test
 Besides the traffic and light conditions, in which the videos were recorded, table \ref{tab:test_videos}.~presents other important characteristics and specific settings, that determine the evaluation's quality and level of detail.
 
 The "Lanes set" option specifies whether the centre of lanes are defined in the configuration files, as an initial setting for the video.
-If it is, the parameter calculation is limited to these specified lane-regions on the Tripwire, that increases the operation speed.
-However it affects the precision of classification as well, because the average length value is calculated from less samples.
+If it is, the parameter calculation is limited to these specified lane centre-regions on the Tripwire, that decrease the count of points to be processed, thus increases the operation speed.
+However it affects the precision of classification as well, because the average length value is calculated from less samples (further details on the classification are in section \ref{sec:classification}.).
 
 The point count of the video's ground truth sets the resolution of the precision measures.
 
 Other, video-specific settings are also presented, when appropriate.
-The higher sensitivity of MOG2 overreaction is required for shadow-dense streams, where light changes can easily overwhelm the background-subtractor.
+The higher sensitivity of MOG2 overreaction is required for shadow-dense streams, where light changes easily overwhelm the background-subtractor.
 A minimal blob size (minSize), smaller than the default setting is specified, whenever the possibility of smaller road-users (e.g. pedestrians, cyclists) is higher, to be able to detect them more precisely.
-The corrected calibration feature means higher precision and accuracy values for the video, but does not influence the effect of changing other settings. 
+The corrected calibration feature means higher precision and accuracy values for the video, but does not influence the overall effect of other settings. 
 \FloatBarrier
 
 %----------------------------------------------------------------------------
 \section{Evaluation results}
 %----------------------------------------------------------------------------
 This section presents the results of the evaluation of the measures described in section \ref{chap:evaluation}.
-The values were quantified using five different parameter-setting, each case specified to eliminate a specific, prevalent error cause.
+The values were quantified using five different parameter-setting, each case specified to eliminate a specific, prevalent error.
 
 \subsection{Versions of test settings}
 The various settings used for testing are seen in table \ref{tab:settings_versions}.
@@ -89,15 +89,24 @@ Whether road lane centres are defined, or not, do not affect the result of the d
 The drawback to the lane-less operation is the increased computational cost and time, as discussed in section \ref{sec:speed_tests}.
 
 \subsubsection{Split size added}\label{sec:ver_4}
-At the fourth and fifth test stage, the minimal split size is decreased to a smaller values than the regular minimal blob size.
-As chart \ref{chart:recalls}.~shows, the recalls only slightly changed, and most accuracies (chart \ref{chart:accuracies}.) either increased or stagnated correspondingly.
-This is due to the increased number of false positives and the decreased number of false negatives, that compensate each other's effects.
+At the fourth test stage, the minimal split size is decreased to a smaller value than the regular minimal blob size.
 
+As a result, as chart \ref{chart:recalls}.~shows, the recalls shifted only slightly, and most accuracies (chart \ref{chart:accuracies}.) either increased or stagnated correspondingly.
+This is due to the increased number of false positives and the decreased count of false negatives (charts \ref{chart:false_positives}., \ref{chart:false_positives}), that compensate each other's effects.
 
-\subsubsection{Outliers}
-As the results charts show, some videos do not follow the common tendencies described in section \ref{sec:ver_2}.,\ref{sec:ver_3}.,\ref{sec:ver_4}., but  
+The performance measures somewhat improve with fine-tuning the size parameters (stage fifth), but the advancement is minor.
 
 \subsubsection{Conclusions}
+Concluding the above analysis, the Traffic Sensor application is considered to be in a robust operating point to parameter changes, since the performance measures show only a slight shift when the settings are adjusted.
+
+The system is robust to diverse traffic and light scenarios as well, as most test videos' recalls exceed \SI{80}{\%}, and accuracies are above \SI{70}{\%}. These values surpass the pre-defined \SI{70}{\%} limit.
+
+It is important to mention that the videos' performance, that record standard urban road scenes with medium traffic density (e.g. GoldB2, GoldA1, FovamC\_D), are well over \SI{80}{\%} in recall, and \SI{70}{\%} in accuracy.
+Therefore the Sensor's performance is predicted to be considerably accurate in general urban traffic scenes, and operates over the required precision limit most of the time.
+
+\subsubsection{Outliers}
+As the results charts show, some videos do not follow the common tendencies described above.
+This is due to their particular traffic characteristics.
 
 \begin{figure}[p]
 	\centering
@@ -325,7 +334,7 @@ In each case, the length curves are more balanced after the correction.
 	\centering
 	\begin{adjustbox}{center}
 	\includetable{cal_corr_table}
-\end{adjustbox}
+	\end{adjustbox}
 	\caption{Table detailing the results of evaluation before and after calibration correction. The type recall values are emphasized with blue. Independently from lanes, the type recall of all videos improved after the correction. This is due to more realistic length measurements. The accuracy of some videos, including GoldA2 or GoldB1 (whithout lanes) have decreased due to the increase of false detections (increased false positive count). This is a result of expansion of blobs at the far end of the Tripwire, that, including the ones caused by noise, are not getting filtered. All measures are in \%.}
   	\label{tab:cal_corr_results}%
 \end{table}%
