@@ -42,12 +42,12 @@
 \usepackage[inkscapeopt= -D -z]{svg}
 
 %--------------------------------------------------------------------------------------
-% SVG package setup
+%	SVG package setup for an easier life ;)
 %--------------------------------------------------------------------------------------
 \setsvg{inkscape={"C:/Program Files/Inkscape/inkscape" -D -z}}
 
 %--------------------------------------------------------------------------------------
-% Path setups: figures, svgs, tables, charts
+%	Path setups: figures, svgs, tables, charts
 %--------------------------------------------------------------------------------------
 \svgpath{{"C:/Users/{"Barancsuk_Lilla"}/Documents/{"current_semester"}/Dipterv_repo/{"Latex_document"}/figures/"}}
 \graphicspath{{figures/}{figures/for_timelines/}{figures/for_frames/}{figures/GT/}{figures/calcorr/fovam/}{figures/calcorr/ibike/}{figures/calcorr/}{figures/calcorr/uncalib/}}
@@ -77,9 +77,10 @@
 \makeatother 
 
 %--------------------------------------------------------------------------------------
-% Main variables
+%	Main variables
 %--------------------------------------------------------------------------------------
 \newcommand{\vikszerzo}{Lilla \textsc{Barancsuk}}
+\newcommand{\vikHunszerzo}{Barancsuk Lilla}
 \newcommand{\vikkonzulens}{Kristóf \textsc{Csorba}, PhD}
 \newcommand{\vikcim}{Development and integration of camera based traffic monitoring system}
 \newcommand{\viktanszek}{Department of Automation and Applied Informatics}
@@ -87,7 +88,7 @@
 \newcommand{\vikdepartmentr}{Barancsuk Lilla}
 
 %--------------------------------------------------------------------------------------
-% Page layout setup
+%	Page layout setup
 %--------------------------------------------------------------------------------------
 % we need to redefine the pagestyle plain
 % another possibility is to use the body of this command without \fancypagestyle
@@ -151,7 +152,7 @@
 }
 
 %--------------------------------------------------------------------------------------
-% Set up listings
+%	Set up listings
 %--------------------------------------------------------------------------------------
 \lstset{
 	basicstyle=\scriptsize\ttfamily, % print whole listing small
@@ -181,7 +182,7 @@
 \newcommand{\hsp}{\hspace{0pt}}
 
 %--------------------------------------------------------------------------------------
-% Math operators
+%	Math operators
 %--------------------------------------------------------------------------------------
 \DeclareMathOperator*{\argmax}{arg\,max}
 %\DeclareMathOperator*[1]{\floor}{arg\,max}
@@ -193,7 +194,7 @@
 %\everymath{\displaystyle}
 
 %--------------------------------------------------------------------------------------
-%Color declarations
+%	Color declarations
 %--------------------------------------------------------------------------------------
 \definecolor{lightgray}{rgb}{0.95,0.95,0.95}
 \definecolor{indigo}{RGB}{47, 27, 60}
@@ -204,7 +205,7 @@
 \definecolor{camel}{RGB}{232, 208, 174}
 
 %--------------------------------------------------------------------------------------
-%Chart color cycle
+%	Chart color cycle
 %--------------------------------------------------------------------------------------
 \pgfplotscreateplotcyclelist{violets}{
 	{fill=indigo!60!white, draw=indigo},
@@ -215,13 +216,13 @@
 }
 
 %--------------------------------------------------------------------------------------
-%Chart setup
+%	Chart setup
 %--------------------------------------------------------------------------------------
-\newcommand{\placelegend}{legend style={at={(1.2,1)}, anchor=north, legend columns=1},}
+\newcommand{\placelegend}{legend style={at={(1.2,1)}, anchor=north, legend columns=1}, reverse legend,}
 \newcommand{\custombarwidth}{0.13cm}
 
 %--------------------------------------------------------------------------------------
-% Includes
+%	Includes
 %--------------------------------------------------------------------------------------
 \author{\vikszerzo}
 \title{\viktitle}
@@ -256,11 +257,11 @@ aboveskip=10pt}
 \renewcommand{\captionfont}{\footnotesize\it}
 
 %---------------
-% makeindex
+%  makeindex
 %---------------
 \makeindex
 %--------------------------------------------------------------------------------------
-% Table of contents and the main text
+%	Table of contents and the main text
 %--------------------------------------------------------------------------------------
 \begin{document}
 
@@ -287,8 +288,8 @@ aboveskip=10pt}
 \include{acknowledgement}
 \include{appendices}
 
-%\listoffigures\addcontentsline{toc}{chapter}{Ábrák jegyzéke}
-%\listoftables\addcontentsline{toc}{chapter}{Táblázatok jegyzéke}
+%\listoffigures\addcontentsline{toc}{chapter}{List of figures}
+%\listoftables\addcontentsline{toc}{chapter}{List of tables}
 
 \bibliography{trafficVideoSens}
 \addcontentsline{toc}{chapter}{Bibliography}

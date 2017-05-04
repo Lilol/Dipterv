@@ -127,12 +127,19 @@ The Timeline images can either be extracted from the Frame-strips (Original Time
 %----------------------------------------------------------------------------
 The processing of the video-stream consists of four main stages, as depicted in figure \ref{fig:processing_steps}.
 
+%\clearpage
+%\addtolength{\voffset}{-.3in}
 \begin{figure}[p]
+	\thispagestyle{empty}
 	\centering
-	\thisfloatpagestyle{plainlower}
+	\thisfloatpagestyle{empty}
+	\vspace*{-.3in}
 	\includesvg[width=\textwidth]{full_system_flowchart}
 	\caption{Steps of the processing of the video stream in the core software of the Traffic Sensor.\label{fig:processing_steps}}
 \end{figure}
+
+%\FloatBarrier
+%\addtolength{\voffset}{+.3in}
 
 The first step is preprocessing, that is the remapping of each frame to achieve a standard form for effective processing.
 Second, a background-subtraction and its post-corrections are applied to detect the moving vehicles precisely.

@@ -46,7 +46,7 @@ The values were quantified using five different parameter-setting, each case spe
 The various settings used for testing are seen in table \ref{tab:settings_versions}.
 Although, the application uses several configuration parameters, in this section only the ones, that were modified between two evaluation session, are discussed.
 
-As mentioned before (in section \ref{subs:ProjectConfigurator}.), each video has specific parameters, depending on the environment characteristics.
+As mentioned before (in section \ref{subs:ProjectConfigurator}.), for each video specific parameters are set, depending on the environment characteristics.
 The particular values of these parameters were evaluated empirically for each video, to give the best results possible, and is not discussed in this work.
 
 \begin{table}[!h]
@@ -57,69 +57,77 @@ The particular values of these parameters were evaluated empirically for each vi
 	\label{tab:settings_versions}
 \end{table}
 
-The modified parameters are as follows
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.25\textwidth]{cover.png}
+	\caption{Fusing vehicles on an Original Timeline. The one closer to the camera typically covers parts of the further one. Therefore setting the minimal blob size of splitting to a smaller value improves the evaluation results.\label{fig:cover}}
+\end{figure}
+
+\noindent The modified parameters are as follows
 \begin{enumerate}
-	\item \textbf{minimal size of blobs:} Although the system detects blobs from all sizes, only the ones exceeding the size limit are accepted as vehicles. If the minimal size decreases, the number of both false negatives and positives increases, since more fake and real vehicles are detected.
+	\item \textbf{minimal size of blobs:} Although the system detects blobs of all sizes, only the ones exceeding the size limit are accepted as vehicles. If the minimal size decreases, the number of both false negatives and positives increases, since more fake and real vehicles are detected.
 	
 	\item \textbf{lane centres defined or not:} The reason lane centres are specified is detailed in section \ref{sec:test_videos}. Depending on the traffic scene, lane centres cannot be set for every video (table \ref{tab:test_videos}), thus are not initially configured for some of them. Consequently the evaluation results of certain videos are not affected by this parameter change. As described before, lane settings influence the result of classification, and the speed of the operation.
 	
-	\item \textbf{minimal size for cutting:} Specifies the minimal size of split blobs. The method of blob splitting is presented in section \ref{sec:background-subtraction}., and is used to divide fused vehicles, that cross the Tripwire together. If the resulting blobs are of a smaller size than the limit, the splitting is cancelled, and the blob is stored as a whole. The optimal minimal split size is smaller than the regular minimal blob size, since due to the perspective, the fused vehicles can cover parts of each other, as seen on figure \ref{fig:cover_vehicles}. If the parameter value equals the minimal size, some fused vehicles are missed, although, when set to a very low value, the number of false splitting, thus the number of false detections can increase.
+	\item \textbf{minimal size for cutting:} Specifies the minimal size of split blobs. The method of blob splitting is presented in section \ref{sec:background-subtraction}., and is used to divide fused vehicles, that cross the Tripwire together. If the resulting blobs are of a smaller size than the limit, the splitting is cancelled, and the blob is stored as a whole. The optimal minimal split size is smaller than the regular minimal blob size, since due to the perspective, fused vehicles can cover parts of each other, as seen on figure \ref{fig:cover}. If the parameter value equals the minimal size, some fused vehicles are missed, although, when set to a very low value, the number of false splitting, thus the number of false detections can increase.
 \end{enumerate}
 
 \subsection{Results}
+\subsubsection{Initial settings}
+The initial minimal size is \SI{100}{pixels}, resulting in several small noises detected as vehicles.
+To correct these false alarms, the vehicle size was increased.
 
-\subsubsection{Initial setting}
-- minSize: 250
-- lanes: defined for most videos
+\subsubsection{Minimal size of blobs increased}\label{sec:ver_2}
+At the second testing stage, the minimal blob size was increased to \SI{200}{pixels}.
+As seen on figure \ref{chart:false_positives}., the false positive rate decreased and the false negative rate increased for every test video, although these changes have little effect on the overall precision and accuracy measures.
 
-\subsubsection{Minimal size of blobs redefined}
-- minSize: 200
-- lanes: defined for most videos
+\subsubsection{No lanes defined}\label{sec:ver_3}
+The third version of settings were the elimination of lane centres, for which video the centre points were defined.
+This settings change has no effect on the ones that has no lanes defined.
+Whether road lane centres are defined, or not, do not affect the result of the detection (the value of error rates and precision measures, as seen on figures \ref{chart:accuracies}., \ref{chart:recalls}., \ref{chart:false_positives}., \ref{chart:false_negatives}.), but in almost every case, improves the classification results.
 
-\subsubsection{No lanes defined}
-- minSize: 200
-- lanes: no lanes
+The drawback to the lane-less operation is the increased computational cost and time, as discussed in section \ref{sec:speed_tests}.
 
-\subsubsection{Split size added}
-- minSize: 100
-- splitMinSize : 200
+\subsubsection{Split size added}\label{sec:ver_4}
+At the fourth and fifth test stage, the minimal split size is decreased to a smaller values than the regular minimal blob size.
+As chart \ref{chart:recalls}.~shows, the recalls only slightly changed, and most accuracies (chart \ref{chart:accuracies}.) either increased or stagnated correspondingly.
+This is due to the increased number of false positives and the decreased number of false negatives, that compensate each other's effects.
+
+
+\subsubsection{Outliers}
+As the results charts show, some videos do not follow the common tendencies described in section \ref{sec:ver_2}.,\ref{sec:ver_3}.,\ref{sec:ver_4}., but  
+
+\subsubsection{Conclusions}
 
 \begin{figure}[p]
 	\centering
 	\includechart{recalls}
-	\caption{Recalls}
+	\caption{Recalls \label{chart:recalls}}
 \end{figure}
 
 \begin{figure}[p]
 	\centering
 	\includechart{accuracies}
-	\caption{Accuracies}
+	\caption{Accuracies \label{chart:accuracies}}
 \end{figure}
 
 \begin{figure}[p]
 	\centering
 	\includechart{typerecalls}
-	\caption{Type recalls}
+	\caption{Type recalls \label{chart:type_recalls}}
 \end{figure}
 
 \begin{figure}[p]
 	\centering
 	\includechart{falsePositives}
-	\caption{False positives}
+	\caption{False positives \label{chart:false_positives}}
 \end{figure}
 
 \begin{figure}[p]
 	\centering
 	\includechart{falseNegatives}
-	\caption{False negatives}
+	\caption{False negatives \label{chart:false_negatives}}
 \end{figure}
-
-\subsubsection{Split size final setting}
-
-\subsection{Common errors and solutions}
-\subsubsection{False positives}
-\subsubsection{False negatives}
-\subsubsection{Misclassification errors}
 
 %----------------------------------------------------------------------------
 \section{Calibration correction}\label{chap:cal_corr}
@@ -318,7 +326,7 @@ In each case, the length curves are more balanced after the correction.
 	\begin{adjustbox}{center}
 	\includetable{cal_corr_table}
 \end{adjustbox}
-	\caption{Table detailing the results of evaluation before and after calibration correction. Independently from lanes, the type recall of all videos improved after the correction. This is due to more realistic length measurements. The accuracy of some videos, including GoldA2 or GoldB1 (whithout lanes) have decreased due to the increase of false detections (increased false positive count). This is a result of expansion of blobs at the far end of the Tripwire, that, including the ones caused by noise, are not getting filtered. All measures are in \%.}
+	\caption{Table detailing the results of evaluation before and after calibration correction. The type recall values are emphasized with blue. Independently from lanes, the type recall of all videos improved after the correction. This is due to more realistic length measurements. The accuracy of some videos, including GoldA2 or GoldB1 (whithout lanes) have decreased due to the increase of false detections (increased false positive count). This is a result of expansion of blobs at the far end of the Tripwire, that, including the ones caused by noise, are not getting filtered. All measures are in \%.}
   	\label{tab:cal_corr_results}%
 \end{table}%
 
@@ -374,7 +382,7 @@ In each case, the length curves are more balanced after the correction.
 \clearpage
 \addtolength{\topmargin}{+.6in}
 %----------------------------------------------------------------------------
-\section{Results of speed tests}
+\section{Results of speed tests}\label{sec:speed_tests}
 %----------------------------------------------------------------------------
 Since the application is required to operate in real-time, it must meet strict speed criteria.
 To not miss certain frames and consequently, vehicles, the software's frame request rate should exceed the camera's capture frequency most of the time.
