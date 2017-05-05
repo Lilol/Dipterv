@@ -10,15 +10,26 @@
 %\numberwithin{tabular}{section}
 
 %----------------------------------------------------------------------------
-\section{VideoMixer application}
+\section{Advertisement application}
 %----------------------------------------------------------------------------
+The advertisement application is an alternative utilization of the functionality os the Traffic Sensor.
+The application will be deployed on the \viktanszek, for counting people passing by the camera.
+Advertisers will be able to buy time-intervals for their advertisements on a screen, each time interval priced based on the count of people present at the time the advertisement is on screen.
 
+The Traffic Sensor is already fit for the task, however the following settings were modified for the alternative situation:
+\begin{enumerate}
+	\item The camera angle will be horizontal, so the Tripwire is vertical.
+	\item Since the bypassing people are close to the camera, they are not subject to significant  perspective distortion, thus the perspective is not compensated.
+	\item The Tripwire
+	\item The minimal size of blobs is adjusted for the distance and size of people.
+\end{enumerate}
 
 %----------------------------------------------------------------------------
-\clearpage\section{Advertisement application}
+\clearpage\section{VideoMixer application}
 %----------------------------------------------------------------------------
+-
 
-
+%----------------------------------------------------------------------------
 \clearpage\section{Some examples of the output Timeline Images}\label{app:TIs}
-
+%----------------------------------------------------------------------------
 

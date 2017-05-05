@@ -35,5 +35,12 @@
 		\addplot table[x=4thversion, y=Code]{\recalls};
 		\addplot table[x=5thversion, y=Code]{\recalls};
 		\legend{{1st version},{2nd version},{3rd version},{4th version},{5th version}}
+		%
+		\coordinate (A) at (axis cs:70,[normalized]-0.8);
+		\coordinate (B) at (axis cs:70,[normalized]22);
+		\coordinate (O1) at (rel axis cs:0.607,\pgfkeysvalueof{/pgfplots/ymin});
+		\coordinate (O2) at (rel axis cs:0.607,\pgfkeysvalueof{/pgfplots/ymax});
+		%		
+		\draw [red,sharp plot] (A -| O1) -- (B -| O2);
 	\end{axis}
 \end{tikzpicture}
