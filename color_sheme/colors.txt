@@ -1,0 +1,69 @@
+Indigó:
+2F1B3C
+B: 60
+G: 27
+R: 47
+
+H: 276
+S: 54
+V: 23
+
+
+
+Sötét kékeslila:
+3E2C66
+B: 102
+G: 44
+R: 62
+
+H: 258
+S: 56
+V: 40
+
+
+
+Világos kékeslila:
+605C99
+B: 153
+G: 92
+R: 96
+
+H: 243
+S: 39
+V: 60
+
+
+
+Drapp:
+B09E8D
+B: 141
+G: 158
+R: 176
+
+H: 29
+S: 19
+V: 69
+
+
+
+Camel:
+E8D0AE
+B: 174
+G: 208
+R: 232
+
+H: 35
+S: 24
+V: 90
+
+
+
+Világosdrapp:
+D8D0C5
+B: 197
+G: 208
+R: 216
+
+H: 34
+S: 8
+V:84
