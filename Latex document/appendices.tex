@@ -76,6 +76,13 @@ The videos can either be recorded from a camera or read from a file.
 The user can control, which videos are seen at a certain time, that are blended by the application on top of each other.
 The speed of the playing and the looping of the videos can be set as well.
 
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=0.5\textwidth]{vm_menu.png}
+	
+	\caption{The menu of the VideoMixer. Whenever a key is pressed, it is displayed, as well as the possible control options. \label{fig:video_mixer_menu}}
+\end{figure}
+
 The settings (e.g the name and type of the input videos, the controlling keys and the whether the videos are looped) are defined in a configuration file, similarly to the Traffic Sensor's (seen in code-listing \ref{lst:config_vm}).
 
 The application can be utilized as a demonstration of the Traffic Sensor's operation as well, some example frames are figures \ref{fig:video_mixer_frames}., \ref{fig:video_mixer_menu}..
@@ -121,30 +128,23 @@ filename_1 = speed.avi
 	\caption{Frames of the VideoMixer application. The overlay video is blended on top of the main video, that consists of an Original Frame and an Original Timeline recorded using the Traffic Sensor. Overlay videos are other Timeline Images, MOG2, Speed and Result.\label{fig:video_mixer_frames}}
 \end{figure}
 
-\begin{figure}[!h]
-	\centering
-	\includegraphics[width=0.5\textwidth]{vm_menu.png}
-	
-	\caption{The menu of the VideoMixer. Whenever a key is pressed, it is displayed, as well as the possible control options. \label{fig:video_mixer_menu}}
-\end{figure}
-
 %----------------------------------------------------------------------------
 \clearpage\section{Some examples of the output Timeline Images}\label{app:TIs}
 %----------------------------------------------------------------------------
-This appendix presents some test results in the form of output Timeline Images, focusing on interesting details.
+This appendix presents some test results in the form of output Timeline Images, focusing on remarkable points and interesting details.
 
 \centering
 \begin{figure}[h!]
 	\centering
-	\includegraphics[width=\textwidth]{GoldA1_Night.png}
-	\caption[s]{}%{GoldA1 kódú videó futtatási eredménye. Fentről lefelé a képek rendre a következők. Eredeti videóból képzett TK. MOG2 TK. Méret timeline. Kiértékelés eredménye. \\		Éjszakai videó, amelyen jól megfigyelhető például az autók útravetülő fényszórója miatti hiba, ami megnöveli a blob hosszát (méret timeline).}
+	\includegraphics[width=0.8\textwidth]{GoldB12.png}
+	\caption[]{GoldB1}%{GoldA1 kódú videó futtatási eredménye. Fentről lefelé a képek rendre a következők. Eredeti videóból képzett TK. MOG2 TK. Méret timeline. Kiértékelés eredménye. \\		Éjszakai videó, amelyen jól megfigyelhető például az autók útravetülő fényszórója miatti hiba, ami megnöveli a blob hosszát (méret timeline).}
 \end{figure}
 
 \centering
 \begin{sidewaysfigure}[h!]
 	\centering
 	\includegraphics[width=\textwidth]{ErE5.png}
-	\caption[]{}%{ErE5 kódú videó futtatási eredménye. Fentről lefelé a képek rendre a következők. Eredeti videóból képzett TK. MOG2 TK. Méret timeline. Követési távolság timeline. Sebesség timeline. Eredmény timeline. 
+	\caption[]{ErE5}%{ErE5 kódú videó futtatási eredménye. Fentről lefelé a képek rendre a következők. Eredeti videóból képzett TK. MOG2 TK. Méret timeline. Követési távolság timeline. Sebesség timeline. Eredmény timeline. 
 		%IBikeBudapest, biciklis felvonuláson készült felvétel. Érdekességként megfigyelhető, hogy a rendszer a követési távolságot a méretbecslés szüneteiben méri, valamint az is, hogy a kép felső szélén látható autók a felvonulással szemben haladnak. A sebességképen az egységes kék foltok némelyikében megfigyelhető piros részek mutatják, hogy az efféle sebességbecslés milyen érzékeny arra, ha a blob mérete változik a feldolgozás során.}
 \end{sidewaysfigure}
 
@@ -152,15 +152,15 @@ This appendix presents some test results in the form of output Timeline Images, 
 \begin{sidewaysfigure}[h!]
 	\centering
 	\includegraphics[width=\textwidth]{Fovam_C.png}
-	\caption[]{}%{FovamC kódú videó futtatási eredménye. Fentről lefelé a képek rendre a következők. Eredeti videóból képzett TK. MOG2 TK. Eredmény timeline. \\
+	\caption[]{Fovam\_C}%{FovamC kódú videó futtatási eredménye. Fentről lefelé a képek rendre a következők. Eredeti videóból képzett TK. MOG2 TK. Eredmény timeline. \\
 		%Naplementekor készült videó, kevés járművel, a rendszer jó pontosságot produkál ezen a videón. Az eredeti TK-en kivehető fényerő változásokat a MOG2 jól tűri, nem jellemző rá a túlreakció. A középtájon lévő autóösszeolvadással is jól boldogul a rendszer, azonban a ``szellemszerű", megálló gyalogosról például már tudomást sem vesz.}
 \end{sidewaysfigure}
 
 \centering
 \begin{sidewaysfigure}[h!]
 	\centering
-	\includegraphics[width=\textwidth]{ErC_StopTram.png}
-	\caption[]{}%{ErC kódú videó futtatási eredménye. Fentről lefelé a képek rendre a következők. entről lefelé a képek rendre a következők. Eredeti videóból képzett TK. MOG2 TK. A kiértékelés eredménye. \\
+	\includegraphics[width=\textwidth]{ErC1.png}
+	\caption[]{ErC1}%{ErC kódú videó futtatási eredménye. Fentről lefelé a képek rendre a következők. entről lefelé a képek rendre a következők. Eredeti videóból képzett TK. MOG2 TK. A kiértékelés eredménye. \\
 		%A videón egy megálló villamos, illetve a mellette haladó gyalogosok és autók láthatók. A rendszer jól összeilleszti a megálló villamos blobját, de helytelenül a jobb alsó sarokban található blobokat (hosszú téglalap), amely csak a a háttér folytonossága miatt tűnik a rendszernek megálló autónak.}
 \end{sidewaysfigure}
 
@@ -168,6 +168,14 @@ This appendix presents some test results in the form of output Timeline Images, 
 \begin{sidewaysfigure}[h!]
 	\centering
 	\includegraphics[width=\textwidth]{SasA1.png}
-	\caption[]{}%{SasA1 kódú videó futtatási eredménye. Fentről lefelé a képek rendre a következők. Eredeti képkockákból képzett TK. MOG2 TK. Sebesség timeline. A kiértékelés eredménye. \\
+	\caption[]{SasA1}%{SasA1 kódú videó futtatási eredménye. Fentről lefelé a képek rendre a következők. Eredeti képkockákból képzett TK. MOG2 TK. Sebesség timeline. A kiértékelés eredménye. \\
 		%A videó számlálási pontossága jó, bár sok együtt haladó jármű olvad össze. Ezek közül a rendszer beépített daraboló algoritmusa segítségével sokat szétvág. Érdekes megfigyelni például baloldalt középtájon, hogyan illesztett össze a rendszer egy blobot a színintenzitásainak változatlanságára hivatkozva (sajnos a blob nem egy járműnek, hanem a MOG2 fényváltozásokra adott túlzott reakciójának köszönhető.) A sebességképen a színek segítségével azonnal látható, hogy melyik sáv milyen irányú.}
+\end{sidewaysfigure}
+
+\centering
+\begin{sidewaysfigure}[h!]
+	\centering
+	\includegraphics[width=\textwidth]{GoldA1.png}
+	\caption[]{GoldA1}%{SasA1 kódú videó futtatási eredménye. Fentről lefelé a képek rendre a következők. Eredeti képkockákból képzett TK. MOG2 TK. Sebesség timeline. A kiértékelés eredménye. \\
+	%A videó számlálási pontossága jó, bár sok együtt haladó jármű olvad össze. Ezek közül a rendszer beépített daraboló algoritmusa segítségével sokat szétvág. Érdekes megfigyelni például baloldalt középtájon, hogyan illesztett össze a rendszer egy blobot a színintenzitásainak változatlanságára hivatkozva (sajnos a blob nem egy járműnek, hanem a MOG2 fényváltozásokra adott túlzott reakciójának köszönhető.) A sebességképen a színek segítségével azonnal látható, hogy melyik sáv milyen irányú.}
 \end{sidewaysfigure}
