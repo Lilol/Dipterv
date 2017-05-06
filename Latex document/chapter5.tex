@@ -2,9 +2,11 @@
 \chapter{Experimental results}\label{chap:Tests}
 %----------------------------------------------------------------------------
 In the following chapter the results of the system tests will be discussed. 
+
 The speed and precision of the operation and the accuracy of the classification were tested using a set of diverse test videos.
 
 The results are revised and analysed with various parameter settings.
+
 A method to correct the errors caused by the miscalibration of the test videos is proposed as well.
 Lastly, the proper operation speed is ensured by testing the performance of the application on the target hardware.
 
@@ -25,7 +27,7 @@ The attributes of the test videos are presented in detail in table \ref{tab:test
 Besides the traffic and light conditions, in which the videos were recorded, table \ref{tab:test_videos}.~presents other important characteristics and specific settings, that determine the evaluation's quality and level of detail.
 
 The "Lanes set" option specifies whether the centre of lanes are defined in the configuration files, as an initial setting for the video.
-If it is, the parameter calculation is limited to these specified lane centre-regions on the Tripwire, that decreases the count of points to be processed, thus increases the operation speed.
+If it is, the parameter calculation is limited to these specified lane centre-regions on the Tripwire, that decreases the count of points processed, thus increases the operation speed.
 However it affects the precision of classification as well, because the average length value is calculated from less samples (further details on the classification are in section \ref{sec:classification}.).
 
 The point count of the video's ground truth sets the resolution of the precision measures.
@@ -33,41 +35,41 @@ The point count of the video's ground truth sets the resolution of the precision
 Other, video-specific settings are also presented, when appropriate.
 The higher sensitivity of MOG2 overreaction is required for shadow-dense streams, where light changes easily overwhelm the background-subtractor, and tend to increase the count of false negative detections.
 A minimal blob size (minSize), smaller than the default setting is specified, whenever the possibility of smaller road-users (e.g. pedestrians, cyclists) is higher, to be able to detect them more precisely.
-The corrected calibration feature means higher precision and accuracy values for the video, but does not influence the overall effect of other settings changes. 
+If the calibration is corrected, the precision and accuracy values of the video are higher, but this feature does not influence the overall effect of other settings changes. 
 \FloatBarrier
 
 %----------------------------------------------------------------------------
 \section{Evaluation results}
 %----------------------------------------------------------------------------
-This section presents the results of the evaluation of the measures described in section \ref{chap:evaluation}.
-The values were quantified using five different parameter-setting, each case specified to eliminate a specific, prevalent error.
+This section presents the results of the evaluation of the measures, that were described in detail in section \ref{chap:evaluation}.
+The values were quantified using five different parameter-settings, each case specified to eliminate a specific, prevalent error.
 
 \subsection{Versions of test settings}
 The various settings used for testing are seen in table \ref{tab:settings_versions}.
-Although, the application uses several configuration parameters, in this section only the ones, that were modified between two evaluation session, are discussed.
+Although the application uses several configuration parameters, in this section only the ones, that were modified between two evaluation session, are discussed.
 
-As mentioned before (in section \ref{subs:ProjectConfigurator}.), for each video specific parameters are set, depending on the environment characteristics.
-The particular values of these parameters were evaluated empirically for each video, to give the best results possible, and is not discussed in this work.
+As mentioned before (in section \ref{chap:calibration}.), for each video specific parameters are set, depending on the environment characteristics.
+The particular values of these parameters were evaluated empirically for every video, and are not discussed in this work.
 
 \begin{table}[!h]
 	\begin{adjustbox}{center}
 		\includetable{versions_settings}
 	\end{adjustbox}
-	\caption{The settings at each testing session. If not defined, the minimal cutting size equals the minimal size.}
+	\caption{The settings for each test session. If not defined, the minimal cutting size equals the minimal blob size.}
 	\label{tab:settings_versions}
 \end{table}
 
-\noindent The modified parameters are as follows
+\noindent The parameters modified between test sessions are as follows.
 \begin{enumerate}
-	\item \textbf{minimal size of blobs:} Although the system detects blobs of all sizes, only the ones exceeding the size limit are accepted as vehicles. If the minimal size decreases, the number of both false negatives and positives increases, since more fake and real vehicles are detected.
+	\item \textbf{Minimal size of blobs:} Although the system detects blobs of all sizes, only the ones exceeding the size limit are accepted as vehicles. If the minimal size decreases, the number of both false negatives and positives increases, since more fake and real vehicles are detected.
 	
-	\item \textbf{lane centres defined or not:} The reason lane centres are specified is detailed in section \ref{sec:test_videos}. Depending on the traffic scene, lane centres cannot be set for every video (table \ref{tab:test_videos}), thus are not initially configured for some of them. Consequently the evaluation results of certain videos are not affected by this parameter change. As described before, lane settings influence the result of classification, and the speed of the operation.
+	\item \textbf{Lane centres defined or not:} The reason lane centres are specified is detailed in section \ref{sec:test_videos}. For some traffic scene (e.g. when there's no defined trajectory for vehicles) lane centres cannot be set (table \ref{tab:test_videos}), thus are not initially configured for some test videos. Consequently the evaluation results of certain videos are not affected by this parameter change. As described before, lane settings influence the result of classification, and the speed of the operation.
 	
-	\item \textbf{minimal size for cutting:} Specifies the minimal size of split blobs. The minimal size is defined with a multiplying constant for the regular minimal size, and differs for the videos, for which a custom minimal size is set, including ErE5 or ErC1 as seen in table \ref{tab:test_videos}. 
+	\item \textbf{Minimal size for cutting blobs:} The parameter specifies the minimal size of split blobs. The minimal size is defined with a multiplier constant of the regular minimal size. Therefore split size differs for the videos, where a custom minimal size is set, including ErE5 or ErC1, as seen in table \ref{tab:test_videos}. 
 	
 	The method of blob splitting is presented in section \ref{sec:background-subtraction}., and is used to divide fused vehicles, that cross the Tripwire together. If the resulting blobs are of a smaller size than the limit, the splitting is cancelled, and the blob is stored as a whole. 
 	
-	The optimal minimal split size has been empirically estimated to be larger than the regular minimal blob size.This is due to the splitter algorithm's specific operation method, that cuts the blobs based on their shapes. If the parameter value equals the minimal size, some fused vehicles are missed, although, when set to a very low value, the number of false splitting, thus the count of false detections tend to increase.
+	The optimal minimal split size has been empirically estimated to be larger than the regular minimal blob size. This is due to the splitter algorithm's specific operation method, that cuts the blobs based on their shapes. If the parameter value equals the minimal size, some fused vehicles are missed, although, when set to a very low value, the number of false splitting, thus the count of false detections tend to increase.
 \end{enumerate}
 
 \subsection{Results}
@@ -76,7 +78,7 @@ The initial minimal size is \SI{100}{pixels}, resulting in several small noises 
 To correct these false alarms, firstly the vehicle size was increased.
 The results are discussed in section \ref{sec:ver_2}.
 To improve type recall, lane centres were removed, so that the whole length of the tripwire is analysed during size calculation. 
-The effects of the change is examined in section \ref{sec:ver_3}.
+The effects of the change is explained in section \ref{sec:ver_3}.
 To further improve the false positive rate, the split size was increased, so that the count of false blob divisions lessen (section \ref{sec:ver_4}).
 
 \subsubsection{Minimal size of blobs increased}\label{sec:ver_2}
@@ -97,7 +99,7 @@ This settings change has no effect on videos with no lanes defined.
 At the fourth test stage, the minimal split size is increased to a larger value than the regular minimal blob size.
 
 As a result, as chart \ref{chart:recalls}.~shows, the recalls shifted only slightly, and most accuracies (chart \ref{chart:accuracies}.) either increased or stagnated correspondingly.
-This is due to the increased number of false positives and also the decreased count of false negatives due to incorrectly uncut fusions (charts \ref{chart:false_positives}., \ref{chart:false_positives}), that compensate each other's effects.
+This is due to the increased number of false positives and also the decreased count of false negatives due to incorrectly uncut fusions (charts \ref{chart:false_positives}., \ref{chart:false_positives}). These two changes compensate each other's effects.
 
 The performance measures somewhat improve with fine-tuning the size parameters (stage fifth), but the advancement is minor.
 
@@ -116,7 +118,7 @@ As the results charts show, some videos do not follow the common tendencies desc
 This is due to their particular traffic characteristics.
 
 Test videos with extremely low accuracy count include SasadA1, ErC1, BorA1, BorA2 and FovamC\_N.
-Each of the three videos include at least one of the three cases of stopping vehicle, pedestrians as main road users, or heavy shadows.
+Each of the three videos include at least one of the three cases of a stopping tram, pedestrians as main road users, or heavy shadows.
 
 \begin{figure}[!h]
 	\centering
@@ -165,7 +167,7 @@ Each of the three videos include at least one of the three cases of stopping veh
 \end{figure}
 
 Although the application contains a mechanism to filter stopping vehicles, trams can overwhelm the system, and cause an increased amount of false positive detections, due to its moving parts as shown on figure \ref{fig:error_tram}.
-Heavy shadows also raise the number of false alarms, because as moving with vehicles, the background-subtractor detects them (figure \ref{fig:error_shadows}).
+Heavy shadows also raise the number of false alarms, because when they are moving with vehicles, the background-subtractor detects them (figure \ref{fig:error_shadows}).
 Pedestrians tend to cause errors as well, as their blobs are often erroneously split, due to their characteristic shape that resembles two fused cars.
 This case is only relevant when pedestrians are the primary target of detection, and are recorded from a closer distance, as seen on figure \ref{fig:error_peds}.
 

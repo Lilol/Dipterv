@@ -12,24 +12,162 @@
 %----------------------------------------------------------------------------
 \section{Advertisement application}
 %----------------------------------------------------------------------------
-The advertisement application is an alternative utilization of the functionality os the Traffic Sensor.
-The application will be deployed on the \viktanszek, for counting people passing by the camera.
-Advertisers will be able to buy time-intervals for their advertisements on a screen, each time interval priced based on the count of people present at the time the advertisement is on screen.
+The advertisement application is an alternative utilization of the Traffic Sensor's functionality, availing of that the Sensor is able to detect and count any moving objects in its environment.
 
-The Traffic Sensor is already fit for the task, however the following settings were modified for the alternative situation:
+The goal of the application is to estimate the number of people present on the corridor of the \viktanszek, where the Sensor will be deployed.
+The Traffic Sensor system will be connected to a screen with a web interface, that shows miscellaneous advertisements.
+
+Advertisers will be able to buy time-intervals for their advertisements for different prices.
+The intervals' prices are assessed based on the count of people present at that time.
+
+The Traffic Sensor is already fit for the task, however the following settings were modified for the changed situation.
 \begin{enumerate}
-	\item The camera angle will be horizontal, so the Tripwire is vertical.
-	\item Since the bypassing people are close to the camera, they are not subject to significant  perspective distortion, thus the perspective is not compensated.
-	\item The Tripwire
-	\item The minimal size of blobs is adjusted for the distance and size of people.
+	\item The camera angle is horizontal, thus the Tripwire is set to vertical.
+	
+	\item Since the bypassing people are close to the camera, they are not subject to significant  perspective distortion, and there is no need for perspective compensation.
+	
+	\item The other consequence of the closeness of the camera is that moving objects fill most of the frame, and to detect them, only a rather small Tripwire is necessary, approximately a \SI{20}{pixel} long section.
+	An advantage resulting from this is the low computation time.
+	
+	\item The minimal size of blobs is adjusted to the size of the detected objects empirically.
+	
+	\item There is no need for classification, since it is highly likely, that on the corridor only people are present.
 \end{enumerate}
+
+Although the Advertisement Application is still in pilot phase, and is not fully deployed yet, some example images of the configuration process are seen in figures \ref{fig:adv_app_config}., \ref{fig:adv_app_full_orig}., \ref{fig:adv_app_counting}.
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=0.5\textwidth]{ad_app_config.png}
+	
+	\caption{The GUI of the Project Configurator, showing the initial configuration of the Advertisement Application. The Tripwire crosses the whole frame, although it is not necessary, since the application can count people using a much smaller portion of the line.  \label{fig:adv_app_config}}
+\end{figure}
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=0.6\textwidth]{orig_full.png}
+	
+	\caption{Part of the Original Timeline Image showing a series of people walking in front of the camera. Since the person occupies the whole height of the image, for detection only a smaller section of the image is enough, as seen on figure \ref{fig:adv_app_counting}.\label{fig:adv_app_full_orig}}
+\end{figure}
+
+\begin{figure}[!h]
+	\centering
+	\begin{subfigure}[t]{0.6\textwidth}
+	\includegraphics[width=\textwidth]{original_section.png}
+	\subcaption{Part of the Original Timeline Image.}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[t]{0.6\textwidth}
+		\includegraphics[width=\textwidth]{mog2_section.png}
+		\subcaption{Part of the MOG2 Timeline Image.}
+	\end{subfigure}
+
+	\caption{Timeline Images of the Advertisement Application. The MOG2 image captures the moving object correctly each time, but also some noise due to light changes.\label{fig:adv_app_counting}}
+\end{figure}
 
 %----------------------------------------------------------------------------
 \clearpage\section{VideoMixer application}
 %----------------------------------------------------------------------------
--
+The VideoMixer application was created as a side-project for the customers of the Traffic Sensor.
+
+The software is responsible for the visualization of multiple video streams at the same time for demonstration purposes.
+
+The videos can either be recorded from a camera or read from a file.
+The user can control, which videos are seen at a certain time, that are blended by the application on top of each other.
+The speed of the playing and the looping of the videos can be set as well.
+
+The settings (e.g the name and type of the input videos, the controlling keys and the whether the videos are looped) are defined in a configuration file, similarly to the Traffic Sensor's (seen in code-listing \ref{lst:config_vm}).
+
+The application can be utilized as a demonstration of the Traffic Sensor's operation as well, some example frames are figures \ref{fig:video_mixer_frames}., \ref{fig:video_mixer_menu}..
+
+\begin{lstlisting}[frame=single,float=!ht,caption={Part of a configuration file for the VideoMixer application. The file sets parameters for the main input video (section [mainVideoInput]), and the overlay videos (section [overlayVideos]), that are blended on top. The file defines whether the video is read from a camera or a file, whether some parts of the background are removed, and other adjustments, like the comment displayed on the screen, when a video starts playing.},label=lst:config_vm]
+{
+[mainVideoInput]
+cameraInput = false
+cameraIndex = 0
+filename = orig.avi
+loop = true
+removeBackgroundColor = 0x00ff00
+
+[overlayVideos]
+filename_0 = mog2.avi
+gpioNum_0 = 0
+overlayRatio_0 = 0.4
+comment_0 = playing file 1
+displayCommentOnScreen_0 = false
+removeBackgroundColor_0 =  0x00ff00
+loop_0 = true
+filename_1 = speed.avi
+...
+\end{lstlisting}
+
+\begin{figure}[!h]
+	\centering
+	\begin{subfigure}[t]{0.6\textwidth}
+		\includegraphics[width=\textwidth]{orig_mog22.png}
+		\subcaption{The overlay video captures MOG2 Frames and the building process of a MOG2 Timeline Image.}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[t]{0.6\textwidth}
+		\includegraphics[width=\textwidth]{orig_result.png}
+		\subcaption{The overlay video captures a Result Timeline image, that shows the detected vehicles with different colors projected on top of the main video. The Result Timeline also displays vehicle parameters, such as size and type. Blending this videos together, both correct and faulty detections can be analysed.}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[t]{0.6\textwidth}
+		\includegraphics[width=\textwidth]{orig_speeds.png}
+		\subcaption{The blended video is a Speed Timeline. The direction of each detected vehicle can be read by the colors of the Speed Timeline (with red the vehicles moving from the right to the left are marked, and the ones heading in the other direction are colored with blue). }
+	\end{subfigure}
+
+	\caption{Frames of the VideoMixer application. The overlay video is blended on top of the main video, that consists of an Original Frame and an Original Timeline recorded using the Traffic Sensor. Overlay videos are other Timeline Images, MOG2, Speed and Result.\label{fig:video_mixer_frames}}
+\end{figure}
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=0.5\textwidth]{vm_menu.png}
+	
+	\caption{The menu of the VideoMixer. Whenever a key is pressed, it is displayed, as well as the possible control options. \label{fig:video_mixer_menu}}
+\end{figure}
 
 %----------------------------------------------------------------------------
 \clearpage\section{Some examples of the output Timeline Images}\label{app:TIs}
 %----------------------------------------------------------------------------
+This appendix presents some test results in the form of output Timeline Images, focusing on interesting details.
 
+\centering
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=\textwidth]{GoldA1_Night.png}
+	\caption[s]{}%{GoldA1 kódú videó futtatási eredménye. Fentről lefelé a képek rendre a következők. Eredeti videóból képzett TK. MOG2 TK. Méret timeline. Kiértékelés eredménye. \\		Éjszakai videó, amelyen jól megfigyelhető például az autók útravetülő fényszórója miatti hiba, ami megnöveli a blob hosszát (méret timeline).}
+\end{figure}
+
+\centering
+\begin{sidewaysfigure}[h!]
+	\centering
+	\includegraphics[width=\textwidth]{ErE5.png}
+	\caption[]{}%{ErE5 kódú videó futtatási eredménye. Fentről lefelé a képek rendre a következők. Eredeti videóból képzett TK. MOG2 TK. Méret timeline. Követési távolság timeline. Sebesség timeline. Eredmény timeline. 
+		%IBikeBudapest, biciklis felvonuláson készült felvétel. Érdekességként megfigyelhető, hogy a rendszer a követési távolságot a méretbecslés szüneteiben méri, valamint az is, hogy a kép felső szélén látható autók a felvonulással szemben haladnak. A sebességképen az egységes kék foltok némelyikében megfigyelhető piros részek mutatják, hogy az efféle sebességbecslés milyen érzékeny arra, ha a blob mérete változik a feldolgozás során.}
+\end{sidewaysfigure}
+
+\centering
+\begin{sidewaysfigure}[h!]
+	\centering
+	\includegraphics[width=\textwidth]{Fovam_C.png}
+	\caption[]{}%{FovamC kódú videó futtatási eredménye. Fentről lefelé a képek rendre a következők. Eredeti videóból képzett TK. MOG2 TK. Eredmény timeline. \\
+		%Naplementekor készült videó, kevés járművel, a rendszer jó pontosságot produkál ezen a videón. Az eredeti TK-en kivehető fényerő változásokat a MOG2 jól tűri, nem jellemző rá a túlreakció. A középtájon lévő autóösszeolvadással is jól boldogul a rendszer, azonban a ``szellemszerű", megálló gyalogosról például már tudomást sem vesz.}
+\end{sidewaysfigure}
+
+\centering
+\begin{sidewaysfigure}[h!]
+	\centering
+	\includegraphics[width=\textwidth]{ErC_StopTram.png}
+	\caption[]{}%{ErC kódú videó futtatási eredménye. Fentről lefelé a képek rendre a következők. entről lefelé a képek rendre a következők. Eredeti videóból képzett TK. MOG2 TK. A kiértékelés eredménye. \\
+		%A videón egy megálló villamos, illetve a mellette haladó gyalogosok és autók láthatók. A rendszer jól összeilleszti a megálló villamos blobját, de helytelenül a jobb alsó sarokban található blobokat (hosszú téglalap), amely csak a a háttér folytonossága miatt tűnik a rendszernek megálló autónak.}
+\end{sidewaysfigure}
+
+\centering
+\begin{sidewaysfigure}[h!]
+	\centering
+	\includegraphics[width=\textwidth]{SasA1.png}
+	\caption[]{}%{SasA1 kódú videó futtatási eredménye. Fentről lefelé a képek rendre a következők. Eredeti képkockákból képzett TK. MOG2 TK. Sebesség timeline. A kiértékelés eredménye. \\
+		%A videó számlálási pontossága jó, bár sok együtt haladó jármű olvad össze. Ezek közül a rendszer beépített daraboló algoritmusa segítségével sokat szétvág. Érdekes megfigyelni például baloldalt középtájon, hogyan illesztett össze a rendszer egy blobot a színintenzitásainak változatlanságára hivatkozva (sajnos a blob nem egy járműnek, hanem a MOG2 fényváltozásokra adott túlzott reakciójának köszönhető.) A sebességképen a színek segítségével azonnal látható, hogy melyik sáv milyen irányú.}
+\end{sidewaysfigure}
