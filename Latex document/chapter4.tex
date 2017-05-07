@@ -42,7 +42,7 @@ The supporting software has various other features.
 The configuration tools facilitate the operation under heterogeneous circumstances by providing the ability to set individual settings for each environment.
 Diagnostics tools evaluate the operation and visualize the data stored in the system in various representations, and are also responsible for the exporting of the result of counting, classification and quantified diagnostics in text files.
 %----------------------------------------------------------------------------
-\subsection{Communication}
+\subsection{Communication}\label{sec:communication}
 %----------------------------------------------------------------------------
 \subsubsection{Reporting}\label{sec:reporting}
 At the production environment the Sensor operates continuously, and the result of the detection is regularly sent through the EnTalk\textsuperscript{TM} connection as JSON syntax report file. 
@@ -155,7 +155,7 @@ The GUI is able to write the specified values into the appropriate configuration
 	\caption{The user interface of the Project Configurator. Using the GUI several parameters can be set, including the Tripwire (with lilac), the calibration rectangle (with yellow), and other numeric values in text input fields. The Tripwire's beginning and ending point determine the order, in which its pixels are processed. Since the Project Configurator can read, write and upload configuration files to the Sensor, the above functions can be managed jointly through the GUI. \label{fig:project_configurator}}
 \end{figure}
 %----------------------------------------------------------------------------
-\subsection{System diagnostics}
+\subsection{System diagnostics}\label{sec:system_diagnostics}
 %----------------------------------------------------------------------------
 The system diagnostics features are responsible for evaluating the precision of the operation and converting information stored, into a simply interpretable form.
 %----------------------------------------------------------------------------
@@ -301,7 +301,7 @@ The videos, calibration correction frames, and result files can be exported by t
 The exported files can be remotely downloaded using the Project Configurator.
 
 %----------------------------------------------------------------------------
-\subsubsection{Continuous integration tests}
+\subsubsection{Continuous integration tests}\label{sec:continuous_integration}
 %----------------------------------------------------------------------------
 To test the proper operation of the system at all times, and to ensure discovering potential errors at the earliest possible, a functional test script runs automatically each nigh.
 The script compiles and runs the latest Traffic Sensor version accessible in the version control system.

@@ -219,7 +219,21 @@
 %--------------------------------------------------------------------------------------
 %	Chart setup
 %--------------------------------------------------------------------------------------
-\newcommand{\placelegend}{legend style={at={(1.2,1)}, anchor=north, legend columns=1}, reverse legend,}
+\newcommand{\placelegendWithRequirement}{
+	legend style={
+		at={(1.28,1)}, 
+		anchor=north, 
+		legend columns=1}, 
+	reverse legend,
+	legend cell align=left,}	
+
+\newcommand{\placelegend}{
+	legend style={
+		at={(1.2,1)}, 
+		anchor=north, 
+		legend columns=1}, 
+	reverse legend,
+	legend cell align=left,}	
 \newcommand{\custombarwidth}{0.13cm}
 
 %--------------------------------------------------------------------------------------

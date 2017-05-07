@@ -1,5 +1,84 @@
 \renewcommand{\thechapter}{\Alph{chapter}}
 \setcounter{chapter}{3}  % a fofejezet-szamlalo az angol ABC 6. betuje (F) lesz
 \chapter*{Conclusions}\addcontentsline{toc}{chapter}{Conclusions}\label{chap:Conclusions}
+\setcounter{equation}{0} 
+\setcounter{section}{0}
+\numberwithin{equation}{section}
+\numberwithin{figure}{section}
+\numberwithin{lstlisting}{section}
 \section{Summary}
+In this work a software system created for counting and classifying vehicles in urban scenes using image processing algorithms is presented.
+
+The software was implemented as an end product of the Traffic Sensor sub-project, that is part of the larger SOLSUN project.
+The aim of the main project is to devise an intelligent sensor system, built into a street-lighting lamp, that is able to monitor the environment with various sensors at the same time.
+The data collected by the sensors are used to estimate pollution and reduce greenhouse gas emission and energy consumption. 
+The Traffic Sensor sub-project develops the sensor that is responsible for the surveillance of traffic by recording the road with a camera and estimating the count of vehicles passing by.
+The project's requirements include a pre-defined embedded target hardware with passive cooling ability, real-time operation of the software, and a counting precision of at least \SI{70}{\%}.
+
+The work outlines the overall structure and operation procedure of the Traffic Sensor system. 
+
+It introduces an effective image domain reduction paradigm, the using of Timeline Images, that is the basic idea of the processing.
+The thesis describes the creation of the Timeline Images, and their role in the operation of the Sensor.
+Besides that, the core software, that is responsible for the main functionality is presented.
+The architectural structure and operation of the software is described in detail, including the video processing steps that consist of the transform of frames, the detection of moving objects with background subtraction, calculation of traffic parameters, and classification of the detected vehicles using their length.
+For each processing step the used TIs and their role is described as well.
+
+The environment of the core system is also summarised.
+The target hardware and the network architecture responsible for data transmission, and the software parts that facilitate the Sensor's connection to its surroundings is described.
+Other supplementary functionalities created for system diagnostic purposes and performance evaluation are detailed as well.
+
+The system was tested with regard to its precision and real-time ability characteristics to fit the pre-defined criteria.
+The test results are presented and options are proposed and analysed to improve the precision.
+An algorithm for the correction and detection of inaccurate calibration is introduced, and the method is tested as well.
+
+\section{My own contribution within the context of the whole project}
+As it was mentioned in the introduction (\ref{sec:contribution_of_the_thesis}.), this work presents the structure of the entire Traffic Sensor system as a whole, although it is the product of collective work, and not exclusively my own.
+However my own contributions are emphasized and presented in more detail throughout the thesis.
+For clarification purposes, in this section, contributors of each part of the project are briefly summarised.
+
+\noindent Parts of the system that were the result of the team's collective work are as follows:
+\begin{itemize}
+	\item[-] the overall software architecture of the system (section \ref{sec:software_architecture}.)
+	\item[-] the concrete steps of the operation procedure (section \ref{sec:processing_steps}.).
+\end{itemize}
+
+\noindent Results that are the product of my own exclusive work are as follows:
+\begin{itemize}
+	\item[-] the implementation of some of the Processors, including the ones responsible for background-subtraction and morphological correction (section \ref{sec:background-subtraction}.)
+	\item[-] the development and implementation of the parameter extraction algorithm (section \ref{chap:parameter_evaluation}.)
+	\item[-] the development and implementation of the classifier (section \ref{sec:classification}.)
+	\item[-] realization of the visualization and diagnostics features (section \ref{sec:system_diagnostics}.)
+	\item[-] the implementation of the evaluation process and devising the performance measures (section \ref{chap:evaluation}.)
+	\item[-] the analysis of the system's performance (section \ref{sec:evaluation_results}.)
+	\item[-] the development and implementation of the calibration correction algorithm (section \ref{sec:calibration_correction_method}.).
+\end{itemize}
+For further details, see my other paper on the topic \cite{Barancsuk2016}.
+
+\noindent Other system parts only mentioned in the thesis for a coherent presentation, that were developed by other members of the team are as follows:
+\begin{itemize}
+	\item[-] the procedure of porting the software to the target hardware
+	\item[-] the software parts responsible for the connection with the environment and configuration features (section \ref{sec:communication}.)
+	\item[-] the continuous integration of the system (section \ref{sec:continuous_integration}.)
+	\item[-] the recording of the test videos (section \ref{sec:test_videos}.)
+	\item[-] the blob splitting and fusing algorithms (section \ref{sec:background-subtraction}.)
+	\item[-] the development of the preprocessing phase (section \ref{sec:preprocessing}.).
+\end{itemize}
+
+%The tasks detailed in the specification of the thesis work were complied.
+
 \section{Perspectives}
+Although the system complies with the criteria presented above, the performance measures can be further improved by filtering and correcting common errors that are still present in the detection results.
+
+One of the main error causes is the presence of shadows, that, although are partly removed by the built-in method of the MOG2 background-subtractor, can remain unfiltered and are the still the primary sources of false detections in shadow-heavy videos.
+Many shadow-removal algorithms are introduced in literature, from which a suitable one can be integrated into the processing.
+
+Counting at night is considerably reliable at the current version of the Traffic Sensor, although it can be further improved by developing an algorithm for identifying and removing blobs caused by the headlights of cars.
+
+Another progression direction can be the improvement of the existing blob splitting and fusing methods, that in the current version tend to fail with uncommon cases and in complex surroundings.
+
+To advance the classification result, a more sophisticated classifier, e.g. one deciding based on a parameter vector can be implemented.
+
+Another weak point of the system is that it does not handle extreme, exceptional weather conditions, like fog, rain or snow.
+Detection in these circumstances is a highly complex problem, and is still a heavily researched topic, however these weather conditions can easily be identified, and the Sensor can be temporarily switched off until reliable detection is possible again.
+	
+As a conclusion, the performance of the counting could only be improved by integrating more sophisticated algorithms into the processing steps, however the complexity of these methods would make real-time operation impossible on the current target hardware.

@@ -39,7 +39,7 @@ If the calibration is corrected, the precision and accuracy values of the video 
 \FloatBarrier
 
 %----------------------------------------------------------------------------
-\section{Evaluation results}
+\section{Evaluation results}\label{sec:evaluation_results}
 %----------------------------------------------------------------------------
 This section presents the results of the evaluation of the measures, that were described in detail in section \ref{chap:evaluation}.
 The values were quantified using five different parameter-settings, each case specified to eliminate a specific, prevalent error.
@@ -319,7 +319,7 @@ Nonetheless, some exceptions may occur, especially with a walking route and a bi
 To accurately estimate the mean size of road users along a line, a considerably long video sequence is analysed to count enough vehicles for averaging.
 The proper video length was empirically approximated to be at least 6000-frame long.
 
-\subsection{The calibration correction method}
+\subsection{The calibration correction method}\label{sec:calibration_correction_method}
 In the following section, the method, proposed to correct the erroneous calibration, is presented.
 
 The three stages of the correction process are as follows:
@@ -400,7 +400,7 @@ In each case, the length curves are more balanced after the correction.
 	\begin{adjustbox}{center}
 	\includetable{cal_corr_table}
 	\end{adjustbox}
-	\caption{Table detailing the results of evaluation before and after calibration correction. The type recall values are emphasized with blue. Independently from lanes, the type recall of all videos improved after the correction. This is due to more realistic length measurements. The accuracy of some videos, including GoldA2 or GoldB1 (whithout lanes) have decreased due to the increase of false detections (increased false positive count). This is a result of expansion of blobs at the far end of the Tripwire, that, including the ones caused by noise, are not getting filtered. All measures are in \%.}
+	\caption{Table detailing the results of evaluation before and after calibration correction. The type recall values are emphasized with blue. Independently from lanes, the type recall of all videos improved after the correction. This is due to more realistic length measurements. The accuracy of some videos, including GoldA2 or GoldB1 (whithout lanes) have decreased due to the increase of false detections (increased false positive count). This is a result of expansion of blobs at the far end of the Tripwire, that, including the ones caused by noise, are not getting filtered. All measures are in \si{\%}.}
   	\label{tab:cal_corr_results}%
 \end{table}%
 

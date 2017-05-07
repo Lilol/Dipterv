@@ -136,15 +136,21 @@ This appendix presents some test results in the form of output Timeline Images, 
 \centering
 \begin{figure}[h!]
 	\centering
+	\captionsetup{width=0.9\textwidth,aboveskip=10pt}
 	\includegraphics[width=\textwidth]{GoldA1.png}
-	\caption[Some output Timelines of the GoldA1 test video]{The figures (from the top to the bottom) are as follows: Original Timeline Image, MOG2 Timeline Image, Size Timeline Image, Speed Timeline Image and Evaluation Result Timeline Image respectively. On night-time videos a prevalent error cause are headlights of the vehicles, that are reflected back by the road, causing false alarms (right side of the image). Misclassification cases are commonly caused by headlight blobs fusing with the following vehicle increasing its size (seen on the Size Timeline). On the Speed Timeline the directions of the lanes are observable based on the colours of the vehicles. \label{fig:GoldA1}}
+	\caption[Some output Timelines of the GoldA1 test video]{The figures (from the top to the bottom) are as follows: Original Timeline Image, MOG2 Timeline Image, Size Timeline Image, Speed Timeline Image and Evaluation Result Timeline Image respectively. \\
+	On night-time videos like GoldA1 a prevalent error cause is that headlights of vehicles, that are reflected back by the road lead to false alarms (some examples are on the right side of the image). Headlight blobs fusing with the following vehicles are also sources of misclassification errors, since the vehicle size increases (seen on the Size Timeline). \\
+	One can notice that the colours on the Speed Timeline  mark the directions of the road lanes. \label{fig:GoldA1}}
 \end{figure}
 
 \centering
 \begin{figure}[h!]
 	\centering
+	\captionsetup{width=0.9\textwidth,aboveskip=10pt}
 	\includegraphics[width=0.8\textwidth]{GoldB12.png}
-	\caption[Some output Timelines of the GoldB1 test video]{The figures (from the top to the bottom) are as follows: Original Timeline Image, MOG2 Timeline Image, Motionless Timeline Image, Size Timeline Image, Speed Timeline Image and Evaluation Result Timeline Image respectively. The following common error cases are seen in the Evaluation Result Timeline Image. Small blobs of motorcycles are filtered out (in the middle crossed with red) causing false negatives. Some stopping vehicles add noise to the detection when missed by the fusing algorithm (false negatives and noise on the left side of the image). The splitting mechanism erroneously cuts apart vehicles, that have a peculiar shape (in the middle and in the right). The Parameter Timelines were calculated without lanes. Intensities on the Size Timeline show the length of vehicles, and one can notice the directions of road lanes using the colours of the Speed Timeline. \label{fig:GoldB1}}
+	\caption[Some output Timelines of the GoldB1 test video]{The figures (from the top to the bottom) are as follows: Original Timeline Image, MOG2 Timeline Image, Motionless Timeline Image, Size Timeline Image, Speed Timeline Image and Evaluation Result Timeline Image respectively.\\
+	 The following common error cases are seen in the Evaluation Result Timeline Image. Small blobs of motorcycles are filtered out (in the middle crossed with red) generating false negative detections. Some stopping vehicles add noise to the detection when missed by the fusing algorithm (false negatives caused by noise are on the left side of the image). The splitting mechanism tend to erroneously cut vehicles, that have a peculiar shape (in the middle and in the right). \\
+	 One can notice, that the Parameter Timelines were calculated without lanes defined, since the whole outlines of blobs are filled with values. Intensities on the Size Timeline shows well the approximate length of vehicles. \label{fig:GoldB1}}
 \end{figure}
 
 \clearpage
@@ -153,7 +159,9 @@ This appendix presents some test results in the form of output Timeline Images, 
 	\centering
 	\captionsetup{width=0.9\textwidth,aboveskip=10pt}
 	\includegraphics[width=\textwidth]{ErE5.png}
-	\caption[Some output Timelines of the ErE5 test video]{The figures (from the top to the bottom) are as follows: Original Timeline Image, MOG2 Timeline Image, Size Timeline Image, Following Distance Timeline Image, Speed Timeline Image and Result Timeline Image respectively. The video was recorded at the IBikeBudapest cyclist demonstration, road users are almost exclusively cyclists. Comparing the Size and the Following Distance Timeline, it is observable, that following distance and length are calculated in alternate times, whether the Tripwire is empty (following distances) or occupied by a vehicle (length). An interesting point of the results is the car in red on the top part of the Speed Timeline, heading in the opposite direction as the cyclists. Different colour dots inside the vehicles in the Speed Timeline are caused by noises, when the change of the vehicle's size falsifies the speed calculation (further details in chapter \ref{chap:parameter_evaluation}.). \label{fig:ErE5}}
+	\caption[Some output Timelines of the ErE5 test video]{The figures (from the top to the bottom) are as follows: Original Timeline Image, MOG2 Timeline Image, Size Timeline Image, Following Distance Timeline Image, Speed Timeline Image and Result Timeline Image respectively.\\
+    The video was recorded at the IBikeBudapest cyclist demonstration, therefore road users are almost exclusively cyclists. \\
+    Comparing the Size and the Following Distance Timeline, it is observable, that following distance and length are calculated in alternate times, whether the Tripwire is empty (following distances) or occupied by a vehicle (length). An interesting point of the result is cars appearing in red on the top part of the Speed Timeline, heading in the opposite direction as the cyclists. Different coloured dots inside the vehicles in the Speed Timeline are caused by noise, that is the result of the size changes of the vehicle (further details on parameter calculation based on vehicle position is in chapter \ref{chap:parameter_evaluation}.). \label{fig:ErE5}}
 \end{sidewaysfigure}
 
 \centering
@@ -161,12 +169,14 @@ This appendix presents some test results in the form of output Timeline Images, 
 	\centering
 	\captionsetup{width=0.9\textwidth,aboveskip=10pt}
 	\includegraphics[width=\textwidth]{Fovam_C.png}
-	\caption[Some output Timelines of the Fovam\_C test video]{The figures (from the top to the bottom) are as follows: Original Timeline Image, MOG2 Timeline Image and Result Timeline Image respectively. The video was recorded at sundown, and captures only a few cars. Although the environmental light frequently changes (the lilac section on the left), the count of false detections is low. Fused cars in the middle are split appropriately. However the stopping pedestrian (top right corner) is ignored, and the other two pedestrians are falsely split based on their shapes.}
+	\caption[Some output Timelines of the Fovam\_C test video]{The figures (from the top to the bottom) are as follows: Original Timeline Image, MOG2 Timeline Image and Result Timeline Image respectively. \\
+	The video was recorded at sundown, and captures only a few cars. Although the environmental light frequently changes (an example is the lilac section on the left on the Original Timeline), the count of false detections is low. Fused cars in the middle are split appropriately. However the stopping pedestrian (top right corner) is ignored, al well as the other two pedestrians who are falsely split based on their shapes.}
 \end{sidewaysfigure}
 
 \centering
 \begin{sidewaysfigure}[h!]
 	\centering
+	\captionsetup{width=0.9\textwidth,aboveskip=10pt}
 	\includegraphics[width=\textwidth]{ErC1.png}
 	\caption[Some output Timelines of the ErC1 test video]{The figures (from the top to the bottom) are as follows: Original Timeline Image, Result Timeline Image and Evaluation Result Timeline Image respectively. The video captures a stopping tram, a handful of cars and pedestrians. The tram's slow movement is still a challenge to the fusing algorithm, thus causes some noise.}%{ErC kódú videó futtatási eredménye. Fentről lefelé a képek rendre a következők. entről lefelé a képek rendre a következők. Eredeti videóból képzett TK. MOG2 TK. A kiértékelés eredménye. \\
 		%A videón egy megálló villamos, illetve a mellette haladó gyalogosok és autók láthatók. A rendszer jól összeilleszti a megálló villamos blobját, de helytelenül a jobb alsó sarokban található blobokat (hosszú téglalap), amely csak a a háttér folytonossága miatt tűnik a rendszernek megálló autónak.}
@@ -175,8 +185,10 @@ This appendix presents some test results in the form of output Timeline Images, 
 \centering
 \begin{sidewaysfigure}[h!]
 	\centering
+	\captionsetup{width=0.9\textwidth,aboveskip=10pt}
 	\includegraphics[width=\textwidth]{SasA1.png}
-	\caption[Some output Timelines of the SasA1 test video]{The figures (from the top to the bottom) are as follows: Original Timeline Image, MOG2 Timeline Image, Speed Timeline Image and Evaluation Result Timeline Image respectively. The evaluation results of this video are good. Most fused vehicles are correctly split, and stopping vehicles' blobs are mostly reattached as well. Due to shaky camera, that causes the background to change, a false alarm is detected (top, middle part). The Speed Timeline is calculated only in the centre of road lanes displaying fewer values than the Parameter Timelines in figures \ref{fig:ErE5}., \ref{fig:GoldA1}., \ref{fig:GoldB1}}
+	\caption[Some output Timelines of the SasA1 test video]{The figures (from the top to the bottom) are as follows: Original Timeline Image, MOG2 Timeline Image, Speed Timeline Image and Evaluation Result Timeline Image respectively. \\
+	The software performs well on this video. Most fused vehicles are correctly split, and stopping vehicles' blobs are reattached as well. Due to shaky camera, that causes the background to change, some false alarms are present (on the top, middle part). The Speed Timeline is calculated only in the centre of road lanes displaying fewer values than the Parameter Timelines in figures \ref{fig:ErE5}., \ref{fig:GoldA1}., \ref{fig:GoldB1}.}
 \end{sidewaysfigure}
 
 

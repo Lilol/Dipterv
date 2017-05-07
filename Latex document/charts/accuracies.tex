@@ -10,15 +10,12 @@
 	    bar width=\custombarwidth,
 		xmin=0, 
 		enlarge x limits={upper, value=0.15},
-		axis y line*=left,
+		%axis y line*=left,
 		enlarge y limits=0.045,
-		\placelegend
+		\placelegendWithRequirement
 	    xlabel={\%},
 	    symbolic y coords={{BorA1},{BorA2},{ErA1},{ErA2},{ErC1},{ErE5},{ErzsC\_N},{ErzsC\_S},{ErzsD},{FovamC\_D},{FovamC\_N},{FovC1},{GoldA1},{GoldA2},{GoldB1},{GoldB2},{SasA1},{SasadA1}},
 	    ytick=data,
-%	    nodes near coords,
-%	    nodes near coords align={horizontal},
-%	    every node near coord/.append style={/pgf/number format/.cd, fixed, precision=0},
 	   	cycle list name=violets,
 	   	xmajorgrids=true,
 	   	y tick label style={
@@ -35,8 +32,6 @@
 		\addplot table[x=3rdversion, y=Code]{\accuracies};
 		\addplot table[x=4thversion, y=Code]{\accuracies};
 		\addplot table[x=5thversion, y=Code]{\accuracies};
-   	    %\addplot[mark=none, black, samples=2] {0.7};
-		\legend{{1st version},{2nd version},{3rd version},{4th version},{5th version}};
 %
 		\coordinate (A) at (axis cs:70,[normalized]-0.8);
 		\coordinate (B) at (axis cs:70,[normalized]22);
@@ -44,5 +39,8 @@
 		\coordinate (O2) at (rel axis cs:0.607,\pgfkeysvalueof{/pgfplots/ymax});
 %		
 		\draw [red,sharp plot] (A -| O1) -- (B -| O2);
+		
+		\addlegendimage{line legend,red,sharp plot}
+		\legend{{1st version},{2nd version},{3rd version},{4th version},{5th version},{required \SI{70}{\%}}};
 	\end{axis}
 \end{tikzpicture}

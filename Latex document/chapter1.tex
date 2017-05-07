@@ -11,7 +11,6 @@ $\boldsymbol{I}(x,y,t)$ is a three-element vector consisting of the intensities 
 \begin{figure}[bh]
 	\centering
 	\includesvg[width=\textwidth,pretex=\Large]{TI_creation.pdf_tex}
-	%\scalebox{.7}{\input{figures/TI_creation.pdf_tex}}
 	\caption{The generation procedure of a timeline image. Each column corresponds to a tripwire state. The horizontal axis represents time.\label{fig:TI_creation}}
 \end{figure}
 %----------------------------------------------------------------------------
@@ -23,21 +22,22 @@ $\boldsymbol{I}(x,y,t)$ is a three-element vector consisting of the intensities 
 %----------------------------------------------------------------------------
 \section{Frame}
 Let a frame at a certain $t$ time be denoted by
-\begin{displaymath}
+\begin{gather*}
 	\boldsymbol{F}_t=\boldsymbol{F}_t(x,y)=\boldsymbol{I}(x,y,t),\\
 	x=0,1,2,\dotsc,n_{\text{cols}}-1,\\
 	y=0,1,2,\dotsc,n_{\text{rows}}-1,
-\end{displaymath}
+\end{gather*}
 where $n_{\text{cols}}$ stands for the number of columns, and $n_{\text{rows}}$ is the number of rows in a frame.
-Each frame is a matrix of pixels composed of three-element vectors. 
+Each RGB frame is a matrix of pixels composed of three-element vectors.
+Grayscale images are built up by one-element pixels.
 
 \section{Frame-strip}
 %----------------------------------------------------------------------------
 A Frame-strip is a sequence of frames in the order of recording, denoted by:
-\begin{displaymath}
-	\boldsymbol{FS}=\boldsymbol{FS}(t)=\boldsymbol{F}_t(x,y),
+\begin{gather*}
+	\boldsymbol{FS}=\boldsymbol{FS}(t)=\boldsymbol{F}_t(x,y), \\
 	t=0,1,2,\dotsc,n_{\text{frames}}-1,
-\end{displaymath}
+\end{gather*}
 where $n_{\text{frames}}$ denotes the frame count in a video sequence.
 %--------------------------------------------------------------------------
 \section{Tripwire}

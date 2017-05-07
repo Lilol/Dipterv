@@ -9,7 +9,7 @@ It identifies the vehicles, classifies them and estimates parameters, including 
 Besides that, the software supports other supplementary features, like the evaluation of the system's precision, and correction of the calibration rectangle.
 Although these features are implemented architecturally in the same software unit, the supplementary elements are discussed in section \ref{sec:SupplementarySoftware}., since they do not strictly belong to the core of the Traffic Sensor.
 %----------------------------------------------------------------------------
-\section{Software architecture}
+\section{Software architecture}\label{sec:software_architecture}
 %----------------------------------------------------------------------------
 In this section the architectural structure of the framework, including the data storage technique, the processing method and the parallel operation of the system are discussed.
 
@@ -123,7 +123,7 @@ The Timeline images can either be extracted from the Frame-strips (Original Time
 	\caption{The representation of Timeline Image types used by the Traffic Sensor system for data storage.\label{fig:timeline_types}}
 \end{figure}
 
-\section{Processing steps}
+\section{Processing steps}\label{sec:processing_steps}
 %----------------------------------------------------------------------------
 The processing of the video-stream consists of four main stages, as depicted in figure \ref{fig:processing_steps}.
 
@@ -148,7 +148,7 @@ The third stage is data extraction, including vehicle detection, classification 
 The final step is system evaluation and testing. 
 Since this step is optional, and is only available when the system is tested during development, when the operation is not continuous, it is considered a supplementary software element, and is discussed in detail in section \ref{sec:SupplementarySoftware}.
 %----------------------------------------------------------------------------
-\subsection{Preprocessing}
+\subsection{Preprocessing}\label{sec:preprocessing}
 %----------------------------------------------------------------------------
 In the preprocessing stage a series of transforms are performed on each Raw Frame as seen in figure \ref{fig:transforms}.
 As a result of remapping, a standard frame-scheme is created, that is independent of the video file format, camera type, placement and the sensor's environment.
