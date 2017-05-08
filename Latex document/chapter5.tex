@@ -125,9 +125,8 @@ Each of the three videos include at least one of the three cases of a stopping t
 		\begin{subfigure}[b]{0.8\textwidth}
 			\centering
 			\begin{subfigure}[b]{\textwidth}
-				\includegraphics[width=\textwidth]{ped_orig.png}
+				\includegraphics[width=\textwidth]{ped_orig.png}\vspace{3mm}%
 			\end{subfigure}
-			\hspace{20mm}%
 			\begin{subfigure}[b]{\textwidth}
 				\includegraphics[width=\textwidth]{ped_res.png}
 			\end{subfigure}
@@ -139,9 +138,8 @@ Each of the three videos include at least one of the three cases of a stopping t
 		\begin{subfigure}[b]{0.8\textwidth}
 			\centering
 			\begin{subfigure}[b]{\textwidth}
-				\includegraphics[width=\textwidth]{tram_orig.png}
+				\includegraphics[width=\textwidth]{tram_orig.png}\vspace{3mm}%
 			\end{subfigure}
-					 \hspace{6mm}%
 			\begin{subfigure}[b]{\textwidth}
 				\includegraphics[width=\textwidth]{tram_res.png}
 			\end{subfigure}
@@ -153,16 +151,15 @@ Each of the three videos include at least one of the three cases of a stopping t
 		\begin{subfigure}[b]{0.8\textwidth}
 			\centering
 			\begin{subfigure}[b]{\textwidth}
-				\includegraphics[width=\textwidth]{shadow_orig.png}
+				\includegraphics[width=\textwidth]{shadow_orig.png}\vspace{3mm}%
 			\end{subfigure}
-								 \hspace{6mm}%
 			\begin{subfigure}[b]{\textwidth}
 				\includegraphics[width=\textwidth]{shadow_res.png}
 			\end{subfigure}
 		\caption{Heavy shadows causing an increased number of false alarms on the TIs of the video SasadA1. \label{fig:error_shadows}}
 		\end{subfigure}
 		
-		\caption{Some particular traffic situation that challenge Traffic Sensor application. False detections are marked with a red square crossed over, and false negatives are marked with a blue dot. Correct detections are coloured.\label{fig:errors}}
+		\caption[Particular traffic situationsthat challenge the system]{Some particular traffic situation that challenge Traffic Sensor application. False detections are marked with a red square crossed over, and false negatives are marked with a blue dot. Correct detections are coloured.\label{fig:errors}}
 
 \end{figure}
 
@@ -174,31 +171,31 @@ This case is only relevant when pedestrians are the primary target of detection,
 \begin{figure}[p]
 	\centering
 	\includechart{recalls}
-	\caption{Recalls \label{chart:recalls}}
+	\caption[Test results: recalls]{Recalls \label{chart:recalls}}
 \end{figure}
 
 \begin{figure}[p]
 	\centering
 	\includechart{accuracies}
-	\caption{Accuracies \label{chart:accuracies}}
+	\caption[Test results: accuracies]{Accuracies \label{chart:accuracies}}
 \end{figure}
 
 \begin{figure}[p]
 	\centering
 	\includechart{typerecalls}
-	\caption{Type recalls \label{chart:type_recalls}}
+	\caption[Test results: type recalls]{Type recalls \label{chart:type_recalls}}
 \end{figure}
 
 \begin{figure}[p]
 	\centering
 	\includechart{falsePositives}
-	\caption{False positives \label{chart:false_positives}}
+	\caption[Test results: false positives]{False positives \label{chart:false_positives}}
 \end{figure}
 
 \begin{figure}[p]
 	\centering
 	\includechart{falseNegatives}
-	\caption{False negatives \label{chart:false_negatives}}
+	\caption[Test results: false negatives]{False negatives \label{chart:false_negatives}}
 \end{figure}
 
 %----------------------------------------------------------------------------
@@ -259,7 +256,7 @@ For defining the transform and constructing the map, universal OpenCV methods we
 			\caption{An Original Frame from the FovamC\_D video sequence.}
 		\end{subfigure}
 		
-		\caption{Frames before and after the perspective compensation. The calibration rectangle's edges are marked with their sequential numbers.\label{fig:perscomp}}
+		\caption[The effect of perspective compensation on frames]{Frames before and after the perspective compensation. The calibration rectangle's edges are marked with their sequential numbers.\label{fig:perscomp}}
 \end{figure}
 
 In the output images of the transform -- the Original Frame-strip --  vehicle lengths are independent of the vehicle's position in the image. 
@@ -309,7 +306,7 @@ To detect whether this problem occurs, vehicle lengths are analysed along the tr
 		\subcaption{Correctly calibrated.}
 	\end{subfigure}
 
-	\caption{Frame setting and average vehicle lengths along the Tripwire on the FovamC\_D video sequence, when the video is uncalibrated, miscalibrated and correctly calibrated. The tripwire is drawn with red. Some vehicle lengths are marked to show the difference in distance from the camera. On the correctly calibrated frame the lengths are approximately the same. The light blue line indicates the estimated slope of the length values.\label{fig:calibration_versions}}
+	\caption[Characteristics of uncalibrated, miscalibrated and correctly calibrated Frame-strips]{Frame setting and average vehicle lengths along the Tripwire on the FovamC\_D video sequence, when the video is uncalibrated, miscalibrated and correctly calibrated. The tripwire is drawn with red. Some vehicle lengths are marked to show the difference in distance from the camera. On the correctly calibrated frame the lengths are approximately the same. The light blue line indicates the estimated slope of the length values.\label{fig:calibration_versions}}
 \end{figure}
 
 An uncalibrated stream is characterized by the decrease of vehicle lengths as moving away from the camera, due to perspective distortion, as seen on figure \ref{sfig:uncalib}.
@@ -375,13 +372,13 @@ The three stages of the correction process are as follows:
 \begin{figure}[!h]
 	\centering
 	\includesvg[width=0.9\textwidth]{configuration_correction}
-	\caption{Notation used in calibration correction, and the ratio calculation step of the process. The sizes at intersection of the Tripwire with the two intersecting calibration rectangle sides are evaluated, and the ratio of these length values are calculated. \label{fig:ratio_calculation}}
+	\caption[Notations of calibration correction]{Notations of calibration correction, and the ratio calculation step of the process. The sizes at intersection of the Tripwire with the two intersecting calibration rectangle sides are evaluated, and the ratio of these length values are calculated. \label{fig:ratio_calculation}}
 \end{figure}
 
 \begin{figure}[!h]
 	\centering
 	\includesvg[width=0.4\textwidth,pretex=\relsize{1.5}]{resizing_of_cr}
-	\caption{The resizing of the calibration rectangle. The larger side's length is multiplied with the ratio, $r$, and the side is expanded at each edges to fit the new value. All other sides are repositioned to fit the newly computed edges. \label{fig:resizing_cr}}
+	\caption[The resizing procedure of the calibration rectangle]{The resizing of the calibration rectangle. The larger side's length is multiplied with the ratio, $r$, and the side is expanded at each edges to fit the new value. All other sides are repositioned to fit the newly computed edges. \label{fig:resizing_cr}}
 \end{figure}
 
 \subsection{Calibration correction results}
@@ -450,7 +447,7 @@ In each case, the length curves are more balanced after the correction.
 	\includegraphics[width=\textwidth]{calibrationCorrection_OK_GoldB1_Sun.png}
 	\caption{GoldB1, corrected.}
 \end{subfigure}
-	\caption{Average vehicle lengths along the Tripwire calculated from a the same Frame-strip before and after calibration correction. After the correction, average sizes are distributed uniformly along the Tripwire.(The light blue line indicates the estimated slope of the length values.)\label{fig:calibrations2}}
+	\caption[Average vehicl lengths along the Tripwire before and after calibration correction]{Average vehicle lengths along the Tripwire calculated from a the same Frame-strip before and after calibration correction. After the correction, average sizes are distributed uniformly along the Tripwire.(The light blue line indicates the estimated slope of the length values.)\label{fig:calibrations2}}
 \end{figure}
 
 \clearpage

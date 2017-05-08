@@ -40,14 +40,14 @@ Although the Advertisement Application is still in pilot phase, and is not fully
 	\centering
 	\includegraphics[width=0.5\textwidth]{ad_app_config.png}
 	
-	\caption{The GUI of the Project Configurator, showing the initial configuration of the Advertisement Application. Here, the Tripwire crosses the whole frame, although later it is decreased, since the application can count people using a much smaller portion of the line.  \label{fig:adv_app_config}}
+	\caption[Initial configuration settings of the Advertisement Application]{The GUI of the Project Configurator, showing the initial configuration of the Advertisement Application. Here, the Tripwire crosses the whole frame, although later it is decreased, since the application can count people using a much smaller portion of the line.  \label{fig:adv_app_config}}
 \end{figure}
 
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=0.6\textwidth]{orig_full.png}
 	
-	\caption{Part of the Original Timeline Image showing a series of people walking in front of the camera. Since the person occupies the whole height of the image, for detection only a smaller section of the image is enough, as seen on figure \ref{fig:adv_app_counting}.\label{fig:adv_app_full_orig}}
+	\caption[Test result of the Advertisement Application. (Whole height of the image is used.)]{The result of testing the application. Part of the Original Timeline Image showing a series of people walking in front of the camera. Since the person occupies the whole height of the image, for detection only a smaller section of the image is enough, as seen on figures \ref{fig:adv_app_counting}.}
 \end{figure}
 
 \begin{figure}[!h]
@@ -62,7 +62,7 @@ Although the Advertisement Application is still in pilot phase, and is not fully
 		\subcaption{Part of the MOG2 Timeline Image.}
 	\end{subfigure}
 
-	\caption{Timeline Images of the Advertisement Application. The MOG2 image captures the moving object correctly each time, but also some noise due to light changes.\label{fig:adv_app_counting}}
+	\caption[Test result of the Advertisement Application. (Only a small Tripwire section is used)]{Timeline Images of the Advertisement Application using a smaller Tripwire. The MOG2 image captures the moving object correctly each time, but also some noise due to light changes.\label{fig:adv_app_counting}}
 \end{figure}
 
 %----------------------------------------------------------------------------
@@ -80,14 +80,14 @@ The speed of the playing and the looping of the videos can be set as well.
 	\centering
 	\includegraphics[width=0.5\textwidth]{vm_menu.png}
 	
-	\caption{The menu of the VideoMixer. Whenever a key is pressed, it is displayed, as well as the possible control options. \label{fig:video_mixer_menu}}
+	\caption[Menu of the VideoMixer]{The menu of the VideoMixer. Whenever a key is pressed, it is displayed, as well as possible control options. \label{fig:video_mixer_menu}}
 \end{figure}
 
 The settings (e.g the name and type of the input videos, the controlling keys and the whether the videos are looped) are defined in a configuration file, similarly to the Traffic Sensor's (seen in code-listing \ref{lst:config_vm}).
 
 The application can be utilized as a demonstration of the Traffic Sensor's operation as well, some example frames are figures \ref{fig:video_mixer_frames}., \ref{fig:video_mixer_menu}..
 
-\begin{lstlisting}[frame=single,float=!ht,caption={Part of a configuration file for the VideoMixer application. The file sets parameters for the main input video (section [mainVideoInput]), and the overlay videos (section [overlayVideos]), that are blended on top. The file defines whether the video is read from a camera or a file, whether some parts of the background are removed, and other adjustments, like the comment displayed on the screen, when a video starts playing.},label=lst:config_vm]
+\begin{lstlisting}[frame=single,float=!ht,caption={ Part of a configuration file for the VideoMixer application. The file sets parameters for the main input video {(section [mainVideoInput])}, and the overlay videos {(section [overlayVideos])}, that are blended on top. The file defines whether the video is read from a camera or a file, whether specific parts of the background are removed or not, and other adjustments, like the comment that is displayed on the screen, whenever a video starts playing.},label=lst:config_vm]
 {
 [mainVideoInput]
 cameraInput = false
@@ -112,20 +112,21 @@ filename_1 = speed.avi
 	\centering
 	\begin{subfigure}[t]{0.6\textwidth}
 		\includegraphics[width=\textwidth]{orig_mog22.png}
-		\subcaption{The overlay video captures MOG2 Frames and the building process of a MOG2 Timeline Image.}
+		\subcaption{The overlay video captures MOG2 Frames and the building process of a MOG2 Timeline Image.}	
+		\vspace{0.3cm}
 	\end{subfigure}
-	\hfill
 	\begin{subfigure}[t]{0.6\textwidth}
 		\includegraphics[width=\textwidth]{orig_result.png}
-		\subcaption{The overlay video captures a Result Timeline image, that shows the detected vehicles with different colors projected on top of the main video. The Result Timeline also displays vehicle parameters, such as size and type. Blending this videos together, both correct and faulty detections can be analysed.}
+		\subcaption{The overlay video captures a Result Timeline image, that shows the detected vehicles with different colors projected on top of the main video. The Result Timeline also displays vehicle parameters, such as size and type. This way both correct and faulty detections can be analysed.}
+		\vspace{0.3cm}
 	\end{subfigure}
-	\hfill
+	
 	\begin{subfigure}[t]{0.6\textwidth}
 		\includegraphics[width=\textwidth]{orig_speeds.png}
-		\subcaption{The blended video is a Speed Timeline. The direction of each detected vehicle can be read by the colors of the Speed Timeline (with red the vehicles moving from the right to the left are marked, and the ones heading in the other direction are colored with blue). }
+		\subcaption{The blended video is a Speed Timeline. The direction of each detected vehicle can be read by the colours of the Speed Timeline (the vehicles moving from the right to the left are marked with red, and the ones heading in the other direction are colored with blue). }
 	\end{subfigure}
 
-	\caption{Frames of the VideoMixer application. The overlay video is blended on top of the main video, that consists of an Original Frame and an Original Timeline recorded using the Traffic Sensor. Overlay videos are other Timeline Images, MOG2, Speed and Result.\label{fig:video_mixer_frames}}
+	\caption[Some frames from the VideoMixer application]{Some frames created with the VideoMixer application. The overlay video is blended on top of the main video, that consists of an Original Frame and an Original Timeline, and was recorded using the Traffic Sensor. Overlay videos are other Timeline Images, including MOG2, Speed and Result.\label{fig:video_mixer_frames}}
 \end{figure}
 
 %----------------------------------------------------------------------------
@@ -133,6 +134,7 @@ filename_1 = speed.avi
 %----------------------------------------------------------------------------
 This appendix presents some test results in the form of output Timeline Images, focusing on remarkable points and interesting details.
 
+\vspace{1cm}
 \centering
 \begin{figure}[h!]
 	\centering
@@ -171,14 +173,12 @@ This appendix presents some test results in the form of output Timeline Images, 
 	\includegraphics[width=\textwidth]{Fovam_C.png}
 	\caption[Some output Timelines of the Fovam\_C test video]{The figures (from the top to the bottom) are as follows: Original Timeline Image, MOG2 Timeline Image and Result Timeline Image respectively. \\
 	The video was recorded at sundown, and captures only a few cars. Although the environmental light frequently changes (an example is the lilac section on the left on the Original Timeline), the count of false detections is low. Fused cars in the middle are split appropriately. However the stopping pedestrian (top right corner) is ignored, al well as the other two pedestrians who are falsely split based on their shapes.}
-\end{sidewaysfigure}
-
-\centering
-\begin{sidewaysfigure}[h!]
+\vspace{0.5cm}
 	\centering
 	\captionsetup{width=0.9\textwidth,aboveskip=10pt}
 	\includegraphics[width=\textwidth]{ErC1.png}
-	\caption[Some output Timelines of the ErC1 test video]{The figures (from the top to the bottom) are as follows: Original Timeline Image, Result Timeline Image and Evaluation Result Timeline Image respectively. The video captures a stopping tram, a handful of cars and pedestrians. The tram's slow movement is still a challenge to the fusing algorithm, thus causes some noise.}%{ErC kódú videó futtatási eredménye. Fentről lefelé a képek rendre a következők. entről lefelé a képek rendre a következők. Eredeti videóból képzett TK. MOG2 TK. A kiértékelés eredménye. \\
+	\caption[Some output Timelines of the ErC1 test video]{The figures (from the top to the bottom) are as follows: Original Timeline Image, Result Timeline Image and Evaluation Result Timeline Image respectively. \\
+	The video captures a stopping tram and a handful of cars and pedestrians. The tram's slow movement still challenges the fusing algorithm, thus causes some noise.}%{ErC kódú videó futtatási eredménye. Fentről lefelé a képek rendre a következők. entről lefelé a képek rendre a következők. Eredeti videóból képzett TK. MOG2 TK. A kiértékelés eredménye. \\
 		%A videón egy megálló villamos, illetve a mellette haladó gyalogosok és autók láthatók. A rendszer jól összeilleszti a megálló villamos blobját, de helytelenül a jobb alsó sarokban található blobokat (hosszú téglalap), amely csak a a háttér folytonossága miatt tűnik a rendszernek megálló autónak.}
 \end{sidewaysfigure}
 
@@ -191,4 +191,20 @@ This appendix presents some test results in the form of output Timeline Images, 
 	The software performs well on this video. Most fused vehicles are correctly split, and stopping vehicles' blobs are reattached as well. Due to shaky camera, that causes the background to change, some false alarms are present (on the top, middle part). The Speed Timeline is calculated only in the centre of road lanes displaying fewer values than the Parameter Timelines in figures \ref{fig:ErE5}., \ref{fig:GoldA1}., \ref{fig:GoldB1}.}
 \end{sidewaysfigure}
 
-
+\clearpage
+\begin{sidewaysfigure}[h!]
+	\centering
+	\captionsetup{width=0.9\textwidth,aboveskip=10pt}
+	\includegraphics[width=\textwidth]{MisclassificationErrorTimeline_GoldA2.png}
+	\caption[Misclassification Error Timeline]{GoldA2 METI}
+	\vspace{0.5cm}
+	\centering
+	\captionsetup{width=0.9\textwidth,aboveskip=10pt}
+	\includegraphics[width=\textwidth]{FalsePositiveErrorTimeline_Fovam_C.png}
+	\caption[False Positive Error Timeline]{FovamC FPETI}
+	\vspace{0.5cm}
+	\centering
+	\captionsetup{width=0.9\textwidth,aboveskip=10pt}
+	\includegraphics[width=\textwidth]{FalseNegativeErrorTimeline_SasadA1_Sun_heavy.png}
+	\caption[False Negative Error Timeline]{SasadA1 FNETI}
+\end{sidewaysfigure}

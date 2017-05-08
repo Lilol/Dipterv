@@ -60,7 +60,7 @@ These detection methods are both applicable for moving and stationary objects or
 These extracted features along with others are widely used for vehicle classification.
 Most common distinctive attributes are heigh and length \cite{Huang2004}, linearity feature -- meaning the roughness of the vehicle contour \cite{Zhang2008} --, convex hull of the silhouette \cite{Buch2010} and distance between contour points \cite{Lou2005}.
 Well-known descriptors like SIFT \cite{Zhang2011}, SURF \cite{Lin2012}, HOG \cite{Niknejad2012} and a handful of others are also popular.
-Automatic license plate recognition, that is also extensively used, relies on these features\ cite{Luvizon2016}. 
+Automatic license plate recognition, that is also extensively used, relies on these features \cite{Luvizon2016}. 
 
 Classifiers can be broadly split into two categories: the less popular discriminative classifiers, that learn the underlying distribution of a particular class; and generative ones relying upon hard decision boundaries between classes \cite{Sivaraman2012}.
 Discriminative methods include artificial neural network classifiers \cite{Xia2006}, support vector machines \cite{Cornelis2008}, k-nearest neighbour (kNN) classifier \cite{Morris2006}, and AdaBoost \cite{Khammari2005}.
@@ -97,7 +97,7 @@ Many of these selection techniques restrict the calculation to an interested reg
 \begin{figure}[!h]
 	\centering
 	\includesvg[width=0.9\textwidth]{original_frame_timeline.svg}
-	\caption{Virtual detection line in a frame (left), and a time-spatial image created from the original frame sequence (right).\label{fig:TSI}}
+	\caption[Virtual detection line and time-spatial image]{Virtual detection line in a frame (left), and a time-spatial image created from the original frame sequence (right).\label{fig:TSI}}
 \end{figure}
 
 One of the most cost-effective, image-domain reducing techniques is based on virtual detection lines (VDLs) and time-spatial images (TSIs).
@@ -195,7 +195,7 @@ Additionally, the application needs to operate through extended periods of time 
 		\centering
 		\includegraphics[width=0.8\linewidth]{raw_frame_perspective.png}
 	\end{subfigure}
-	\caption{Camera placement (left) and a typical frame scene of the Traffic Sensor (right). The camera's optical axis is vertical. For testing a panoramic camera with a wide angle of view was used, so the entire width of the road can be monitored.}
+	\caption[Camera placement and typical frame scene of the Traffic Sensor]{Camera placement (left) and a typical frame scene of the Traffic Sensor (right). The camera's optical axis is vertical. For testing a panoramic camera with a wide angle of view was used, so the entire width of the road can be monitored.}
 	\label{fig:camera_position}
 \end{figure}
 

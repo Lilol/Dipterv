@@ -17,19 +17,19 @@ The project's requirements include a pre-defined embedded target hardware with p
 
 The work outlines the overall structure and operation procedure of the Traffic Sensor system. 
 
-It introduces an effective image domain reduction paradigm, the using of Timeline Images, that is the basic idea of the processing.
-The thesis describes the creation of the Timeline Images, and their role in the operation of the Sensor.
-Besides that, the core software, that is responsible for the main functionality is presented.
-The architectural structure and operation of the software is described in detail, including the video processing steps that consist of the transform of frames, the detection of moving objects with background subtraction, calculation of traffic parameters, and classification of the detected vehicles using their length.
+It introduces an effective image domain reduction paradigm, the creation of Timeline Images, that is the basic idea of the processing.
+The thesis describes the generation procedure of the Timeline Images, and their role in the operation of the Sensor.
+Besides that, the core software, that is responsible for the main functionality, is presented.
+The architectural structure and operation of the software is described in detail, including the video processing steps, that consist of the transform of frames, the detection of moving objects with background subtraction, calculation of traffic parameters, and classification of the detected vehicles using their length.
 For each processing step the used TIs and their role is described as well.
 
 The environment of the core system is also summarised.
-The target hardware and the network architecture responsible for data transmission, and the software parts that facilitate the Sensor's connection to its surroundings is described.
+The target hardware and the network architecture responsible for data transmission, and the software parts that connect the Traffic Sensor to its surroundings are described.
 Other supplementary functionalities created for system diagnostic purposes and performance evaluation are detailed as well.
 
 The system was tested with regard to its precision and real-time ability characteristics to fit the pre-defined criteria.
 The test results are presented and options are proposed and analysed to improve the precision.
-An algorithm for the correction and detection of inaccurate calibration is introduced, and the method is tested as well.
+An algorithm for the correction and detection of inaccurate calibration is introduced, and tested.
 
 \section{My own contribution within the context of the whole project}
 As it was mentioned in the introduction (\ref{sec:contribution_of_the_thesis}.), this work presents the structure of the entire Traffic Sensor system as a whole, although it is the product of collective work, and not exclusively my own.
@@ -57,11 +57,11 @@ For further details, see my other paper on the topic \cite{Barancsuk2016}.
 \noindent Other system parts only mentioned in the thesis for a coherent presentation, that were developed by other members of the team are as follows:
 \begin{itemize}
 	\item[-] the procedure of porting the software to the target hardware
-	\item[-] the software parts responsible for the connection with the environment and configuration features (section \ref{sec:communication}.)
+	\item[-] the software parts responsible for connecting with the environment and configuration features (section \ref{sec:communication}.)
 	\item[-] the continuous integration of the system (section \ref{sec:continuous_integration}.)
 	\item[-] the recording of the test videos (section \ref{sec:test_videos}.)
-	\item[-] the blob splitting and fusing algorithms (section \ref{sec:background-subtraction}.)
-	\item[-] the development of the preprocessing phase (section \ref{sec:preprocessing}.).
+	\item[-] the development and implementation of the blob splitting and fusing algorithms (section \ref{sec:background-subtraction}.)
+	\item[-] the development and implementation of the preprocessing phase (section \ref{sec:preprocessing}.).
 \end{itemize}
 
 %The tasks detailed in the specification of the thesis work were complied.
@@ -70,15 +70,15 @@ For further details, see my other paper on the topic \cite{Barancsuk2016}.
 Although the system complies with the criteria presented above, the performance measures can be further improved by filtering and correcting common errors that are still present in the detection results.
 
 One of the main error causes is the presence of shadows, that, although are partly removed by the built-in method of the MOG2 background-subtractor, can remain unfiltered and are the still the primary sources of false detections in shadow-heavy videos.
-Many shadow-removal algorithms are introduced in literature, from which a suitable one can be integrated into the processing.
+Many shadow-removal algorithms are introduced in literature, from which a suitable one could be integrated into the processing.
 
 Counting at night is considerably reliable at the current version of the Traffic Sensor, although it can be further improved by developing an algorithm for identifying and removing blobs caused by the headlights of cars.
 
-Another progression direction can be the improvement of the existing blob splitting and fusing methods, that in the current version tend to fail with uncommon cases and in complex surroundings.
+Another progression direction could be the improvement of the existing blob splitting and fusing methods, that in the current version tend to fail with uncommon cases and in complex surroundings.
 
 To advance the classification result, a more sophisticated classifier, e.g. one deciding based on a parameter vector can be implemented.
 
 Another weak point of the system is that it does not handle extreme, exceptional weather conditions, like fog, rain or snow.
-Detection in these circumstances is a highly complex problem, and is still a heavily researched topic, however these weather conditions can easily be identified, and the Sensor can be temporarily switched off until reliable detection is possible again.
+Detection in these circumstances is a highly complex problem, and is still a heavily researched topic, however these weather conditions can be easily identified, and the Sensor could be temporarily turned off until reliable detection is possible again.
 	
 As a conclusion, the performance of the counting could only be improved by integrating more sophisticated algorithms into the processing steps, however the complexity of these methods would make real-time operation impossible on the current target hardware.

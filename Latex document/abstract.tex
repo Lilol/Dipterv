@@ -3,7 +3,7 @@
 %----------------------------------------------------------------------------
 \chapter*{Kivonat}\addcontentsline{toc}{chapter}{Kivonat}
 
-Amellett, hogy a közutak forgalmi adatainak nyilvántartása az önkormányzatok kötelezõ feladata, a forgalomszámlálás sokféle értékes információt szolgáltat. Segítségével megbecsülhetõ az adott útszakasz károsanyag-kibocsátása és terheltsége, amivel hozzájárul a meglévõ úthálózat üzemeltetéséhez, beruházások tervezéséhez. A real-time forgalomszámláló rendszerek pedig alkalmasak forgalmi dugók detektálására, megelõzésére is.
+Amellett, hogy a közutak forgalmi adatainak nyilvántartása az önkormányzatok kötelezõ feladata, a forgalomszámlálás sokféle értékes információt szolgáltat. Segítségével megbecsülhetõ az adott útszakasz károsanyag-kibocsátása és terheltsége, amivel hozzájárul a meglévõ úthálózat üzemeltetéséhez, beruházások tervezéséhez. A valósidejû forgalomszámláló rendszerek pedig alkalmasak forgalmi dugók detektálására, megelõzésére is.
 
 Napjainkban a kézi forgalomszámlálást egyre inkább felváltják az automatizált módszerek. 
 A radaros és az útba építhetõ (induktív hurkos) rendszerek mellett a videofelvétel alapján történõ számlálás örvend a legnagyobb népszerûségnek. 
@@ -13,7 +13,7 @@ Az elterjedt, nagy számításigényû háttér-eltávolítást és feature-pont követést h
 Dolgozatomban egy, a forgalomtömeg becslésére alkalmas rendszert mutatok be, amely az utat felülrõl rögzítõ kamera képét dolgozza fel. 
 Célom egy olyan lámpatestbe építhetõ intelligens szenzor megalkotása volt, amely adott korlátos erõforrású hardveren is képes valós idõben mûködni, az elhaladó jármûvek számát, típusát adott pontossággal megállapítani, valamint megbecsüli sebességüket és követési távolságukat.
 
-Dolgozatomban részletesen bemutatom a rendszer magját alkotó szoftver mûködését és felépítését, valamint a videóképek feldolgozásának folyamatát, melynek alapja többféle, hatékony videófeldolgozási módszer összekapcsolása: háttér-eltávolítás, tripwire-alapú számlálás, ill. kis számításigényû adatgyûjtés és osztályozás kombinálása, ezek elõnyeinek egyesítése.
+Dolgozatomban részletesen bemutatom a rendszer magját alkotó szoftver mûködését és felépítését, valamint a videóképek feldolgozásának folyamatát, melynek alapja többféle, hatékony videófeldolgozási módszer összekapcsolása: háttér-eltávolítás, tripwire-alapú számlálás, ill. kis számításigényû adatgyûjtés és osztályozás kombinálása, ezek elõnyeinek e\-gye\-sí\-té\-se.
 Kitérek a rendszert kiegészítõ, a valós forgalomban való mûködést lehetõvé tevõ szoftver- és hardverkörnyezetre, a távolról történõ kalibrációt és tesztelést megvalósító alkalmazásra és a rendszer konfigurációjának menetére.
 Részletezem az alkalmazás pontosság- és se\-bes\-ség\-tesz\-te\-lé\-sé\-nek mikéntjét, a tesztek eredményét, valamint a továbbfejlõdés lehetséges útjait is.
 \vfill
@@ -27,7 +27,7 @@ The registration of traffic data of public roads is not only a compulsory task o
 
 Nowadays, manual surveillance are more and more being replaced by automatized methods. Besides the radar-based systems and inductive loop detectors installed in the road, the video-based traffic detection is among the most popular methods. However, its real-time implementation, by means of image processing, is still challenging in resource-limited embedded systems. The popular algorithms of background subtraction and feature point tracking are usually associated with a computational cost being too high to meet the accuracy and speed requirements.
 
-In this work, I introduce a system for traffic flow estimation, based on the processing of a video stream of a camera installed above the road. My goal was to device an intelligent sensor that can be installed within a street-lighting lamp, which operates in real-time on the given resource-limited hardware. It is able to determine the number and type of the vehicles passing by with an acceptable accuracy, and also to estimate their speed and following distance.
+In this work, I introduce a system for traffic flow estimation, based on the processing of a video stream of a camera installed above the road. My goal was to devise an intelligent sensor that can be installed within a street-lighting lamp, which operates in real-time on the given resource-limited hardware. It is able to determine the number and type of the vehicles passing by with an acceptable accuracy, and also to estimate their speed and following distance.
 
 The operation and architecture of the core software and the video processing task is presented in detail in this work. The main idea is the combination of various efficient video processing methods: background subtraction, tripwire-based counting, data mining and classification algorithms of low computational cost, respectively. The benefits of each algorithm is exploited via their appropriately combined use.
 The supplementary software and hardware elements, which facilitate the remote calibration, testing, and the configuration process are discussed.

@@ -16,7 +16,7 @@ In this section the architectural structure of the framework, including the data
 \begin{figure}[!h]
 	\centering
 	\includesvg[width=0.8\textwidth,pretex=\Large]{arbiter_pipeline.pdf_tex}
-	\caption{The function and operation of the Arbiter, Processors and the Media Store. The Processors that implement a unified interface are controlled by the Arbiter. There are an arbitrary number of Processors in the system, each of them can be exchanged, deleted, and the sequence of processors can be expanded with new functions as well, thus realizing a plug-in architecture. Although each Processor can manage a single Frame or Timeline Image column at once, since they operate simultaneously on their threads, a large amount of data is processed at the same time. The data resources of the system are accessed through the Media Store protected by mutexes.\label{fig:arbiter_pipeline}}
+	\caption[The structure of the core software architecture]{The function and operation of the Arbiter, Processors and the Media Store. The Processors that implement a unified interface are controlled by the Arbiter. There are an arbitrary number of Processors in the system, each of them can be exchanged, deleted, and the sequence of processors can be expanded with new functions as well, thus realizing a plug-in architecture. Although each Processor can manage a single Frame or Timeline Image column at once, since they operate simultaneously on their threads, a large amount of data is processed at the same time. The data resources of the system are accessed through the Media Store protected by mutexes.\label{fig:arbiter_pipeline}}
 \end{figure}
 
 \subsection{Plug-in architecture, Processors}
@@ -86,7 +86,7 @@ The Timeline images can either be extracted from the Frame-strips (Original Time
 		\includegraphics[width=\textwidth]{mog2_frame.png}
 		\caption{MOG2 Frame. \label{fig:mog2_frame}}
 	\end{subfigure}
-	\caption{A Frames representing each type of Frame-strips used by the Traffic Sensor system.\label{fig:frame_types}}
+	\caption[Frame-strip types]{Frames representing each type of Frame-strips used by the Traffic Sensor system.\label{fig:frame_types}}
 \end{figure}
 
 \begin{figure}[!h]
@@ -120,7 +120,7 @@ The Timeline images can either be extracted from the Frame-strips (Original Time
 		\includegraphics[width=\textwidth]{Following_distance.png}
 		\caption{Following Distance Timeline. \label{fig:fd_timeline}}
 	\end{subfigure}
-	\caption{The representation of Timeline Image types used by the Traffic Sensor system for data storage.\label{fig:timeline_types}}
+	\caption[Timeline image types]{The representation of Timeline Image types used by the Traffic Sensor system for data storage.\label{fig:timeline_types}}
 \end{figure}
 
 \section{Processing steps}\label{sec:processing_steps}
@@ -135,7 +135,7 @@ The processing of the video-stream consists of four main stages, as depicted in 
 	\thisfloatpagestyle{empty}
 	\vspace*{-.3in}
 	\includesvg[width=\textwidth]{full_system_flowchart}
-	\caption{Steps of the processing of the video stream in the core software of the Traffic Sensor.\label{fig:processing_steps}}
+	\caption[Video processing steps]{Steps of the processing of the video stream in the core software of the Traffic Sensor.\label{fig:processing_steps}}
 \end{figure}
 
 %\FloatBarrier
@@ -158,7 +158,7 @@ The result of the remapping of the Raw Frame is an Original Frame, from which a 
 \begin{figure}[!h]
 	\centering
 	\includesvg[clean,width=\textwidth,pretex=\relsize{2}]{frame_transforms}
-	\caption{Preprocessing steps: the transformations performed on each frame before the background-subtraction and detection phase. The goal is to create an effective frame format for the following processing steps.\label{fig:transforms}}
+	\caption[Steps of the preprocessing stage]{Preprocessing steps: the transformations performed on each frame before the background-subtraction and detection phase. The goal is to create an effective frame format for the following processing steps.\label{fig:transforms}}
 \end{figure}
 
 The first stage is perspective compensation.
@@ -216,7 +216,7 @@ The split timeline-blobs are identified and recombined using the data of the Mot
 	\centering
 	\thisfloatpagestyle{plainlower}
 	\includesvg[clean,width=\textwidth,pretex=\relsize{0.8}]{speed_size_following_distance}
-	\caption{The basic idea of parameter calculation. Each feature is estimated with measuring lengths perpendicular to the Tripwire.\label{fig:size_speed_following_distance}}
+	\caption[The method for parameter calculation]{The basic idea of parameter calculation. Each feature is estimated with measuring lengths perpendicular to the Tripwire.\label{fig:size_speed_following_distance}}
 \end{figure}
 
 After the vehicle detection, parameters are evaluated and stored as timeline images.
@@ -231,7 +231,7 @@ The notation used in this section are explained in figure \ref{fig:parameter_not
 \begin{figure}[!h]
 	\centering
 	\includesvg[width=0.73\textwidth,pretex=\relsize{1.5}]{speed_size_notations}
-	\caption{Notations used in section \ref{chap:parameter_evaluation}. \label{fig:parameter_notations}}
+	\caption[The visualzation of the notations of parameter calculation]{Notations used in section \ref{chap:parameter_evaluation}. \label{fig:parameter_notations}}
 \end{figure}
 
 At each point in the Size Timeline the intensity value is calculated as follows:
@@ -295,10 +295,10 @@ This feature is also less noise-sensitive than other simple features, like inten
 \begin{figure}[!h]
 	\centering
 	\includesvg[width=0.9\textwidth]{classification}
-	\caption{The classification process. Each vehicle's length is estimated based on the corresponding size data, then categorized with a hard-decision classifier into four separate categories. \label{fig:classification}}
+	\caption[The classifier's operation]{The classification process. Each vehicle's length is estimated based on the corresponding size data, then categorized with a hard-decision classifier into four separate categories. \label{fig:classification}}
 \end{figure}
 
-To estimate their length $l_{vehicle}$, each vehicle's Timeline Blob (the blob region is denoted by $TB$) is projected to the Size Timeline, and the values corresponding to the blob's region are averaged, as depicted in figure \ref{fig:classification}. 
+To estimate their length $l_{\text{vehicle}}$, each vehicle's Timeline Blob (the blob region is denoted by $TB$) is projected to the Size Timeline, and the values corresponding to the blob's region are averaged, as depicted in figure \ref{fig:classification}. 
 The length-feature is calculated using the following equation:
 
 \begin{displaymath}
@@ -337,6 +337,7 @@ The sizes in the Size Timeline are converted to metrics with a scaling-factor th
 \begin{figure}[!t]
 	\centering
 	\begin{adjustbox}{minipage=\linewidth,scale=0.75}
+	\centering
 	\begin{subfigure}[b]{0.25\textwidth}
 	\includesvg[width=\textwidth]{cars}
 	\caption{Cars.}
@@ -356,13 +357,13 @@ The sizes in the Size Timeline are converted to metrics with a scaling-factor th
 	\includesvg[width=\textwidth]{ped}
 	\caption{Pedestrians.}
 	\end{subfigure}
-	\qquad
+	\quad
 	\begin{subfigure}[b]{0.5\textwidth}
 	\includesvg[width=\textwidth]{other}
 	\caption{Other.}
 	\end{subfigure}
 
-	\caption{Some particular vehicle appearances that represent the system's classification categories.\label{fig:types}}
+	\caption[Particular vehicle appearances for each category]{Some particular vehicle appearances that represent the system's classification categories.\label{fig:types}}
     \end{adjustbox}
 \end{figure}
 %----------------------------------------------------------------------------

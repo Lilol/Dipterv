@@ -26,7 +26,7 @@ This way, the short range of RF communication cannot impede the data transfer.
 \begin{figure}[!h]
 	\centering
 	\includesvg[width=0.5\textwidth]{network}
-	\caption{The structure of the multi-hop mesh network. For a short-ranged communication, each node transfers the information to its closest neighbours. \label{fig:network}}
+	\caption[The structure of the multi-hop mesh network]{The structure of the multi-hop mesh network. For a short-ranged communication, each node transfers the information to its closest neighbours. \label{fig:network}}
 \end{figure}
 
 The server communicates through an API (Application Programming Interface), that implements the REST (Representational State Transfer) principles. 
@@ -37,6 +37,13 @@ Each node is identified by the server with an EnTalk\textsuperscript{TM} ID.
 %---------------------------------------------------------------------------
 The auxiliary software elements' main responsibility is connecting the core to its surroundings.
 They provide access to the sensor by transferring the input data (e.g. settings files, software upgrades), from the user to the core software, and returning information (such as the result of counting and diagnostics data) to the backend server, via the EnTalk\textsuperscript{TM} connection.
+An overview of the transmission procedure is seen in figure \ref{environment}.
+
+\begin{figure}[!h]
+	\centering
+	\includesvg[width=0.75\textwidth]{environment}
+	\caption[The environment of the core software]{The structure of the core software's environment. The core software runs on an UDOO Board built inside a lamp post, and connects to a camera that is continuously monitoring the road. Data is transmitted through a multi-hop mesh network, the EnTalk\textsuperscript{TM} Network. From the Traffic Sensor to the server, regular reports are sent, and diagnostics data is transmitted as an answer to the control commands. From the server to the core software control commands, software updates and settings files are sent to the sensor. \label{fig:environment}}
+\end{figure}
 
 The supporting software has various other features.
 The configuration tools facilitate the operation under heterogeneous circumstances by providing the ability to set individual settings for each environment.
@@ -97,7 +104,7 @@ To be able to calibrate the Traffic Sensor's several parameters in a group, a tw
 The system's settings are listed in two separate files, the settings file and the project file.
 These are standard INI format files, each of them specifying parameters and their values as key--value pairs, grouped into sections as seen in code-listing \ref{lst:config_file}.
 
-\begin{lstlisting}[frame=single,float=!ht,caption={Part of a configuration file. The features are organized into sections, and presented as key--value pairs.},label=lst:config_file]
+\begin{lstlisting}[frame=single,float=!ht,caption={Part of a configuration file. Features are organized into sections, and presented as key--value pairs.},label=lst:config_file]
 [mog2]
 backgroundRatio = 0.95
 complexityReductionThreshold = 0.1
@@ -152,7 +159,7 @@ The GUI is able to write the specified values into the appropriate configuration
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=0.5\textwidth]{projectConfigurator.png}
-	\caption{The user interface of the Project Configurator. Using the GUI several parameters can be set, including the Tripwire (with lilac), the calibration rectangle (with yellow), and other numeric values in text input fields. The Tripwire's beginning and ending point determine the order, in which its pixels are processed. Since the Project Configurator can read, write and upload configuration files to the Sensor, the above functions can be managed jointly through the GUI. \label{fig:project_configurator}}
+	\caption[The GUI of the Project Configurator]{The user interface of the Project Configurator. Using the GUI several parameters can be set, including the Tripwire (with lilac), the calibration rectangle (with yellow), and other numeric values in text input fields. The Tripwire's beginning and ending point determine the order, in which its pixels are processed. Since the Project Configurator can read, write and upload configuration files to the Sensor, the above functions can be managed jointly through the GUI. \label{fig:project_configurator}}
 \end{figure}
 %----------------------------------------------------------------------------
 \subsection{System diagnostics}\label{sec:system_diagnostics}
@@ -170,7 +177,7 @@ The data set is created manually, based on the Original Timeline Image of the co
 	\centering
 	\begin{subfigure}[!h]{0.9\textwidth}
 		\includegraphics[width=\textwidth]{original_GT.png}
-		\caption{Original timeline, with the vehicles marked with type-dependent colours.\label{fig:GT_original}}
+		\caption{Original timeline, each vehicle is dotted with a colour, depending on its type.\label{fig:GT_original}}
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}[!h]{0.9\textwidth}
@@ -187,7 +194,7 @@ The data set is created manually, based on the Original Timeline Image of the co
 		\includegraphics[width=\textwidth]{result_GT.png}
 		\caption{The result of the evaluation. True positive cases are marked with neutral colours, false positive cases are crossed out with red, blue dots indicate false negative errors.\label{fig:GT_result}}
 	\end{subfigure}
-	\caption{The creation and evaluation process of the reference data set, the ground truth.\label{fig:GT}}
+	\caption[The creation of the reference data set, the ground truth]{The creation and evaluation process of the reference data set, the ground truth.\label{fig:GT}}
 \end{figure}
 
 A ground truth file can be considered itself as an image, with points that match the vehicles of the Original Timeline.
@@ -197,7 +204,7 @@ At the end of the process, the detection results are compared to the GT's  point
 \begin{figure}[!h]
 	\centering
 	\includesvg[width=0.35\textwidth]{error_cases}
-	\caption{ \label{fig:error_cases}}
+	\caption[Possible error cases]{Possible error cases, and their markings on the Evaluation Result Timeline. Misclassification errors are not indicated, however can be visualized separately on the Misclassification Error Timeline.\label{fig:error_cases}}
 \end{figure}
 
 For evaluation the following typical binary classification cases were used (as shown in figure \ref{fig:error_cases}.):
@@ -272,7 +279,7 @@ An example of these images are shown in figure \ref{fig:cal_corr_example}, and t
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=0.5\textwidth]{frame_demo_vide.png}
-	\caption{An example frame from the demo video. The desired structure of the demo video frame is defined in the configuration files.  \label{fig:demo_video}}
+	\caption[Example frame from the demo video]{An example frame from the demo video. The desired structure of the demo video frame is defined in the configuration files.  \label{fig:demo_video}}
 \end{figure}
 
 Along with the report files containing the result of the counting in a JSON format, it is possible to export other characteristic information as text files.
@@ -287,7 +294,7 @@ The diagnostic files are as follows:
 	\centering
 	\begin{subfigure}[b]{0.4\textwidth}
 		\includegraphics[width=\textwidth]{calibrationCorrection_not_OK_GoldB1_Sun.png}
-		\caption{Average vehicle length values along the Tripwire. All length data are in meter.}
+		\caption[Visualization of sverage vehicle lengths along the Tripwire]{Average vehicle length values along the Tripwire. All length data are in meter.}
 	\end{subfigure}
 	\quad
 	\begin{subfigure}[b]{0.4\textwidth}
@@ -323,7 +330,7 @@ The Sensor sends a report every time after a fixed time interval -- specified in
 \begin{figure}[!h]
 	\centering
 	\includesvg[width=\textwidth]{process_run_types}
-	\caption{Operation modes of the Traffic Sensor. The single-run mode is for testing and development (above), when a video file or a stream with a pre-set count of frames is processed. The single-run mode has a definite ending, when post-process evaluations and tests are carried out, and entire Timeline Images are saved. In the production environment, the Sensor functions in a continuous mode. Since the amount of memory is finite, and the end of the process is not predictable, in continuous mode, all events happen periodically. The only exception is reporting, that happens regularly after fixed intervals in both run modes. \label{fig:run_types}}
+	\caption[Operation modes of the Traffic Sensor]{Operation modes of the Traffic Sensor. The single-run mode is for testing and development (above), when a video file or a stream with a pre-set count of frames is processed. The single-run mode has a definite ending, when post-process evaluations and tests are carried out, and entire Timeline Images are saved. In the production environment, the Sensor functions in a continuous mode. Since the amount of memory is finite, and the end of the process is not predictable, in continuous mode, all events happen periodically. The only exception is reporting, that happens regularly after fixed intervals in both run modes. \label{fig:run_types}}
 \end{figure}
 %----------------------------------------------------------------------------
 \subsubsection{Continuous run}
