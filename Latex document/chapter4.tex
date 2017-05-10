@@ -2,8 +2,7 @@
 \chapter{Hardware and software environment}\label{chap:Environment}
 %----------------------------------------------------------------------------
 %Glossary entries
-\newglossaryentry{utc}{name=UTC, description={Coordinated Universal Time}}
-\newglossaryentry{pqr}{name=PQR, description={Coordinated Universal Time}}
+
 %----------------------------------------------------------------------------
 The primary task of the SOLSUN Traffic Sensor is counting, that is performed by the core software.
 However, since the system is nested into its surroundings, it requires other supplementary software that facilitates the operation in the production environment on the target hardware, connects the Sensor to the user, and provides diagnostic tools for testing and evaluation.
@@ -17,11 +16,11 @@ For further detail, see the work of Tam{\'a}s T{\'o}th \cite{Toth2016}.
 \subsection{The target board}
 Since the hardware will be installed inside a street-lighting lamp box, it must be able to function using a passive cooling system.
 The target hardware, chosen to suit this requirement, is an UDOO Quad minicomputer using a small and effective Ubuntu Linux-based UDOObuntu 2 operating system.
-The board has an i.MX6 ARM\reg Cortex\reg-A9 Quad, \SI{1}{GHz}, multi-core CPU \cite{UDOO, UDOO2}.
-A CSI camera interface and a USB 2.0 port is available on the hardware, for connecting the camera.
+The board has an i.MX6 ARM\reg Cortex\reg-A9 Quad, \SI{1}{GHz}, multi-core processor (CPU) \cite{UDOO, UDOO2}.
+A CSI (Camera Serial Interface) camera interface and a USB 2.0 port is available on the hardware, for connecting the camera.
 
 \subsection{Network architecture and communication}
-The Sensor instances deployed into the lamp boxes communicate with each other and the central server via a radio frequency (RF) channel, that uses an open, ISM (Industrial Scientific Medical) band.
+The Sensor instances deployed into the lamp boxes communicate with each other and the central server via a radio frequency (RF) channel, that uses an open, ISM (industrial, scientific and medical) band.
 Although RF communication has limited bandwidth, since only a rather small amount of information (only the result of the counting) is transmitted, it is sufficient for this purpose.
 Data transmission is mediated by the EnTalk\textsuperscript{TM} communication protocol\cite{EnTalk}.
 The sending and receiving of the information is organized as a multi-hop mesh system, wherein each communication node is connected solely to its direct neighbours, namely the two closest lamp posts (as seen in figure \ref{fig:network}).
@@ -33,7 +32,7 @@ This way, the short range of RF communication cannot impede the data transfer.
 	\caption[The structure of the multi-hop mesh network]{The structure of the multi-hop mesh network. For a short-ranged communication, each node transfers the information to its closest neighbours. \label{fig:network}}
 \end{figure}
 
-The server communicates through an API (Application Programming Interface), that implements the REST (Representational State Transfer) principles. 
+The server communicates through an API (application programming interface), that implements the REST (Representational state transfer) principles. 
 In both directions JSON (JavaScript Object Notation) syntax files are transmitted.
 Each node is identified by the server with an EnTalk\textsuperscript{TM} ID.
 %----------------------------------------------------------------------------
@@ -100,7 +99,7 @@ The GUI is show in figure \ref{fig:project_configurator}.
 Although it is in charge of a handful of tasks, including the manual configuration of the calibration features (detailed in section \ref{chap:calibration}), its main purpose is to enable the remote control of the Sensors by managing the EnTalk\textsuperscript{TM} communication.
 
 The management functions include the uploading of calibration files and new software versions (updates) to the sensor, and the downloading of log files and diagnostics data (such as images and calibration videos).
-The UI is capable of sending control commands as well.
+The GUI is capable of sending control commands as well.
 %----------------------------------------------------------------------------
 \subsection{Configuration}\label{subs:ProjectConfigurator}
 %----------------------------------------------------------------------------
@@ -252,7 +251,7 @@ To quantify the performance of the system, the following measures -- also known 
 \text{TR} = \frac{\text{CC}}{\text{TP}},
 \end{displaymath}
 
-with $\text{NAC}$ being the number of all cases, and $\text{NGP}$ is the number of GT points.
+\noindent with $\text{NAC}$ being the number of all cases, and $\text{NGP}$ is the number of GT points.
 For each test video, the aforementioned measures were calculated.
 The experimental results are presented in chapter \ref{chap:Tests} in detail.
 %----------------------------------------------------------------------------
@@ -331,7 +330,7 @@ Since in the single-run mode the process has an exact end, thus the length of th
 Post-corrections, like calibration correction are possible as well.
 At the end of the procedure, other files, such as entire Timeline Images and video files, including the recorded video stream, or a demo video are created and exported using the data collected throughout the process.
 Although most output files are generated at the end of the operation, reporting is iterative.
-The Sensor sends a report every time after a fixed time interval -- specified in the configuration files-- has elapsed.
+The Sensor sends a report each time after a fixed time interval -- specified in the configuration files-- has elapsed.
 
 \begin{figure}[htb]
 	\centering

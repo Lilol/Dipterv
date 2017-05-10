@@ -2,8 +2,7 @@
 \chapter{The core software}\label{chap:Core software}
 %----------------------------------------------------------------------------
 %Glossary entries
-\newglossaryentry{utc}{name=UTC, description={Coordinated Universal Time}}
-\newglossaryentry{pqr}{name=PQR, description={Coordinated Universal Time}}
+
 %----------------------------------------------------------------------------
 This chapter presents the structure and operation of the core software system of the Traffic Sensor, in particular with regard to the effective image processing algorithms and software development paradigms that facilitate the real-time operation of the system.
 
@@ -20,7 +19,7 @@ In this section the architectural structure of the framework, including the data
 \begin{figure}[!h]
 	\centering
 	\includesvg[width=0.8\textwidth,pretex=\Large]{arbiter_pipeline.pdf_tex}
-	\caption[The structure of the core software architecture]{The function and operation of the Arbiter, Processors and the Media Store. The Processors that implement a unified interface are controlled by the Arbiter. There are an arbitrary number of Processors in the system, each of them can be exchanged, deleted, and the sequence of processors can be expanded with new functions as well, thus realizing a plug-in architecture. Although each Processor can manage a single Frame or Timeline Image column at once, since they operate simultaneously on their threads, a large amount of data is processed at the same time. The data resources of the system are accessed through the Media Store protected by mutexes.\label{fig:arbiter_pipeline}}
+	\caption[The structure of the core software architecture]{The function and operation of the Arbiter, Processors and the Media Store. The Processors that implement a unified interface are controlled by the Arbiter. There are an arbitrary number of Processors in the system, each of them can be exchanged, deleted, and the sequence of Processors can be expanded with new functions as well, thus realizing a plug-in architecture. Although each Processor can manage a single Frame or Timeline Image column at once, since they operate simultaneously on their threads, a large amount of data is processed at the same time. The data resources of the system are accessed through the Media Store protected by mutexes.\label{fig:arbiter_pipeline}}
 \end{figure}
 
 \subsection{Plug-in architecture, Processors}
@@ -56,7 +55,7 @@ Each of the Frame-strips store the successive frames of the video stream, either
 	
 	\item \textbf{Original Frame-strip:} The Original Frames are transformed versions of the Raw Frames. The transformation creates a standard frame format that is independent of the Raw Frames' size or the specific traffic scene, and that supports effective processing. (Figure \ref{fig:original_frame})
 	
-	\item \textbf{MOG2 Frame-strip:} The MOG2 Frame-strip is a sequence of the result images of the MOG2 background-subtraction algorithm, the MOG2 Frames. MOG2 Frames are one-channel, binary images, with foreground objects labelled with the value 255 (white), and background labelled with 0 (black). The Foreground objects of the MOG2 Frames are blobs. (Figure \ref{fig:mog2_frame})
+	\item \textbf{MOG2 Frame-strip:} The MOG2 Frame-strip is a sequence of the result images of the MOG2 (mixture of Gaussians) background-subtraction algorithm, the MOG2 Frames. MOG2 Frames are one-channel, binary images, with foreground objects labelled with the value 255 (white), and background labelled with 0 (black). The Foreground objects of the MOG2 Frames are blobs. (Figure \ref{fig:mog2_frame})
 \end{enumerate}
 
 \subsubsection{Timeline Images}
@@ -185,7 +184,7 @@ The second phase of processing is background-subtraction, that is the separation
 This step creates the MOG2 Frame and Timeline as a result of background-subtraction.
 The correction of the subtraction method use the Motionless Timeline.
 
-The background is labelled using a GMM-based method, Mixture of Gaussians 2 (MOG2), that is available in the OpenCV library.
+The background is labelled using a GMM-based method, mixture of Gaussians 2 (MOG2), that is available in the OpenCV library.
 This method associates every pixel with a mixture of Gaussian intensity-distributions, and identifies each new data as background, if it is part of the constructed distribution-model, or as a moving object, if it falls out of the model's range.
 
 The drawback of this technique is its complexity, that results in an increased computational cost and time.
@@ -252,7 +251,7 @@ At each point in the Size Timeline the intensity value is calculated as follows:
 	\end{cases}
 \end{displaymath}
 
-with $l_{\text{L},t}$, $l_{\text{R},t}$ being the perpendicular length of the left and right side of the object that occupies the tripwire.
+\noindent with $l_{\text{L},t}$, $l_{\text{R},t}$ being the perpendicular length of the left and right side of the object that occupies the tripwire.
 The lengths are measured in pixels.
 
 The intensities of the Speed Timeline are calculated with the lengths measured in 2 successive frames, as follows:
@@ -265,7 +264,7 @@ The intensities of the Speed Timeline are calculated with the lengths measured i
 \end{cases}
 \end{displaymath}
  
-where $\Delta r_{\text{L}}$ and $\Delta r_{\text{R}}$ are the displacements of the left and right edge of the object, that occupies the tripwire.
+\noindent where $\Delta r_{\text{L}}$ and $\Delta r_{\text{R}}$ are the displacements of the left and right edge of the object, that occupies the tripwire.
 The vehicle lengths stored in the Size Time are later used for classification purposes.
 
 The displacements are calculated with the left and right sides' lengths as follows:
@@ -284,7 +283,7 @@ d_{\text{L},t} + d_{\text{R},t} 		& \quad \text{if } \boldsymbol{F_{\text{MOG2},
 \end{cases}
 \end{displaymath}
 
-with $d_{\text{L},t}$ and $d_{\text{R},t}$ being the left and right side distances of the nearest objects.
+\noindent with $d_{\text{L},t}$ and $d_{\text{R},t}$ being the left and right side distances of the nearest objects.
 The distances are estimated by counting the empty pixels on each side of the tripwire.
 
 The calculated parameters are then either transferred in a raw form through the EnTalk\textsuperscript{TM} Network in the form of a report file (like following distance values, as detailed in section \ref{sec:reporting}), or used for classification purposes (like size values).
@@ -314,13 +313,13 @@ The length-feature is calculated using the following equation:
 	l_{vehicle} = \frac{\mathlarger{\mathlarger{\sum}}\limits_{\substack{(x,y) \in \text{TB} \\ \boldsymbol{TI_{\text{Size}}}(x,y)\neq 0}} \boldsymbol{TI_{\text{Size}}}(x,y)}{n_{\text{NZpoints}}},
 \end{displaymath}
 
-with $n_{\text{NZpoints}}$ being the number of non-zero points in the Size Timeline.
+\noindent with $n_{\text{NZpoints}}$ being the number of non-zero points in the Size Timeline.
 
 \begin{table}[!h]
 	\centering
 	\begin{tabular}{ll}
 		\toprule
-		\textbf{Class} & \textbf{Length (m)} \\
+		\textbf{Class} & \textbf{Length (\si{m})} \\
 		\midrule
 		Pedestrian     & $< 2$               \\
 		Cyclist        & $< 2.5$             \\
@@ -337,7 +336,7 @@ The vehicles then categorized by a hard-decision classifier into five categories
 The types were configured for common urban traffic scenes, thus they represent the most typical road user categories.
 Since the classification data is used for emission estimation of greenhouse gases as well, the vehicle categories consist of vehicles with similar greenhouse emission profiles.
 Although the class of cyclists and motorcycles is not homogeneous concerning their emission, this anomaly influences the estimation very moderately.
-The "other" class represents vehicles with significant emission, including buses and lorries. 
+The ``other'' class represents vehicles with significant emission, including buses and lorries. 
 
 The intervals of the categories were determined empirically and are noted in table \ref{tab:intervals}.
 

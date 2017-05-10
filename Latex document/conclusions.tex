@@ -17,10 +17,10 @@ The project's requirements include a pre-defined embedded target hardware with p
 
 The work outlines the overall structure and operation procedure of the Traffic Sensor system. 
 
-It introduces an effective image domain reduction paradigm, the creation of Timeline Images, that is the basic idea of the processing.
+It introduces an effective image domain reduction paradigm, detection via Timeline Images, that is the basic idea of the processing.
 The thesis describes the generation procedure of the Timeline Images, and their role in the operation of the Sensor.
 Besides that, the core software, that is responsible for the main functionality, is presented.
-The architectural structure and operation of the software is described in detail, including the video processing steps, that consist of the transform of frames, the detection of moving objects with background subtraction, calculation of traffic parameters, and classification of the detected vehicles using their length.
+The architectural structure and operation of the software is described in detail, including the video processing steps, that consist of the transform of frames, the detection of moving objects with background subtraction, calculation of traffic parameters, and classification of the detected vehicles based on their length.
 For each processing step the used TIs and their role is described as well.
 
 The environment of the core system is also summarised.
@@ -36,10 +36,10 @@ As it was mentioned in the introduction (\ref{sec:contribution_of_the_thesis}), 
 However my own contributions are emphasized and presented in more detail throughout the thesis.
 For clarification purposes, in this section, contributors of each part of the project are briefly summarised.
 
-\noindent Parts of the system that were the result of the team's collective work are as follows:
+\noindent Parts of the system that are the results of the team's collective work are as follows:
 \begin{itemize}
 	\item[-] the overall software architecture of the system (section \ref{sec:software_architecture})
-	\item[-] the concrete steps of the operation procedure (section \ref{sec:processing_steps}).
+	\item[-] the particular steps of the operation procedure (section \ref{sec:processing_steps}).
 \end{itemize}
 
 \noindent Results that are the product of my own exclusive work are as follows:
@@ -52,7 +52,7 @@ For clarification purposes, in this section, contributors of each part of the pr
 	\item[-] the analysis of the system's performance (section \ref{sec:evaluation_results})
 	\item[-] the development and implementation of the calibration correction algorithm (section \ref{sec:calibration_correction_method}).
 \end{itemize}
-For further details, see my other paper on the topic \cite{Barancsuk2016}.
+Further details are found in the recent work \cite{Barancsuk2016}.
 
 \noindent Other system parts only mentioned in the thesis for a coherent presentation, that were developed by other members of the team are as follows:
 \begin{itemize}
@@ -74,11 +74,11 @@ Many shadow-removal algorithms are introduced in literature, from which a suitab
 
 Counting at night is considerably reliable at the current version of the Traffic Sensor, although it can be further improved by developing an algorithm for identifying and removing blobs caused by the headlights of cars.
 
-Another progression direction could be the improvement of the existing blob splitting and fusing methods, that in the current version tend to fail with uncommon cases and in complex surroundings.
+Another progression direction could be the improvement of the existing blob splitting and fusing methods, that currently tend to fail with uncommon cases and in complex surroundings.
 
-To advance the classification result, a more sophisticated classifier, e.g. one deciding based on a parameter vector can be implemented.
+To advance the classification result, a more sophisticated classifier, e.g. decision based on a parameter vector can be implemented.
 
-Another weak point of the system is that it does not handle extreme, exceptional weather conditions, like fog, rain or snow.
-Detection in these circumstances is a highly complex problem, and is still a heavily researched topic, however these weather conditions can be easily identified, and the Sensor could be temporarily turned off until reliable detection is possible again.
+Another bottleneck of the system is that it does not handle extreme, exceptional weather conditions, like fog, rain or snow.
+Detection under such circumstances is a highly complex problem, and is still a heavily researched topic, however these weather conditions can be easily identified, and the Sensor could be temporarily turned off until reliable detection is possible again.
 	
 As a conclusion, the performance of the counting could only be improved by integrating more sophisticated algorithms into the processing steps, however the complexity of these methods would make real-time operation impossible on the current target hardware.

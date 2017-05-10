@@ -3,10 +3,6 @@
 \renewcommand{\thechapter}{\arabic{chapter}}%
 \chapter{Basic concepts and terms}\label{chap:Concepts}
 %----------------------------------------------------------------------------
-%Glossary entries
-\newglossaryentry{utc}{name=UTC, description={Coordinated Universal Time}}
-\newglossaryentry{pqr}{name=PQR, description={Coordinated Universal Time}}
-%----------------------------------------------------------------------------
 In the following chapter certain basic definitions and ideas, that are necessary for understanding the operation of the Traffic Sensor, will be discussed and formalized.
 
 Let one pixel of a red-green-blue (RGB) image be denoted by $\boldsymbol{I}(x,y,t)$, where $x, y$ are the variables of the discrete spatial axes, and $t$ notes the discrete time.
@@ -27,7 +23,7 @@ $\boldsymbol{I}(x,y,t)$ is a three-element vector consisting of the intensities 
 \end{figure}
 %----------------------------------------------------------------------------
 \section{Frame}
-Let a frame at a certain $t$ time be denoted by
+Let a frame at a certain time instant $t$ be denoted by
 \begin{gather*}
 	\boldsymbol{F}_t=\boldsymbol{F}_t(x,y)=\boldsymbol{I}(x,y,t),\\
 	x=0,1,2,\dotsc,n_{\text{cols}}-1,\\
@@ -49,7 +45,7 @@ where $n_{\text{frames}}$ denotes the frame count in a video sequence.
 \section{Tripwire}
 %----------------------------------------------------------------------------
 The tripwire is a straight line on each frame, where the detection takes place (figure \ref{fig:TI_creation}).
-Let the intensities of the tripwire at a certain $t$ time be denoted by 
+Let the intensities of the tripwire at a certain instant $t$ be denoted by 
 \begin{displaymath}
 \boldsymbol{T}_t=\boldsymbol{F}_t(x,y)=\boldsymbol{T}_t(k),
 \end{displaymath}

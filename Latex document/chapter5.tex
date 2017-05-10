@@ -2,8 +2,7 @@
 \chapter{Experimental results}\label{chap:Tests}
 %----------------------------------------------------------------------------
 %Glossary entries
-\newglossaryentry{utc}{name=UTC, description={Coordinated Universal Time}}
-\newglossaryentry{pqr}{name=PQR, description={Coordinated Universal Time}}
+
 %----------------------------------------------------------------------------
 In the following chapter the results of the system tests will be discussed. 
 
@@ -30,7 +29,7 @@ The attributes of the test videos are presented in detail in table \ref{tab:test
 
 Besides the traffic and light conditions, in which the videos were recorded, table \ref{tab:test_videos} presents other important characteristics and specific settings, that determine the evaluation's quality and level of detail.
 
-The "Lanes set" option specifies whether the centre of lanes are defined in the configuration files, as an initial setting for the video.
+The ``Lanes set'' option specifies whether the centre of lanes are defined in the configuration files, as an initial setting for the video.
 If it is, the parameter calculation is limited to these specified lane centre-regions on the Tripwire, that decreases the count of points processed, thus increases the operation speed.
 However it affects the precision of classification as well, because the average length value is calculated from less samples (further details on the classification are in section \ref{sec:classification}).
 
@@ -193,13 +192,13 @@ This case is only relevant when pedestrians are the primary target of detection,
 \begin{figure}[p]
 	\centering
 	\includechart{falsePositives}
-	\caption[Test results: false positives]{False positives \label{chart:false_positives}}
+	\caption[Test results: false positive rates]{False positive rates \label{chart:false_positives}}
 \end{figure}
 
 \begin{figure}[p]
 	\centering
 	\includechart{falseNegatives}
-	\caption[Test results: false negatives]{False negatives \label{chart:false_negatives}}
+	\caption[Test results: false negative rates]{False negative rates \label{chart:false_negatives}}
 \end{figure}
 
 %----------------------------------------------------------------------------
@@ -269,7 +268,7 @@ The calibration rectangle's side length is used to define a scaling factor betwe
 Using the scaling factor, all lengths are converted to a metric scale, facilitating correct classification.
 
 \subsubsection{Miscalibrated streams}
-If the calibration rectangle's edges are significantly displaced from those of a perfect coplanar square in the 3D world, the ensuing miscalibration considerably influences the accuracy of the classification results.
+If the calibration rectangle's edges are significantly displaced from those of a perfect coplanar square in the three-dimensional (3D) world, the ensuing miscalibration considerably influences the accuracy of the classification results.
 To detect whether this problem occurs, vehicle lengths are analysed along the tripwire.
 
 \begin{figure}[!hp]
