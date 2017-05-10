@@ -13,6 +13,8 @@
 \usepackage{pgfplots, pgfplotstable}
 \usepackage[thmmarks]{ntheorem}
 \usepackage{graphics}
+\usepackage[refpage]{nomencl}
+\usepackage{glossaries}
 \usepackage{multirow}
 \usepackage{graphicx,floatpag,fancyhdr}
 \usepackage{epsfig}
@@ -131,6 +133,13 @@
 \renewcommand\cellgape{\Gape[4pt]}
 \renewcommand{\cellalign}{cc}
 \newcolumntype{?}{!{\vrule width 1pt}}
+
+%--------------------------------------------------------------------------------------
+%	hmmm???
+%--------------------------------------------------------------------------------------
+%\parfillskip 0pt plus 0.75\textwidth
+%\widowpenalty=10000
+%\clubpenalty=10000
 
 %--------------------------------------------------------------------------------------
 %	Setup hyperref package
@@ -275,6 +284,12 @@ aboveskip=10pt}
 %  makeindex
 %---------------
 \makeindex
+
+%-------------------
+%  makenomenclature
+%-------------------
+\makenomenclature
+\makeglossaries
 %--------------------------------------------------------------------------------------
 %	Table of contents and the main text
 %--------------------------------------------------------------------------------------
@@ -291,11 +306,12 @@ aboveskip=10pt}
 \includepdf[pages={1}]{../Kameras-forgalomszamlalo-rendszer-fejlesztese-Feladatkiiras-2.pdf}
 \include{titlepage}
 \tableofcontents\vfill
+\listoffigures\addcontentsline{toc}{chapter}{List of figures}
+\printglossaries\addcontentsline{toc}{chapter}{List of abbreviations}
 \include{declaration}
 \include{abstract}
 \include{introduction}
 \include{chapter1}
-%\include{chapter2}
 \include{chapter3}
 \include{chapter4}
 \include{chapter5}
@@ -303,7 +319,7 @@ aboveskip=10pt}
 \include{acknowledgement}
 \include{appendices}
 
-%\listoffigures\addcontentsline{toc}{chapter}{List of figures}
+\newglossaryentry{pqr}{name=PQR, description={Coordinated Universal Time}}
 %\listoftables\addcontentsline{toc}{chapter}{List of tables}
 
 \bibliography{trafficVideoSens}

@@ -1,6 +1,10 @@
 %----------------------------------------------------------------------------
 \chapter{Experimental results}\label{chap:Tests}
 %----------------------------------------------------------------------------
+%Glossary entries
+\newglossaryentry{utc}{name=UTC, description={Coordinated Universal Time}}
+\newglossaryentry{pqr}{name=PQR, description={Coordinated Universal Time}}
+%----------------------------------------------------------------------------
 In the following chapter the results of the system tests will be discussed. 
 
 The speed and precision of the operation and the accuracy of the classification were tested using a set of diverse test videos.
@@ -16,7 +20,7 @@ The videos were recorded at multiple places in Budapest.
 To ensure the robustness of the application, they represent diverse weather, light and traffic conditions, including heavy shadows, night-time, dawn, sundown, and various traffic densities and road users.
 The attributes of the test videos are presented in detail in table \ref{tab:test_videos}.
 
-\begin{table}[!h]
+\begin{table}[!b]
 	\begin{adjustbox}{center}
 		\includetable{test_videos}
 	\end{adjustbox}
@@ -24,11 +28,11 @@ The attributes of the test videos are presented in detail in table \ref{tab:test
 	\label{tab:test_videos}
 \end{table}
 
-Besides the traffic and light conditions, in which the videos were recorded, table \ref{tab:test_videos}.~presents other important characteristics and specific settings, that determine the evaluation's quality and level of detail.
+Besides the traffic and light conditions, in which the videos were recorded, table \ref{tab:test_videos} presents other important characteristics and specific settings, that determine the evaluation's quality and level of detail.
 
 The "Lanes set" option specifies whether the centre of lanes are defined in the configuration files, as an initial setting for the video.
 If it is, the parameter calculation is limited to these specified lane centre-regions on the Tripwire, that decreases the count of points processed, thus increases the operation speed.
-However it affects the precision of classification as well, because the average length value is calculated from less samples (further details on the classification are in section \ref{sec:classification}.).
+However it affects the precision of classification as well, because the average length value is calculated from less samples (further details on the classification are in section \ref{sec:classification}).
 
 The point count of the video's ground truth sets the resolution of the precision measures.
 
@@ -48,7 +52,7 @@ The values were quantified using five different parameter-settings, each case sp
 The various settings used for testing are seen in table \ref{tab:settings_versions}.
 Although the application uses several configuration parameters, in this section only the ones, that were modified between two evaluation session, are discussed.
 
-As mentioned before (in section \ref{chap:calibration}.), for each video specific parameters are set, depending on the environment characteristics.
+As mentioned before (in section \ref{chap:calibration}), for each video specific parameters are set, depending on the environment characteristics.
 The particular values of these parameters were evaluated empirically for every video, and are not discussed in this work.
 
 \begin{table}[!h]
@@ -63,11 +67,11 @@ The particular values of these parameters were evaluated empirically for every v
 \begin{enumerate}
 	\item \textbf{Minimal size of blobs:} Although the system detects blobs of all sizes, only the ones exceeding the size limit are accepted as vehicles. If the minimal size decreases, the number of both false negatives and positives increases, since more fake and real vehicles are detected.
 	
-	\item \textbf{Lane centres defined or not:} The reason lane centres are specified is detailed in section \ref{sec:test_videos}. For some traffic scene (e.g. when there's no defined trajectory for vehicles) lane centres cannot be set (table \ref{tab:test_videos}), thus are not initially configured for some test videos. Consequently the evaluation results of certain videos are not affected by this parameter change. As described before, lane settings influence the result of classification, and the speed of the operation.
+	\item \textbf{Lane centres defined or not:} The reason lane centres are specified is detailed in section \ref{sec:test_videos}. For some traffic scene (e.g. when there's no defined trajectory for vehicles) lane centres cannot be set (table \ref{tab:test_videos}), thus are not initially configured for some test videos. Consequently the evaluation results of certain videos are not affected by this parameter change. As described before, lane settings influence the result of classification.
 	
 	\item \textbf{Minimal size for cutting blobs:} The parameter specifies the minimal size of split blobs. The minimal size is defined with a multiplier constant of the regular minimal size. Therefore split size differs for the videos, where a custom minimal size is set, including ErE5 or ErC1, as seen in table \ref{tab:test_videos}. 
 	
-	The method of blob splitting is presented in section \ref{sec:background-subtraction}., and is used to divide fused vehicles, that cross the Tripwire together. If the resulting blobs are of a smaller size than the limit, the splitting is cancelled, and the blob is stored as a whole. 
+	The method of blob splitting is presented in section \ref{sec:background-subtraction}, and is used to divide fused vehicles, that cross the Tripwire together. If the resulting blobs are of a smaller size than the limit, the splitting is cancelled, and the blob is stored as a whole. 
 	
 	The optimal minimal split size has been empirically estimated to be larger than the regular minimal blob size. This is due to the splitter algorithm's specific operation method, that cuts the blobs based on their shapes. If the parameter value equals the minimal size, some fused vehicles are missed, although, when set to a very low value, the number of false splitting, thus the count of false detections tend to increase.
 \end{enumerate}
@@ -83,23 +87,23 @@ To further improve the false positive rate, the split size was increased, so tha
 
 \subsubsection{Minimal size of blobs increased}\label{sec:ver_2}
 At the second testing stage, the minimal blob size was increased to \SI{200}{pixels}.
-As seen on figure \ref{chart:false_positives}., the false positive rate decreased and the false negative rate increased (figure \ref{chart:false_negatives}) for every test video, although these changes have little effect on the overall precision and accuracy measures.
+As seen on figure \ref{chart:false_positives}, the false positive rate decreased and the false negative rate increased (figure \ref{chart:false_negatives}) for every test video, although these changes have little effect on the overall precision and accuracy measures.
 
 On videos, where a custom minimal size is added, the change has no effect.
 
 \subsubsection{No lanes defined}\label{sec:ver_3}
 The third version of settings were the elimination of lane centres, for which video they were defined.
-Whether these points are defined, or not, do not affect the result of the detection (the value of error rates and precision measures, as seen on figures \ref{chart:accuracies}., \ref{chart:recalls}., \ref{chart:false_positives}., \ref{chart:false_negatives}.), but in almost every case, improves the classification results.
+Whether these points are defined, or not, do not affect the result of the detection (the value of error rates and precision measures, as seen on figures \ref{chart:accuracies}, \ref{chart:recalls}, \ref{chart:false_positives}, \ref{chart:false_negatives}), but in almost every case, improves the classification results.
 
-The drawback to the lane-less operation is the increased computational cost and time, as discussed in section \ref{sec:speed_tests}.
+The drawback to the lane-less operation could be the increased computational cost and time, but as discussed in section \ref{sec:speed_tests}, the test results show, that it does not affect the processing speed.
 
 This settings change has no effect on videos with no lanes defined.
 
 \subsubsection{Split size added}\label{sec:ver_4}
 At the fourth test stage, the minimal split size is increased to a larger value than the regular minimal blob size.
 
-As a result, as chart \ref{chart:recalls}.~shows, the recalls shifted only slightly, and most accuracies (chart \ref{chart:accuracies}.) either increased or stagnated correspondingly.
-This is due to the increased number of false positives and also the decreased count of false negatives due to incorrectly uncut fusions (charts \ref{chart:false_positives}., \ref{chart:false_positives}). These two changes compensate each other's effects.
+As a result, as chart \ref{chart:recalls} shows, the recalls shifted only slightly, and most accuracies (chart \ref{chart:accuracies}) either increased or stagnated correspondingly.
+This is due to the increased number of false positives and also the decreased count of false negatives due to incorrectly uncut fusions (charts \ref{chart:false_positives}, \ref{chart:false_positives}). These two changes compensate each other's effects.
 
 The performance measures somewhat improve with fine-tuning the size parameters (stage fifth), but the advancement is minor.
 
@@ -119,6 +123,11 @@ This is due to their particular traffic characteristics.
 
 Test videos with extremely low accuracy count include SasadA1, ErC1, BorA1, BorA2 and FovamC\_N.
 Each of the three videos include at least one of the three cases of a stopping tram, pedestrians as main road users, or heavy shadows.
+
+Although the application contains a mechanism to filter stopping vehicles, trams can overwhelm the system, and cause an increased amount of false positive detections, due to its moving parts as shown on figure \ref{fig:error_tram}.
+Heavy shadows also raise the number of false alarms, because when they are moving with vehicles, the background-subtractor detects them (figure \ref{fig:error_shadows}).
+Pedestrians tend to cause errors as well, as their blobs are often erroneously split, due to their characteristic shape that resembles two fused cars.
+This case is only relevant when pedestrians are the primary target of detection, and are recorded from a closer distance, as seen on figure \ref{fig:error_peds}.
 
 \begin{figure}[!h]
 	\centering
@@ -163,11 +172,6 @@ Each of the three videos include at least one of the three cases of a stopping t
 
 \end{figure}
 
-Although the application contains a mechanism to filter stopping vehicles, trams can overwhelm the system, and cause an increased amount of false positive detections, due to its moving parts as shown on figure \ref{fig:error_tram}.
-Heavy shadows also raise the number of false alarms, because when they are moving with vehicles, the background-subtractor detects them (figure \ref{fig:error_shadows}).
-Pedestrians tend to cause errors as well, as their blobs are often erroneously split, due to their characteristic shape that resembles two fused cars.
-This case is only relevant when pedestrians are the primary target of detection, and are recorded from a closer distance, as seen on figure \ref{fig:error_peds}.
-
 \begin{figure}[p]
 	\centering
 	\includechart{recalls}
@@ -207,7 +211,7 @@ Since vehicle lengths are the basis of classification, to measure it precisely, 
 The compensation of distortion is performed during the preprocessing phase of the Traffic Sensor operation, using a quadrangle-based compensation method.
 
 The quadrangle, called the calibration rectangle, is manually defined by the user.
-It is hand-drawn on a frame in the Project Configurator GUI (section \ref{chap:calibration}.) as part of the calibration process.
+It is hand-drawn on a frame in the Project Configurator GUI (section \ref{chap:calibration}) as part of the calibration process.
 The position and the sides' lengths are estimated with the help of any occurring road lanes, or simply based on naked eye examination.
 On this wise, due to the inaccuracy of human perception, the location and size of the calibration rectangle are significantly uncertain.
 Empirical analysis shows that errors are actually present in many hand-calibrated videos.
@@ -310,7 +314,7 @@ To detect whether this problem occurs, vehicle lengths are analysed along the tr
 \end{figure}
 
 An uncalibrated stream is characterized by the decrease of vehicle lengths as moving away from the camera, due to perspective distortion, as seen on figure \ref{sfig:uncalib}.
-If the lengths still decrease despite that perspective compensation was performed, there is a high chance of inaccurate calibration (an example is seen in figure \ref{sfig:mcalib}.), when perspective distortion was not compensated well.
+If the lengths still decrease despite that perspective compensation was performed, there is a high chance of inaccurate calibration (an example is seen in figure \ref{sfig:mcalib}), when perspective distortion was not compensated well.
 Nonetheless, some exceptions may occur, especially with a walking route and a bicycle track adjacent to the road, where the typical road users are of smaller size.
 
 To accurately estimate the mean size of road users along a line, a considerably long video sequence is analysed to count enough vehicles for averaging.
@@ -344,7 +348,7 @@ The three stages of the correction process are as follows:
 	The calibration rectangle has two sides ($s_{\text{CR}}$ and $S_{\text{CR}}c$) roughly perpendicular to the Tripwire.
 	Due to perspective transform, these perpendicular sides are subject to perspective distortion, thus differ in length, namely the top side of the rectangle is considerably shorter, as well as vehicle sizes at this distance.
 	
-	If the video is undercalibrated, the rectangle sides' difference is too small, so that after the perspective compensation, average vehicle sizes are still significantly smaller at the top side of the rectangle (an example is seen on figure \ref{sfig:mcalib}.).
+	If the video is undercalibrated, the rectangle sides' difference is too small, so that after the perspective compensation, average vehicle sizes are still significantly smaller at the top side of the rectangle (an example is seen on figure \ref{sfig:mcalib}).
 	To diagnose this problem, the size values at the intersections are calculated using the fitted line:
 	\begin{gather*}
 		l = fl(k_{\text{CR}}) \approx \avgt\{\boldsymbol{TI_{\text{Size}}}(\boldsymbol{T}(k_{\text{CR}}))\} \\
@@ -382,7 +386,7 @@ The three stages of the correction process are as follows:
 \end{figure}
 
 \subsection{Calibration correction results}
-The results of miscalibration are presented using four test videos (an overview of the test videos is found in section \ref{sec:test_videos}.), that were initially miscalibrated.
+The results of miscalibration are presented using four test videos (an overview of the test videos is found in section \ref{sec:test_videos}), that were initially miscalibrated.
 
 The quantitative evaluation results before and after the calibration correction are summarized in table \ref{tab:cal_corr_results}.
 Three of four videos were tested with and without lanes defined.
@@ -459,9 +463,9 @@ Since the application is required to operate in real-time, it must meet strict s
 To not miss certain frames and consequently, vehicles, the software's frame request rate should exceed the camera's capture frequency most of the time.
 Along these lines, the minimal recommended processing rate of frames on the target hardware is \SI{25}{frame/s}, considering that most cameras operate around this speed.
 
-However, the optimal required operation speed of the Sensor is higher, \SI{30}{frame/s}, that even allows the integration of new functions, processing steps, or improving existing ones; especially, possible new features, that include highly resource-intensive algorithms, such as a shadow-detection processor (further discussion about shadow detection attempt is found in the work of Istv{\'a}n Vincze \cite{Vincze2016}), or a more sophisticated classifier.
+However, the optimal required operation speed of the Sensor would be higher, \SI{30}{frame/s}, that even allows the integration of new functions, processing steps, or improving existing ones; especially, possible new features, that include highly resource-intensive algorithms, such as a shadow-detection processor (further discussion about shadow detection attempt is found in the work of Istv{\'a}n Vincze \cite{Vincze2016}), or a more sophisticated classifier.
 
-The performance test were all conducted on the target hardware.
+The performance test were all conducted on the target hardware. Values were calculated from \SI{50}{frame} long burst-sequences' time measurements.
 
 The results of speed-testing are seen in table \ref{tab:speed_testing}.
 
@@ -474,8 +478,10 @@ The results of speed-testing are seen in table \ref{tab:speed_testing}.
 	\label{tab:speed_testing}%
 \end{table}%
 
-As the results show, although the average operation speed depends on the traffic characteristics, in most situations, it exceeds the specified \SI{25}{frame/s} limit.
-Exceptions are the GoldB2 and the SasA2 videos, that feature scenes with very heavy traffic and several stopping vehicles.
+As the results show, although the average operation speed, in most situations, exceeds the specified \SI{25}{frame/s} limit, and depends slightly on the traffic characteristics.
+The one exception is the video, SasadA1, that features scenes with very heavy traffic and several stopping vehicles.
 
-Considering the variance of the scenes, most videos still mainly perform over the minimum.
-Although at certain times they are likely to fall below the speed floor, the performance rate is acceptable.
+Considering the variance of the scenes, most videos occasionally perform under the minimum speed.
+Although at certain times they are likely to fall below the speed floor, the performance rate is still satisfactory, considering that the minimal speed for all videos is around \SI{18}{frame/s}, that is acceptable for a shorter time period.
+
+Table \ref{tab:speed_testing} shows, that whether lanes are defined or not does not affect the speed results, they entirely depend on individual video characteristics.

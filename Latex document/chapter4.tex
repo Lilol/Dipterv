@@ -1,6 +1,10 @@
 %----------------------------------------------------------------------------
 \chapter{Hardware and software environment}\label{chap:Environment}
 %----------------------------------------------------------------------------
+%Glossary entries
+\newglossaryentry{utc}{name=UTC, description={Coordinated Universal Time}}
+\newglossaryentry{pqr}{name=PQR, description={Coordinated Universal Time}}
+%----------------------------------------------------------------------------
 The primary task of the SOLSUN Traffic Sensor is counting, that is performed by the core software.
 However, since the system is nested into its surroundings, it requires other supplementary software that facilitates the operation in the production environment on the target hardware, connects the Sensor to the user, and provides diagnostic tools for testing and evaluation.
 
@@ -25,7 +29,7 @@ This way, the short range of RF communication cannot impede the data transfer.
 
 \begin{figure}[!h]
 	\centering
-	\includesvg[width=0.5\textwidth]{network}
+	\includegraphics[width=0.5\textwidth]{network.png}
 	\caption[The structure of the multi-hop mesh network]{The structure of the multi-hop mesh network. For a short-ranged communication, each node transfers the information to its closest neighbours. \label{fig:network}}
 \end{figure}
 
@@ -37,11 +41,12 @@ Each node is identified by the server with an EnTalk\textsuperscript{TM} ID.
 %---------------------------------------------------------------------------
 The auxiliary software elements' main responsibility is connecting the core to its surroundings.
 They provide access to the sensor by transferring the input data (e.g. settings files, software upgrades), from the user to the core software, and returning information (such as the result of counting and diagnostics data) to the backend server, via the EnTalk\textsuperscript{TM} connection.
-An overview of the transmission procedure is seen in figure \ref{environment}.
+An overview of the transmission procedure is seen in figure \ref{fig:environment}.
 
 \begin{figure}[!h]
 	\centering
-	\includesvg[width=0.75\textwidth]{environment}
+	%\includesvg[width=0.75\textwidth]{environment}
+	\includegraphics[width=0.75\textwidth]{environment.png}
 	\caption[The environment of the core software]{The structure of the core software's environment. The core software runs on an UDOO Board built inside a lamp post, and connects to a camera that is continuously monitoring the road. Data is transmitted through a multi-hop mesh network, the EnTalk\textsuperscript{TM} Network. From the Traffic Sensor to the server, regular reports are sent, and diagnostics data is transmitted as an answer to the control commands. From the server to the core software control commands, software updates and settings files are sent to the sensor. \label{fig:environment}}
 \end{figure}
 
@@ -92,7 +97,7 @@ Since the Sensors are installed in street-lighting lamp boxes high above the roa
 To achieve this, each instance of the sensor can be accessed through a graphical user interface (GUI), the Project Configurator.
 The Project Configurator itself is a separate, autonomous application of the Traffic Sensor system.
 The GUI is show in figure \ref{fig:project_configurator}.
-Although it is in charge of a handful of tasks, including the manual configuration of the calibration features (detailed in section \ref{chap:calibration}.), its main purpose is to enable the remote control of the Sensors by managing the EnTalk\textsuperscript{TM} communication.
+Although it is in charge of a handful of tasks, including the manual configuration of the calibration features (detailed in section \ref{chap:calibration}), its main purpose is to enable the remote control of the Sensors by managing the EnTalk\textsuperscript{TM} communication.
 
 The management functions include the uploading of calibration files and new software versions (updates) to the sensor, and the downloading of log files and diagnostics data (such as images and calibration videos).
 The UI is capable of sending control commands as well.
@@ -144,7 +149,7 @@ On the first level, the settings file contains basic configuration values, as de
 Each of these properties can be overridden by the specifications listen is the project file if needed, for an environment-specific configuration.
 
 Most of the listed properties are algorithm parameters, e.g. threshold values for image processing methods.
-Other parameters affect the operation by specifying the run mode (discussed further in section \ref{sec:run_modes}.), changing the report frequency and the maximal number of stored timeline columns, or deactivating processing steps.
+Other parameters affect the operation by specifying the run mode (discussed further in section \ref{sec:run_modes}), changing the report frequency and the maximal number of stored timeline columns, or deactivating processing steps.
 Some properties are strictly environment-specific, like the position of the Tripwire in the frame, and the calibration rectangle.
 The visualization and saving of miscellaneous media -- e.g. timeline images, videos and diagnostics files -- can be switched on and off as well.
 
@@ -175,22 +180,22 @@ The data set is created manually, based on the Original Timeline Image of the co
 
 \begin{figure}[!h]
 	\centering
-	\begin{subfigure}[!h]{0.9\textwidth}
+	\begin{subfigure}[!h]{0.87\textwidth}
 		\includegraphics[width=\textwidth]{original_GT.png}
 		\caption{Original timeline, each vehicle is dotted with a colour, depending on its type.\label{fig:GT_original}}
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}[!h]{0.9\textwidth}
+	\begin{subfigure}[!h]{0.87\textwidth}
 		\includegraphics[width=\textwidth]{GT_GT.png}
 		\caption{Ground truth image.\label{fig:GT_GT}}
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}[!h]{0.9\textwidth}
+	\begin{subfigure}[!h]{0.87\textwidth}
 		\includegraphics[width=\textwidth]{MOG2_GT.png}
 		\caption{GT points matched with the detected vehicles. \label{fig:GT_MOG}}
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}[!h]{0.9\textwidth}
+	\begin{subfigure}[!h]{0.87\textwidth}
 		\includegraphics[width=\textwidth]{result_GT.png}
 		\caption{The result of the evaluation. True positive cases are marked with neutral colours, false positive cases are crossed out with red, blue dots indicate false negative errors.\label{fig:GT_result}}
 	\end{subfigure}
@@ -203,17 +208,18 @@ At the end of the process, the detection results are compared to the GT's  point
 
 \begin{figure}[!h]
 	\centering
-	\includesvg[width=0.35\textwidth]{error_cases}
+	%\includesvg[width=0.35\textwidth]{error_cases}
+	\includegraphics[width=0.35\textwidth]{error_cases.png}
 	\caption[Possible error cases]{Possible error cases, and their markings on the Evaluation Result Timeline. Misclassification errors are not indicated, however can be visualized separately on the Misclassification Error Timeline.\label{fig:error_cases}}
 \end{figure}
 
-For evaluation the following typical binary classification cases were used (as shown in figure \ref{fig:error_cases}.):
+For evaluation the following typical binary classification cases were used (as shown in figure \ref{fig:error_cases}):
 \begin{enumerate}
 \item \textbf{TP -- true positive:} correctly detected vehicles, where a vehicle in the MOG2 Timeline matches a point in the GT image.
 \item \textbf{FP -- false positive:} a vehicle was detected, but has no matching point in the GT image.
 \item \textbf{FN -- false negative:} no vehicle was detected, but a point is present in the GT. 
 \item \textbf{TN -- true negative:} true negative cases are undefined.
-\item  \textbf{CC -- correct classification:} the point in the GT and the matching vehicle have the same types.
+\item  \textbf{CC -- correct classification:} the point in the GT and the matching vehicle are the same types.
 \end{enumerate}
 
 The above abbreviations have two distinct meanings. 
@@ -248,7 +254,7 @@ To quantify the performance of the system, the following measures -- also known 
 
 with $\text{NAC}$ being the number of all cases, and $\text{NGP}$ is the number of GT points.
 For each test video, the aforementioned measures were calculated.
-The experimental results are presented in chapter \ref{chap:Tests}.~in detail.
+The experimental results are presented in chapter \ref{chap:Tests} in detail.
 %----------------------------------------------------------------------------
 \subsubsection{Data representation}\label{sec:data_representation}
 %----------------------------------------------------------------------------
@@ -261,7 +267,7 @@ The main diagnostic feature is the exportation of the data in the form of the fo
 	\item \textbf{Transformed Timelines -- Speed, Size, Following Distance Timeline: } The raw image data is rescaled, normalized and optionally assigned to three channels before saving. The lightness of the pixels indicate a higher original numeric value. Speed values are marked with either red or blue depending on the direction of the movement. 
 	\item \textbf{Blob Timeline: } The found vehicles, stored in the vehicle storage object, drawn on a Timeline Image. Different from the MOG2 Timeline, because after the blobs of the MOG2 Timeline Image are counted, the found objects are post-corrected. The post corrections include size-filtering, the fusion of separated blobs, and the reconnection of the split objects.
 	\item \textbf{Result Timeline: } Similar to the Blob Timeline, the Result Timeline contains vehicle occurrences, each of them drawn with a separate colour. Other features, such as size, average speed and vehicle type can be displayed as well.
-	\item \textbf{Evaluation Timeline: } The Evaluation Timeline shows the result of the evaluation, each classification case (described in section \ref{chap:evaluation}.) marked perceptively.
+	\item \textbf{Evaluation Timeline: } The Evaluation Timeline shows the result of the evaluation, each classification case (described in section \ref{chap:evaluation}) marked perceptively.
 	\item \textbf{Error Timeline Images: } For each error type (false positive, false negative, misclassification error) a Timeline Image can be exported, showing only the respective error cases.
 \end{enumerate} 
 The Timelines are either saved in their raw state (e.g MOG2 Timeline), transformed into a more visually understandable form (e.g. Speed Timeline), or the contents of container objects are drawn on blank Timeline Images (like Blob Timeline, Error Timelines).
@@ -286,7 +292,7 @@ Along with the report files containing the result of the counting in a JSON form
 The diagnostic files are as follows:
 \begin{enumerate}
 	\item \textbf{Log file: } Contains the timing values of the operation. Used for speed-testing purposes. Evaluated during the run on the target hardware.
-	\item \textbf{Evaluation result file: } Displays the numeric results of evaluation. The number of each cases and the value of the calculated measures (defined in section \ref{chap:evaluation}.) are listed in an HTML (Hypertext Markup Language) format file.
+	\item \textbf{Evaluation result file: } Displays the numeric results of evaluation. The number of each cases and the value of the calculated measures (defined in section \ref{chap:evaluation}) are listed in an HTML (Hypertext Markup Language) format file.
 	\item \textbf{Corrected calibration rectangle: } This file contains the plain list of the edges of the corrected calibration rectangle, can be copied later to redefine the original edges.
 \end{enumerate}
 
@@ -316,7 +322,7 @@ The results of the operation are then shortly shared via an on-line interface wi
 %----------------------------------------------------------------------------
 \section{Operation modes of the Traffic Sensor}\label{chap:operation_modes}
 %----------------------------------------------------------------------------
-Depending on the particular situation and the user's aim, the Traffic Sensor is able to function in two different operation modes (shown in figure \ref{fig:run_types}.).
+Depending on the particular situation and the user's aim, the Traffic Sensor is able to function in two different operation modes (shown in figure \ref{fig:run_types}).
 %----------------------------------------------------------------------------
 \subsubsection{Single-run or test mode}\label{sec:run_modes}
 First, for testing, development and evaluation purposes the single-run mode is used.
@@ -327,9 +333,10 @@ At the end of the procedure, other files, such as entire Timeline Images and vid
 Although most output files are generated at the end of the operation, reporting is iterative.
 The Sensor sends a report every time after a fixed time interval -- specified in the configuration files-- has elapsed.
 
-\begin{figure}[!h]
+\begin{figure}[htb]
 	\centering
-	\includesvg[width=\textwidth]{process_run_types}
+	%\includesvg[width=\textwidth]{process_run_types}
+	\includegraphics[width=\textwidth]{process_run_types.png}
 	\caption[Operation modes of the Traffic Sensor]{Operation modes of the Traffic Sensor. The single-run mode is for testing and development (above), when a video file or a stream with a pre-set count of frames is processed. The single-run mode has a definite ending, when post-process evaluations and tests are carried out, and entire Timeline Images are saved. In the production environment, the Sensor functions in a continuous mode. Since the amount of memory is finite, and the end of the process is not predictable, in continuous mode, all events happen periodically. The only exception is reporting, that happens regularly after fixed intervals in both run modes. \label{fig:run_types}}
 \end{figure}
 %----------------------------------------------------------------------------
@@ -343,4 +350,3 @@ Considering that the memory of the target hardware is limited, Timeline Images a
 
 At the end of the iteration, the collected Timeline Image columns are exported in a png image format, and results of detection and classification are sent as a report file.
 In this mode evaluation and correction features are not accessible.
-

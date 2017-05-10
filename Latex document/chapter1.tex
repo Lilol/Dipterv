@@ -3,6 +3,10 @@
 \renewcommand{\thechapter}{\arabic{chapter}}%
 \chapter{Basic concepts and terms}\label{chap:Concepts}
 %----------------------------------------------------------------------------
+%Glossary entries
+\newglossaryentry{utc}{name=UTC, description={Coordinated Universal Time}}
+\newglossaryentry{pqr}{name=PQR, description={Coordinated Universal Time}}
+%----------------------------------------------------------------------------
 In the following chapter certain basic definitions and ideas, that are necessary for understanding the operation of the Traffic Sensor, will be discussed and formalized.
 
 Let one pixel of a red-green-blue (RGB) image be denoted by $\boldsymbol{I}(x,y,t)$, where $x, y$ are the variables of the discrete spatial axes, and $t$ notes the discrete time.
@@ -10,13 +14,15 @@ $\boldsymbol{I}(x,y,t)$ is a three-element vector consisting of the intensities 
 %----------------------------------------------------------------------------
 \begin{figure}[bh]
 	\centering
-	\includesvg[width=\textwidth,pretex=\Large]{TI_creation.pdf_tex}
+	%\includesvg[width=\textwidth,pretex=\Large]{TI_creation.pdf_tex}
+	\includegraphics[width=\textwidth]{TI_creation.png}
 	\caption[Generation procedure of a Timeline Image]{The generation procedure of a Timeline Image. Each column corresponds to a tripwire state. The horizontal axis represents time.\label{fig:TI_creation}}
 \end{figure}
 %----------------------------------------------------------------------------
 \begin{figure}[h!]
 	\centering
 	\scalebox{.7}{\input{figures/notations.pdf_tex}}
+	%\includesvg[width=\textwidth]{notations}
 	\caption[Visualization of the notations used in the thesis]{Notations used in the thesis, and relationship between the discussed data structures. Each frame is an element of a Frame-strip, whilst the tripwire is a straight line on each frame. The consecutive states of the tripwire are considered a timeline image, where the detection takes place.	\label{fig:notations}}
 \end{figure}
 %----------------------------------------------------------------------------
@@ -42,7 +48,7 @@ where $n_{\text{frames}}$ denotes the frame count in a video sequence.
 %--------------------------------------------------------------------------
 \section{Tripwire}
 %----------------------------------------------------------------------------
-The tripwire is a straight line on each frame, where the detection takes place (figure \ref{fig:TI_creation}.).
+The tripwire is a straight line on each frame, where the detection takes place (figure \ref{fig:TI_creation}).
 Let the intensities of the tripwire at a certain $t$ time be denoted by 
 \begin{displaymath}
 \boldsymbol{T}_t=\boldsymbol{F}_t(x,y)=\boldsymbol{T}_t(k),
@@ -59,7 +65,7 @@ In recent scholarly articles the tripwire is mostly called either virtual detect
 %----------------------------------------------------------------------------
 \section{Timeline image}
 %----------------------------------------------------------------------------
-A timeline image (TI) is a sequence of the the states of the tripwire on successive frames (figure \ref{fig:notations}.), denoted by
+A timeline image (TI) is a sequence of the the states of the tripwire on successive frames (figure \ref{fig:notations}), denoted by
 \begin{displaymath}
 	\boldsymbol{TI}=\boldsymbol{TI}(t,k),
 \end{displaymath}

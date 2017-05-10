@@ -1,13 +1,17 @@
 %----------------------------------------------------------------------------
 \chapter{The core software}\label{chap:Core software}
 %----------------------------------------------------------------------------
+%Glossary entries
+\newglossaryentry{utc}{name=UTC, description={Coordinated Universal Time}}
+\newglossaryentry{pqr}{name=PQR, description={Coordinated Universal Time}}
+%----------------------------------------------------------------------------
 This chapter presents the structure and operation of the core software system of the Traffic Sensor, in particular with regard to the effective image processing algorithms and software development paradigms that facilitate the real-time operation of the system.
 
 The core software is responsible for the processing of the video stream itself.
 It identifies the vehicles, classifies them and estimates parameters, including speed and following distance.
  
 Besides that, the software supports other supplementary features, like the evaluation of the system's precision, and correction of the calibration rectangle.
-Although these features are implemented architecturally in the same software unit, the supplementary elements are discussed in section \ref{sec:SupplementarySoftware}., since they do not strictly belong to the core of the Traffic Sensor.
+Although these features are implemented architecturally in the same software unit, the supplementary elements are discussed in section \ref{sec:SupplementarySoftware}, since they do not strictly belong to the core of the Traffic Sensor.
 %----------------------------------------------------------------------------
 \section{Software architecture}\label{sec:software_architecture}
 %----------------------------------------------------------------------------
@@ -40,7 +44,7 @@ The Media Store contains the system's resources in the form of Timeline Images a
 Since the memory of the embedded hardware is very limited, only a finite amount of data can be cached.
 To achieve this, after detection and data extraction are finished, the henceforward unused Timeline Images and Frame Strips are discarded.
 To attain a continuous operation with a constant memory usage, approximately 20--30 Frames in a Frame-strip and 500 columns in a Timeline Image are usually stored.
-For further changes and improvements, the maximum number of saved units can be specified through the system's configuration files (detailed in section \ref{subs:ProjectConfigurator}.).
+For further changes and improvements, the maximum number of saved units can be specified through the system's configuration files (detailed in section \ref{subs:ProjectConfigurator}).
 To prevent deadlocks, the resources are accessed through mutexes.
 
 The specific Timeline Images and Frame-strips used by the Traffic Sensor are detailed as follows.
@@ -48,26 +52,26 @@ The specific Timeline Images and Frame-strips used by the Traffic Sensor are det
 \subsubsection{Frame-strips}
 Each of the Frame-strips store the successive frames of the video stream, either in its raw form, or transformed.
 \begin{enumerate}
-	\item \textbf{Raw Frame-strip:} The Raw Frame-strip is the sequence of images directly recorded by the camera. (Figure \ref{fig:raw_frame}.)
+	\item \textbf{Raw Frame-strip:} The Raw Frame-strip is the sequence of images directly recorded by the camera. (Figure \ref{fig:raw_frame})
 	
-	\item \textbf{Original Frame-strip:} The Original Frames are transformed versions of the Raw Frames. The transformation creates a standard frame format that is independent of the Raw Frames' size or the specific traffic scene, and that supports effective processing. (Figure \ref{fig:original_frame}.)
+	\item \textbf{Original Frame-strip:} The Original Frames are transformed versions of the Raw Frames. The transformation creates a standard frame format that is independent of the Raw Frames' size or the specific traffic scene, and that supports effective processing. (Figure \ref{fig:original_frame})
 	
-	\item \textbf{MOG2 Frame-strip:} The MOG2 Frame-strip is a sequence of the result images of the MOG2 background-subtraction algorithm, the MOG2 Frames. MOG2 Frames are one-channel, binary images, with foreground objects labelled with the value 255 (white), and background labelled with 0 (black). The Foreground objects of the MOG2 Frames are blobs. (Figure \ref{fig:mog2_frame}.)
+	\item \textbf{MOG2 Frame-strip:} The MOG2 Frame-strip is a sequence of the result images of the MOG2 background-subtraction algorithm, the MOG2 Frames. MOG2 Frames are one-channel, binary images, with foreground objects labelled with the value 255 (white), and background labelled with 0 (black). The Foreground objects of the MOG2 Frames are blobs. (Figure \ref{fig:mog2_frame})
 \end{enumerate}
 
 \subsubsection{Timeline Images}
 The Timeline images can either be extracted from the Frame-strips (Original Timeline or MOG2 Timeline) or created from the latter calculated data (Motionless Timeline, Parameter Timelines).
 
 \begin{enumerate}
-	\item \textbf{Original Timeline:} The Original Timeline is a three-channel, color image, extracted from the Original Frame-strip, by stacking the states of the tripwire of the Original Frame. (Figure \ref{fig:original_timeline}.)
+	\item \textbf{Original Timeline:} The Original Timeline is a three-channel, color image, extracted from the Original Frame-strip, by stacking the states of the tripwire of the Original Frame. (Figure \ref{fig:original_timeline})
 	
-	\item \textbf{MOG2 Timeline:} The MOG2 Timeline derives from the MOG2 Frame, thus it is a one-channel, binary image, where foreground objects are labelled with the value 255 (white), and background is labelled with 0 (black). The foreground objects of the MOG2 Timeline are called timeline-blobs later identified as vehicles. (Figure \ref{fig:mog2_timeline}.)
+	\item \textbf{MOG2 Timeline:} The MOG2 Timeline derives from the MOG2 Frame, thus it is a one-channel, binary image, where foreground objects are labelled with the value 255 (white), and background is labelled with 0 (black). The foreground objects of the MOG2 Timeline are called timeline-blobs later identified as vehicles. (Figure \ref{fig:mog2_timeline})
 	
-	\item \textbf{Motionless Timeline:} Motionless Timeline stores the data of stopped vehicle in the form of a one-channel image. (Figure \ref{fig:motionless_timeline}.)
+	\item \textbf{Motionless Timeline:} Motionless Timeline stores the data of stopped vehicle in the form of a one-channel image. (Figure \ref{fig:motionless_timeline})
 	
 	\item \textbf{Size, Speed, Following Distance Timeline: Parameter Timelines:}
 	The Parameter Timelines store the estimated data of the vehicles, including their speed, length and following distance. All of the above data are extracted using the MOG2 Frame-strip, by measuring the size, speed and distance of the objects that occupy or enclose the tripwire at a specific time.
-	To limit memory usage, the data is stored in the form of one-channel matrices of signed (for speed that has a direction) or unsigned integers. For human understanding the data is transformed and represented as color and grayscale images. (Figures \ref{fig:size_timeline}--\ref{fig:fd_timeline}.)
+	To limit memory usage, the data is stored in the form of one-channel matrices of signed (for speed that has a direction) or unsigned integers. For human understanding the data is transformed and represented as color and grayscale images. (Figures \ref{fig:size_timeline}--\ref{fig:fd_timeline})
 \end{enumerate}
 
 \begin{figure}[!h]
@@ -134,7 +138,8 @@ The processing of the video-stream consists of four main stages, as depicted in 
 	\centering
 	\thisfloatpagestyle{empty}
 	\vspace*{-.3in}
-	\includesvg[width=\textwidth]{full_system_flowchart}
+	%\includesvg[width=\textwidth]{full_system_flowchart}
+	\includegraphics[width=\textwidth]{full_system_flowchart.png}
 	\caption[Video processing steps]{Steps of the processing of the video stream in the core software of the Traffic Sensor.\label{fig:processing_steps}}
 \end{figure}
 
@@ -155,12 +160,6 @@ As a result of remapping, a standard frame-scheme is created, that is independen
 This regular form has a pre-defined size, that is small enough to be processed in real-time, and is simple enough to be rapidly searched and measured.
 The result of the remapping of the Raw Frame is an Original Frame, from which a column is extracted and added to the Original Timeline.
 
-\begin{figure}[!h]
-	\centering
-	\includesvg[clean,width=\textwidth,pretex=\relsize{2}]{frame_transforms}
-	\caption[Steps of the preprocessing stage]{Preprocessing steps: the transformations performed on each frame before the background-subtraction and detection phase. The goal is to create an effective frame format for the following processing steps.\label{fig:transforms}}
-\end{figure}
-
 The first stage is perspective compensation.
 At this point, the image, distorted by perspective transform, is remapped based on a calibration rectangle, so that lengths in the frame become independent from the distance of the camera.
 The following vehicle-size calculation and classification strongly relies on the assumption that vehicle-lengths are not subject to perspective distortion, and are irrelative to their position in the frame.
@@ -172,6 +171,13 @@ This method, considering the image-storage technique of the OpenCV library, wher
 
 In the third level of preprocessing a frames are resized in order to decrease the number of pixels and the computation time, and increase the speed of processing.
 The end-size of the frame can be specified through the configuration files, and is usually 320 by 240 pixels.
+
+\begin{figure}[!h]
+	\centering
+	%\includesvg[clean,width=\textwidth,pretex=\relsize{2}]{frame_transforms}
+	\includegraphics[width=\textwidth]{frame_transforms.png}
+	\caption[Steps of the preprocessing stage]{Preprocessing steps: the transformations performed on each frame before the background-subtraction and detection phase. The goal is to create an effective frame format for the following processing steps.\label{fig:transforms}}
+\end{figure}
 %----------------------------------------------------------------------------
 \subsection{Background-subtraction}\label{sec:background-subtraction}
 %----------------------------------------------------------------------------
@@ -216,6 +222,7 @@ The split timeline-blobs are identified and recombined using the data of the Mot
 	\centering
 	\thisfloatpagestyle{plainlower}
 	\includesvg[clean,width=\textwidth,pretex=\relsize{0.8}]{speed_size_following_distance}
+	%\includegraphics[width=\textwidth]{speed_size_following_distance.png}
 	\caption[The method for parameter calculation]{The basic idea of parameter calculation. Each feature is estimated with measuring lengths perpendicular to the Tripwire.\label{fig:size_speed_following_distance}}
 \end{figure}
 
@@ -231,6 +238,7 @@ The notation used in this section are explained in figure \ref{fig:parameter_not
 \begin{figure}[!h]
 	\centering
 	\includesvg[width=0.73\textwidth,pretex=\relsize{1.5}]{speed_size_notations}
+	%\includegraphics[width=0.73\textwidth]{speed_size_notations.png}
 	\caption[The visualzation of the notations of parameter calculation]{Notations used in section \ref{chap:parameter_evaluation}. \label{fig:parameter_notations}}
 \end{figure}
 
@@ -279,7 +287,7 @@ d_{\text{L},t} + d_{\text{R},t} 		& \quad \text{if } \boldsymbol{F_{\text{MOG2},
 with $d_{\text{L},t}$ and $d_{\text{R},t}$ being the left and right side distances of the nearest objects.
 The distances are estimated by counting the empty pixels on each side of the tripwire.
 
-The calculated parameters are then either transferred in a raw form through the EnTalk\textsuperscript{TM} Network in the form of a report file (like following distance values, as detailed in section \ref{sec:reporting}.), or used for classification purposes (like size values).
+The calculated parameters are then either transferred in a raw form through the EnTalk\textsuperscript{TM} Network in the form of a report file (like following distance values, as detailed in section \ref{sec:reporting}), or used for classification purposes (like size values).
 Although the speed measures are currently unused, possible future applications include the identification of road lanes, congestion detection, or the correction of Timeline Blobs of stopped vehicles.
 
 \subsubsection{Classification}\label{sec:classification}
@@ -294,7 +302,8 @@ This feature is also less noise-sensitive than other simple features, like inten
 
 \begin{figure}[!h]
 	\centering
-	\includesvg[width=0.9\textwidth]{classification}
+	%\includesvg[width=0.9\textwidth]{classification}
+	\includegraphics[width=0.9\textwidth]{classification.png}
 	\caption[The classifier's operation]{The classification process. Each vehicle's length is estimated based on the corresponding size data, then categorized with a hard-decision classifier into four separate categories. \label{fig:classification}}
 \end{figure}
 
@@ -324,7 +333,7 @@ with $n_{\text{NZpoints}}$ being the number of non-zero points in the Size Timel
 \label{tab:intervals}
 \end{table}
 
-The vehicles then categorized by a hard-decision classifier into five categories (figure \ref{fig:types}.) .
+The vehicles then categorized by a hard-decision classifier into five categories (figure \ref{fig:types}) .
 The types were configured for common urban traffic scenes, thus they represent the most typical road user categories.
 Since the classification data is used for emission estimation of greenhouse gases as well, the vehicle categories consist of vehicles with similar greenhouse emission profiles.
 Although the class of cyclists and motorcycles is not homogeneous concerning their emission, this anomaly influences the estimation very moderately.
@@ -334,32 +343,32 @@ The intervals of the categories were determined empirically and are noted in tab
 
 The sizes in the Size Timeline are converted to metrics with a scaling-factor that is calculated based on the size of the calibration rectangle's sides.
 
-\begin{figure}[!t]
+\begin{figure}[!h]
 	\centering
-	\begin{adjustbox}{minipage=\linewidth,scale=0.75}
+	\begin{adjustbox}{minipage=\textwidth,scale=0.95}
 	\centering
-	\begin{subfigure}[b]{0.25\textwidth}
-	\includesvg[width=\textwidth]{cars}
+	\begin{subfigure}[b]{0.22\textwidth}
+	\includegraphics[width=\textwidth]{cars.png}
 	\caption{Cars.}
 	\end{subfigure}
-	\quad
-	\begin{subfigure}[b]{0.25\textwidth}
-	\includesvg[width=\textwidth]{trucks}
+	\quad%
+	\begin{subfigure}[b]{0.22\textwidth}
+		\includegraphics[width=\textwidth]{trucks.png}
 	\caption{Trucks.}
 	\end{subfigure}
-	\quad
-	\begin{subfigure}[b]{0.21\textwidth}
-	\includesvg[width=\textwidth]{bicicle}
+	\quad%
+	\begin{subfigure}[b]{0.22\textwidth}
+		\includegraphics[width=\textwidth]{bicicle.png}
 	\caption{Bicycles.}
 	\end{subfigure}
-	\hfill
-	\begin{subfigure}[b]{0.3\textwidth}
-	\includesvg[width=\textwidth]{ped}
+	\quad%
+	\begin{subfigure}[b]{0.22\textwidth}
+		\includegraphics[width=\textwidth]{ped.png}
 	\caption{Pedestrians.}
 	\end{subfigure}
 	\quad
-	\begin{subfigure}[b]{0.5\textwidth}
-	\includesvg[width=\textwidth]{other}
+	\begin{subfigure}[b]{0.4\textwidth}
+		\includegraphics[width=\textwidth]{other.png}
 	\caption{Other.}
 	\end{subfigure}
 
